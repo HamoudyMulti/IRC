@@ -1,0 +1,259 @@
+<script SRC="lib/JsBarcode.all.min.js"></script>
+
+
+<!-- <script src="lib/jspdf.min.js"></script>
+<script src="lib/jspdf.plugin.autotable.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+
+
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+<input type="file" id="fileCheck" />
+
+<style>
+footer {
+  color: rgb(180, 180, 180);
+}
+
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+td{
+    text-align: center;
+}
+</style>
+      <div id="content">
+        <h2 style="text-align: center;">Created Cards Output</h2>
+        </p>
+        <br>
+        <div id="customers">
+        <table id="my-table-cards" style="width:100%;" class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Card Number</th>
+              <th>Delivery Status</th>
+              <th style="width: 60%;">Barcode</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>544041******1851</td>
+              <td>Not Delivered</td>
+              <td><img class="img"></img></td>
+            </tr>
+            <tr>
+              <td>544041******1851</td>
+              <td>Not Delivered</td>
+              <td><img class="img"></img></td>
+            </tr>
+            <tr>
+              <td>544041******1851</td>
+              <td>Not Delivered</td>
+              <td>
+                <div id="qrcode"></div>
+                <script type="text/javascript">
+                new QRCode(document.getElementById("qrcode"), {
+                  text: "55405F24A00D4AAFFB751E9B6116BCDD0A812ED4DF75BA44",
+                  width: 300,
+                  height: 300,
+                });
+                </script>
+
+              </td>
+            </tr>
+            
+            
+          </tbody>
+        </table>
+        </div>
+        <div>
+          <button class="btn" id="export" onclick="generate();">Save</button>
+        </div>
+ 
+        <br>
+ 
+      </div>
+ 
+<br>
+<script>
+
+
+ JsBarcode(".img", "55405F24A00D4AAFFB751E9B6116BCDD0A812ED4DF75BA44",{
+  format: "CODE128",
+  displayValue: false
+});
+ 
+ function generate() {
+      var doc = new jsPDF();
+
+        doc.autoTable({
+            html: '#my-table-cards',
+            bodyStyles: {minCellHeight: 40},
+            columnStyles: {
+            0: {cellWidth: 20},
+            1: {cellWidth: 25},
+            2: {cellWidth: 350},
+            // etc
+            },
+            styles: {fontSize: 6},
+            margin: { left: 0, top: 5 },
+            didDrawCell: function(data) {
+              if (data.column.index === 2 && data.cell.section === 'body') {
+                  var td = data.cell.raw;
+                  var img = td.getElementsByTagName('img')[0];
+                  var dim = data.cell.height - data.cell.padding('vertical');
+                  var textPos = data.cell;
+                  doc.addImage(img.src, textPos.x,  textPos.y, 160, 30);
+              }
+            }
+        });
+
+            doc.save("table11.pdf");
+            console.log(doc.output('blob'));
+            let blob = doc.output('blob');
+
+            console.log(blob);
+            console.log(document.getElementById("fileCheck").files[0]);
+            
+    }
+
+    
+    var str = new Array(10 + 1).join( "|" );
+
+    
+</script>
+
+
+
+<div id="data">
+
+
+</div>
+
+<script>
+	window.onload = (event) => {
+    let date = new Date('2024-02').toLocaleDateString('sv').replaceAll('-', '').substring(2,6);
+
+    console.log(['fdsf','hgfhgf','sadsad'].join(','));
+
+
+    
+    
+		
+
+
+
+	};
+
+  const printTxtFile = () => {
+    let card_number = "542205******0055";
+    let collector = "B-102";
+    let MBR = "1";
+    let twelwe_zeros = "000000000000";
+    let card_holder_name = "REMOND NAKHLE";
+
+    let address_1 = "gfdg0";
+    let address_2 = "hkjh";
+    let randomNumber = "3005";
+    let visa_or_mc = "03";
+    let expiry_date_printCarrier = "jhkhj";
+    let service_code = "yiuyi";
+    let telephone = "iiii";
+    let mobile = "oopop";
+    let email_address = "iuouio";
+    let balance = "ghgjgh";
+    let currency = "kljjj";
+    let account_number = "jhkhj";
+
+
+
+    let str = "";
+    let finalString = "";
+
+    card_number = card_number.substring(0,19);
+    
+    str = new Array(19 - card_number.length + 1).join( " " );
+    finalString += card_number+str;
+    
+    collector = collector.substring(0,3);
+    str = new Array(3 - collector.length + 1).join( " " );
+    finalString += collector+str;
+
+    MBR = MBR.substring(0,1);
+    str = new Array(1 - MBR.length + 1).join( " " );
+    finalString += MBR+str;
+    
+    twelwe_zeros = twelwe_zeros.substring(0,15);
+    str = new Array(15 - twelwe_zeros.length + 1).join( " " );
+    finalString += twelwe_zeros+str;
+
+    card_holder_name_1 = card_holder_name.substring(0,30);
+    str = new Array(30 - card_holder_name_1.length + 1).join( " " );
+    finalString += card_holder_name_1+str;
+
+    card_holder_name_2 = card_holder_name.substring(0,61);
+    str = new Array(61 - card_holder_name_2.length + 1).join( " " );
+    finalString += card_holder_name_2+str;
+
+    address_1 = address_1.substring(0,105);
+    str = new Array(105 - address_1.length + 1).join( " " );
+    finalString += address_1+str;
+
+    address_2 = address_2.substring(0,140);
+    str = new Array(140 - address_2.length + 1).join( " " );
+    finalString += address_2+str;
+
+    randomNumber = randomNumber.substring(0,6);
+    str = new Array(6 - randomNumber.length + 1).join( " " );
+    finalString += randomNumber+str;
+
+    visa_or_mc = visa_or_mc.substring(0,2);
+    str = new Array(2 - visa_or_mc.length + 1).join( " " );
+    finalString += visa_or_mc+str;
+
+    expiry_date_printCarrier = expiry_date_printCarrier.substring(0,4);
+    str = new Array(4 - expiry_date_printCarrier.length + 1).join( " " );
+    finalString += expiry_date_printCarrier+str;
+
+    service_code = service_code.substring(0,3);
+    str = new Array(3 - service_code.length + 1).join( " " );
+    finalString += service_code+str;
+
+    telephone = telephone.substring(0,18);
+    str = new Array(18 - telephone.length + 1).join( " " );
+    finalString += telephone+str;
+
+    mobile = mobile.substring(0,18);
+    str = new Array(18 - mobile.length + 1).join( " " );
+    finalString += mobile+str;
+
+    email_address = email_address.substring(0,76);
+    str = new Array(76 - email_address.length + 1).join( " " );
+    finalString += email_address+str;
+
+    balance = balance.substring(0,13);
+    str = new Array(13 - balance.length + 1).join( " " );
+    finalString += balance+str;
+
+    currency = currency.substring(0,4);
+    str = new Array(4 - currency.length + 1).join( " " );
+    finalString += currency+str;
+
+    account_number = account_number.substring(0,20);
+    str = new Array(20 - account_number.length + 1).join( " " );
+    finalString += account_number+str;
+
+
+
+
+    console.log(finalString);
+
+  }
+
+</script>

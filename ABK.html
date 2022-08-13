@@ -1,0 +1,240 @@
+
+<head>
+   
+    <style>
+        .center-image{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .image{
+        position: relative;
+        }
+        .image a{
+        display: block;      
+        position: absolute;
+        }
+
+       
+
+
+#square1 {
+	top: 63px;
+    width: 185px;
+    height: 185px;
+    background: #479cdb;
+    position: absolute;
+    z-index: 9;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0px;
+    right: 212px;
+    text-align: center;
+    border-radius: 10%;
+    border: 2px solid white;
+
+}
+
+
+#square2 {
+	top: 63px;
+    width: 185px;
+    height: 185px;
+    background: #479cdb;
+    position: absolute;
+    z-index: 9;
+    margin-left: auto;
+    margin-right: auto;
+    left: 212px;
+    right: 0px;
+    text-align: center;
+    border-radius: 10%;
+    border: 2px solid white;
+
+}
+
+#square3 {
+	top: 277px;
+    width: 185px;
+    height: 185px;
+    background: #479cdb;
+    position: absolute;
+    z-index: 9;
+    margin-left: auto;
+    margin-right: auto;
+    left: 212px;
+    right: 0px;
+    text-align: center;
+    border-radius: 10%;
+    border: 2px solid white;
+
+}
+
+#square4 {
+	top: 277px;
+    width: 185px;
+    height: 185px;
+    background: #479cdb;
+    position: absolute;
+    z-index: 9;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0px;
+    right: 212px;
+    text-align: center;
+    border-radius: 10%;
+    border: 2px solid white;
+}
+
+
+
+
+
+
+
+    </style>
+
+
+
+</head>
+<body>
+    
+    <a href="[LL_REPTAG_URLPREFIX /]/app/nodes/[LL_REPTAG_$KWTFolder /]">
+
+        <div id="square1">
+            <div style="font-size: 60px;color: white;padding-top: 25px;">
+                ABK
+            </div>
+            <div style="font-size: 60px;color: white;">
+                KWT
+            </div>
+        </div>
+    </a>
+
+    <a href="[LL_REPTAG_URLPREFIX /]/app/nodes/[LL_REPTAG_$UAEFolder /]">
+
+        <div id="square2">
+            <div style="font-size: 60px;color: white;padding-top: 25px;">
+                ABK
+            </div>
+            <div style="font-size: 60px;color: white;">
+                UAE
+            </div>
+        </div>
+    </a>
+
+    <a href="[LL_REPTAG_URLPREFIX /]/app/nodes/[LL_REPTAG_$BCICFolder /]">
+        <div id="square3">
+            
+        <div style="font-size: 60px;color: white;padding-top: 60px;">
+            BCIC
+        </div>
+    </div>
+
+    </a>
+
+    <a href="[LL_REPTAG_URLPREFIX /]/app/nodes/[LL_REPTAG_$EGPFolder /]">
+
+        
+        <div id="square4">
+            <div style="font-size: 60px;color: white;padding-top: 25px;">
+                ABK
+            </div>
+            <div style="font-size: 60px;color: white;">
+                EGP
+            </div>
+        </div>
+    </a>
+
+    <section style="background: white;
+    margin-top: 90px;">
+        
+        <div style="background: rgb(209 217 237);
+        height: 350px;
+        text-align: center;
+        transform:rotate(45deg);
+          width:350px;
+          margin-left: auto;
+          margin-right: auto;"></div>
+    </section>
+
+    
+    <div style="width: 380px;
+    height: 120px;
+    background: #479cdb;
+    z-index: 9;
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-top: 76px; */
+    left: 0px;
+    top: 515px;
+    right: 400px;
+    display: block;
+    position: absolute;
+    text-align: center;
+    border: 2px solid white;" id="rectangle1">
+            <a href="[LL_REPTAG_URLPREFIX /]/app/nodes/[LL_REPTAG_$MinutesFolder /]">
+            <div style="font-size: 48px;
+            color: white;
+            padding-top: 10px;">
+                CREATE MINUTES
+            </div>
+            </a>
+        </div>
+
+        <div style="width: 380px;
+        height: 120px;
+        background: #479cdb;
+        z-index: 9;
+        margin-left: auto;
+        margin-right: auto;
+        /* margin-top: 76px; */
+        left: 400px;
+        top: 515px;
+        right: 0px;
+        display: block;
+        position: absolute;
+        text-align: center;
+        border: 2px solid white;" id="rectangle2">
+            <a href="[LL_REPTAG_URLPREFIX /]/app/nodes/[LL_REPTAG_$MinutesFolder /]">
+            <div style="font-size: 48px;
+            color: white;
+            padding-top: 10px;">
+                DASHBOARD MINUTES
+            </div>
+            </a>
+        </div>
+
+    
+
+    
+</body>
+</html>
+
+<script>
+
+    function redirect(box){
+        switch(box){
+            case 'KWT':
+                window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/[LL_REPTAG_$KWTFolder /]");
+                break;
+            case 'UAE':
+                window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/[LL_REPTAG_$UAEFolder /]");
+                break;
+            case 'EGP':
+                window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/[LL_REPTAG_$EGPFolder /]");
+                break;
+            case 'BCIC':
+                window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/[LL_REPTAG_$BCICFolder /]");
+                break;
+            case 'minutes':
+                window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/[LL_REPTAG_$MinutesFolder /]");
+                break;
+                
+        }
+            
+    }
+
+</script>
+

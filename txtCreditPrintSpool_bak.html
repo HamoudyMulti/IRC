@@ -1,0 +1,104 @@
+**************CARD********************
+Card Number                 -- [LL_REPTAG_&ID CAT:'Card':'Card Number':DISPLAY /]
+Cardholder Name             -- [LL_REPTAG_&ID CAT:'Card':'Cardholder Name':DISPLAY /]
+Reference Number            -- [LL_REPTAG_&ID CAT:'Card':'Reference Number':DISPLAY /]
+Product Type                -- [LL_REPTAG_&ID CAT:'Card':'Product Type':DISPLAY /]
+Card Level                  -- [LL_REPTAG_&ID CAT:'Card':'Card Level':DISPLAY /]
+Card Status                 -- [LL_REPTAG_&ID CAT:'Card':'Card Status':DISPLAY /]
+Card State                  -- [LL_REPTAG_&ID CAT:'Card':'Card State':DISPLAY /]
+Card Type                   -- [LL_REPTAG_&ID CAT:'Card':'Card Type':DISPLAY /]
+Card Activated              -- [LL_REPTAG_&ID CAT:'Card':'Card Activated':DISPLAY /]
+Card Delivery Status        -- [LL_REPTAG_&ID CAT:'Card':'Card Delivery Status':DISPLAY /]
+Account Number              -- [LL_REPTAG_&ID CAT:'Card':'Account Number':DISPLAY /]
+Client Number               -- [LL_REPTAG_&ID CAT:'Card':'Client Number':DISPLAY /]
+MBR                         -- [LL_REPTAG_&ID CAT:'Card':'MBR':DISPLAY /]
+File Complete               -- [LL_REPTAG_&ID CAT:'Card':'File Complete':DISPLAY /]
+Tel Work                    -- [LL_REPTAG_&ID CAT:'Card':'Tel Work':DISPLAY /]
+Phone                       -- [LL_REPTAG_&ID CAT:'Card':'Phone':DISPLAY /]
+Mobile                      -- [LL_REPTAG_&ID CAT:'Card':'Mobile':DISPLAY /]
+Email                       -- [LL_REPTAG_&ID CAT:'Card':'Email':DISPLAY /]
+KYC ID                      -- [LL_REPTAG_&ID CAT:'Card':'KYC ID':DISPLAY /]
+Stat Branch                 -- [LL_REPTAG_&ID CAT:'Card':'Stat Branch':DISPLAY /]
+Client Branch               -- [LL_REPTAG_&ID CAT:'Card':'Client Branch':DISPLAY /]
+Requesting Branch           -- [LL_REPTAG_&ID CAT:'Card':'Requesting Branch':DISPLAY /]
+Date                        -- [LL_REPTAG_&ID CAT:'Card':'Date':DISPLAY /]
+Balance                     -- [LL_REPTAG_&ID CAT:'Card':'Balance':DISPLAY /]
+Currency                    -- [LL_REPTAG_&ID CAT:'Card':'Currency':DISPLAY /]
+Expiry Date                 -- [LL_REPTAG_&ID CAT:'Card':'Expiry Date':DISPLAY /]
+Issuing Date                -- [LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%d-%m-%y" /]
+
+
+
+
+**************PIN********************
+PIN Number                  -- [LL_REPTAG_&ID CAT:'PIN':'PIN Number':DISPLAY /]
+Reference Number            -- [LL_REPTAG_&ID CAT:'PIN':'Reference Number':DISPLAY /]
+PIN Delivery Status         -- [LL_REPTAG_&ID CAT:'PIN':'PIN Delivery Status':DISPLAY /]
+
+
+[LL_REPTAG_&ID SETVAR:filename /]
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Product Type':DISPLAY /]" == "VISA EURO PLATINUM" && "[LL_REPTAG_&ID CAT:'Card':'Card Type':DISPLAY /]" == "CREDIT" /]
+
+	[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+	[LL_REPTAG_'_carrier-bientrouve_' CONCATVAR:filename /]
+	[LL_REPTAG_&ID CONCATVAR:filename /]
+
+[LL_WEBREPORT_ENDIF /]
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Product Type':DISPLAY /]" == "VISA INFINITE" && "[LL_REPTAG_&ID CAT:'Card':'Card Type':DISPLAY /]" == "CREDIT" /]
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Card State':DISPLAY /]" == "NEW" /]
+		[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+		[LL_REPTAG_'_welcome-inf_' CONCATVAR:filename /]
+		[LL_REPTAG_&ID CONCATVAR:filename /]
+	[LL_WEBREPORT_ENDIF /]
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Card State':DISPLAY /]" == "RENEWED" /]
+		[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+		[LL_REPTAG_'_infinite_' CONCATVAR:filename /]
+		[LL_REPTAG_&ID CONCATVAR:filename /]
+	[LL_WEBREPORT_ENDIF /]
+	
+[LL_WEBREPORT_ENDIF /]
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Product Type':DISPLAY /]" == "VISA BLACK INFINITE" && "[LL_REPTAG_&ID CAT:'Card':'Card Type':DISPLAY /]" == "CREDIT" /]
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Card State':DISPLAY /]" == "NEW" /]
+		[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+		[LL_REPTAG_'_welcome-black_' CONCATVAR:filename /]
+		[LL_REPTAG_&ID CONCATVAR:filename /]
+	[LL_WEBREPORT_ENDIF /]
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Card State':DISPLAY /]" == "RENEWED" /]
+		[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+		[LL_REPTAG_'_black_' CONCATVAR:filename /]
+		[LL_REPTAG_&ID CONCATVAR:filename /]
+	[LL_WEBREPORT_ENDIF /]
+	
+[LL_WEBREPORT_ENDIF /]
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Product Type':DISPLAY /]" == "MC STANDARD ZAF" && "[LL_REPTAG_&ID CAT:'Card':'Card Type':DISPLAY /]" == "CREDIT" /]
+
+	[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+	[LL_REPTAG_'_carrier-bientrouve_' CONCATVAR:filename /]
+	[LL_REPTAG_&ID CONCATVAR:filename /]
+
+[LL_WEBREPORT_ENDIF /]
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Product Type':DISPLAY /]" == "MC NET SHOPPER" && "[LL_REPTAG_&ID CAT:'Card':'Card Type':DISPLAY /]" == "CREDIT" /]
+
+	[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+	[LL_REPTAG_'_net-shopper_' CONCATVAR:filename /]
+	[LL_REPTAG_&ID CONCATVAR:filename /]
+
+[LL_WEBREPORT_ENDIF /]
+
+
+
+

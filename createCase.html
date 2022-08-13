@@ -1,0 +1,2534 @@
+[/* Title: Blank Reportview */]
+<Link rel='stylesheet' href="[LL_REPTAG_LIBPATH /]bootstrap.css">
+<link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.css">
+<script src="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.js"></script>
+<script src="http://[LL_REPTAG_URLDOMAIN /]/img/webreports/library/bundle.min.js"></script>
+<style>
+
+
+
+
+
+.binf-widgets .custLoader{
+	[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+		margin-right: 45%;
+	[LL_WEBREPORT_ELSE /]
+		margin-left: 50%;
+	[LL_WEBREPORT_ENDIF /]
+    margin-left: 50%;
+    margin-top: 20%;
+    position: absolute;
+    border: 12px solid #dbf1fe;
+    border-left: 12px solid #0072aa;
+    transform: translateZ(0);
+    -webkit-animation: load8 1s infinite linear;
+    animation: load8 1s infinite linear;
+    width: 67px;
+    height: 67px;
+    z-index: 11111;
+}
+
+
+div.inner-border, div.custLoader {
+    border-radius: 100%;
+}   
+.binf-widgets .close-icon:after {
+   content: "ⓧ";
+}
+.binf-widgets .select-wrapper {
+margin: auto;
+max-width: 600px;
+width: calc(100% - 40px);
+}
+.binf-widgets .select-pure__select {
+align-items: center;
+border-radius: 4px;
+border: 1px solid rgba(0, 0, 0, 0.15);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+box-sizing: border-box;
+cursor: pointer;
+display: flex;
+font-size: 12px;
+font-weight: 500;
+justify-content: left;
+min-height: 54px;
+padding: 5px 10px;
+position: relative;
+transition: 0.2s;
+width: 100%;
+}
+.binf-widgets select{
+    height: calc(1.90rem );
+    font-size: 12px;"
+}
+.binf-widgets input{
+    height: calc(1.90rem );
+    font-size: 12px;"
+}
+    
+.binf-widgets .select-pure__options {
+border-radius: 4px;
+border: 1px solid rgba(0, 0, 0, 0.15);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+box-sizing: border-box;
+color: #363b3e;
+display: none;
+left: 0;
+max-height: 221px;
+overflow-y: scroll;
+position: absolute;
+top: 50px;
+width: 100%;
+z-index: 5;
+}
+.binf-widgets .select-pure__select--opened .select-pure__options {
+display: block;
+}
+.binf-widgets .select-pure__option {
+background: #fff;
+border-bottom: 1px solid #e4e4e4;
+box-sizing: border-box;
+height: auto;
+padding: 10px;
+}
+.binf-widgets .select-pure__option--disabled {
+color: #e4e4e4;
+}
+.binf-widgets .select-pure__option--selected {
+color: #e4e4e4;
+cursor: initial;
+pointer-events: none;
+}
+.binf-widgets .select-pure__option--hidden {
+display: none;
+}
+.binf-widgets .select-pure__selected-label {
+align-items: 'center';
+background: #2c5e7d;
+border-radius: 4px;
+color: #fff;
+cursor: initial;
+display: inline-flex;
+justify-content: 'center';
+margin: 5px 10px 5px 0;
+padding: 3px 7px;
+}
+.binf-widgets .select-pure__selected-label:last-of-type {
+margin-right: 0;
+}
+.binf-widgets .select-pure__selected-label i {
+cursor: pointer;
+display: inline-block;
+margin-left: 7px;
+}
+.binf-widgets  .select-pure__selected-label img {
+cursor: pointer;
+display: inline-block;
+height: 18px;
+margin-left: 7px;
+width: 14px;
+}
+.binf-widgets  .select-pure__selected-label i:hover {
+color: #e4e4e4;
+}
+.binf-widgets .select-pure__autocomplete {
+background: #f9f9f8;
+border-bottom: 1px solid #e4e4e4;
+border-left: none;
+border-right: none;
+border-top: none;
+box-sizing: border-box;
+font-size: 12px;
+outline: none;
+padding: 10px;
+width: 100%;
+}
+.binf-widgets .select-pure__placeholder--hidden {
+display: none;
+}
+.binf-widgets .select-pure__placeholder:befor{
+content:"hhhh";
+} 
+
+.binf-widgets .custBtn {
+bottom: 4px;
+right: 23px;
+border-radius: 16px;
+height: 32px;
+line-height: 12px;
+padding: 0 24px;
+color: #fff;
+min-width: 80px;
+border: 0;
+}
+[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+    .binf-widgets label{
+    padding-top: 10px;
+    float: right;
+    }
+[LL_WEBREPORT_ELSE /]
+    .binf-widgets label{
+    padding-top: 10px;
+    float: left;
+    }
+[LL_WEBREPORT_ENDIF /] 
+
+.binf-widgets .buttonDiv{
+bottom: 0;
+position: sticky;
+width: 100%;
+border-top: 1px solid #a59f9f;
+float:right;
+}
+.binf-widgets input {
+height: calc(1.90rem );
+font-size: 12px;
+}
+[/*]
+.binf-widgets select {
+height: calc(1.90rem );
+font-size: 12px;
+}
+*/]
+.binf-widgets textarea {
+height: calc(1.92rem );
+width: 100%;
+font-size: 12px;
+}
+.binf-widgets #inputerror {
+color: red;
+}     
+.binf-widgets #result {
+position: relative;
+width: 100%;
+cursor: pointer;
+overflow-y: auto;
+max-height: 400px;
+box-sizing: border-box;
+z-index: 1001;
+}
+[//]
+body {font-family: Arial;}
+/* Style the tab */
+.tab {
+overflow: hidden;
+border: 1px solid #ccc;
+background-color: #f1f1f1;
+}
+/* Style the buttons inside the tab */
+[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+    .tab button {
+    background-color: inherit;
+    float: right;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    }
+[LL_WEBREPORT_ELSE /]
+    .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    }
+[LL_WEBREPORT_ENDIF /] 
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+background-color: #ddd;
+}
+/* Create an active/current tablink class */
+.tab button.active {
+background-color: #ccc;
+}
+/* Style the tab content */
+.tabcontent {
+display: none;
+padding: 6px 12px;
+border: 1px solid #ccc;
+border-top: none;
+}
+/* Style the close button */
+.topright {
+float: right;
+cursor: pointer;
+font-size: 28px;
+}
+.topright:hover {color: red;}
+.binf-widgets .center {
+margin: auto;
+width: 60%;
+border: 3px solid #73AD21;
+padding: 10px;
+}
+
+.binf-widgets .center {
+margin: auto;
+width: 60%;
+border: 3px solid #73AD21;
+padding: 10px;
+}
+.showErrorField{
+box-shadow: 0 0 4px 1px #f91615;
+}
+
+</style>
+[LL_WEBREPORT_STARTROW /]
+[LL_WEBREPORT_ENDROW /]
+
+<div class="tile-content csui-normal-scrolling csui-no-scroll-x" style="height: 100%; margin-top: 0px; background-color:#0a163c;position:absolute;">
+    <div class="p-4 rounded bg-white js-active" style="margin-left: 1%;margin-right: 1%; margin-top: 1%; margin-bottom:20px;">
+
+<div class="tab">
+   <button class="tablinks" onclick="openCase(event, 'Legal')" id="defaultOpen">
+    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+       قضية / ملف تنفيذ
+    [LL_WEBREPORT_ELSE /]
+    Legal Case
+    [LL_WEBREPORT_ENDIF /]       
+   </button>
+   <button class="tablinks" onclick="openCase(event, 'Internal')">
+         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+           شكوى / تحقيق
+        [LL_WEBREPORT_ELSE /]
+           Internal Case
+        [LL_WEBREPORT_ENDIF /]       
+   </button>
+   
+   <button class="tablinks" onclick="openCase(event, 'Case')">
+         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+           ملفات العملاء
+        [LL_WEBREPORT_ELSE /]
+           Contract Case
+        [LL_WEBREPORT_ENDIF /]       
+   </button>
+</div>
+<div id="Legal" class="tabcontent" style="display:block">
+ 
+   <div class="container-fluid" style="position: relative;top: 5%;width: 100%;">
+      <form NAME="myFormLegal" action="javascript:void(0)()">
+         [//<div class="p-4 rounded bg-white js-active container">
+         <div style="margin: 14px;">
+            <div class="row" style="margin-top: -16px;">
+			[//1
+
+
+            <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                      نوع الملف
+                      [LL_WEBREPORT_ELSE /]
+                   File Type
+                      [LL_WEBREPORT_ENDIF /]                      
+                   </label>
+                   <select class="valueEditable  form-control"  name="fileType"  id="fileType" required>
+                      <option value=''>select FileType</option>
+                      [LL_WEBREPORT_FOR VAR:fileType DATA:[LL_REPTAG_$CatLegal CATINFO:VALIDVALUES:27 /] /]
+                      <option value="[LL_REPTAG_%fileType CURRENTVAL /]">[LL_REPTAG_%fileType CURRENTVAL /]</option>
+                      [LL_WEBREPORT_ENDFOR /]
+                   </select>
+                </div>
+             </div>
+			
+			[//2
+			
+                <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         تاريخ الايداع / مذكرة الرجوع
+                        [LL_WEBREPORT_ELSE /]
+                         Case Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control"  name="caseDateL" placeholder="Case Date" id="caseDateL" required/>
+                     <script>
+                        if ( document.getElementById('caseDateL').type != "date" ){
+                            const input = document.getElementById('caseDateL');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+			   
+			   
+			   
+			   [//3
+			   
+			   <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                       الرقم الآلي
+                      [LL_WEBREPORT_ELSE /]
+                       MOJ Reference
+                      [LL_WEBREPORT_ENDIF /]                                  
+                   </label>
+                   <input type="text" class="valueEditable  form-control"  name="mojRef" placeholder="MOJ Reference" id="mojRef" />
+                </div>
+             </div>
+			 
+			 
+			 [//4
+			 
+			 <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                      رقم القضية في المحكمة
+                      [LL_WEBREPORT_ELSE /]
+                      Court Case Number
+                      [LL_WEBREPORT_ENDIF /]                                  
+                   </label>
+                   <input type="text" class="valueEditable form-control" placeholder="Court Case Number" id="courtCaseNumber" />
+                </div>
+             </div>
+			 
+			 
+			 [//5
+			 
+			   
+			   
+               <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                       نوع القضية
+                      [LL_WEBREPORT_ELSE /]
+                   Case Type
+                      [LL_WEBREPORT_ENDIF /]                      
+                   </label>
+                   <select class="valueEditable  form-control"  id="caseTypeL" required>
+                    <option value=''>select Complaint Topic</option>
+                    [LL_WEBREPORT_FOR VAR:caseType DATA:[LL_REPTAG_$CatLegal CATINFO:VALIDVALUES:5 /] /]
+                    <option value="[LL_REPTAG_%caseType CURRENTVAL /]">[LL_REPTAG_%caseType CURRENTVAL /]</option>
+                    [LL_WEBREPORT_ENDFOR /]
+                 </select>
+
+                </div>
+             </div>
+
+            
+			 
+			 
+			 [//6
+			 
+			  <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                      المحكمة / ادارة التنفيذ
+                      [LL_WEBREPORT_ELSE /]
+                      Case Number
+                      [LL_WEBREPORT_ENDIF /]                                  
+                   </label>
+                   <input type="text" class="valueEditable  form-control" placeholder="Case Number" id="caseNumber" />
+                </div>
+             </div>
+			 
+			 
+			 
+			 [//7
+			 
+			 <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                       موضوع الدعوى
+                      [LL_WEBREPORT_ELSE /]
+                   Complaint Topic
+                      [LL_WEBREPORT_ENDIF /]                      
+                   </label>
+                   <select class="valueEditable  form-control" id="complaintTopic" required>
+                      <option value=''>select ComplaintTopic</option>
+                      
+                      <option value="ندب خبير">ندب خبير</option>
+                      <option value="اشكال التنفيذ">اشكال التنفيذ</option>
+                      <option value="تصفية حساب">تصفية حساب</option>
+                      <option value="اذن بيع مصنع">اذن بيع مصنع</option>
+                      <option value="تظلم">تظلم</option>
+                      <option value="اخرى">اخرى</option>
+
+
+                      
+                   </select>
+                </div>
+             </div>
+
+
+             <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                      موضوع الدعوى (اخرى)
+                      [LL_WEBREPORT_ELSE /]
+                      Complaint Topic (Other)
+                      [LL_WEBREPORT_ENDIF /]                      
+                   </label>
+                   <input type="text" class="valueEditable form-control" placeholder="Complaint Topic (Other)" id="complaintTopicOther" />
+                </div>
+             </div>
+
+             <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   
+                   <input type="hidden" class="valueEditable form-control" />
+                </div>
+             </div>
+			 
+			 [//8
+			 
+			  <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        المدعي / طالب التنفيذ
+                        [LL_WEBREPORT_ELSE /]
+                        Claimant
+                        [LL_WEBREPORT_ENDIF /]                            
+                    </label>
+                     <span class="claimantLSelect"></span>
+                     <input type="hidden" id="claimantL" >
+                  </div>
+               </div> 
+			   
+			   [//9
+			   
+			    <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                          المدعى عليه / المنفذ ضده
+                        [LL_WEBREPORT_ELSE /]
+                        Defendant
+                        [LL_WEBREPORT_ENDIF /]                            
+                    </label>
+                     <span class="defendantLSelect"></span>
+                     <input type="hidden" id="defendantL" >
+                  </div>
+               </div> 
+
+
+			[//10
+			   
+            <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         المحامي المسؤول
+                        [LL_WEBREPORT_ELSE /]
+                        Lawyer
+                        [LL_WEBREPORT_ENDIF /]                           
+                    </label>
+                     <span class="RLawyerSelectL"></span>
+                     <input type="hidden" id="RlawyerL" >
+                  </div>
+               </div>  
+
+
+			   [//11
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         المساعد القانوني
+                        [LL_WEBREPORT_ELSE /]
+                        Representative
+                        [LL_WEBREPORT_ENDIF /]                            
+                    </label>
+                     <span class="RRepresentativeSelect"></span>
+                     <input type="hidden" id="RRepresentativeL" >
+                  </div>
+               </div>
+			   
+			   
+			   [//12
+			   
+			   <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         تاريخ اول جلسة / ايداع سند التنفيذي
+                        [LL_WEBREPORT_ELSE /]
+                         First Court Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control"  placeholder="First Court Date" id="firstCourtDate" required/>
+                     <script>
+                        if ( document.getElementById('firstCourtDate').type != "date" ){
+                            const input = document.getElementById('firstCourtDate');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+			   
+			   [//13
+			    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                      رقم العميل
+                      [LL_WEBREPORT_ELSE /]
+                      CIF
+                      [LL_WEBREPORT_ENDIF /]                                  
+                   </label>
+                   <input type="text" class="valueEditable form-control" placeholder="CIF" id="cif" />
+                </div>
+             </div>
+			 
+			 
+			   [//14
+			    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                      اسم العميل
+                      [LL_WEBREPORT_ELSE /]
+                      Client Name
+                      [LL_WEBREPORT_ENDIF /]                                  
+                   </label>
+                   <input type="text" class="valueEditable  form-control" placeholder="Client Name" id="clientName" />
+                </div>
+             </div>
+			 
+			 [//15
+			 
+			  <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                      رقم الملف بالدائرة
+                      [LL_WEBREPORT_ELSE /]
+                     File Number
+                      [LL_WEBREPORT_ENDIF /]                                  
+                   </label>
+                   <input type="text" class="valueEditable form-control" placeholder="File Number" id="fileNumber" />
+                </div>
+             </div>
+			 
+			 
+			[//16
+			 
+			 
+				<div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                <div class="col-sm col-lg col-md col-xs">
+                   <label class="binf-control-label alpaca-control-label">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                      ملاحظات
+                      [LL_WEBREPORT_ELSE /]
+                  Discussion
+                      [LL_WEBREPORT_ENDIF /]                                  
+                   </label>
+                   <textarea class="form-control" id="discussion" style="height: 100px"></textarea>
+                </div>
+             </div>
+			 
+			 
+			 
+			 
+			 
+			 
+            
+
+			   
+			  
+
+
+
+
+			
+				
+			   
+ 
+            </div>
+         </div>
+         <div id="buttonDiv" class=" bg-white container-fluid" style="bottom: 0; left:0;position: sticky; width: 100%;border-top: 1px solid #cfcfcf;height:42px;">
+			
+			 [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="Create" id="CreateLegalCase" style="right:auto;"/>
+             [LL_WEBREPORT_ELSE /]
+                     <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="Create" id="CreateLegalCase" />    
+             [LL_WEBREPORT_ENDIF /]   
+            
+            
+			
+         </div>
+      </form>
+   </div>
+   [// ===================================================================================================================================
+</div>
+<div id="Internal" class="tabcontent">
+
+   <div class="container-fluid" style="position: relative;top: 5%;width: 100%;">
+      <form NAME="myFormInternal" action="javascript:void(0)()">
+         [//<div class="p-4 rounded bg-white js-active container">
+         <div style="margin: 14px;">
+            <div class="row" style="margin-top: -16px;">
+                <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         تاريخ ورود الشكوى / التحقيق
+                        [LL_WEBREPORT_ELSE /]
+                         Complaint Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control"  name="complaintDateI" placeholder="Complaint Date" id="complaintDateI"/>
+                     <script>
+                        if ( document.getElementById('complaintDateI').type != "date" ){
+                            const input = document.getElementById('complaintDateI');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+               <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        موضوع الشكوى / التحقيق
+                      [LL_WEBREPORT_ELSE /]
+                      Complaint Type
+                      [LL_WEBREPORT_ENDIF /]                      
+                   </label>
+                   <input type="text" class="valueEditable  form-control" placeholder="Complaint Subject" id="complaintType" />
+                </div>
+               </div>
+
+               <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    رقم الشكوى / التحقيق
+                      [LL_WEBREPORT_ELSE /]
+                   Complaint Number
+                      [LL_WEBREPORT_ENDIF /]                      
+                   </label>
+                   <input type="text" class="valueEditable form-control" placeholder="Complaint Number" id="complaintNumber" />
+                </div>
+            </div>     
+
+                <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                       <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        الدائرة المعنية
+                          [LL_WEBREPORT_ELSE /]
+                       Commity In Charge
+                          [LL_WEBREPORT_ENDIF /]                      
+                       </label>
+                       <input type="text" class="valueEditable form-control" placeholder="Commity In Charge" id="commityI" />
+                    </div>
+                </div>      
+                
+                <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                       <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                           وسيلة تلقي الشكوى
+                          [LL_WEBREPORT_ELSE /]
+                           Complaint Receival
+                          [LL_WEBREPORT_ENDIF /]
+                       </label>
+                       <input type="text" class="valueEditable  form-control" placeholder="Complaint Receival" id="complaintReceival" />
+                    </div>
+                 </div>
+        
+                 <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                       <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                           حالة الملف
+                          [LL_WEBREPORT_ELSE /]
+                           File Status
+                          [LL_WEBREPORT_ENDIF /]                                  
+                       </label>
+                       <input type="text" class="valueEditable  form-control"  placeholder="File Status" id="fileStatus" />
+                    </div>
+                 </div>
+
+
+
+                <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الشاكي
+                        [LL_WEBREPORT_ELSE /]
+                     Complainant
+                        [LL_WEBREPORT_ENDIF /]                           
+                    </label>
+                     <span class="complainantSelect"></span>
+                     <input type="hidden" id="Complainant" >
+                  </div>
+               </div>
+               <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                 <label class="binf-control-label alpaca-control-label">
+                     [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                     المشكو في حقه
+                    [LL_WEBREPORT_ELSE /]
+                    Defendant
+                    [LL_WEBREPORT_ENDIF /]                           
+                </label>
+                 <span class="defendantISelect"></span>
+                 <input type="hidden" id="defendantI" >
+              </div>
+           </div>
+           
+         
+         <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                 <label class="binf-control-label alpaca-control-label">
+                     [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    مسؤول الشكوى
+                    [LL_WEBREPORT_ELSE /]
+                    Responsible Group
+                    [LL_WEBREPORT_ENDIF /]                           
+                </label>
+                 <span class="RResponsibleSelectI"></span>
+                 <input type="hidden" id="RResponsibleI" >
+              </div>
+           </div>
+           
+           
+           <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                   الاجراءات التصحيحية
+                  [LL_WEBREPORT_ELSE /]
+                   Corrective Actions
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <textarea class="valueEditable  form-control" rows="7" style="height:auto;" id="correctiveActions"></textarea>
+            </div>
+         </div>
+
+
+         <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  الرأي
+                  [LL_WEBREPORT_ELSE /]
+                   Opinion
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <textarea  class="valueEditable  form-control" rows="7" style="height:auto;" id="opinion"></textarea>
+            </div>
+         </div>
+
+        </div>
+         </div>
+         <div id="buttonDiv" class=" bg-white container-fluid" style="bottom: 0; left:0;position: sticky; width: 100%;border-top: 1px solid #cfcfcf;height:42px;">
+           
+			
+			 [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                   <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="Create" id="CreateInternalCase" style="right:auto" />
+             [LL_WEBREPORT_ELSE /]
+                    <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="Create" id="CreateInternalCase" /> 
+             [LL_WEBREPORT_ENDIF /]  
+
+
+		  
+           
+		   
+		   
+         </div>
+      </form>
+   </div>
+</div>
+
+
+
+<div id="Case" class="tabcontent">
+
+   <div class="container-fluid" style="    position: relative;top: 5%;width: 100%;">
+      <form NAME="myFormContract" action="javascript:void(0)()">
+         [//<div class="p-4 rounded bg-white js-active container">
+         <div style="margin: 14px;">
+            <div id="mainFormWithSet" class="row" style="margin-top: -16px;">
+			
+			
+			<div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                   رقم العميل
+                  [LL_WEBREPORT_ELSE /]
+                   CIF
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="CIF" id="CIFNumber" />
+            </div>
+         </div>
+		 
+		 <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                   إسم العميل
+                  [LL_WEBREPORT_ELSE /]
+                   Client Name
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Client Name" id="ClientName" />
+            </div>
+         </div>
+		 
+		 <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+               رقم العقد
+                  [LL_WEBREPORT_ELSE /]
+                   Contract Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Contract Number" id="ContractNumber" />
+            </div>
+         </div>
+			
+			
+                <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        تاريخ العقد
+                        [LL_WEBREPORT_ELSE /]
+                        Contract Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Contract Date" id="ContractDate"/>
+                     <script>
+                        if ( document.getElementById('ContractDate').type != "date" ){
+                            const input = document.getElementById('ContractDate');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+			   
+			   
+               <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                       نوع التمويل
+                      [LL_WEBREPORT_ELSE /]
+                        Type of Finance
+                      [LL_WEBREPORT_ENDIF /]                      
+                   </label>
+                   <select class="valueEditable  form-control"  id="TypeOfFinance" required>
+                      <option value=''>select Complaint Type</option>
+                      [LL_WEBREPORT_FOR VAR:TypeOfFinance DATA:[LL_REPTAG_$CatContract CATINFO:VALIDVALUES:4 /] /]
+                      <option value="[LL_REPTAG_%TypeOfFinance CURRENTVAL /]">[LL_REPTAG_%TypeOfFinance CURRENTVAL /]</option>
+                      [LL_WEBREPORT_ENDFOR /]
+                   </select>
+                </div>
+               </div>
+			   
+			   
+			   
+			    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  رقم الترخيص الصناعي
+                  [LL_WEBREPORT_ELSE /]
+                   Industrial License Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Industrial License Number" id="IndustrialLicenseNumber" />
+            </div>
+         </div>
+			   
+			   
+			   
+			   
+				  <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        تاريخ الرخصة الصناعية
+                        [LL_WEBREPORT_ELSE /]
+                       Industrial License Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Industrial License Date" id="IndustrialLicenseDate"/>
+                     <script>
+                        if ( document.getElementById('IndustrialLicenseDate').type != "date" ){
+                            const input = document.getElementById('IndustrialLicenseDate');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+		   
+		   
+		   
+				 <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  رقم الملف
+                  [LL_WEBREPORT_ELSE /]
+                File Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="File Number" id="FileNumber" />
+            </div>
+         </div>
+		 
+		 
+		 <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                 رقم القسيمة
+                  [LL_WEBREPORT_ELSE /]
+               Voucher Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Voucher Number" id="VoucherNumber" />
+            </div>
+         </div>
+		 
+		 
+		 <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                المنطقة / رقم القطعة
+                  [LL_WEBREPORT_ELSE /]
+              Region / Part Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Region / Part Number" id="RegionPartNumber" />
+            </div>
+         </div>
+		 
+		 <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                 رقم عقد التخصيص
+                  [LL_WEBREPORT_ELSE /]
+                Assignment Contract Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Assignment Contract Number" id="AssignmentContractNumber" />
+            </div>
+         </div>
+		 
+		 
+		 <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    تاريخ عقد الرهن
+                        [LL_WEBREPORT_ELSE /]
+                      Mortgage Contract Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Mortgage Contract Date" id="MortgageContractDate"/>
+                     <script>
+                        if ( document.getElementById('MortgageContractDate').type != "date" ){
+                            const input = document.getElementById('MortgageContractDate');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+			   
+			   
+			     <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                 رقم قائمة قيد الرهن
+                  [LL_WEBREPORT_ELSE /]
+                Foreclosure List Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Foreclosure List Number" id="ForeclosureListNumber" />
+            </div>
+         </div>
+			   
+			   
+			    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                 تاريخ قيد الرهن
+                        [LL_WEBREPORT_ELSE /]
+                    Foreclosure Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Foreclosure Date" id="ForeclosureDate"/>
+                     <script>
+                        if ( document.getElementById('ForeclosureDate').type != "date" ){
+                            const input = document.getElementById('ForeclosureDate');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+			   
+			   
+			   
+			    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    تاريخ رهن المحل لتجاري
+                        [LL_WEBREPORT_ELSE /]
+                      Commercial Mortgage Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Commercial Mortgage Date" id="CommercialMortgageDate"/>
+                     <script>
+                        if ( document.getElementById('CommercialMortgageDate').type != "date" ){
+                            const input = document.getElementById('CommercialMortgageDate');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+			   
+			   
+			   
+			     <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                 ضمانات القرض
+                  [LL_WEBREPORT_ELSE /]
+               Guarantees for the Loan
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" style="height:65px;" class="valueEditable  form-control" id="GuaranteesForTheLoan" />
+            </div>
+         </div>
+		 
+		 
+		 
+		
+		 
+		  <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+               رقم القطعة
+                  [LL_WEBREPORT_ELSE /]
+               Plot Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Plot Number" id="PlotNumber1" />
+            </div>
+         </div>
+		 
+		 
+		 
+		  <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+               منطقة
+                  [LL_WEBREPORT_ELSE /]
+              Area
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Area" id="Area1" />
+            </div>
+         </div>
+		 
+		 
+		  <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                رقم الشارع
+                  [LL_WEBREPORT_ELSE /]
+              Block Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Block Number" id="BlockNumber1" />
+            </div>
+         </div>
+		 
+		 
+		 
+		  <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  شهادة قيد الرهن العقاري
+                        [LL_WEBREPORT_ELSE /]
+                  Mortgage Registration Certificate Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Mortgage Registration Certificate Date" id="MortgageRegistrationCertificateDate1"/>
+                     <script>
+                        if ( document.getElementById('MortgageRegistrationCertificateDate1').type != "date" ){
+                            const input = document.getElementById('MortgageRegistrationCertificateDate1');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+			   
+			 
+		   
+		   
+		  
+		
+         
+
+
+		 
+        </div>
+         </div>
+		 
+		   <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+					
+					<input type="Submit" value="Add Row" class="binf-btn binf-btn-primary" id="addRowButton"/>
+				</div>
+			
+			</div>
+		 
+		 
+         <div id="buttonDiv" class=" bg-white container-fluid" style="bottom: 0; left:0;position: sticky; width: 100%;border-top: 1px solid #cfcfcf;height:42px;">
+           
+			
+			 [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                   <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="Create" id="CreateContractCase" style="right:auto" />
+             [LL_WEBREPORT_ELSE /]
+                    <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="Create" id="CreateContractCase" /> 
+             [LL_WEBREPORT_ENDIF /]  
+
+
+		  
+           
+		   
+		   
+         </div>
+      </form>
+   </div>
+</div>
+
+
+
+
+
+
+
+</div>
+</div>
+<div id="LoadingImagePO" class="custLoader" style="display: none;"></div>
+
+
+
+<script>
+
+						
+	csui.require(['csui/lib/jquery'], function ($) {
+        
+        //Legal
+	$("#addRowButton").on("click", function(event) {					
+						
+
+	event.preventDefault();
+	
+	setCounter += 1;
+	
+	
+	
+	
+		
+		
+		var stringTempToAppend = `
+			 <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+               رقم القطعة
+                  [LL_WEBREPORT_ELSE /]
+               Plot Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Plot Number" id='PlotNumber${setCounter}' />
+            </div>
+         </div>
+		 
+		 
+		 
+		  <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+               منطقة
+                  [LL_WEBREPORT_ELSE /]
+              Area
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Area" id='Area${setCounter}' />
+            </div>
+         </div>
+		 
+		 
+		  <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                رقم الشارع
+                  [LL_WEBREPORT_ELSE /]
+              Block Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Block Number" id='BlockNumber${setCounter}' />
+            </div>
+         </div>
+		 
+		 
+		 
+		  <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  شهادة قيد الرهن العقاري
+                        [LL_WEBREPORT_ELSE /]
+                  Mortgage Registration Certificate Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Mortgage Registration Certificate Date" id='MortgageRegistrationCertificateDate${setCounter}' required/>
+						
+		
+                 </div>
+               </div>
+			   `
+		
+		
+		
+		
+		$("#mainFormWithSet").append(stringTempToAppend); 
+		 
+		 
+		  
+									   
+                                  
+		
+		
+						
+		console.log(setCounter);
+		if(setCounter >= 4){
+			document.getElementById("addRowButton").style.display = 'none'; 
+		
+		}
+		
+		
+                                     
+		
+		
+	
+	
+	});
+	
+	});
+
+</script>
+
+
+
+
+
+
+
+
+<script>
+  //Initial Load
+   var userList=[];   
+   var claimantList=[];
+   var defendantList=[];
+   var setCounter = 1;
+   
+   csui.require(['csui/lib/jquery'], function ($) {    
+       	var TileReportConfig = {};
+        TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+        TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]';
+        
+        //user list-------------------------------------------------------------------------------------------------------Start
+        $.ajax({
+            url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$csUserGroups /]/output?format=webreport",
+            type: "GET",
+            async:false,
+            
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+            },
+            success:function(data){
+                var groups =JSON.parse(data);
+                $.each(groups.myRows,function(i,v){
+                    var objUser ={};
+                    objUser.label=v.Name;
+                    var vals=v.ID;
+                    objUser.value=vals.toString();
+                    userList.push(objUser);
+                })
+              
+            }
+        });
+        //user list-------------------------------------------------------------------------------------------------------End
+    
+        
+        //Load Claimants into From Field----------------------------------------------------------------------------Start
+        //function getClaimants(){
+             $.ajax({
+                url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$Claimant /]/output?format=webreport",
+                type: "GET",
+                async:false,
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+                },
+                success:function(data){
+                    var claimants =JSON.parse(data);
+                    $.each(claimants.myRows,function(i,v){ 
+                        var objClaimant ={};
+                        objClaimant.label=v.Name;
+                        var valsC=v.Name;
+                        objClaimant.value=valsC.toString();
+                        claimantList.push(objClaimant);
+                    })
+                }
+            });  
+        //}
+        //Load Claimants into From Field----------------------------------------------------------------------------End
+        
+        //Load Defendants into From Field----------------------------------------------------------------------------Start
+        //function getDefendants(){
+            $.ajax({
+                url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$Defendant /]/output?format=webreport",
+                type: "GET",
+				async:false,
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+                },
+                success:function(data){
+                    var defendants =JSON.parse(data);
+                    $.each(defendants.myRows,function(i,v){
+						 var objDefendant ={};
+                        objDefendant.label=v.Name;
+                        var valsD=v.Name;
+                        objDefendant.value=valsD.toString();
+                        defendantList.push(objDefendant);
+
+                    })
+                   
+                }
+            });  
+        //}
+        //Load Defendants into From Field----------------------------------------------------------------------------End      
+		
+		makedropdown(); // populates the select pure elements. NOTE: Only call this once in here
+	
+   });       
+</script>
+<script>
+   function openCase(evt, caseName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(caseName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+   
+    function makedropdown(){
+        var autocomplete_RLawyerSelectL = new SelectPure(".RLawyerSelectL", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("RlawyerL").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });   
+  
+        var autocomplete_RRepresentativeSelect = new SelectPure(".RRepresentativeSelect", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("RRepresentativeL").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });      
+        var autocomplete_claimantLSelect = new SelectPure(".claimantLSelect", {
+            options: claimantList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("claimantL").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        }); 
+		var autocomplete_defendantLSelect = new SelectPure(".defendantLSelect", {
+            options: defendantList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("defendantL").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });
+        var autocomplete_defendantISelect = new SelectPure(".defendantISelect", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("defendantI").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });
+        var autocomplete_complainantSelect = new SelectPure(".complainantSelect", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("Complainant").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });
+        var autocomplete_RResponsibleSelectI = new SelectPure(".RResponsibleSelectI", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("RResponsibleI").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });
+        var autocomplete_RForActionSelectI = new SelectPure(".RForActionSelectI", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("RForActionI").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });
+        var autocomplete_RForInfoSelectI = new SelectPure(".RForInfoSelectI", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("RForInfoI").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });  
+            
+    }
+    function resetAutocomplete() {       
+        autocomplete_RLawyerSelectL.reset();
+        autocomplete_RRepresentativeSelect.reset();
+        autocomplete_defendantISelect.reset();
+        autocomplete_complainantSelect.reset();
+        autocomplete_RResponsibleSelectI.reset();
+        autocomplete_RForActionSelectI.reset();
+        autocomplete_RForInfoSelectI.reset();   
+        autocomplete_claimantLSelect.reset(); 
+		autocomplete_defendantLSelect.reset(); 
+    }
+    function selectObj(text){
+        csui.require(['csui/lib/jquery'], function ($) {
+        });
+    }
+    //Getting Roles for the LegalCaseID Created
+    function getRoles(CmsID,RlawyerL,RRepresentativeL){
+       var RlawyerL_ID;
+       var RRepresentativeL_ID;       
+        csui.require(['csui/lib/jquery'], function ($) {
+            var settings = {
+              "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles",
+              "method": "GET",
+              "timeout": 0,
+              "headers": {
+                "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+              },
+              "processData": false,
+              "mimeType": "multipart/form-data",
+              "contentType": false,
+            };       
+            $.ajax(settings).done(function (response) {
+                console.log('step 2 reading the roles from cms started');
+                var res=JSON.parse(response);
+               for(var i=0; i<res.results.length;i++){  
+                   //console.log(res.results[i].data.properties.id + "  "+res.results[i].data.properties.name);
+                   if(res.results[i].data.properties.name=='[LL_REPTAG_$RoleLawyer /]'){
+                    RlawyerL_ID=res.results[i].data.properties.id;
+                       console.log("id of for Lawyer_ID perm id" +RlawyerL_ID);
+                   }
+                   if(res.results[i].data.properties.name=='[LL_REPTAG_$RoleRepresentative /]'){
+                    RRepresentativeL_ID=res.results[i].data.properties.id;
+                       console.log("id of for Representative perm id" +RRepresentativeL_ID);
+                   }              
+                }
+                console.log('step 2 reading the roles from cms comppleted');
+                //Add the Members into Roles
+                addRoles(RlawyerL,RRepresentativeL,CmsID,RlawyerL_ID,RRepresentativeL_ID);
+            });     
+        });
+    } 
+    //Getting Roles for the InternalCaseID Created
+    function getRolesI(CmsID,RResponsibleI,RForActionI,RForInfoI){
+       var RResponsibleI_ID;
+       var RForActionI_ID;
+      var  RForInfoI_ID;      
+        csui.require(['csui/lib/jquery'], function ($) {
+            var settings = {
+              "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles",
+              "method": "GET",
+              "timeout": 0,
+              "headers": {
+                "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+              },
+              "processData": false,
+              "mimeType": "multipart/form-data",
+              "contentType": false,
+            };       
+            $.ajax(settings).done(function (response) {
+                console.log('step 2 reading the roles from cms started');
+                var res=JSON.parse(response);
+               for(var i=0; i<res.results.length;i++){  
+                   //console.log(res.results[i].data.properties.id + "  "+res.results[i].data.properties.name);
+                   if(res.results[i].data.properties.name=='[LL_REPTAG_$RoleResponsible /]'){
+                    RResponsibleI_ID=res.results[i].data.properties.id;
+                       console.log("id of for Responsible perm id" +RResponsibleI_ID);
+                   }
+                   if(res.results[i].data.properties.name=='[LL_REPTAG_$RoleForAction /]'){
+                    RForActionI_ID=res.results[i].data.properties.id;
+                       console.log("id of for For Action perm id" +RForActionI_ID);
+                   }
+                   if(res.results[i].data.properties.name=='[LL_REPTAG_$RoleForInfo /]'){
+                    RForInfoI_ID=res.results[i].data.properties.id;
+                       console.log("id of for For Action perm id" +RForInfoI_ID);
+                   }               
+                }
+                console.log('step 2 reading the roles from cms comppleted');
+                //Add the Members into Roles
+                addRolesI(RResponsibleI,RForActionI,RForInfoI,CmsID,RResponsibleI_ID,RForActionI_ID,RForInfoI_ID);
+            });     
+        });
+    } 
+    // Add Roles Legal
+    function addRoles(RlawyerL,RRepresentativeL,CmsID,RlawyerL_ID,RRepresentativeL_ID){
+         console.log('step 3 adding legal members to roles');
+        console.log("id of Lawyer perm id" +RlawyerL_ID);
+        csui.require(['csui/lib/jquery'], function ($) {
+            //Lawyer
+            var RlawyerL_Arr = RlawyerL.split(',');
+            $.each(RlawyerL_Arr, function( index, value ) {
+                var form_RlawyerL = new FormData();
+                form_RlawyerL.append("id", value);
+                console.log("url for info [LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+RlawyerL_ID+"/members");
+                var settings = {
+                  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+RlawyerL_ID+"/members",
+                  "method": "POST",
+                  "timeout": 0,
+                  "headers": {
+                    "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+                  },
+                  "processData": false,
+                  "mimeType": "multipart/form-data",
+                  "contentType": false,
+                  "data": form_RlawyerL
+                };
+                
+                $.ajax(settings).done(function (response) {
+                    //alert('Success-responsible');
+                });                               
+            });               
+            //REpresentative
+            var RRepresentativeL_Arr = RRepresentativeL.split(',');
+            $.each(RRepresentativeL_Arr, function( index, value ) {
+                var form_RRepresentativeL = new FormData();
+                form_RRepresentativeL.append("id", value);
+                var settings = {
+                  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+RRepresentativeL_ID+"/members",
+                  "method": "POST",
+                  "timeout": 0,
+                  "headers": {
+                    "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+                  },
+                  "processData": false,
+                  "mimeType": "multipart/form-data",
+                  "contentType": false,
+                  "data": form_RRepresentativeL
+                };
+                
+                $.ajax(settings).done(function (response) {
+                    //alert('Success-For Action');
+                });                  
+            });                               
+        });
+        console.log('step 3 end add Legal roles');
+    }
+// Add Roles Internal
+    function addRolesI(RResponsibleI,RForActionI,RForInfoI,CmsID,RResponsibleI_ID,RForActionI_ID,RForInfoI_ID){
+         console.log('step 3 adding members to roles');
+        console.log("id of Responsible perm id" +RResponsibleI_ID);
+        csui.require(['csui/lib/jquery'], function ($) {
+            //Responsible
+            var RResponsibleI_Arr = RResponsibleI.split(',');
+            $.each(RResponsibleI_Arr, function( index, value ) {
+                var form_RResponsibleI = new FormData();
+                form_RResponsibleI.append("id", value);
+                console.log("url for info [LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+RResponsibleI_ID+"/members");
+                var settings = {
+                  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+RResponsibleI_ID+"/members",
+                  "method": "POST",
+                  "timeout": 0,
+                  "headers": {
+                    "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+                  },
+                  "processData": false,
+                  "mimeType": "multipart/form-data",
+                  "contentType": false,
+                  "data": form_RResponsibleI
+                };
+                
+                $.ajax(settings).done(function (response) {
+                    //alert('Success-responsible');
+                });                               
+            });               
+            //For Action
+            var RForActionI_Arr = RForActionI.split(',');
+            $.each(RForActionI_Arr, function( index, value ) {
+                var form_RForActionI = new FormData();
+                form_RForActionI.append("id", value);
+                var settings = {
+                  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+RForActionI_ID+"/members",
+                  "method": "POST",
+                  "timeout": 0,
+                  "headers": {
+                    "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+                  },
+                  "processData": false,
+                  "mimeType": "multipart/form-data",
+                  "contentType": false,
+                  "data": form_RForActionI
+                };
+                
+                $.ajax(settings).done(function (response) {
+                    //alert('Success-For Action');
+                });                  
+            });
+             //For Info
+             var RForInfoI_Arr = RForInfoI.split(',');
+            $.each(RForInfoI_Arr, function( index, value ) {
+                var form_RForInfoI = new FormData();
+                form_RForInfoI.append("id", value);
+                var settings = {
+                  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+RForInfoI_ID+"/members",
+                  "method": "POST",
+                  "timeout": 0,
+                  "headers": {
+                    "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+                  },
+                  "processData": false,
+                  "mimeType": "multipart/form-data",
+                  "contentType": false,
+                  "data": form_RForInfoI
+                };
+                
+                $.ajax(settings).done(function (response) {
+                    //alert('Success-for Info');
+                });                  
+            });                                
+        });
+        console.log('step 3 end add roles');
+    }
+    
+    csui.require(['csui/lib/jquery'], function ($) {
+        
+        //Legal
+	    $("#CreateLegalCase").on("click", function(event) {
+	        event.preventDefault();
+	        var caseDateL=$('#caseDateL').val();
+	        
+	        var caseTypeL=$('#caseTypeL option:selected').val();
+	        var mojRef=$('#mojRef').val();
+			
+			var caseNumber = $('#caseNumber').val();
+			var cif = $('#cif').val();
+			var courtCaseNumber = $('#courtCaseNumber').val();
+			var fileNumber = $('#fileNumber').val();
+			var discussion = $('#discussion').val();
+			
+			var firstCourtDate = $('#firstCourtDate').val();
+			var clientName = $('#clientName').val();
+			
+
+			
+			
+			
+            var claimantL=$('#claimantL').val();
+            
+            claimantL = claimantL.split(",");
+            
+			
+            var defendantL=$('#defendantL').val();
+			
+			
+			defendantL = defendantL.split(",");
+			
+            //ROles
+	        var RlawyerL=$('#RlawyerL').val();
+	        var RRepresentativeL=$('#RRepresentativeL').val();
+            
+	        var fileType=$('#fileType').val();
+	        var complaintTopic=$('#complaintTopic').val();
+	        var complaintTopicOther=$('#complaintTopicOther').val();
+            
+            if(complaintTopicOther != ''){
+                complaintTopic = complaintTopicOther;
+            }
+	        
+	        
+	        if(fileType!='' & caseDateL!='' & claimantL!='' & defendantL!=''){
+                var caseDateL_Format = new Date(caseDateL);
+                var dd = caseDateL_Format.getDate();
+                var mm = caseDateL_Format.getMonth()+1; 
+                var yyyy = caseDateL_Format.getFullYear();
+                if(dd<10) {
+                    dd='0'+dd;
+                } 
+                if(mm<10) {
+                    mm='0'+mm;
+                } 
+                caseDateL_Format = mm+'/'+dd+'/'+yyyy;	 	        
+    
+    	        var form = new FormData();
+               
+                var data = {
+                    "template_id": [LL_REPTAG_$LegalCase_DocTemplate /],
+                    "parent_id": [LL_REPTAG_$LegalCase_ParentID /], // folder where the cws will be created
+                    "roles": {
+                        "categories": {
+                            "[LL_REPTAG_$CatLegal /]": {
+                                "[LL_REPTAG_$CatLegal /]_27":fileType,
+                                "[LL_REPTAG_$CatLegal /]_2":caseDateL,
+                                "[LL_REPTAG_$CatLegal /]_5":caseTypeL,   
+                                "[LL_REPTAG_$CatLegal /]_16":claimantL,
+                                "[LL_REPTAG_$CatLegal /]_17":defendantL,  
+                                "[LL_REPTAG_$CatLegal /]_14":mojRef,
+								"[LL_REPTAG_$CatLegal /]_18":caseNumber,
+								"[LL_REPTAG_$CatLegal /]_19":cif,
+								"[LL_REPTAG_$CatLegal /]_20":courtCaseNumber+" Initial - ابتدائي",
+								"[LL_REPTAG_$CatLegal /]_21":fileNumber,
+								"[LL_REPTAG_$CatLegal /]_22":discussion,
+								"[LL_REPTAG_$CatLegal /]_28":complaintTopic,
+								"[LL_REPTAG_$CatLegal /]_24":firstCourtDate,
+								"[LL_REPTAG_$CatLegal /]_25":clientName,
+
+                            }
+                        }
+                    }
+                };	      
+                $('#LoadingImagePO').show();                
+                form.append("body", JSON.stringify(data));
+                 $.ajax({
+                    url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
+                    type: "POST",
+                    processData: false,
+                    mimeType: "multipart/form-data",
+                    contentType: false,
+                    data: form ,               
+                    beforeSend: function(xhr){
+                        xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                    },
+                    success:function(data){
+                        var res=JSON.parse(data);
+                        console.log(RlawyerL+","+RRepresentativeL+","+res.results.id);
+                        //console.log(res);
+                        console.log('Step 1 CMS ID'+res.results.id);
+                        getRoles(res.results.id,RlawyerL,RRepresentativeL);
+                        $('#LoadingImagePO').hide();
+                        
+                        csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                            ModalAlert.showSuccess("Legal Case Created").always(function () { 
+                                $("form")[0].reset();
+                                window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
+                            });
+    
+                        }); 
+                    },
+                    error: function(xhr, status, error) {
+                        $('#LoadingImagePO').hide();
+                        var err = JSON.parse(xhr.responseText);
+                        //alert(err.error);
+                        csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                            ModalAlert.showError("Legal Case Creation Error. "+err.error).always(function () { 
+                            });
+    
+                        });                      
+                    }
+                });                      
+            }
+            else{
+                if(fileType==''){
+                    $('#fileType').css({'border-color':'red'});
+                }
+                else{
+                    $('#fileType').css({'border-color':'#ced4da'});
+                }
+                if(caseDateL==''){
+                    $('#caseDateL').css({'border-color':'red'});
+                }
+                else{
+                    $('#caseDateL').css({'border-color':'#ced4da'});
+                }
+                
+                if(claimantL==''){
+                    $('#claimantL').css({'border-color':'red'});
+                } 
+                else{
+                    $('#claimantL').css({'border-color':'#ced4da'});
+                }
+                if(defendantL==''){
+                    $('#defendantL').css({'border-color':'red'});
+                } 
+                else{
+                    $('#defendantL').css({'border-color':'#ced4da'});
+                }                
+                
+                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    ModalAlert.showError("Highlited Fields are Mandatory").always(function () { 
+                    });
+                });    
+            }
+	    });
+      
+        //Internal
+        $("#CreateInternalCase").on("click", function(event) {
+	        event.preventDefault();
+
+
+	        var complaintDateI=$('#complaintDateI').val();
+	        var complaintType=$('#complaintType').val();
+	        var complaintNumber=$('#complaintNumber').val();
+	        var commityI=$('#commityI').val();
+	        
+
+	        var complaintReceival=$('#complaintReceival').val();
+	        var fileStatus=$('#fileStatus').val();
+
+	        var Complainant=$('#Complainant').val();
+			Complainant = Complainant.split(",");
+			
+            var defendantI=$('#defendantI').val();    
+			defendantI = defendantI.split(",");
+			
+            
+
+	        var RResponsibleI=$('#RResponsibleI').val();
+	        var correctiveActions=$('#correctiveActions').val();
+            var opinion=$('#opinion').val();
+            
+	        
+	        
+	        if(complaintDateI!='' & complaintType!='' & complaintNumber!='' & Complainant!='' & defendantI!='' & commityI!=''){
+                var complaintDateI_Format = new Date(complaintDateI);
+                var dd = complaintDateI_Format.getDate();
+                var mm = complaintDateI_Format.getMonth()+1; 
+                var yyyy = complaintDateI_Format.getFullYear();
+                if(dd<10) {
+                    dd='0'+dd;
+                } 
+                if(mm<10) {
+                    mm='0'+mm;
+                } 
+                complaintDateI_Format = mm+'/'+dd+'/'+yyyy;	 	        
+    
+    	        var form = new FormData();
+               
+                var data = {
+                    "template_id":[LL_REPTAG_$InternalCase_DocTemplate /] ,
+                    "parent_id": [LL_REPTAG_$InternalCase_ParentID /], // folder where the cws will be created
+                    "roles": {
+                        "categories": {
+                            "[LL_REPTAG_$CatInternal /]": {
+                                "[LL_REPTAG_$CatInternal /]_12":complaintDateI,
+                                "[LL_REPTAG_$CatInternal /]_24":complaintType,   
+                                "[LL_REPTAG_$CatInternal /]_25":complaintNumber,   
+                                "[LL_REPTAG_$CatInternal /]_26":commityI,
+                                "[LL_REPTAG_$CatInternal /]_27":complaintReceival,
+                                "[LL_REPTAG_$CatInternal /]_28":fileStatus,
+                                "[LL_REPTAG_$CatInternal /]_15":Complainant,
+                                "[LL_REPTAG_$CatInternal /]_16":defendantI,  
+                                "[LL_REPTAG_$CatInternal /]_29":correctiveActions,
+                                "[LL_REPTAG_$CatInternal /]_30":opinion
+                            }
+                           
+                        }
+                    }
+                };	
+
+				console.log(data);
+				
+                $('#LoadingImagePO').show();                
+                form.append("body", JSON.stringify(data));
+                 $.ajax({
+                    url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
+                    type: "POST",
+                    processData: false,
+                    mimeType: "multipart/form-data",
+                    contentType: false,
+                    data: form ,               
+                    beforeSend: function(xhr){
+                        xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                    },
+                    success:function(data){
+                        var res=JSON.parse(data);
+                        
+                        //console.log(res);
+                        console.log('Step 1 CMS ID'+res.results.id);
+                        getRolesI(res.results.id,RResponsibleI,'','');
+                        $('#LoadingImagePO').hide();
+                        
+                        csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                            ModalAlert.showSuccess("Internal Case Created").always(function () { 
+                                $("form")[0].reset();
+                                window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
+                            });
+    
+                        }); 
+                    },
+                    error: function(xhr, status, error) {
+                        $('#LoadingImagePO').hide();
+                        var err = JSON.parse(xhr.responseText);
+                        //alert(err.error);
+                        csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                            ModalAlert.showError("Internal Case Creation Error. "+err.error).always(function () { 
+                            });
+    
+                        });                      
+                    }
+                });                      
+            }
+            else{
+                if(complaintDateI==''){
+                    $('#complaintDateI').css({'border-color':'red'});
+                }
+                else{
+                    $('#complaintDateI').css({'border-color':'#ced4da'});
+                }
+                if(complaintType==''){
+                    $('#complaintType').css({'border-color':'red'});
+                } 
+                else{
+                    $('#complaintType').css({'border-color':'#ced4da'});
+                }
+                if(complaintNumber==''){
+                    $('#complaintNumber').css({'border-color':'red'});
+                } 
+                else{
+                    $('#complaintNumber').css({'border-color':'#ced4da'});
+                }
+                if(Complainant==''){
+                    $('#Complainant').css({'border-color':'red'});
+                } 
+                else{
+                    $('#Complainant').css({'border-color':'#ced4da'});
+                }
+                if(defendantI==''){
+                    $('#defendantI').css({'border-color':'red'});
+                } 
+                else{
+                    $('#defendantI').css({'border-color':'#ced4da'});
+                }       
+                if(commityI==''){
+                    $('#commityI').css({'border-color':'red'});
+                } 
+                else{
+                    $('#commityI').css({'border-color':'#ced4da'});
+                } 
+                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    ModalAlert.showError("Highlited Fields are Mandatory").always(function () { 
+                    });
+                });    
+            }
+	    });
+		
+		
+		
+		
+		
+		
+		$("#CreateContractCase").on("click", function(event) {
+	        event.preventDefault();
+			
+			
+	        var CIFNumber = $('#CIFNumber').val();
+			var ClientName = $('#ClientName').val();
+			var ContractNumber = $('#ContractNumber').val();
+			var ContractDate = $('#ContractDate').val();
+			var TypeOfFinance = $('#TypeOfFinance option:selected').val();
+			var IndustrialLicenseNumber = $('#IndustrialLicenseNumber').val();
+			var IndustrialLicenseDate = $('#IndustrialLicenseDate').val();
+			var FileNumber = $('#FileNumber').val();
+			var VoucherNumber = $('#VoucherNumber').val();
+			var RegionPartNumber = $('#RegionPartNumber').val();
+			var AssignmentContractNumber = $('#AssignmentContractNumber').val();
+			var MortgageContractDate = $('#MortgageContractDate').val();
+			var ForeclosureListNumber = $('#ForeclosureListNumber').val();
+			var ForeclosureDate = $('#ForeclosureDate').val();
+			var CommercialMortgageDate = $('#CommercialMortgageDate').val();
+			var GuaranteesForTheLoan = $('#GuaranteesForTheLoan').val();
+			
+			
+			
+			var PlotNumber = $('#PlotNumber').val();
+			var Area = $('#Area').val();
+			var BlockNumber = $('#BlockNumber').val();
+			var MortgageRegistrationCertificateDate = $('#MortgageRegistrationCertificateDate').val();
+
+
+	       
+		   
+		   
+			
+            
+            
+	        
+	        
+	        if(ClientName!='' & ContractNumber!='' &  ContractDate!='' & TypeOfFinance!='' & IndustrialLicenseNumber!='' & IndustrialLicenseDate!=''){
+                	        
+    
+    	        var form = new FormData();
+               
+                var data = {
+                    "template_id":[LL_REPTAG_$ContractCase_DocTemplate /] ,
+                    "parent_id": [LL_REPTAG_$ContractCase_ParentID /], // folder where the cws will be created
+                    "roles": {
+                        "categories": {
+                            "[LL_REPTAG_$CatContract /]": {
+                                "[LL_REPTAG_$CatContract /]_9":CIFNumber,
+                                "[LL_REPTAG_$CatContract /]_2":ClientName,
+								"[LL_REPTAG_$CatContract /]_3":ContractNumber,
+								"[LL_REPTAG_$CatContract /]_8":ContractDate,
+								"[LL_REPTAG_$CatContract /]_4":TypeOfFinance,
+								"[LL_REPTAG_$CatContract /]_5":IndustrialLicenseNumber,
+								"[LL_REPTAG_$CatContract /]_6":IndustrialLicenseDate,
+								"[LL_REPTAG_$CatContract /]_10":FileNumber,
+								"[LL_REPTAG_$CatContract /]_11":VoucherNumber,
+								"[LL_REPTAG_$CatContract /]_12":RegionPartNumber,
+								"[LL_REPTAG_$CatContract /]_13":AssignmentContractNumber,
+								"[LL_REPTAG_$CatContract /]_14":MortgageContractDate,
+								"[LL_REPTAG_$CatContract /]_15":ForeclosureListNumber,
+								"[LL_REPTAG_$CatContract /]_16":ForeclosureDate,
+								"[LL_REPTAG_$CatContract /]_17":CommercialMortgageDate,
+								"[LL_REPTAG_$CatContract /]_7":GuaranteesForTheLoan,
+								
+								
+                            }
+                        }
+                    }
+                };	
+				
+				var setFieldsWithUpdate = {};
+				
+				for(var i=1;i<=setCounter;i++){
+					setFieldsWithUpdate[`[LL_REPTAG_$CatContract /]_18_${i}_19`] = $('#PlotNumber'+i).val();
+					setFieldsWithUpdate[`[LL_REPTAG_$CatContract /]_18_${i}_20`] = $('#Area'+i).val();
+					setFieldsWithUpdate[`[LL_REPTAG_$CatContract /]_18_${i}_21`] = $('#BlockNumber'+i).val();
+					setFieldsWithUpdate[`[LL_REPTAG_$CatContract /]_18_${i}_22`] = $('#MortgageRegistrationCertificateDate'+i).val();
+				}
+
+				console.log(data);
+				
+                $('#LoadingImagePO').show();                
+                form.append("body", JSON.stringify(data));
+                 $.ajax({
+                    url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
+                    type: "POST",
+                    processData: false,
+                    mimeType: "multipart/form-data",
+                    contentType: false,
+                    data: form ,               
+                    beforeSend: function(xhr){
+                        xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                    },
+                    success:function(data){
+                        var res=JSON.parse(data);
+                        
+                        $('#LoadingImagePO').hide();
+						data = setFieldsWithUpdate;
+						
+						var settings = {
+						  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/"+res.results.id+"/categories/[LL_REPTAG_$CatContract /]/",
+						  "method": "PUT",
+						  "timeout": 0,
+						  "headers": {
+							"OTCSTicket": "[LL_REPTAG_OTCSTICKET /]"
+						  },
+						  data
+						};
+						 
+						 
+						console.log(settings); 
+						 
+						$.ajax(settings).done(function (response) {
+						  console.log(response);
+						  
+						  
+						  csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                            ModalAlert.showSuccess("Contract Case Created").always(function () { 
+                                $("form")[0].reset();
+                               window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
+                            });
+    
+                        }); 
+						  
+						  
+						});
+
+						
+						
+						
+						
+						
+                       
+                    },
+                    error: function(xhr, status, error) {
+                        $('#LoadingImagePO').hide();
+                        var err = JSON.parse(xhr.responseText);
+                        //alert(err.error);
+                        csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                            ModalAlert.showError("Internal Case Creation Error. "+err.error).always(function () { 
+                            });
+    
+                        });                      
+                    }
+                });                      
+            }
+            else{
+                if(ClientName==''){
+                    $('#ClientName').css({'border-color':'red'});
+                }
+                else{
+                    $('#ClientName').css({'border-color':'#ced4da'});
+                }
+                if(ContractNumber==''){
+                    $('#ContractNumber').css({'border-color':'red'});
+                } 
+                else{
+                    $('#ContractNumber').css({'border-color':'#ced4da'});
+                }
+                if(ContractDate==''){
+                    $('#ContractDate').css({'border-color':'red'});
+                } 
+                else{
+                    $('#ContractDate').css({'border-color':'#ced4da'});
+                }
+                if(TypeOfFinance==''){
+                    $('#TypeOfFinance').css({'border-color':'red'});
+                } 
+                else{
+                    $('#TypeOfFinance').css({'border-color':'#ced4da'});
+                }       
+                if(IndustrialLicenseNumber==''){
+                    $('#IndustrialLicenseNumber').css({'border-color':'red'});
+                } 
+                else{
+                    $('#IndustrialLicenseNumber').css({'border-color':'#ced4da'});
+                } 
+				if(IndustrialLicenseDate==''){
+                    $('#IndustrialLicenseDate').css({'border-color':'red'});
+                } 
+                else{
+                    $('#IndustrialLicenseDate').css({'border-color':'#ced4da'});
+                } 
+                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    ModalAlert.showError("Highlited Fields are Mandatory").always(function () { 
+                    });
+                });    
+            }
+	    });
+		
+		
+		
+		
+        
+    });
+</script>
+
+

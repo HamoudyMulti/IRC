@@ -1,0 +1,197 @@
+// Source can be Smashi, 360VUZ, YouTube, etc..
+Table ContentSource as source {
+  id int [pk, increment]
+}
+
+// Channel
+Table ContentChannel as channel[headercolor: #2c3e50] {
+  id int [increment]
+  contentSourceId int
+  isActive int
+  
+  indexes {
+    (id, contentSourceId) [pk]
+  }
+}
+
+// Category
+Table ContentCategory as category[headercolor: #27ae60] {
+  id int [increment]
+  contentSourceId int
+  isDeleted int
+  indexes {
+    (id, contentSourceId) [pk]
+  }
+}
+
+// Video 
+Table ContentVideo as video[headercolor: #8e44ad] {
+  id int [increment]
+  contentSourceId int
+  isActive int
+  
+  indexes {
+    (id, contentSourceId) [pk]
+  }
+}
+
+// Region 
+Table ContentRegion as region[headercolor: #8e44ad] {
+  id int [increment]
+  contentSourceId int
+  
+  indexes {
+    (id, contentSourceId) [pk]
+  }
+}
+
+// Translations for the video 
+Table ContentVideoTranslations as videoTranslations[headercolor: #8e44ad] {
+  contentSourceId int
+  contentVideoId int
+  languageId int
+  title varchar
+  description varchar
+  indexes {
+    (contentSourceId,contentVideoId,languageId) [pk]
+  }
+}
+
+// Translations for the channel
+Table ContentChannelTranslations as channelTranslations[headercolor: #8e44ad] {
+  contentSourceId int
+  contentChannelId int
+  languageId int
+  title varchar
+  description varchar
+  
+  
+  indexes {
+    (contentSourceId,contentChannelId, languageId) [pk]
+  }
+}
+
+// Translations for the category
+Table ContentCategoryTranslations as categoryTranslations[headercolor: #8e44ad] {
+  contentSourceId int
+  contentCategoryId int
+  languageId int
+  title varchar
+  description varchar
+  
+  
+  indexes {
+    (contentSourceId,contentCategoryId, languageId) [pk]
+  }
+}
+
+// Translations for the region
+Table ContentRegionTranslations as regionTranslations[headercolor: #8e44ad] {
+  contentSourceId int
+  contentRegionId int
+  languageId int
+  title varchar
+  description varchar
+  
+  
+  indexes {
+    (contentSourceId,contentRegionId, languageId) [pk]
+  }
+}
+
+// Video for Smashi
+Table ContentVideoSmashi as videoSmashi[headercolor: #8e44ad] {
+  contentVideoId int [pk, increment]
+}
+
+// Video for Youtube
+Table ContentVideoYoutube as videoYoutube[headercolor: #8e44ad] {
+  contentVideoId int [pk, increment]
+}
+
+// Video Spherical
+Table ContentVideoSpherical as videoSpherical[headercolor: #8e44ad] {
+  contentVideoId int [pk, increment]
+}
+
+// Video Normal
+Table ContentVideoNormal as videoNormal[headercolor: #8e44ad] {
+  contentVideoId int [pk, increment]
+}
+
+
+// Video <> Channel join
+Table ContentChannelVideos as channelVideos[headercolor: #c0392b] {
+  contentSourceId int
+  contentChannelId int
+  contentVideoId int
+  orderBy int
+  createdAt datetime
+  
+  indexes {
+    (contentSourceId, contentVideoId,contentChannelId) [pk]
+  }
+}
+
+// Video <> Category join
+Table ContentVideoCategories as videoCategories[headercolor: #c0392b] {
+  contentSourceId int
+  contentVideoId int 
+  contentCategoryId int
+  orderBy int
+  createdAt datetime
+  
+  indexes {
+    (contentSourceId, contentVideoId,contentCategoryId) [pk]
+  }
+}
+
+// Video <> Region join
+Table ContentVideoRegions as videoRegions[headercolor: #c0392b] {
+  contentSourceId int
+  contentVideoId int 
+  contentRegionId int
+  orderBy int
+  createdAt datetime
+  
+  indexes {
+    (contentSourceId, contentVideoId,contentRegionId) [pk]
+  }
+}
+
+//removed these for better visibility
+// Ref: source.id < channel.contentSourceId
+// Ref: source.id < category.contentSourceId
+// Ref: source.id < video.contentSourceId
+// Ref: source.id - channelVideos.contentSourceId
+
+
+//channelVideos
+Ref: channel.id < channelVideos.contentChannelId
+Ref: video.id < channelVideos.contentVideoId
+
+//videoCategories
+Ref: category.id < videoCategories.contentCategoryId
+Ref: video.id < videoCategories.contentVideoId
+
+//videoRegions
+Ref: region.id < videoRegions.contentRegionId
+Ref: video.id < videoRegions.contentVideoId
+
+
+//removed these for better visibility
+// //videoTranslations
+// Ref: video.(id, contentSourceId) < videoTranslations.(contentVideoId, contentSourceId)
+// //channelTranslations
+// Ref: channel.(id, contentSourceId) < channelTranslations.(contentChannelId, contentSourceId)
+// //categoryTranslations
+// Ref: category.(id, contentSourceId) < categoryTranslations.(contentCategoryId, contentSourceId)
+// //regionTranslations
+// Ref: region.(id, contentSourceId) < regionTranslations.(contentRegionId, contentSourceId)
+
+
+
+Ref: video.id - videoSpherical.contentVideoId
+Ref: video.id - videoNormal.contentVideoId
+Ref: video.id - videoYoutube.contentVideoId
+Ref: video.id - videoSmashi.contentVideoId

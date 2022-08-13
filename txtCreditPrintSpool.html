@@ -1,0 +1,86 @@
+Card Number  -- [LL_REPTAG_&ID CAT:'Card':'Card Number':DISPLAY SUBSTR:1:50 /]   --
+<div id="data">
+
+
+</div>
+
+<script>
+	window.onload = (event) => {
+		console.log('hey');
+		var str = new Array(10 + 1).join( "|" );
+		document.getElementById('data').innerHTML += str;
+
+
+	};
+
+</script>
+
+
+
+
+[LL_REPTAG_&ID SETVAR:filename /]
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Product Type':DISPLAY /]" == "VISA EURO PLATINUM" && "[LL_REPTAG_&ID CAT:'Card':'Card Type':DISPLAY /]" == "CREDIT" /]
+
+	[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+	[LL_REPTAG_'_carrier-bientrouve_' CONCATVAR:filename /]
+	[LL_REPTAG_&ID CONCATVAR:filename /]
+
+[LL_WEBREPORT_ENDIF /]
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Product Type':DISPLAY /]" == "VISA INFINITE" && "[LL_REPTAG_&ID CAT:'Card':'Card Type':DISPLAY /]" == "CREDIT" /]
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Card State':DISPLAY /]" == "NEW" /]
+		[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+		[LL_REPTAG_'_welcome-inf_' CONCATVAR:filename /]
+		[LL_REPTAG_&ID CONCATVAR:filename /]
+	[LL_WEBREPORT_ENDIF /]
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Card State':DISPLAY /]" == "RENEWED" /]
+		[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+		[LL_REPTAG_'_infinite_' CONCATVAR:filename /]
+		[LL_REPTAG_&ID CONCATVAR:filename /]
+	[LL_WEBREPORT_ENDIF /]
+	
+[LL_WEBREPORT_ENDIF /]
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Product Type':DISPLAY /]" == "VISA BLACK INFINITE" && "[LL_REPTAG_&ID CAT:'Card':'Card Type':DISPLAY /]" == "CREDIT" /]
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Card State':DISPLAY /]" == "NEW" /]
+		[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+		[LL_REPTAG_'_welcome-black_' CONCATVAR:filename /]
+		[LL_REPTAG_&ID CONCATVAR:filename /]
+	[LL_WEBREPORT_ENDIF /]
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Card State':DISPLAY /]" == "RENEWED" /]
+		[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+		[LL_REPTAG_'_black_' CONCATVAR:filename /]
+		[LL_REPTAG_&ID CONCATVAR:filename /]
+	[LL_WEBREPORT_ENDIF /]
+	
+[LL_WEBREPORT_ENDIF /]
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Product Type':DISPLAY /]" == "MC STANDARD ZAF" && "[LL_REPTAG_&ID CAT:'Card':'Card Type':DISPLAY /]" == "CREDIT" /]
+
+	[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+	[LL_REPTAG_'_carrier-bientrouve_' CONCATVAR:filename /]
+	[LL_REPTAG_&ID CONCATVAR:filename /]
+
+[LL_WEBREPORT_ENDIF /]
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&ID CAT:'Card':'Product Type':DISPLAY /]" == "MC NET SHOPPER" && "[LL_REPTAG_&ID CAT:'Card':'Card Type':DISPLAY /]" == "CREDIT" /]
+
+	[LL_REPTAG_&ID CAT:'Card':'Issuing Date':DISPLAY DATE:"%Y%m%d" SETVAR:filename /]
+	[LL_REPTAG_'_net-shopper_' CONCATVAR:filename /]
+	[LL_REPTAG_&ID CONCATVAR:filename /]
+
+[LL_WEBREPORT_ENDIF /]
+
+
+
+
