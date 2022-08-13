@@ -4,20 +4,20 @@
 <style>
 
 .binf-widgets .custLoader{
-    margin-left: 50%;
-    margin-top: 20%;
-    position: absolute;
-    border: 12px solid #dbf1fe;
-    border-left: 12px solid #0072aa;
-    transform: translateZ(0);
-    -webkit-animation: load8 1s infinite linear;
-    animation: load8 1s infinite linear;
-    width: 67px;
-    height: 67px;
-    z-index: 11111;
+	margin-left: 50%;
+	margin-top: 20%;
+	position: absolute;
+	border: 12px solid #dbf1fe;
+	border-left: 12px solid #0072aa;
+	transform: translateZ(0);
+	-webkit-animation: load8 1s infinite linear;
+	animation: load8 1s infinite linear;
+	width: 67px;
+	height: 67px;
+	z-index: 11111;
 }
 div.inner-border, div.custLoader {
-    border-radius: 100%;
+	border-radius: 100%;
 } 
 
 .binf-widgets .webreports-tilereport-sample2 {
@@ -31,38 +31,38 @@ div.inner-border, div.custLoader {
 	font-size: x-large;
 }
 .binf-widgets .custBtn {
-    bottom: 4px;
-    right: 23px;
-    border-radius: 16px;
-    height: 32px;
-    line-height: 12px;
-    padding: 0 24px;
-    color: #fff;
-    min-width: 80px;
-    border: 0;
-    }
-    .binf-widgets select {
-        height: calc(1.90rem );
-        font-size: 12px;"
-    }
-    .binf-widgets input {
-        height: calc(1.90rem );
-        font-size: 12px;"
-    }
-    .binf-widgets label {
-        font-size: small;
-    }
+	bottom: 4px;
+	right: 23px;
+	border-radius: 16px;
+	height: 32px;
+	line-height: 12px;
+	padding: 0 24px;
+	color: #fff;
+	min-width: 80px;
+	border: 0;
+	}
+	.binf-widgets select {
+		height: calc(1.90rem );
+		font-size: 12px;
+	}
+	.binf-widgets input {
+		height: calc(1.90rem );
+		font-size: 12px;
+	}
+	.binf-widgets label {
+		font-size: small;
+	}
 </style>
 
-    <div class="shadow p-4 rounded  js-active container-fluid">
-        <div class="row" style="margin-top: -16px;">
-            <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                <div class="col-sm-8 col-lg-8 col-md-8 col-xs-8">
-                    <label class="binf-control-label alpaca-control-label">Reference No</label>
-                     <input type="text" class="valueEditable  form-control"  name="ref" placeholder="Reference No" id="ref" required/>
-                     <script>
-					 
-					 var username="admin";
+	<div class="shadow p-4 rounded  js-active container-fluid">
+		<div class="row" style="margin-top: -16px;">
+			<div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+				<div class="col-sm-8 col-lg-8 col-md-8 col-xs-8">
+					<label class="binf-control-label alpaca-control-label">Reference No</label>
+						<input type="text" class="valueEditable  form-control"  name="ref" placeholder="Reference No" id="ref" required/>
+						<script>
+						
+						var username="admin";
 					var password="P@ssw0rd";
 					var ticket = "";
 					
@@ -70,8 +70,8 @@ div.inner-border, div.custLoader {
 					
 					var form = new FormData();
 					
-				    
-                              
+					
+								
 					form.append("username", username);
 					form.append("password", password);
 					
@@ -97,16 +97,16 @@ div.inner-border, div.custLoader {
 											
 										
 											return fetch("[LL_REPTAG_URLPREFIXFULL /]/api/v2/nodes/"+element.id+"/categories/[LL_REPTAG_$CatCard /]", {
-											  method: "PUT", // *GET, POST, PUT, DELETE, etc.
-											  mode: "cors", // no-cors, *cors, same-origin
-											  cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-											  credentials: "same-origin", // include, *same-origin, omit
-											  headers: {
+												method: "PUT", // *GET, POST, PUT, DELETE, etc.
+												mode: "cors", // no-cors, *cors, same-origin
+												cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+												credentials: "same-origin", // include, *same-origin, omit
+												headers: {
 												OTCSTicket: ticket,
-											  },
-											  redirect: "follow", // manual, *follow, error
-											  referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-											  body: formData // body data type must match "Content-Type" header
+												},
+												redirect: "follow", // manual, *follow, error
+												referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+												body: formData // body data type must match "Content-Type" header
 											})
 										
 										}
@@ -119,13 +119,13 @@ div.inner-border, div.custLoader {
 										await Promise.all(requests)
 
 										.then(function (responses) {
-										  // Get a JSON object from each of the responses
-										  return Promise.all(
+											// Get a JSON object from each of the responses
+											return Promise.all(
 											responses.map(function (re) {
 												console.log(re);
-											  return re;
+												return re;
 											})
-										  );
+											);
 										})
 										.then(function(data){
 											console.log(data);
@@ -135,8 +135,8 @@ div.inner-border, div.custLoader {
 										})
 
 										.catch(function (error) {
-										  // if there's an error, log it
-										  console.log(error);
+											// if there's an error, log it
+											console.log(error);
 										});
 	
 									let requests2 = objRetrieved.map((element) => {
@@ -149,16 +149,16 @@ div.inner-border, div.custLoader {
 										
 										
 											return fetch("[LL_REPTAG_URLPREFIXFULL /]/api/v2/nodes/"+element.id+"/categories/[LL_REPTAG_$CatPIN /]", {
-											  method: "PUT", // *GET, POST, PUT, DELETE, etc.
-											  mode: "cors", // no-cors, *cors, same-origin
-											  cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-											  credentials: "same-origin", // include, *same-origin, omit
-											  headers: {
+												method: "PUT", // *GET, POST, PUT, DELETE, etc.
+												mode: "cors", // no-cors, *cors, same-origin
+												cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+												credentials: "same-origin", // include, *same-origin, omit
+												headers: {
 												OTCSTicket: ticket,
-											  },
-											  redirect: "follow", // manual, *follow, error
-											  referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-											  body: formData // body data type must match "Content-Type" header
+												},
+												redirect: "follow", // manual, *follow, error
+												referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+												body: formData // body data type must match "Content-Type" header
 											})
 										
 										}
@@ -170,13 +170,13 @@ div.inner-border, div.custLoader {
 										await Promise.all(requests2)
 
 										.then(function (responses) {
-										  // Get a JSON object from each of the responses
-										  return Promise.all(
+											// Get a JSON object from each of the responses
+											return Promise.all(
 											responses.map(function (re) {
 												console.log(re);
-											  return re;
+												return re;
 											})
-										  );
+											);
 										})
 										.then(function(data){
 											console.log(data);
@@ -186,13 +186,13 @@ div.inner-border, div.custLoader {
 										})
 
 										.catch(function (error) {
-										  // if there's an error, log it
-										  console.log(error);
+											// if there's an error, log it
+											console.log(error);
 										});
 		
 					}
 								
-                        csui.require(['csui/lib/jquery'], function ($) {
+						csui.require(['csui/lib/jquery'], function ($) {
 
 								function ajaxForUpdatingCardPermission(ID,role,groupid){
 								
@@ -214,7 +214,7 @@ div.inner-border, div.custLoader {
 													
 												}
 											});
-					  
+						
 								}
 
 								function onClickDeliveryStatusHandler(statusName){
@@ -230,7 +230,7 @@ div.inner-border, div.custLoader {
 										var cID_arr = cID.split('-');
 
 										if(cID_arr[0] == 'Card'){ 
-											 
+												
 											objToPush = {
 												id: cID_arr[1],
 												type: 'Card',
@@ -334,10 +334,9 @@ div.inner-border, div.custLoader {
 										contentType: false,
 										data: form,
 										dataType:"json",
-										   
+											
 										success: function(data) { 
 											ticket= data.ticket;
-                                            console.log(ticket);
 											
 											//console.log(ticket);
 										},
@@ -349,7 +348,7 @@ div.inner-border, div.custLoader {
 							
 							
 							var i=1;
-                            $('#ref').keypress(function(e){
+							$('#ref').keypress(function(e){
 								
 							
 								if(e.which == 13) {
@@ -386,8 +385,8 @@ div.inner-border, div.custLoader {
 													if(requestingBranch == undefined){
 														requestingBranch="";
 													}
-													 
-													 
+														
+														
 													var found=false;
 													
 													$("tr.CItem").each(function() {
@@ -411,7 +410,7 @@ div.inner-border, div.custLoader {
 														counter++;
 														markup='<tr id="'+counter+'" class="CItem"><td>'+Reference+'</td><td>'+CardNumber+'</td><td>'+CardholderName+'</td><td>'+Type+'</td><td>'+AccountNumber+'</td><td>'+requestingBranch+'</td><td><input type="text" class="valueEditable form-control" value="'+DeliveryStatus+'" name="'+data.myRows[0].ID+'" id="Card-'+data.myRows[0].ID+'" readonly /></td><td><button type=\"button\" onclick="deleteRow('+counter+');" class=\"binf-btn binf-btn-danger\">Delete</button></td></tr>';
 													} 
-													 
+														
 													
 													$("#tdata").append(markup);
 											}
@@ -483,10 +482,10 @@ div.inner-border, div.custLoader {
 									$('#ref').val('');	
 								}
 	
-                            });
+							});
 							
 							
-							 $('#ReceivedByCards').on('click',function(){		
+								$('#ReceivedByCards').on('click',function(){		
 									$('#LoadingImagePO').show();    
 									
 									$("tr.CItem").each(function() {
@@ -498,21 +497,21 @@ div.inner-border, div.custLoader {
 	
 									onClickDeliveryStatusHandler('Received By Cards Department');
 		
-                            });
+							});
 							
 
 							$('#SendToBranch').on('click',function(){		
 									$('#LoadingImagePO').show();  				
 									onClickDeliveryStatusHandler('Sent to Branch');
 
-                            });
+							});
 							
 	
 							$('#SendToDeliveryUnit').on('click',function(){
 									$('#LoadingImagePO').show();        
 									onClickDeliveryStatusHandler('Sent to Delivery Unit');
 	
-                            });
+							});
 							
 	
 							$('#SendToPrivateBanking').on('click',function(){    
@@ -520,7 +519,7 @@ div.inner-border, div.custLoader {
 								
 									onClickDeliveryStatusHandler('Sent to Private Banking');
 	
-                            });
+							});
 							
 
 							$('#ReceivedByBranch').on('click',function(){             
@@ -535,7 +534,7 @@ div.inner-border, div.custLoader {
 
 									onClickDeliveryStatusHandler('Received By Branch');
 						
-                            });
+							});
 
 							$('#ReceivedByDeliveryUnit').on('click',function(){      		
 									$('#LoadingImagePO').show();
@@ -548,11 +547,11 @@ div.inner-border, div.custLoader {
 									});
 	
 									onClickDeliveryStatusHandler('Received By Delivery Unit');		
-                            });
+							});
 				
 							
 							$('#ReceivedByPrivateBanking').on('click',function(){
-                                
+								
 									$('#LoadingImagePO').show();
 									
 									$("tr.CItem").each(function() {
@@ -565,10 +564,10 @@ div.inner-border, div.custLoader {
 									onClickDeliveryStatusHandler('Received By Private Banking');
 								
 								
-                            });
+							});
 			
 							function delivered(){
-                                
+								
 								$('#LoadingImagePO').show();
 								
 									$("tr.CItem").each(function() {
@@ -595,14 +594,14 @@ div.inner-border, div.custLoader {
 										});	
 										
 									onClickDeliveryStatusHandler('Delivered To Customer');	
-                            };
-							        
-                        });
-                    </script>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6" style="text-align: end;padding-top: 16px;">
-                <div>
+							};
+									
+						});
+					</script>
+				</div>
+			</div>
+			<div class="col-sm-6 col-lg-6 col-md-6 col-xs-6" style="text-align: end;padding-top: 16px;">
+				<div>
 				[// Cards
 				[LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_$CardsGroup /]' USERINGROUP /]" == "TRUE" /]
 					<button type="button" class="binf-btn binf-btn-primary custBtn" id="ReceivedByCards">Collect</button>
@@ -631,7 +630,7 @@ div.inner-border, div.custLoader {
 					<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn10">Cancelled</button>
 					<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn11" onclick="delivered();">Delivered</button>
 					<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn12">Transfered</button>
-								  						
+															
 				[LL_WEBREPORT_ENDIF /]
 
 
@@ -641,7 +640,7 @@ div.inner-border, div.custLoader {
 					<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn13">Cancelled</button>
 					<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn14" onclick="delivered();">Delivered</button>
 					<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn15">Transfered</button>
-								  						
+															
 				[LL_WEBREPORT_ENDIF /] 
 				
 				
@@ -649,17 +648,17 @@ div.inner-border, div.custLoader {
 				
 			
 				
-                  
-                </div>
-            </div>
-        </div>
-    </div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 <div class="webreports-tilereport-sample2">
 	<div class="binf-table-responsive">
-	  <table class="binf-table binf-table-bordered binf-table-hover myTable" id="myTable" style="table-layout: fixed;word-wrap: break-word;">
-	   <tr class="binf-active">
+		<table class="binf-table binf-table-bordered binf-table-hover myTable" id="myTable" style="table-layout: fixed;word-wrap: break-word;">
+		<tr class="binf-active">
 	
 			<th>Reference Number</th>
 			<th>Card Number</th>
@@ -692,4 +691,4 @@ div.inner-border, div.custLoader {
 
 
 
-                             
+								
