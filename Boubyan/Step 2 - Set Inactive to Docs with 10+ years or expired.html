@@ -1,0 +1,45 @@
+[/* Title: Blank Reportview */]
+ 
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+ 
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID</th>
+      <th scope="col">Category</th>
+      <th scope="col">Document Type</th>
+      <th scope="col">Date on Document</th>
+      <th scope="col">Expiry</th>
+      <th scope="col">Status</th>
+      <th scope="col">Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+
+ 
+
+<script>
+    let counterDoc = 1;
+</script>
+ 
+[LL_WEBREPORT_STARTROW /]
+ 
+
+[LL_WEBREPORT_IF '[LL_REPTAG_1 CAT:"Corporate":"Status":DISPLAY /]' == 'Active' /]
+ 
+   
+
+
+        [LL_WEBREPORT_SUBWEBREPORT NODEID:[LL_REPTAG_$conditionsBreak /] PARM:inputlabel1:[LL_REPTAG_1 /] /]
+ 
+    
+[LL_WEBREPORT_ENDIF /]
+ 
+ 
+
+[LL_WEBREPORT_ENDROW /]
+ 
+ </tbody>
+</table>

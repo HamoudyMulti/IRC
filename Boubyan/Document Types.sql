@@ -1,0 +1,1 @@
+SELECT * FROM CorporateDocumentType WHERE VersionNum = 0

@@ -1,0 +1,86 @@
+[LL_REPTAG_'False' SETVAR:'bool' /]
+ 
+
+[LL_WEBREPORT_STARTROW /]
+ 
+ 
+[LL_WEBREPORT_IF '[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Document Type":DISPLAY /]' == "[LL_REPTAG='Document_Type' /]" /]
+ 
+   [LL_REPTAG_'True' SETVAR:'bool' /]
+
+[LL_WEBREPORT_ENDIF /]
+ 
+
+[LL_WEBREPORT_ENDROW /]
+ 
+
+[LL_REPTAG_'False' SETVAR:firstIfInactive /]
+ 
+    [LL_WEBREPORT_IF '[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Expiry":DISPLAY /]' <= '[LL_REPTAG_DATE /]' && '[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Expiry":DISPLAY /]' != '' /]
+
+        [LL_WEBREPORT_IF '[LL_REPTAG_%bool CURRENTVAL /]' == "False" /]
+ 
+
+            [LL_REPTAG_&inputlabel1 CATACTION:SETVALUE:"Corporate":"Status":"Inactive" /]
+
+            <tr>
+             <th scope="row">
+             <script>
+                 document.write(counterDoc);
+                 counterDoc++;
+             </script>
+             </th>
+             <td>[LL_REPTAG_&inputlabel1 /]</td>
+              <td>[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Category":DISPLAY /]</td>
+              <td>[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Document Type":DISPLAY /]</td>
+              <td>[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Date on Document":DISPLAY /]</td>
+             <td>[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Expiry":DISPLAY /]</td>
+             <td>[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Status":DISPLAY /]</td>
+             <td>Expired</td>
+ 
+            </tr>
+
+
+           [LL_REPTAG_'True' SETVAR:firstIfInactive /]
+
+
+        [LL_WEBREPORT_ENDIF /]
+
+    [LL_WEBREPORT_ENDIF /]
+ 
+
+    [LL_WEBREPORT_IF '[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Date on Document":DISPLAY /]' <= '[LL_REPTAG_DATE DATEDEC:3652:DAYS /]' && '[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Date on Document":DISPLAY /]' != '' && '[LL_REPTAG_%firstIfInactive CURRENTVAL /]' != 'True' /]
+
+
+        [LL_WEBREPORT_IF '[LL_REPTAG_%bool CURRENTVAL /]' == "False" /]
+ 
+           [LL_REPTAG_&inputlabel1 CATACTION:SETVALUE:"Corporate":"Status":"Inactive" /]
+
+             <tr>
+             <th scope="row">
+                 <script>
+                     document.write(counterDoc);
+                     counterDoc++;
+                 </script>
+             </th>
+             <td>[LL_REPTAG_&inputlabel1 /]</td>
+              <td>[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Category":DISPLAY /]</td>
+              <td>[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Document Type":DISPLAY /]</td>
+              <td>[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Date on Document":DISPLAY /]</td>
+             <td>[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Expiry":DISPLAY /]</td>
+             <td>[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Status":DISPLAY /]</td>
+             <td>10+ years</td>
+ 
+            </tr>
+
+
+
+
+
+            [LL_WEBREPORT_ENDIF /]
+
+
+
+
+
+    [LL_WEBREPORT_ENDIF /]
