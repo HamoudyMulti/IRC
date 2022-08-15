@@ -22,9 +22,7 @@
 
  
 
-<script>
-    let counterDoc = 1;
-</script>
+[LL_REPTAG_'1' SETVAR:counterDoc /]
  
 
 [LL_WEBREPORT_STARTROW /]
@@ -33,12 +31,10 @@
 [LL_REPTAG_1 CATACTION:SETVALUE:"Corporate":"Expiry":"" /]
  
 <tr>
-             <th scope="row">
-             <script>
-                 document.write(counterDoc);
-                 counterDoc++;
-             </script>
-             </th>
+              <th scope="row">[LL_REPTAG_%counterDoc CURRENTVAL /]
+              </th>
+              [LL_REPTAG_%counterDoc CURRENTVAL ADD:1 SETVAR:counterDoc /]
+
              <td>[LL_REPTAG_1 /]</td>
               <td>[LL_REPTAG_1 CAT:"Corporate":"Category":DISPLAY /]</td>
               <td>[LL_REPTAG_1 CAT:"Corporate":"Document Type":DISPLAY /]</td>

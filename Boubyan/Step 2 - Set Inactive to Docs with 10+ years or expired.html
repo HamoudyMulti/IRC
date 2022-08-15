@@ -20,9 +20,7 @@
 
  
 
-<script>
-    let counterDoc = 1;
-</script>
+[LL_REPTAG_'1' SETVAR:counterDoc /]
  
 [LL_WEBREPORT_STARTROW /]
  
@@ -33,18 +31,11 @@
       [LL_REPTAG_'False' SETVAR:'bool' /]
       
 
-      [LL_WEBREPORT_STARTROW /]
-      
-      
-            [LL_WEBREPORT_IF '[LL_REPTAG_1 CAT:"Corporate":"Document Type":DISPLAY /]' == "[LL_REPTAG='Document_Type' /]" /]
-            
-              [LL_REPTAG_'True' SETVAR:'bool' /]
+    [LL_WEBREPORT_FOR VAR:p DATA:[LL_REPTAG_'[LL_REPTAG_&inputlabel1 CAT:"Corporate":"Document Type":DISPLAY /]' WFDBLOOKUP:954531:Name /] /]
+          [LL_REPTAG_'True' SETVAR:'bool' /]
+    [LL_WEBREPORT_ENDFOR /]
 
-            [LL_WEBREPORT_ENDIF /]
-      
 
-      [LL_WEBREPORT_ENDROW /]
-      
 
       [LL_REPTAG_'False' SETVAR:firstIfInactive /]
       
@@ -56,12 +47,10 @@
                   [LL_REPTAG_1 CATACTION:SETVALUE:"Corporate":"Status":"Inactive" /]
 
                   <tr>
-                  <th scope="row">
-                  <script>
-                      document.write(counterDoc);
-                      counterDoc++;
-                  </script>
+                  <th scope="row">[LL_REPTAG_%counterDoc CURRENTVAL /]
                   </th>
+                  [LL_REPTAG_%counterDoc CURRENTVAL ADD:1 SETVAR:counterDoc /]
+
                   <td>[LL_REPTAG_1 /]</td>
                     <td>[LL_REPTAG_1 CAT:"Corporate":"Category":DISPLAY /]</td>
                     <td>[LL_REPTAG_1 CAT:"Corporate":"Document Type":DISPLAY /]</td>
@@ -89,12 +78,11 @@
                 [LL_REPTAG_1 CATACTION:SETVALUE:"Corporate":"Status":"Inactive" /]
 
                   <tr>
-                  <th scope="row">
-                      <script>
-                          document.write(counterDoc);
-                          counterDoc++;
-                      </script>
+                  <th scope="row">[LL_REPTAG_%counterDoc CURRENTVAL /]
                   </th>
+                  [LL_REPTAG_%counterDoc CURRENTVAL ADD:1 SETVAR:counterDoc /]
+
+                  
                   <td>[LL_REPTAG_1 /]</td>
                     <td>[LL_REPTAG_1 CAT:"Corporate":"Category":DISPLAY /]</td>
                     <td>[LL_REPTAG_1 CAT:"Corporate":"Document Type":DISPLAY /]</td>
