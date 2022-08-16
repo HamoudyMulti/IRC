@@ -1,0 +1,476 @@
+
+
+
+<Link rel='stylesheet' href="[LL_REPTAG_LIBPATH /]bootstrap.css">
+    <link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.css">
+    <script src="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.js"></script>
+    <script src="http://[LL_REPTAG_URLDOMAIN /]/img/webreports/library/bundle.min.js"></script>
+  
+  <style>
+  
+  
+  
+  .binf-widgets .webreports-tilereport-sample2 {
+      padding: 1em;
+  }
+  .binf-widgets .webreports-tilereport-sample2 th{
+      font-weight: bold;
+  }
+  .binf-widgets .webreports-tilereport-sample2 h1{
+      font-weight: bold;
+      font-size: x-large;
+  }
+  .binf-widgets .custBtn {
+         
+      bottom: 4px;
+      right: 23px;
+      border-radius: 16px;
+      height: 32px;
+      line-height: 12px;
+      padding: 0 24px;
+      color: #fff;
+      min-width: 80px;
+      border: 0;
+      }
+      .binf-widgets select {
+          height: calc(1.90rem );
+          font-size: 12px;
+          border-radius: 12px;
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+      }
+      .binf-widgets input {
+          height: calc(1.90rem );
+          font-size: 12px;
+          border-radius: 12px;
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+      }
+      .binf-widgets label {
+          font-size: small;
+      }
+      .binf-widgets #Fields{
+          padding-top:10px;
+      }
+      .binf-widgets form{
+          height: 100%;
+      }
+      .binf-widgets #LoadingImage{
+      text-align: center;
+      margin-top: auto;
+      margin-bottom: auto;
+      display: none;
+      }
+      .MListIncoming :hover{
+          background-color: #bac9ce;
+      }
+      table#MergePTable {
+          width:100%;
+          font-size: small;
+      }
+  </style>
+  <style>
+       
+          .binf-widgets .close-icon:after {
+              content: "ⓧ";
+          }
+        .binf-widgets .select-wrapper {
+          margin: auto;
+          max-width: 600px;
+          width: calc(100% - 40px);
+        }
+  
+       .binf-widgets .select-pure__select {
+          align-items: center;
+          
+          border-radius: 4px;
+          border: 1px solid rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+          box-sizing: border-box;
+          
+          cursor: pointer;
+          display: flex;
+          font-size: 12px;
+          font-weight: 500;
+          justify-content: left;
+          min-height: 44px;
+          padding: 5px 10px;
+          position: relative;
+          transition: 0.2s;
+          width: 100%;
+        }
+  
+       .binf-widgets .select-pure__options {
+          border-radius: 4px;
+          border: 1px solid rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+          box-sizing: border-box;
+          color: #363b3e;
+          display: none;
+          left: 0;
+          max-height: 221px;
+          overflow-y: scroll;
+          position: absolute;
+          top: 50px;
+          width: 100%;
+          z-index: 5;
+        }
+  
+       .binf-widgets .select-pure__select--opened .select-pure__options {
+          display: block;
+        }
+  
+       .binf-widgets .select-pure__option {
+          background: #fff;
+          border-bottom: 1px solid #e4e4e4;
+          box-sizing: border-box;
+          height: auto;
+          
+          padding: 10px;
+        }
+  
+       .binf-widgets .select-pure__option--disabled {
+          color: #e4e4e4;
+        }
+  
+       .binf-widgets .select-pure__option--selected {
+          color: #e4e4e4;
+          cursor: initial;
+          pointer-events: none;
+        }
+  
+       .binf-widgets .select-pure__option--hidden {
+          display: none;
+        }
+  
+       .binf-widgets .select-pure__selected-label {
+          align-items: 'center';
+          background: #2c5e7d;
+          border-radius: 4px;
+          color: #fff;
+          cursor: initial;
+          display: inline-flex;
+          justify-content: 'center';
+          margin: 5px 10px 5px 0;
+          padding: 3px 7px;
+        }
+  
+       .binf-widgets .select-pure__selected-label:last-of-type {
+          margin-right: 0;
+        }
+  
+       .binf-widgets .select-pure__selected-label i {
+          cursor: pointer;
+          display: inline-block;
+          margin-left: 7px;
+        }
+  
+      .binf-widgets  .select-pure__selected-label img {
+          cursor: pointer;
+          display: inline-block;
+          height: 18px;
+          margin-left: 7px;
+          width: 14px;
+        }
+  
+      .binf-widgets  .select-pure__selected-label i:hover {
+          color: #e4e4e4;
+        }
+  
+       .binf-widgets .select-pure__autocomplete {
+          background: #f9f9f8;
+          border-bottom: 1px solid #e4e4e4;
+          border-left: none;
+          border-right: none;
+          border-top: none;
+          box-sizing: border-box;
+          font-size: 12px;
+          outline: none;
+          padding: 10px;
+          width: 100%;
+        }
+  
+       .binf-widgets .select-pure__placeholder--hidden {
+          display: none;
+        }
+        .binf-widgets .select-pure__placeholder:befor{
+            content:"hhhh";
+        }
+      </style>
+  
+  <script>
+  var cFromList = [];
+      csui.require(['csui/lib/jquery'], function ($) {
+                
+         
+  
+         $("form").on("submit", function(event) {
+              event.preventDefault();
+             
+              
+              var RNumber =$( "#RNumber" ).val();
+              var CNumber =$( "#CNumber" ).val();
+              var DStatus =$( "#DStatus" ).val();
+              var CType =$( "#CType" ).val();
+              var CState =$( "#CState" ).val();
+              var CActivated =$( "#CActivated" ).val();
+              
+              
+              
+              var fdate=$("#FDate").val();
+              var tdate=$("#TDate").val();
+              
+              if( fdate=="" && tdate=="" ){
+                  fdate='01/01/1980';
+                  tdate='01/01/2100';
+                  
+              }
+              
+               if( fdate=="" && tdate!="" ){
+                  fdate='01/01/1980';
+                  
+                  
+              }
+              
+              if( fdate!="" && tdate=="" ){
+                  tdate='01/01/2100';
+                  
+                  
+              }
+  
+              
+                   var TileReportConfig = {};
+                   TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+                   TileReportConfig.wrID = '[LL_REPTAG_$CSubReport /]'; //(The web report ID)
+                   TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]'; 
+                   //console.log("url : "+TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport&CFrom="+cfrom+"&CStatus="+cstatus+"&FDate="+fdate+"&TDate="+tdate);
+                      $.ajax({
+                           url:TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport&RNumber="+RNumber+"&CNumber="+CNumber+"&DStatus="+DStatus+"&CType="+CType+"&CState="+CState+"&CActivated="+CActivated+"&fdate="+fdate+"&tdate="+tdate,
+                          type: "GET",
+                          beforeSend: function(xhr){
+                              xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+                              //$("#btnSearch").prop('disabled', true);
+                          },   
+                          success: function(data) { 
+                              console.log("data was sent!");
+                               $('#Notify').html(data);
+  
+                           },
+                            error: function(){
+                              //$("#btnSearch").prop('disabled', false);
+                              alert('failure');
+                            }
+                      }); 
+                  
+          });
+      });
+      
+      function makedropdown(){
+        
+                            var autocomplete2 = new SelectPure(".Responsible-select", {
+                              options: cFromList,
+                              
+                              multiple: true,
+                              autocomplete: true,
+                              icon: "close-icon",
+                              onChange: value => { document.getElementById("cfrom").value = value },
+                              classNames: {
+                                select: "select-pure__select",
+                                dropdownShown: "select-pure__select--opened",
+                                multiselect: "select-pure__select--multiple",
+                                label: "select-pure__label",
+                                placeholder: "select-pure__placeholder",
+                                dropdown: "select-pure__options",
+                                option: "select-pure__option",
+                                autocompleteInput: "select-pure__autocomplete",
+                                selectedLabel: "select-pure__selected-label",
+                                selectedOption: "select-pure__option--selected",
+                               // placeholderHidden: "select-pure__placeholder--hidden",
+                                optionHidden: "select-pure__option--hidden",
+                              }
+                            });
+                          }
+   </script>   
+  
+  
+  
+  <div class="row" style="height:89vh">
+      <div class="col-4">
+          <form>
+      
+      
+     <div class="shadow p-4 rounded bg-white js-active container-fluid" style=" height: 100%;">
+          <div class="row" >
+             
+              <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label class="binf-control-label alpaca-control-label" style="font-size: small;">
+                          Reference Number
+                          </label>
+                      
+                      <input class="valueEditable  form-control" type="text" id="RNumber" >
+                      
+                      
+                       
+                  </div>
+              </div> 
+              
+           
+              
+              
+          </div>
+          
+          <div class="row"  id="Fields">
+              <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label class="binf-control-label alpaca-control-label">
+                          Card Number
+                          </label>
+                       <input class="valueEditable  form-control" type="text" id="CNumber" >
+                  </div>
+              </div> 
+          </div>
+          
+           <div class="row"  id="Fields">
+              <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label class="binf-control-label alpaca-control-label">
+                          Delivery Status
+                          </label>
+                       <select class="valueEditable  form-control" id="DStatus" data-live-search="true">
+                          <option value="">--SELECT--</option>
+                          <option value="Not Delivered">Not Delivered</option>
+                          <option value="Received By Cards Department">Received By Cards Department</option>
+                          <option value="Sent to Cards Department">Sent to Cards Department</option>
+                          <option value="Sent to Branch">Sent to Branch</option>
+                          <option value="Sent to Delivery Unit">Sent to Delivery Unit</option>
+                          <option value="Sent to Private Banking">Sent to Private Banking</option>
+                          <option value="Received By Branch">Received By Branch</option>
+                          <option value="Received By Delivery Unit">Received By Delivery Unit</option>
+                          <option value="Received By Private Banking">Received By Private Banking</option>
+                          <option value="Delivered To Customer">Delivered To Customer</option>
+                          <option value="Transferred To Branch">Transferred To Branch</option>
+                          <option value="To be Reviewed By Branch Manager">To be Reviewed By Branch Manager</option>
+                          <option value="To be Reviewed By Retention Party">To be Reviewed By Retention Party</option>
+                      
+                          <option value="Retained">Retained</option>
+                      </select>
+                  </div>
+              </div> 
+          </div>
+          
+           <div class="row"  id="Fields">
+              <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label class="binf-control-label alpaca-control-label">
+                          Card Type
+                          </label>
+                       <select class="valueEditable  form-control"  id="CType" data-live-search="true">
+                         
+                          <option value="">--SELECT--</option>
+                          <option value="NETSHOPPER">NETSHOPPER</option>
+                          <option value="DEBIT">DEBIT</option>
+                          <option value="CREDIT">CREDIT</option>
+                          <option value="PREPAID CARD">PREPAID CARD</option>
+                         
+                         
+  
+                      </select>
+                  </div>
+              </div> 
+          </div>
+          
+           <div class="row"  id="Fields">
+              <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label class="binf-control-label alpaca-control-label">
+                          Card State
+                          </label>
+                       <select class="valueEditable  form-control" id="CState" data-live-search="true">
+                          <option value="">--SELECT--</option>
+                           <option value="New">New</option>
+                           <option value="RENEWED">RENEWED</option> 
+                          
+                      </select>
+                  </div>
+              </div> 
+          </div>
+          
+          <div class="row"  id="Fields">
+              <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label class="binf-control-label alpaca-control-label">
+                          Card Activated
+                          </label>
+                       <select class="valueEditable  form-control" id="CActivated" data-live-search="true">
+                          <option value="">--SELECT--</option>
+                          <option value="ACTIVE">ACTIVE</option>
+                          <option value="NOT ACTIVE">NOT ACTIVE</option>
+                          
+                      </select>
+                  </div>
+              </div> 
+          </div>
+          
+          <div class="row"  id="Fields">
+              <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label class="binf-control-label alpaca-control-label">
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                          من تاريخ
+                          [LL_WEBREPORT_ELSE /]
+                          From Date
+                          [LL_WEBREPORT_ENDIF /]   
+                          </label>
+                       <input type="date" class="valueEditable  form-control" name="FDate" placeholder="From Date" id="FDate"/>
+                  </div>
+              </div> 
+          </div>
+          
+           <div class="row"  id="Fields">
+               <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label class="binf-control-label alpaca-control-label">
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                          إلى تاريخ
+                          [LL_WEBREPORT_ELSE /]
+                          To Date
+                          [LL_WEBREPORT_ENDIF /]
+                          </label>
+                       <input type="date" class="valueEditable  form-control" name="TDate" placeholder="To Date" id="TDate"/>
+                  </div>
+              </div> 
+               
+           </div>
+           
+           <div class="row" id="Fields">
+               <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                  <div style="padding-top:15px; text-align:center;">
+                      <button type="Submit" class="binf-btn binf-btn-primary custBtn" id="btnSearch" name="btnSearch">
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                          بحث
+                          [LL_WEBREPORT_ELSE /]
+                          Search
+                          [LL_WEBREPORT_ENDIF /]
+                          </button>
+                  </div>
+              </div> 
+           </div>
+          
+          
+            
+         
+     </div> 
+      
+      
+   
+  
+  </form>
+      </div>
+     
+      
+      <div class="col-8" id="Notify" style="padding-left:10px;">
+          
+      </div>
+      
+  </div>
+  
+  
