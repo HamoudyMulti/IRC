@@ -1,4 +1,4 @@
-<script SRC="lib/JsBarcode.all.min.js"></script>
+
 
 
 <!-- <script src="lib/jspdf.min.js"></script>
@@ -45,20 +45,34 @@ td{
             <tr>
               <td>544041******1851</td>
               <td>Not Delivered</td>
-              <td><img class="img"></img></td>
+              <td> <div id="qrcode1"></div>
+                <script type="text/javascript">
+                new QRCode(document.getElementById("qrcode1"), {
+                  text: "B41EAC7BB6FDE7B071CC7B821513DD2BB32C94FB5D4397D0",
+                  width: 300,
+                  height: 300,
+                });
+                </script></td>
             </tr>
             <tr>
               <td>544041******1851</td>
               <td>Not Delivered</td>
-              <td><img class="img"></img></td>
+              <td> <div id="qrcode2"></div>
+                <script type="text/javascript">
+                new QRCode(document.getElementById("qrcode2"), {
+                  text: "B41EAC7BB6FDE7B071CC7B821513DD2BB32C94FB5D4397D0",
+                  width: 300,
+                  height: 300,
+                });
+                </script></td>
             </tr>
             <tr>
               <td>544041******1851</td>
               <td>Not Delivered</td>
               <td>
-                <div id="qrcode"></div>
+                <div id="qrcode3"></div>
                 <script type="text/javascript">
-                new QRCode(document.getElementById("qrcode"), {
+                new QRCode(document.getElementById("qrcode3"), {
                   text: "55405F24A00D4AAFFB751E9B6116BCDD0A812ED4DF75BA44",
                   width: 300,
                   height: 300,
@@ -84,10 +98,6 @@ td{
 <script>
 
 
- JsBarcode(".img", "55405F24A00D4AAFFB751E9B6116BCDD0A812ED4DF75BA44",{
-  format: "CODE128",
-  displayValue: false
-});
  
  function generate() {
       var doc = new jsPDF();
@@ -95,31 +105,29 @@ td{
         doc.autoTable({
             html: '#my-table-cards',
             bodyStyles: {minCellHeight: 40},
+            tableWidth: 'auto',
             columnStyles: {
             0: {cellWidth: 20},
-            1: {cellWidth: 25},
-            2: {cellWidth: 350},
+            1: {cellWidth: 60},
+            2: {cellWidth: 30},
             // etc
             },
             styles: {fontSize: 6},
-            margin: { left: 0, top: 5 },
+            margin: { left: 50, right: 50, top: 5 },
             didDrawCell: function(data) {
               if (data.column.index === 2 && data.cell.section === 'body') {
                   var td = data.cell.raw;
                   var img = td.getElementsByTagName('img')[0];
                   var dim = data.cell.height - data.cell.padding('vertical');
                   var textPos = data.cell;
-                  doc.addImage(img.src, textPos.x,  textPos.y, 160, 30);
+                  doc.addImage(img.src, textPos.x,  textPos.y, 30, 30);
               }
             }
         });
 
             doc.save("table11.pdf");
-            console.log(doc.output('blob'));
             let blob = doc.output('blob');
 
-            console.log(blob);
-            console.log(document.getElementById("fileCheck").files[0]);
             
     }
 

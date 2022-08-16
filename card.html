@@ -1,5 +1,5 @@
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/JsBarcode.all.min.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 
@@ -351,30 +351,49 @@ const createCardsFromFile = async () => {
               let card_type_1 = reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_24"];
               
             
-              document.getElementById('cards_created').innerHTML += 
-              `
+              document.getElementById('cards_created').innerHTML += `
               <tr>
                 <td>${card_number}</td>
                 <td>Not Delivered</td>
-                <td><img id="img${i}"></img></td>
+                <td>
+                  <div id="qrcode${i}"></div>
+                </td>
               </tr>
               `;
 
+              setTimeout(function(){ 
+                new QRCode(document.getElementById(`qrcode${i}`), {
+                  text: `${card_uid}`,
+                  width: 300,
+                  height: 300,
+                });
+              
+              }, 300);
+
+              
               if(card_type_1 == "DEBIT"){
                 document.getElementById('cards_created').innerHTML += 
-              `
+                `
               <tr>
                 <td>PIN for ${card_number}</td>
                 <td>Not Delivered</td>
-                <td><img id="pin_img${i}"></img></td>
+                <td>
+                  <div id="qrcodePIN${i}"></div>
+                </td>
               </tr>
               `;
-              JsBarcode(`#pin_img${i}`, "PIN"+card_uid);
+
+              
+              setTimeout(function(){ 
+                new QRCode(document.getElementById(`qrcodePIN${i}`), {
+                  text: `PIN${card_uid}`,
+                  width: 300,
+                  height: 300,
+                });
+              }, 300);
+                  
               }
 
-
-
-              JsBarcode(`#img${i}`, card_uid);
               
           }
 
@@ -383,59 +402,65 @@ const createCardsFromFile = async () => {
 
       let doc = new jsPDF();
 
-      doc.autoTable({
-          html: '#my-table-cards',
-          bodyStyles: {minCellHeight: 40},
-          columnStyles: {
-            0: {cellWidth: 20},
-            1: {cellWidth: 25},
-            2: {cellWidth: 350},
-          // etc
-          },
-          styles: {fontSize: 6},
-          margin: { left: 0, top: 5 },
-          didDrawCell: function(data) {
-            if (data.column.index === 2 && data.cell.section === 'body') {
-                var td = data.cell.raw;
-                var img = td.getElementsByTagName('img')[0];
-                var dim = data.cell.height - data.cell.padding('vertical');
-                var textPos = data.cell;
-                doc.addImage(img.src, textPos.x,  textPos.y, 160, 30);
+      setTimeout(function(){ 
+               
+        doc.autoTable({
+            html: '#my-table-cards',
+            bodyStyles: {minCellHeight: 40},
+            columnStyles: {
+              0: {cellWidth: 20},
+              1: {cellWidth: 60},
+              2: {cellWidth: 30},
+            // etc
+            },
+            styles: {fontSize: 6},
+            margin: { left: 50, right: 50, top: 5 },
+            didDrawCell: function(data) {
+              if (data.column.index === 2 && data.cell.section === 'body') {
+                  var td = data.cell.raw;
+                  var img = td.getElementsByTagName('img')[0];
+                  var dim = data.cell.height - data.cell.padding('vertical');
+                  var textPos = data.cell;
+                  doc.addImage(img.src, textPos.x,  textPos.y, 30, 30);
+              }
             }
+          });
+          const formattedDate = formatDate(new Date());
+          const fileName = "New_Cards_"+formattedDate+".pdf";
+          let blob = doc.output('blob');
+          doc.save(fileName);
+              
+          document.getElementById("results").innerHTML += "<br >All New Cards Created!<br>";
+          document.getElementById("results").innerHTML += "<br >"+dataObjs.length+" New Cards Created!<br>";
+      
+      
+          url = "";
+      
+          document.getElementById("results").innerHTML += "<br >Sending Cards to print carrier ...<br>";
+      
+      
+      
+          if(CardsCreatedID.length == 0){
+            document.getElementById("results").innerHTML += "<br >No cards were sent to print carrier!<br>";
+          } else {
+      
+            sendToPrintCarrier(CardsCreatedID,dataObjs,expiryDates,issuanceDates);
+      
+            sendPDFtoCreatedCardsReportFiles(blob,fileName);
+    
           }
-      });
+
+        }, 4000);          
+
+
 
       
 
       
-      const formattedDate = formatDate(new Date());
-      const fileName = "New_Cards_"+formattedDate+".pdf";
-      let blob = doc.output('blob');
-      doc.save(fileName);
      
 
 
 
-    document.getElementById("results").innerHTML += "<br >All New Cards Created!<br>";
-    document.getElementById("results").innerHTML += "<br >"+dataObjs.length+" New Cards Created!<br>";
-
-
-    url = "";
-
-  	document.getElementById("results").innerHTML += "<br >Sending Cards to print carrier ...<br>";
-
-
-
-  	if(CardsCreatedID.length == 0){
-  		document.getElementById("results").innerHTML += "<br >No cards were sent to print carrier!<br>";
-  	} else {
-
-      sendToPrintCarrier(CardsCreatedID,dataObjs,expiryDates,issuanceDates);
-
-      sendPDFtoCreatedCardsReportFiles(blob,fileName);
-
-
-    }
   }
 }
 
