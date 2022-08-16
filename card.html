@@ -447,6 +447,8 @@ const createCardsFromFile = async () => {
             sendToPrintCarrier(CardsCreatedID,dataObjs,expiryDates,issuanceDates);
       
             sendPDFtoCreatedCardsReportFiles(blob,fileName);
+
+            addRecordInDB(CardsCreatedID,dataObjs);
     
           }
 
@@ -531,7 +533,15 @@ const sendToPrintCarrier = (CardsCreatedID,dataObjs,expiryDates,issuanceDates) =
         },
         redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      })
+      }).then(function(response) {
+        if(response.ok){
+          console.log("file sent to print carrier");
+        } else {
+          alert("File was not sent to print carrier, please contact administrator.");
+        }
+      }).catch(function(err) {
+          alert("File was not sent to print carrier, please contact administrator.");
+      });
       
     }
     
@@ -547,7 +557,16 @@ const sendToPrintCarrier = (CardsCreatedID,dataObjs,expiryDates,issuanceDates) =
         },
         redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      })
+      }).then(function(response) {
+        if(response.ok){
+          console.log("file sent to print carrier");
+        } else {
+          alert("File was not sent to print carrier, please contact administrator.");
+        }
+      }).catch(function(err) {
+          alert("File was not sent to print carrier, please contact administrator.");
+      });
+
     }
   
   
@@ -779,9 +798,55 @@ const sendPDFtoCreatedCardsReportFiles = (blob,fileName) => {
         redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: formData,
-    })
+    }).then(function(response) {
+        if(response.ok){
+          console.log("PDF uploaded to content server");
+        } else {
+          alert("PDF file was not uploaded to content server, please contact administrator.");
+        }
+      }).catch(function(err) {
+        alert("PDF file was not uploaded to content server, please contact administrator.");
+    });
 
 };
+
+const addRecordInDB = (CardsCreatedID,dataObjs) => {
+  let requests = CardsCreatedID.map((id,i) => {
+  
+    let reqBody = JSON.parse(dataObjs[i].get('body'));
+    
+    let reference_number= reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_49"];
+    let status = "Not Delivered";
+    let performer = '[LL_REPTAG_ACTUALUSERID /]';
+
+    let url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$InsertCardsTrackingRecord /]/output?";
+    let encode_url = `inputlabel1=${encodeURIComponent(performer)}&inputlabel2=${encodeURIComponent(reference_number)}&inputlabel3=&inputlabel4=${encodeURIComponent(status)}`;
+    let full_url = url+encode_url;
+
+    return fetch(full_url, {
+        method: "GET", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+          OTCSTicket: "[LL_REPTAG_OTCSTICKET /]",
+        },
+        redirect: "follow", // manual, *follow, error
+        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    }).then(function(response) {
+        if(response.ok){
+          console.log("ok");
+        } else {
+          alert("Data was not added to the database, please contact administrator.");
+          throw new Error(err);
+        }
+      }).catch(function(err) {
+        alert("Data was not added to the database, please contact administrator.");
+        throw new Error(err);
+    });
+
+  });
+}
 
 
 
