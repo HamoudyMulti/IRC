@@ -206,12 +206,12 @@
               event.preventDefault();
              
               
+              var Performer =$( "#Performer" ).val();
               var RNumber =$( "#RNumber" ).val();
-              var CNumber =$( "#CNumber" ).val();
-              var DStatus =$( "#DStatus" ).val();
-              var CType =$( "#CType" ).val();
-              var CState =$( "#CState" ).val();
-              var CActivated =$( "#CActivated" ).val();
+              
+              
+              var From_DStatus =$( "#From_DStatus" ).val();
+              var To_DStatus =$( "#To_DStatus" ).val();
               
               
               
@@ -243,7 +243,7 @@
                    TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]'; 
                    //console.log("url : "+TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport&CFrom="+cfrom+"&CStatus="+cstatus+"&FDate="+fdate+"&TDate="+tdate);
                       $.ajax({
-                           url:TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport&RNumber="+RNumber+"&CNumber="+CNumber+"&DStatus="+DStatus+"&CType="+CType+"&CState="+CState+"&CActivated="+CActivated+"&fdate="+fdate+"&tdate="+tdate,
+                           url:TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport&RNumber="+RNumber+"&Performer="+Performer+"&From_DStatus="+From_DStatus+"&To_DStatus="+To_DStatus+"&fdate="+fdate+"&tdate="+tdate,
                           type: "GET",
                           beforeSend: function(xhr){
                               xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
@@ -299,6 +299,16 @@
       
      <div class="shadow p-4 rounded bg-white js-active container-fluid" style=" height: 100%;">
           <div class="row" >
+              <div class="row"  id="Fields">
+                  <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
+                      <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                          <label class="binf-control-label alpaca-control-label">
+                              Performer
+                              </label>
+                           <input class="valueEditable  form-control" type="text" id="Performer" >
+                      </div>
+                  </div> 
+              </div>
              
               <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
                   <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
@@ -318,24 +328,14 @@
               
           </div>
           
-          <div class="row"  id="Fields">
-              <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
-                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                      <label class="binf-control-label alpaca-control-label">
-                          Card Number
-                          </label>
-                       <input class="valueEditable  form-control" type="text" id="CNumber" >
-                  </div>
-              </div> 
-          </div>
           
            <div class="row"  id="Fields">
               <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
                   <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
                       <label class="binf-control-label alpaca-control-label">
-                          Delivery Status
+                          From Delivery Status
                           </label>
-                       <select class="valueEditable  form-control" id="DStatus" data-live-search="true">
+                       <select class="valueEditable  form-control" id="From_DStatus" data-live-search="true">
                           <option value="">--SELECT--</option>
                           <option value="Not Delivered">Not Delivered</option>
                           <option value="Received By Cards Department">Received By Cards Department</option>
@@ -350,65 +350,42 @@
                           <option value="Transferred To Branch">Transferred To Branch</option>
                           <option value="To be Reviewed By Branch Manager">To be Reviewed By Branch Manager</option>
                           <option value="To be Reviewed By Retention Party">To be Reviewed By Retention Party</option>
-                      
                           <option value="Retained">Retained</option>
                       </select>
                   </div>
               </div> 
           </div>
           
-           <div class="row"  id="Fields">
-              <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
-                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                      <label class="binf-control-label alpaca-control-label">
-                          Card Type
-                          </label>
-                       <select class="valueEditable  form-control"  id="CType" data-live-search="true">
-                         
-                          <option value="">--SELECT--</option>
-                          <option value="NETSHOPPER">NETSHOPPER</option>
-                          <option value="DEBIT">DEBIT</option>
-                          <option value="CREDIT">CREDIT</option>
-                          <option value="PREPAID CARD">PREPAID CARD</option>
-                         
-                         
-  
-                      </select>
-                  </div>
-              </div> 
-          </div>
-          
-           <div class="row"  id="Fields">
-              <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
-                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                      <label class="binf-control-label alpaca-control-label">
-                          Card State
-                          </label>
-                       <select class="valueEditable  form-control" id="CState" data-live-search="true">
-                          <option value="">--SELECT--</option>
-                           <option value="New">New</option>
-                           <option value="RENEWED">RENEWED</option> 
-                          
-                      </select>
-                  </div>
-              </div> 
-          </div>
-          
           <div class="row"  id="Fields">
-              <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
-                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                      <label class="binf-control-label alpaca-control-label">
-                          Card Activated
-                          </label>
-                       <select class="valueEditable  form-control" id="CActivated" data-live-search="true">
-                          <option value="">--SELECT--</option>
-                          <option value="ACTIVE">ACTIVE</option>
-                          <option value="NOT ACTIVE">NOT ACTIVE</option>
-                          
-                      </select>
-                  </div>
-              </div> 
-          </div>
+             <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
+                 <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         To Delivery Status
+                         </label>
+                      <select class="valueEditable  form-control" id="To_DStatus" data-live-search="true">
+                         <option value="">--SELECT--</option>
+                         <option value="Not Delivered">Not Delivered</option>
+                         <option value="Received By Cards Department">Received By Cards Department</option>
+                         <option value="Sent to Cards Department">Sent to Cards Department</option>
+                         <option value="Sent to Branch">Sent to Branch</option>
+                         <option value="Sent to Delivery Unit">Sent to Delivery Unit</option>
+                         <option value="Sent to Private Banking">Sent to Private Banking</option>
+                         <option value="Received By Branch">Received By Branch</option>
+                         <option value="Received By Delivery Unit">Received By Delivery Unit</option>
+                         <option value="Received By Private Banking">Received By Private Banking</option>
+                         <option value="Delivered To Customer">Delivered To Customer</option>
+                         <option value="Transferred To Branch">Transferred To Branch</option>
+                         <option value="To be Reviewed By Branch Manager">To be Reviewed By Branch Manager</option>
+                         <option value="To be Reviewed By Retention Party">To be Reviewed By Retention Party</option>
+                         <option value="Retained">Retained</option>
+                     </select>
+                 </div>
+             </div> 
+         </div>
+
+        
+          
+          
           
           <div class="row"  id="Fields">
               <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
