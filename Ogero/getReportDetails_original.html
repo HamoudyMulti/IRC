@@ -1,0 +1,119 @@
+[/* 
+	*** REMOVE THE FOLLOWING TAG BEFORE EDITING THIS REPORTVIEW ***
+	This tag has been added to avoid errors being reported when the data source
+	used has less than 5 columns.  It is recommended that this tag is removed
+	by users modifying this reportview to assist them with debugging
+*/]
+
+
+<link rel="stylesheet" href="[LL_REPTAG_APPSUPPORTDIR /]otrepspkg/library/jquery.jqplot.min.css" />
+<link rel="stylesheet" href="[LL_REPTAG_APPSUPPORTDIR /]otrepspkg/library/WRpack1.css" />
+
+
+<style type="text/css">
+.note {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          background: #ffc;
+          padding: 10px;
+          border: 1px solid #000;
+          z-index: 1;
+          width:300;
+          visibility: hidden;
+          font: 11px "Verdana", Arial, Helvetica, sans-serif;
+          color: #000;
+}
+</style>
+
+<!-- Basic Report - Created by Content Server WebReports  -->
+<!-- [LL_REPTAG_USAGE /] -->
+
+
+[// create the style for alternate row colors using the USERPREF subtag:
+<style>
+ .userRow1 { background-color: [LL_REPTAG_USERID USERPREF:COLORS:ROW1 /];  } 
+ .userRow2 { background-color: [LL_REPTAG_USERID USERPREF:COLORS:ROW2 /];  } 
+</style>
+
+
+<script src="[LL_REPTAG_SUPPORTDIR /]core/jqPlot/jquery.jqplot.min.js"></script>
+
+
+
+
+<div style="font-size: 15px;"><strong>Document Details</strong></div>
+
+</br>
+
+[LL_WEBREPORT_EXCLUDELOCATIONDISPLAY /]
+[LL_WEBREPORT_EXCLUDESEARCH /]
+[LL_WEBREPORT_COMPRESS /]
+
+<table width="100%" border="0" height="1000">
+<tbody>
+<tr>
+<td width='20%' valign='top'height="100%">
+<table style="width: 544px;" id="WRtable1" border="0">
+<tbody>
+<tr>
+ <td style="width: 235px;"><strong>اسم المستند:</strong></td>
+<td style="width: 327px;"><input type='text' name='docname' id='docname' Value='[LL_REPTAG_&docid NODEINFO:NAME /]'></td>
+</tr>
+<td style="width: 235px;"><strong>Created By:</strong></td>
+<td style="width: 327px;">[LL_REPTAG_&docid NODEINFO:CREATEDBY USERINFO:FULLNAME /]</td>
+</tr>
+<td style="width: 235px;"><strong>Created Date:</strong></td>
+<td style="width: 327px;">[LL_REPTAG_&docid NODEINFO:CREATEDATE /]</td>
+</tr>
+<tr><td style="width: 235px;"<strong>رقم محضر الجلسة:</strong></td><td style="width: 327px;"><input type='text' name='momno' id='momno' Value='[LL_REPTAG_&docid CAT:"بيانات قرار مجلس الإدارة":"رقم محضر الجلسة":DISPLAY /]'></td></tr>
+<tr><td style="width: 235px;"<strong>تاريخ محضر الجلسة:</strong></td><td style="width: 327px;"><input type='text' name='momdate' id='momdate' Value='[LL_REPTAG_&docid CAT:"بيانات قرار مجلس الإدارة":"تاريخ محضر الجلسة":DISPLAY /]'></td></tr>
+<tr><td style="width: 235px;"<strong>رقم القرار:</strong></td><td style="width: 327px;"><input type='text' name='decno' id='decno' Value='[LL_REPTAG_&docid CAT:"بيانات قرار مجلس الإدارة":"رقم القرار":DISPLAY /]'></td></tr>
+
+<tr>
+<td style="width: 235px;"><button id='update' > Update </button></td>
+<td style="width: 327px;"></td>
+</tr>
+</tbody>
+</table>
+
+  
+  </td>
+<td width='80%' height="1000" valign="top">
+
+<embed src='[LL_REPTAG_URLPREFIXFULL /]/open/[LL_REPTAG_&docid /]/[LL_REPTAG_&docid NODEINFO:NAME /]?func=doc.fetch&nodeid=[LL_REPTAG_&docid /]' width="100%" height="1000" />
+
+</td>
+</tr>
+</tbody>
+</table>
+
+
+[LL_WEBREPORT_STARTROW /]
+
+[LL_WEBREPORT_ENDROW /]<SCRIPT SRC="[LL_REPTAG_LIBPATH /]ajax.js"></SCRIPT>
+<script>
+ 
+
+$(document).ready(function() {
+    $('#WRtable1').on('click', '#update', function() {
+       
+ 	var dataid=[LL_REPTAG_&docid /];
+ 	var name=$("#name").val();
+var momno=$("#رقم محضر الجلسة").val();
+var momdate=$("#تاريخ محضر الجلسة").val();
+var decno=$("#رقم القرار").val();
+
+    //alert('hello'+name+''+Language);
+    //alert(Document_Type);
+  	$.get('[LL_REPTAG_$CatUpdateSWR LLURL:REPORT /]&docid=' + dataid +'&name=' +name+'&رقم محضر الجلسة=' +momno+'&تاريخ محضر الجلسة=' +momdate+'&رقم القرار=' +decno,function(data){
+           history.back();
+           window.close();
+           
+      	});   
+   
+    });
+ 
+});
+</script>
+

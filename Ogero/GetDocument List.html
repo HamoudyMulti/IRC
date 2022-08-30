@@ -1,0 +1,143 @@
+[// create the style for alternate row colors using the USERPREF subtag:
+
+<script type="text/javascript">
+    function autoRefreshPage()
+    {
+	
+       // var url='[LL_REPTAG_URLPREFIXFULL /]?func=ll&objId=[LL_REPTAG_MYID /]&objAction=RunReport&inputlabel1=[LL_REPTAG_%FROMDATE CURRENTVAL /]&inputlabel2=[LL_REPTAG_%TODATE CURRENTVAL /]';
+        //alert(url);
+       // window.location = url;
+    }
+    setInterval('autoRefreshPage()', 10000);
+</script>
+
+<style>
+table.blueTable {
+  border: 1px solid #A4A4A4;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.blueTable td, table.blueTable th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+table.blueTable tbody td {
+  font-size: 13px;
+  color: #233328;
+}
+table.blueTable tr:nth-child(even) {
+  background: #D0E4F5;
+}
+table.blueTable thead {
+  background: #1982E2;
+  background: -moz-linear-gradient(top, #52a1e9 0%, #308ee5 66%, #1982E2 100%);
+  background: -webkit-linear-gradient(top, #52a1e9 0%, #308ee5 66%, #1982E2 100%);
+  background: linear-gradient(to bottom, #52a1e9 0%, #308ee5 66%, #1982E2 100%);
+  border-bottom: 2px solid #444444;
+}
+table.blueTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #D0E4F5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
+}
+
+table.blueTable tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #D0E4F5;
+  background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  border-top: 2px solid #444444;
+}
+table.blueTable tfoot td {
+  font-size: 14px;
+}
+table.blueTable tfoot .links {
+  text-align: right;
+}
+table.blueTable tfoot .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+</style>
+
+
+[LL_WEBREPORT_EXCLUDELOCATIONDISPLAY /]
+[LL_WEBREPORT_EXCLUDESEARCH /]
+[LL_WEBREPORT_COMPRESS /]
+
+[LL_WEBREPORT_SUPPRESSERRORLOG /]
+
+[//Reading from and to date from url so on refresh it will retain the same values
+[LL_REPTAG_&inputlabel1 SETVAR:FROMDATE /]
+[LL_REPTAG_&inputlabel2 SETVAR:TODATE /]
+
+<!-- Basic Report - Created by Content Server WebReports  -->
+<!-- [LL_REPTAG_USAGE /] -->
+
+
+[// create the style for alternate row colors using the USERPREF subtag:
+<style>
+ .userRow1 { background-color: [LL_REPTAG_USERID USERPREF:COLORS:ROW1 /];  } 
+ .userRow2 { background-color: [LL_REPTAG_USERID USERPREF:COLORS:ROW2 /];  } 
+</style>
+
+
+[// display the name of the WebReport as the HTML title.
+<script>
+document.title = "[LL_REPTAG_MYID NODEINFO:NAME /]";
+</script>	
+
+
+[// display the name of the webreport node
+<B>[LL_REPTAG_MYID NODEINFO:NAME /]</B>
+
+[// include the function menu for this WebReport (who's dataid is in MYID). 
+[LL_REPTAG_MYID LLURL:FUNCTIONMENU /]&nbsp;
+
+[// include the up-a-level icon.  
+[LL_REPTAG_MYID LLURL:UPALEVEL /]<BR><BR>
+
+
+<div style="font-size: 18px;"><strong>Document Update Process</strong></div>
+
+</br>
+<table class="blueTable">
+
+[/* The COLNAME tags below are used so that this reportview will work
+    with any data source.  They will return the first 5 column names of the
+    underlying data. */]
+  <TR>
+<TD>اسم المستند</TD>
+<TD>رقم محضر الجلسة</TD>
+<TD>تاريخ محضر الجلسة</TD>
+<TD>رقم القرار</TD>
+</TR>
+[/* 
+    ODDEVEN:Browserow1:Browserow2 ensures that the Content Server styles Browserow1 &
+    Browserow2 are applied alternately to the table rows 
+*/]
+
+[LL_WEBREPORT_STARTROW /]
+
+<TR CLASS="[LL_REPTAG_ROWNUM ODDEVEN:userRow1:userRow2 /] cs-valign-middle" NOWRAP ALIGN="LEFT">
+<TD><a href="[LL_REPTAG_URLPREFIXFULL /]?func=ll&objId=63674&objAction=RunReport&docid=[LL_REPTAG_1 /]" target="_new">[LL_REPTAG_2 /]</a></TD>
+<TD>[LL_REPTAG=DATAID CAT:"بيانات قرار مجلس الإدارة":"رقم محضر الجلسة":DISPLAY /] </TD>
+<TD>[LL_REPTAG=DATAID CAT:"بيانات قرار مجلس الإدارة":"تاريخ محضر الجلسة":DISPLAY /] </TD>
+<TD>[LL_REPTAG=DATAID CAT:"بيانات قرار مجلس الإدارة":"رقم القرار":DISPLAY /] </TD>
+</TR>
+
+[LL_WEBREPORT_ENDROW /]
+
+</TABLE>
