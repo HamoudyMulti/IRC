@@ -70,6 +70,17 @@ table.blueTable tfoot .links a{
   padding: 2px 8px;
   border-radius: 5px;
 }
+
+table th{
+  font-weight: bold;
+  text-align: center;
+}
+
+table.blueTable td{
+  text-align: center;
+}
+
+
 </style>
 
 
@@ -110,32 +121,36 @@ document.title = "[LL_REPTAG_MYID NODEINFO:NAME /]";
 [LL_REPTAG_MYID LLURL:UPALEVEL /]<BR><BR>
 
 
-<div style="font-size: 18px;"><strong>Document Update Process</strong></div>
+<div style="font-size: 18px;"><strong>PAHW Demo</strong></div>
 
 </br>
 <table class="blueTable">
 
-[/* The COLNAME tags below are used so that this reportview will work
-    with any data source.  They will return the first 5 column names of the
-    underlying data. */]
+
   <TR>
-<TD>اسم المستند</TD>
-<TD>رقم محضر الجلسة</TD>
-<TD>تاريخ محضر الجلسة</TD>
-<TD>رقم القرار</TD>
+    <TH>المنطقة</TH>
+    <TH>قطاع</TH>
+    <TH>قطعة</TH>
+    <TH>المشروع</TH>
+    <TH>نوع المخطط</TH>
+    <TH>حالة المخطط</TH>
+    <TH>رقم المخطط</TH>
+    <TH>عنوان المخطط</TH>
 </TR>
-[/* 
-    ODDEVEN:Browserow1:Browserow2 ensures that the Content Server styles Browserow1 &
-    Browserow2 are applied alternately to the table rows 
-*/]
+
 
 [LL_WEBREPORT_STARTROW /]
 
 <TR CLASS="[LL_REPTAG_ROWNUM ODDEVEN:userRow1:userRow2 /] cs-valign-middle" NOWRAP ALIGN="LEFT">
-<TD><a href="[LL_REPTAG_URLPREFIXFULL /]?func=ll&objId=63674&objAction=RunReport&docid=[LL_REPTAG_1 /]" target="_new">[LL_REPTAG_2 /]</a></TD>
-<TD>[LL_REPTAG=DATAID CAT:"بيانات قرار مجلس الإدارة":"رقم محضر الجلسة":DISPLAY /] </TD>
-<TD>[LL_REPTAG=DATAID CAT:"بيانات قرار مجلس الإدارة":"تاريخ محضر الجلسة":DISPLAY /] </TD>
-<TD>[LL_REPTAG=DATAID CAT:"بيانات قرار مجلس الإدارة":"رقم القرار":DISPLAY /] </TD>
+  <TD>[LL_REPTAG=DATAID CAT:"PAHW Demo":"المنطقة":DISPLAY /] </TD>
+  <TD>[LL_REPTAG=DATAID CAT:"PAHW Demo":"قطاع":DISPLAY /] </TD>
+  <TD>[LL_REPTAG=DATAID CAT:"PAHW Demo":"قطعة":DISPLAY /] </TD>
+  <TD>[LL_REPTAG=DATAID CAT:"PAHW Demo":"المشروع":DISPLAY /] </TD>
+
+  <TD>[LL_REPTAG=DATAID CAT:"PAHW Demo":"نوع المخطط":DISPLAY /] </TD>
+  <TD>[LL_REPTAG=DATAID CAT:"PAHW Demo":"حالة المخطط":DISPLAY /] </TD>
+  <TD>[LL_REPTAG=DATAID CAT:"PAHW Demo":"رقم المخطط":DISPLAY /] </TD>
+  <TD><a href="[LL_REPTAG_URLPREFIXFULL /]?func=ll&objId=63674&objAction=RunReport&docid=[LL_REPTAG_1 /]" target="_new">[LL_REPTAG_2 /]</a></TD>
 </TR>
 
 [LL_WEBREPORT_ENDROW /]
