@@ -24,7 +24,7 @@ table.blueTable td, table.blueTable th {
   padding: 3px 2px;
 }
 table.blueTable tbody td {
-  font-size: 13px;
+  font-size: 16px;
   color: #233328;
 }
 table.blueTable tr:nth-child(even) {
@@ -76,6 +76,9 @@ table th{
   text-align: center;
 }
 
+table.blueTable th{
+  text-align: center;
+}
 table.blueTable td{
   text-align: center;
 }
@@ -113,13 +116,8 @@ document.title = "[LL_REPTAG_MYID NODEINFO:NAME /]";
 
 [// display the name of the webreport node
 <B>[LL_REPTAG_MYID NODEINFO:NAME /]</B>
-
-[// include the function menu for this WebReport (who's dataid is in MYID). 
-[LL_REPTAG_MYID LLURL:FUNCTIONMENU /]&nbsp;
-
-[// include the up-a-level icon.  
-[LL_REPTAG_MYID LLURL:UPALEVEL /]<BR><BR>
-
+<br >
+<br> 
 
 <div style="font-size: 18px;"><strong>PAHW Demo</strong></div>
 
@@ -150,7 +148,7 @@ document.title = "[LL_REPTAG_MYID NODEINFO:NAME /]";
   <TD>[LL_REPTAG=DATAID CAT:"PAHW Demo":"نوع المخطط":DISPLAY /] </TD>
   <TD>[LL_REPTAG=DATAID CAT:"PAHW Demo":"حالة المخطط":DISPLAY /] </TD>
   <TD>[LL_REPTAG=DATAID CAT:"PAHW Demo":"رقم المخطط":DISPLAY /] </TD>
-  <TD><a href="[LL_REPTAG_URLPREFIXFULL /]?func=ll&objId=63674&objAction=RunReport&docid=[LL_REPTAG_1 /]" target="_new">[LL_REPTAG_2 /]</a></TD>
+  <TD><a href="[LL_REPTAG_URLPREFIXFULL /]?func=ll&objId=[LL_REPTAG_$ViewDoc /]&objAction=RunReport&docid=[LL_REPTAG_1 /]" target="_new">[LL_REPTAG_2 /]</a></TD>
 </TR>
 
 [LL_WEBREPORT_ENDROW /]
