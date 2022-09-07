@@ -1,0 +1,739 @@
+[/* Title: Blank Reportview */]
+<Link rel='stylesheet' href="[LL_REPTAG_LIBPATH /]bootstrap.css">
+<link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.css">
+<script src="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.js"></script>
+<script src="http://[LL_REPTAG_URLDOMAIN /]/img/webreports/library/bundle.min.js"></script>
+<style>
+
+
+
+
+
+.binf-widgets .custLoader{
+	[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+		margin-right: 45%;
+	[LL_WEBREPORT_ELSE /]
+		margin-left: 50%;
+	[LL_WEBREPORT_ENDIF /]
+    margin-left: 50%;
+    margin-top: 20%;
+    position: absolute;
+    border: 12px solid #dbf1fe;
+    border-left: 12px solid #0072aa;
+    transform: translateZ(0);
+    -webkit-animation: load8 1s infinite linear;
+    animation: load8 1s infinite linear;
+    width: 67px;
+    height: 67px;
+    z-index: 11111;
+}
+
+
+div.inner-border, div.custLoader {
+    border-radius: 100%;
+}   
+.binf-widgets .close-icon:after {
+   content: "ⓧ";
+}
+.binf-widgets .select-wrapper {
+margin: auto;
+max-width: 600px;
+width: calc(100% - 40px);
+}
+.binf-widgets .select-pure__select {
+align-items: center;
+border-radius: 4px;
+border: 1px solid rgba(0, 0, 0, 0.15);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+box-sizing: border-box;
+cursor: pointer;
+display: flex;
+font-size: 12px;
+font-weight: 500;
+justify-content: left;
+min-height: 54px;
+padding: 5px 10px;
+position: relative;
+transition: 0.2s;
+width: 100%;
+}
+.binf-widgets select{
+    height: calc(1.90rem );
+    font-size: 12px;"
+}
+.binf-widgets input{
+    height: calc(1.90rem );
+    font-size: 12px;"
+}
+    
+.binf-widgets .select-pure__options {
+border-radius: 4px;
+border: 1px solid rgba(0, 0, 0, 0.15);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+box-sizing: border-box;
+color: #363b3e;
+display: none;
+left: 0;
+max-height: 221px;
+overflow-y: scroll;
+position: absolute;
+top: 50px;
+width: 100%;
+z-index: 5;
+}
+.binf-widgets .select-pure__select--opened .select-pure__options {
+display: block;
+}
+.binf-widgets .select-pure__option {
+background: #fff;
+border-bottom: 1px solid #e4e4e4;
+box-sizing: border-box;
+height: auto;
+padding: 10px;
+}
+.binf-widgets .select-pure__option--disabled {
+color: #e4e4e4;
+}
+.binf-widgets .select-pure__option--selected {
+color: #e4e4e4;
+cursor: initial;
+pointer-events: none;
+}
+.binf-widgets .select-pure__option--hidden {
+display: none;
+}
+.binf-widgets .select-pure__selected-label {
+align-items: 'center';
+background: #2c5e7d;
+border-radius: 4px;
+color: #fff;
+cursor: initial;
+display: inline-flex;
+justify-content: 'center';
+margin: 5px 10px 5px 0;
+padding: 3px 7px;
+}
+.binf-widgets .select-pure__selected-label:last-of-type {
+margin-right: 0;
+}
+.binf-widgets .select-pure__selected-label i {
+cursor: pointer;
+display: inline-block;
+margin-left: 7px;
+}
+.binf-widgets  .select-pure__selected-label img {
+cursor: pointer;
+display: inline-block;
+height: 18px;
+margin-left: 7px;
+width: 14px;
+}
+.binf-widgets  .select-pure__selected-label i:hover {
+color: #e4e4e4;
+}
+.binf-widgets .select-pure__autocomplete {
+background: #f9f9f8;
+border-bottom: 1px solid #e4e4e4;
+border-left: none;
+border-right: none;
+border-top: none;
+box-sizing: border-box;
+font-size: 12px;
+outline: none;
+padding: 10px;
+width: 100%;
+}
+.binf-widgets .select-pure__placeholder--hidden {
+display: none;
+}
+.binf-widgets .select-pure__placeholder:befor{
+content:"hhhh";
+} 
+
+.binf-widgets .custBtn {
+bottom: 4px;
+right: 23px;
+border-radius: 16px;
+height: 32px;
+line-height: 12px;
+padding: 0 24px;
+color: #fff;
+min-width: 80px;
+border: 0;
+}
+[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+    .binf-widgets label{
+    padding-top: 10px;
+    float: right;
+    }
+[LL_WEBREPORT_ELSE /]
+    .binf-widgets label{
+    padding-top: 10px;
+    float: left;
+    }
+[LL_WEBREPORT_ENDIF /] 
+
+.binf-widgets .buttonDiv{
+bottom: 0;
+position: sticky;
+width: 100%;
+border-top: 1px solid #a59f9f;
+float:right;
+}
+.binf-widgets input {
+height: calc(1.90rem );
+font-size: 12px;
+}
+[/*]
+.binf-widgets select {
+height: calc(1.90rem );
+font-size: 12px;
+}
+*/]
+.binf-widgets textarea {
+height: calc(1.92rem );
+width: 100%;
+font-size: 12px;
+}
+.binf-widgets #inputerror {
+color: red;
+}     
+.binf-widgets #result {
+position: relative;
+width: 100%;
+cursor: pointer;
+overflow-y: auto;
+max-height: 400px;
+box-sizing: border-box;
+z-index: 1001;
+}
+[//]
+body {font-family: Arial;}
+/* Style the tab */
+.tab {
+overflow: hidden;
+border: 1px solid #ccc;
+background-color: #f1f1f1;
+}
+/* Style the buttons inside the tab */
+[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+    .tab button {
+    background-color: inherit;
+    float: right;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    }
+[LL_WEBREPORT_ELSE /]
+    .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    }
+[LL_WEBREPORT_ENDIF /] 
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+background-color: #ddd;
+}
+/* Create an active/current tablink class */
+.tab button.active {
+background-color: #ccc;
+}
+/* Style the tab content */
+.tabcontent {
+display: none;
+padding: 6px 12px;
+border: 1px solid #ccc;
+border-top: none;
+}
+/* Style the close button */
+.topright {
+float: right;
+cursor: pointer;
+font-size: 28px;
+}
+.topright:hover {color: red;}
+.binf-widgets .center {
+margin: auto;
+width: 60%;
+border: 3px solid #73AD21;
+padding: 10px;
+}
+
+.binf-widgets .center {
+margin: auto;
+width: 60%;
+border: 3px solid #73AD21;
+padding: 10px;
+}
+.showErrorField{
+box-shadow: 0 0 4px 1px #f91615;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 25px;
+  float: right;
+  margin-top: -3px;
+  margin-left: 10px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 21px;
+  width: 21px;
+  left: 4px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #3975a2;
+}
+
+
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(18px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+</style>
+[LL_WEBREPORT_STARTROW /]
+[LL_WEBREPORT_ENDROW /]
+
+<div class="tile-content csui-normal-scrolling csui-no-scroll-x" style="height: 100%; margin-top: 0px; background-color:#0a163c;position:absolute;">
+    <div class="p-4 rounded bg-white js-active" style="margin-left: 1%;margin-right: 1%; margin-top: 1%; margin-bottom:20px;height: 100%;">
+
+<div class="tab">
+   <button class="tablinks" onclick="openCase(event, 'Case')" id="defaultOpen">
+         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+           ملف العميل
+        [LL_WEBREPORT_ELSE /]
+           Customer File
+        [LL_WEBREPORT_ENDIF /]       
+   </button>
+</div>
+
+<div id="Case" class="tabcontent" style="display:block;height: 100%;">
+
+   <div class="container-fluid" style="position: relative;top: 5%;width: 100%;height: 100%;">
+      <form NAME="myFormContract" action="javascript:void(0)()" style="height: 100%;">
+         <!-- <div class="p-4 rounded bg-white js-active container"> -->
+         <div style="margin: 14px;">
+            <div id="mainFormWithSetCustomerFile" class="row" style="margin-top: -16px;height: 100%;">
+			
+			
+			<div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                   رقم العميل
+                  [LL_WEBREPORT_ELSE /]
+                   CIF
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="CIF" id="CIFNumber" />
+            </div>
+         </div>
+		 
+		 <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                   إسم العميل
+                  [LL_WEBREPORT_ELSE /]
+                   Customer Name
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Customer Name" id="CustomerName" />
+            </div>
+         </div>
+		 
+		 
+		  <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  رقم الترخيص الصناعي
+                  [LL_WEBREPORT_ELSE /]
+                  Industrial License Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Industrial License Number" id="IndustrialLicenseNumber1" />
+            </div>
+         </div>
+		 
+		 
+		  <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        تاريخ الترخيص الصناعي
+                        [LL_WEBREPORT_ELSE /]
+                        Industrial License Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Industrial License Date" id="IndustrialLicenseDate1" />
+                     <script>
+                        if ( document.getElementById('IndustrialLicenseDate1').type != "date" ){
+                            const input = document.getElementById('IndustrialLicenseDate1');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+
+              
+              
+            </div>
+
+            <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                        
+                        <input type="Submit" value="Add Row" class="binf-btn binf-btn-primary" id="addRowButtonCustomerFile"/>
+                    </div>
+                
+                </div>
+    
+                <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+    
+                        <label class="binf-control-label alpaca-control-label" style="font-size: small;margin-top:10px;">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        تاريخ الترخيص الصناعي
+                      [LL_WEBREPORT_ELSE /]
+                      Add Finance Agreement
+                      [LL_WEBREPORT_ENDIF /] 
+                        </label>
+                        
+                    <label class="switch" style="margin-top:15px;margin-left:10px;">
+                        
+                        <input id="AddFinance" type="checkbox" >
+                        <span class="slider round"></span>
+                    </label>
+    
+                </div>
+            </div>
+        </div>
+		 
+        
+		 
+		   
+				
+				
+	
+
+		 
+		 
+         <div id="buttonDiv" class=" bg-white container-fluid" style="bottom: 0; left:0;position: sticky; width: 100%;border-top: 1px solid #cfcfcf;height:42px;">
+           
+			
+			 [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                   <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="Create" id="CreateCustomerFile" style="right:auto" />
+             [LL_WEBREPORT_ELSE /]
+                    <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="Create" id="CreateCustomerFile" /> 
+             [LL_WEBREPORT_ENDIF /]  
+
+		   
+         </div>
+      </form>
+   </div>
+</div>
+
+
+</div>
+</div>
+<div id="LoadingImagePO" class="custLoader" style="display: none;"></div>
+
+
+
+<script>
+
+						
+	csui.require(['csui/lib/jquery'], function ($) {
+        
+	$("#addRowButtonCustomerFile").on("click", function(event) {					
+	event.preventDefault();
+	setCounterCustomerFile += 1;
+		
+    var stringTempToAppend = `
+        <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  رقم الترخيص الصناعي
+                  [LL_WEBREPORT_ELSE /]
+                  Industrial License Number
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Industrial License Number" id="IndustrialLicenseNumber${setCounterCustomerFile}" />
+            </div>
+         </div>
+		 
+		 
+		  <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        تاريخ الترخيص الصناعي
+                        [LL_WEBREPORT_ELSE /]
+                        Industrial License Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Industrial License Date" id="IndustrialLicenseDate${setCounterCustomerFile}" />
+
+                    </div>
+                </div>`;
+
+
+		$("#mainFormWithSetCustomerFile").append(stringTempToAppend); 
+						
+		console.log(setCounterCustomerFile);
+		if(setCounterCustomerFile >= 4){
+			document.getElementById("addRowButtonCustomerFile").style.display = 'none'; 
+		}
+	
+	});
+	
+	});
+
+</script>
+
+
+
+
+
+
+
+
+<script>
+  //Initial Load
+   var userList=[];   
+   var setCounterCustomerFile = 1;
+   
+   csui.require(['csui/lib/jquery'], function ($) {    
+       	var TileReportConfig = {};
+        TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+        TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]';
+        
+	
+   });       
+</script>
+<script>
+   function openCase(evt, caseName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(caseName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    csui.require(['csui/lib/jquery'], function ($) {
+        
+		
+		
+		$("#CreateCustomerFile").on("click", function(event) {
+	        event.preventDefault();
+			
+			
+	        var CIFNumber = $('#CIFNumber').val();
+			var CustomerName = $('#CustomerName').val();
+
+
+			// var ContractNumber = $('#ContractNumber').val();
+			// var ContractDate = $('#ContractDate').val();
+			// var TypeOfFinance = $('#TypeOfFinance option:selected').val();
+			// var IndustrialLicenseNumber = $('#IndustrialLicenseNumber').val();
+			// var IndustrialLicenseDate = $('#IndustrialLicenseDate').val();
+			// var FileNumber = $('#FileNumber').val();
+			// var VoucherNumber = $('#VoucherNumber').val();
+			// var RegionPartNumber = $('#RegionPartNumber').val();
+			// var AssignmentContractNumber = $('#AssignmentContractNumber').val();
+			// var MortgageContractDate = $('#MortgageContractDate').val();
+			// var ForeclosureListNumber = $('#ForeclosureListNumber').val();
+			// var ForeclosureDate = $('#ForeclosureDate').val();
+			// var CommercialMortgageDate = $('#CommercialMortgageDate').val();
+			// var GuaranteesForTheLoan = $('#GuaranteesForTheLoan').val();
+			
+	        
+	        if(CIFNumber!='' & CustomerName!=''){
+                	        
+    
+    	        var form = new FormData();
+               
+                var data = {
+                    "template_id":[LL_REPTAG_$CustomerFile_DocTemplate /] ,
+                    "parent_id": [LL_REPTAG_$CustomerFile_ParentID /], // folder where the cws will be created
+                    "roles": {
+                        "categories": {
+                            "[LL_REPTAG_$CatCustomerFile /]": {
+                                "[LL_REPTAG_$CatCustomerFile /]_2":CIFNumber,
+                                "[LL_REPTAG_$CatCustomerFile /]_3":CustomerName,
+                            }
+                        }
+                    }
+                };	
+				
+				var setFieldsWithUpdate = {};
+				
+				for(var i=1;i<=setCounterCustomerFile;i++){
+					setFieldsWithUpdate[`[LL_REPTAG_$CatCustomerFile /]_4_${i}_6`] = $('#IndustrialLicenseDate'+i).val();
+					setFieldsWithUpdate[`[LL_REPTAG_$CatCustomerFile /]_4_${i}_5`] = $('#IndustrialLicenseNumber'+i).val();
+				}
+
+				console.log(data);
+				
+                $('#LoadingImagePO').show();                
+                form.append("body", JSON.stringify(data));
+                 $.ajax({
+                    url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
+                    type: "POST",
+                    processData: false,
+                    mimeType: "multipart/form-data",
+                    contentType: false,
+                    data: form ,               
+                    beforeSend: function(xhr){
+                        xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                    },
+                    success:function(data){
+                        var res=JSON.parse(data);
+                        
+                        $('#LoadingImagePO').hide();
+						data = setFieldsWithUpdate;
+						
+						var settings = {
+						  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/"+res.results.id+"/categories/[LL_REPTAG_$CatCustomerFile /]/",
+						  "method": "PUT",
+						  "timeout": 0,
+						  "headers": {
+							"OTCSTicket": "[LL_REPTAG_OTCSTICKET /]"
+						  },
+						  data
+						};
+						 
+						 
+						console.log(settings); 
+						 
+						$.ajax(settings).done(function (response) {
+						  console.log(response);
+						  
+						  
+						  csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                            ModalAlert.showSuccess("Customer File Created").always(function () { 
+                                $("form")[0].reset();
+                               window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
+                            });
+    
+                        }); 
+						  
+						  
+						});
+                       
+                    },
+                    error: function(xhr, status, error) {
+                        $('#LoadingImagePO').hide();
+                        var err = JSON.parse(xhr.responseText);
+                        //alert(err.error);
+                        csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                            ModalAlert.showError("Customer File Creation Error. "+err.error).always(function () { 
+                            });
+    
+                        });                      
+                    }
+                });                      
+            }
+
+            else{
+                if(CustomerName==''){
+                    $('#CustomerName').css({'border-color':'red'});
+                }
+                else{
+                    $('#CustomerName').css({'border-color':'#ced4da'});
+                }
+                if(CIFNumber==''){
+                    $('#CIFNumber').css({'border-color':'red'});
+                } 
+                else{
+                    $('#ContractNumber').css({'border-color':'#ced4da'});
+                }
+                
+                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    ModalAlert.showError("Highlited Fields are Mandatory").always(function () { 
+                    });
+                });    
+            }
+	    });
+		
+		
+		
+		
+        
+    });
+</script>
+
+

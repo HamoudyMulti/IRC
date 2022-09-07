@@ -1,0 +1,97 @@
+Username: vmgs2
+Password: $W0y@ma6$@1hau1@V#nd)rMGS
+
+
+
+requirements LCM:
+
+
+Customer File / malaf 2al3amil -> new workspace
+
+tamwil  2al3amil / Finance Agreement -> relationship with Customer File 
+
+
+
+
+START START
+fields Customer File:
+PK: rakem 2al3amil -> text
+2ism 2al3amil -> text
+
+set (tafasil altarkhis) multiple (4) {
+	rakm 2ltarkhis 2alsni3ai -> values
+	tarikh 2altarkhis 2alsni3ai -> date
+}
+
+END END
+
+ |
+ |
+ |
+ |
+ V
+
+
+START START
+
+PK: rakem 2al3amil -> text
+
+Fields 2altamwil / Finance Agreement:
+
+naw3 2altamwil -> in value commercial -> change arabic from tijari to altashilat   AND 2alsina3i -> kard sina3i    AND handcraft portfolio -> other - 2oukhra (last option in dropdown) 
+
+tarikh karar al lajneh/ Commitee Date Decision -> date
+no3 2altamwil / Type of Finance -> dropdown
+mablagh 2altamwil/2alkared  /  Finance Amount -> text
+
+PK: rakem 2almalaf belda2era/ Internal File Number -> text
+
+
+
+END END
+
+
+ |
+ |
+ |
+ V
+
+
+START START
+Fields 3aked dakhili/ Internal Finance Contract:
+
+PK: rakem 2al3amil -> text
+PK: rakem 2almalaf belda2era/ Internal File Number -> text (automatically populated from rakem 2al3amil)
+
+tarikh 2el3aked 2almuwathak -> date
+rakem 2al3aked 2almuwathak -> text
+tarikh kayd rahen 2almahal altijari -> date
+
+set(ka2imat kayd 2alrahen) multiple (4){
+	tarikh ka2imat kayd 2alrahen -> date
+	rakam ka2imat kayd 2alrahen -> number
+	2aldamanat -> big text
+}
+
+
+2almantika -> text
+2alket3a -> text
+alqasimeh -> text
+masahet 2alkasimeh -> text
+
+END END
+
+
+screen1: idafat 3amil jadid
+screen2: idafat tamwil li3amil (choose from rakem 2el3amil) (can add 3aked here also)
+screen3: idafat 3aked
+
+
+
+Questions:
+
+1- Roles of Workspaces for each one
+2- reference number and naming of workspaces
+
+
+
