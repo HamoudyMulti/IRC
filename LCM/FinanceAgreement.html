@@ -1,7 +1,10 @@
 [/* Title: Blank Reportview */]
 <Link rel='stylesheet' href="[LL_REPTAG_LIBPATH /]bootstrap.css">
+<Link rel='stylesheet' href="[LL_REPTAG_LIBPATH /]selectize.bootstrap3.min.css">
 <link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.css">
 <script src="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.js"></script>
+<script src="[LL_REPTAG_LIBPATH /]jquery.min.js"></script>
+<script src="[LL_REPTAG_LIBPATH /]selectize.min.js"></script>
 <script src="http://[LL_REPTAG_URLDOMAIN /]/img/webreports/library/bundle.min.js"></script>
 <style>
 
@@ -340,6 +343,12 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+.has-options.items.not-full.selectize-input {
+    border: 1px solid #ced4da;
+}
+
+
+
 </style>
 [LL_WEBREPORT_STARTROW /]
 [LL_WEBREPORT_ENDROW /]
@@ -350,9 +359,9 @@ input:checked + .slider:before {
 <div class="tab">
    <button class="tablinks" onclick="openCase(event, 'Case')" id="defaultOpen">
          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-           ملف العميل
+         تمويل لعميل
         [LL_WEBREPORT_ELSE /]
-           Customer File
+           Finance Agreement for Customer
         [LL_WEBREPORT_ENDIF /]       
    </button>
 </div>
@@ -363,124 +372,43 @@ input:checked + .slider:before {
       <form NAME="myFormContract" action="javascript:void(0)()" style="height: 100%;">
          <!-- <div class="p-4 rounded bg-white js-active container"> -->
          <div style="margin: 14px;">
-            <div id="mainFormWithSetCustomerFile" class="row" style="margin-top: -16px;height: 100%;">
-			
-			
-			<div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-               <label class="binf-control-label alpaca-control-label" style="font-size:small">
-                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                   رقم العميل
-                  [LL_WEBREPORT_ELSE /]
-                   CIF
-                  [LL_WEBREPORT_ENDIF /]                                  
-               </label>
-               <input type="text" class="valueEditable  form-control"  placeholder="CIF" id="CIFNumber" />
-            </div>
-         </div>
-		 
-		 <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-               <label class="binf-control-label alpaca-control-label" style="font-size:small">
-                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                   إسم العميل
-                  [LL_WEBREPORT_ELSE /]
-                   Customer Name
-                  [LL_WEBREPORT_ENDIF /]                                  
-               </label>
-               <input type="text" class="valueEditable  form-control"  placeholder="Customer Name" id="CustomerName" />
-            </div>
-         </div>
-		 
-		 
-		  <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-               <label class="binf-control-label alpaca-control-label" style="font-size:small">
-                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                  رقم الترخيص الصناعي
-                  [LL_WEBREPORT_ELSE /]
-                  Industrial License Number
-                  [LL_WEBREPORT_ENDIF /]                                  
-               </label>
-               <input type="text" class="valueEditable  form-control"  placeholder="Industrial License Number" id="IndustrialLicenseNumber1" />
-            </div>
-         </div>
-		 
-		 
-		  <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+         
+            
+
+            <div id="financeAgreementForm" class="row" style="height: 100%;">
+
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                     <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
-                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                        تاريخ الترخيص الصناعي
+
+                        <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        ملف العميل
                         [LL_WEBREPORT_ELSE /]
-                        Industrial License Date
-                        [LL_WEBREPORT_ENDIF /]                         
-                    </label>
-                     <input type="date" class="valueEditable  form-control" placeholder="Industrial License Date" id="IndustrialLicenseDate1" />
-                     <script>
-                        if ( document.getElementById('IndustrialLicenseDate1').type != "date" ){
-                            const input = document.getElementById('IndustrialLicenseDate1');
-                            const datepicker = new TheDatepicker.Datepicker(input);
-                            var today = new Date();
-                            var dd = today.getDate();
-                            var mm = today.getMonth()+1; 
-                            var yyyy = today.getFullYear();
-                            if(dd<10) 
-                            {
-                                dd='0'+dd;
-                            } 
-                        
-                            if(mm<10) 
-                            {
-                               mm='0'+mm;
-                            } 
-                            today = mm+'/'+dd+'/'+yyyy;
-                            datepicker.options.setInputFormat(today);
-                            datepicker.render();
-                        }
-                     </script>
-                  </div>
-               </div>
+                        Customer File
+                        [LL_WEBREPORT_ENDIF /]                                  
+                         </label>
+            <select id="select-state">
+                <option value="">Select a state...</option>
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="DC">District of Columbia</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                </select>
 
-              
-              
-            </div>
-
-            <br>
-
-            <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12 row">
-                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                        
-                        <input type="Submit" value="Add Row" class="binf-btn binf-btn-primary" id="addRowButtonCustomerFile"/>
-                    </div>
-                
-                </div>
-    
-                <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3 row">
-                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-    
-                        <label class="binf-control-label alpaca-control-label" style="font-size: small;margin-top:10px;">
-                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                        اضافة تمويل لعميل
-                      [LL_WEBREPORT_ELSE /]
-                      Add Finance Agreement
-                      [LL_WEBREPORT_ENDIF /] 
-                        </label>
-                        
-                    <label class="switch" style="margin-top:15px;margin-left:10px;">
-                        
-                        <input id="AddFinance" type="checkbox" >
-                        <span class="slider round"></span>
-                    </label>
-    
                 </div>
             </div>
 
-            <br>
-            <br>
-
-
-            <div id="financeAgreementForm" class="row" style="display: none;height: 100%;">
             <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                 <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
                    <label class="binf-control-label alpaca-control-label" style="font-size:small">
@@ -1011,6 +939,10 @@ input:checked + .slider:before {
    var userList=[];   
    var setCounterCustomerFile = 1;
    var setCounterContractAgreementForm=1;
+
+   $('#select-state').selectize({
+          sortField: 'text'
+    });
    
    csui.require(['csui/lib/jquery'], function ($) {    
        	var TileReportConfig = {};
