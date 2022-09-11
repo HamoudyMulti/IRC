@@ -364,6 +364,11 @@ input#select-state-selectized {
     position: initial !important;
 }
 
+input#select-state-finance-agreement-selectized {
+    position: initial !important;
+}
+
+
 
 </style>
 [LL_WEBREPORT_STARTROW /]
@@ -375,9 +380,9 @@ input#select-state-selectized {
 <div class="tab">
    <button class="tablinks" onclick="openCase(event, 'Case')" id="defaultOpen">
          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-         تمويل لعميل
+         اضافة عقد
         [LL_WEBREPORT_ELSE /]
-           Finance Agreement for Customer
+           Add Contract
         [LL_WEBREPORT_ENDIF /]       
    </button>
 </div>
@@ -389,144 +394,46 @@ input#select-state-selectized {
          <!-- <div class="p-4 rounded bg-white js-active container"> -->
          <div style="margin: 14px;">
          
-            
-
-            <div id="financeAgreementForm" class="row" style="height: 100%;">
-
-                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-
-                        <label class="binf-control-label alpaca-control-label" style="font-size:small">
-                            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                        ملف العميل
-                        [LL_WEBREPORT_ELSE /]
-                        Customer File
-                        [LL_WEBREPORT_ENDIF /]                                  
-                         </label>
-            <select id="select-state">
-                <option value="" placeholder="">Select</option>
-                
-                </select>
-
-                </div>
-            </div>
+        <div id="financeContractAgreementForm" class="row" style="height: 100%;">
 
             <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                 <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
-                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                      رقم الملف بالدائرة
-                      [LL_WEBREPORT_ELSE /]
-                      Internal File Number
-                      [LL_WEBREPORT_ENDIF /]                                  
-                   </label>
-                   <input type="text" class="valueEditable  form-control"  placeholder="Internal File Number" id="InternalFileNumber" />
-                </div>
-             </div>
-             
-             
-             <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
-                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                       نوع التمويل
-                      [LL_WEBREPORT_ELSE /]
-                        Type of Finance
-                      [LL_WEBREPORT_ENDIF /]                      
-                   </label>
-                   <select class="valueEditable  form-control"  id="TypeOfFinance" required>
-                      <option value=''>select Finance Type</option>
-                      [LL_WEBREPORT_FOR VAR:TypeOfFinance DATA:[LL_REPTAG_$CatFinanceAgreement CATINFO:VALIDVALUES:2 /] /]
-                      <option value="[LL_REPTAG_%TypeOfFinance CURRENTVAL /]">[LL_REPTAG_%TypeOfFinance CURRENTVAL /]</option>
-                      [LL_WEBREPORT_ENDFOR /]
-                   </select>
-                </div>
-               </div>
 
-               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                 <label class="binf-control-label alpaca-control-label" style="font-size:small">
-                    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                    تاريخ قرار اللجنه
+                    <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    ملف العميل
                     [LL_WEBREPORT_ELSE /]
-                    Committee Date Decision
-                    [LL_WEBREPORT_ENDIF /]                         
-                </label>
-                 <input type="date" class="valueEditable  form-control" placeholder="Committee Date Decision" id="CommitteeDateDecision" />
-                 <script>
-                    if ( document.getElementById('CommitteeDateDecision').type != "date" ){
-                        const input = document.getElementById('CommitteeDateDecision');
-                        const datepicker = new TheDatepicker.Datepicker(input);
-                        var today = new Date();
-                        var dd = today.getDate();
-                        var mm = today.getMonth()+1; 
-                        var yyyy = today.getFullYear();
-                        if(dd<10) 
-                        {
-                            dd='0'+dd;
-                        } 
-                    
-                        if(mm<10) 
-                        {
-                           mm='0'+mm;
-                        } 
-                        today = mm+'/'+dd+'/'+yyyy;
-                        datepicker.options.setInputFormat(today);
-                        datepicker.render();
-                    }
-                 </script>
-              </div>
-           </div>
+                    Customer File
+                    [LL_WEBREPORT_ENDIF /]                                  
+                     </label>
+        <select id="select-state">
+            <option value="" placeholder="">Select</option>
+            
+            </select>
 
-           <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-               <label class="binf-control-label alpaca-control-label" style="font-size:small">
-                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                  مبلغ التمويل أو القرض
-                  [LL_WEBREPORT_ELSE /]
-                  Finance Amount
-                  [LL_WEBREPORT_ENDIF /]                                  
-               </label>
-               <input type="text" class="valueEditable  form-control"  placeholder="Finance Amount" id="FinanceAmount" />
             </div>
-         </div>
+        </div>
 
-         <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+
+        <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
             <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                </div>
-            </div>
 
-
-         <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
-             <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-
-                 <label class="binf-control-label alpaca-control-label" style="font-size: small;margin-top:10px;">
-                 [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                 اضافة عقد
-               [LL_WEBREPORT_ELSE /]
-               Add Finance Contract
-               [LL_WEBREPORT_ENDIF /] 
+                <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    التمويل
+                [LL_WEBREPORT_ELSE /]
+                Finance Agreement
+                [LL_WEBREPORT_ENDIF /]                                  
                  </label>
-                 
-             <label class="switch" style="margin-top:15px;margin-left:10px;">
-                 
-                 <input id="AddContract" type="checkbox" >
-                 <span class="slider round"></span>
-             </label>
+    <select id="select-state-finance-agreement">
+        <option value="" placeholder="">Select</option>
+        
+        </select>
 
-         </div>
-     </div>
+        </div>
+    </div>
 
-
-            </div>
-
-
-
-
-
-
-        <div id="financeContractAgreementForm" class="row" style="display: none;height: 100%;">
-
+        
             <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
                 <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
                    <label class="binf-control-label alpaca-control-label" style="font-size:small">
@@ -952,8 +859,11 @@ input#select-state-selectized {
 
    
    var $select = $('#select-state').selectize({});
+   var $selectFinance = $('#select-state-finance-agreement').selectize({});
+   
 
    var selectize = $select[0].selectize;
+   var selectizeFinance = $selectFinance[0].selectize;
    
    csui.require(['csui/lib/jquery'], function ($) {    
        var TileReportConfig = {};
@@ -995,6 +905,37 @@ input#select-state-selectized {
         });
 
 
+        $.ajax({
+            url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=8&limit=40&page=1",
+            type: "GET",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+            },
+            success:function(data){
+                for(const item of data.results){
+                    if(item.data.properties.name == "Finance Agreement Document Template"){
+                        continue;
+                    }
+
+                    console.log(item.data.properties.name);
+                    console.log(item.data.properties.id);
+
+                    selectizeFinance.addOption({value: item.data.properties.id, text: item.data.properties.name});
+                }
+            },
+            error: function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    ModalAlert.showError("Retrieving Finance Agreement records Error. "+err.error).always(function () { 
+                    });
+
+                });                      
+            }
+        });
+
+
+
+
         $('#select-state-selectized').on('input',()=>{
             let value = $('#select-state-selectized').val();
             let condition = "";
@@ -1031,6 +972,44 @@ input#select-state-selectized {
              });
         })
 
+        
+        $('#select-state-finance-agreement-selectized').on('input',()=>{
+            let value = $('#select-state-finance-agreement-selectized').val();
+            let condition = "";
+            if(value.length > 0){
+                condition = `&where_name=contains_${value}`;
+            }
+            $.ajax({
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=8&limit=40&page=1${condition}`,
+                type: "GET",
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                },
+                success:function(data){
+                    selectizeFinance.clearOptions(); 
+                    if(data.results.length > 0){
+                        for(const item of data.results){
+                            if(item.data.properties.name == "Finance Agreement Document Template"){
+                                continue;
+                            }
+    
+                            selectizeFinance.addOption({value: item.data.properties.id, text: item.data.properties.name});
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var err = JSON.parse(xhr.responseText);
+                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                        ModalAlert.showError("Retrieving Finance Agreement records Error. "+err.error).always(function () { 
+                        });
+
+                    });                      
+                }
+            
+             });
+        })
+
+       
        
  
      });
@@ -1058,135 +1037,23 @@ input#select-state-selectized {
 		
 		$("#CreateCustomerFile").on("click", function(event) {
 	        event.preventDefault();
-			let val = selectize.getValue();
-            if(val.length == 0){
+			let valCustomerFile = selectize.getValue();
+            let valFinanceAgreement = selectizeFinance.getValue();
+            if(valCustomerFile.length == 0 || valFinanceAgreement.length == 0){
                 csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                        ModalAlert.showError("Customer File Not Chosen.").always(function () { 
+                        ModalAlert.showError("Customer File or Finance Agreement Not Chosen.").always(function () { 
                     });
 
                 });    
                 return;  
             }
-            console.log(val);
-			createFinanceAgreement(val);
+			createInternalFinanceContract(valCustomerFile,valFinanceAgreement);
 	        
 	    });
 		
 		
 
    
-	function createFinanceAgreement(CustomerFileID){
-        var InternalFileNumber = $('#InternalFileNumber').val();
-        var TypeOfFinance = $('#TypeOfFinance').val();
-        var CommitteeDateDecision = $('#CommitteeDateDecision').val();
-        var FinanceAmount = $('#FinanceAmount').val();
-
-
-        if(InternalFileNumber!='' & TypeOfFinance!=''){
-                	        
-    
-            var form = new FormData();
-            
-            var data = {
-                "template_id":[LL_REPTAG_$FinanceAgreement_DocTemplate /] ,
-                "parent_id": [LL_REPTAG_$FinanceAgreement_ParentID /], // folder where the cws will be created
-                "roles": { 
-                    "categories": {
-                        "[LL_REPTAG_$CatFinanceAgreement /]": {
-                            "[LL_REPTAG_$CatFinanceAgreement /]_5":InternalFileNumber,
-                            "[LL_REPTAG_$CatFinanceAgreement /]_2":TypeOfFinance,
-                            "[LL_REPTAG_$CatFinanceAgreement /]_3":CommitteeDateDecision,
-                            "[LL_REPTAG_$CatFinanceAgreement /]_4":FinanceAmount,
-                        }
-                    }
-                }
-            };	
-            
-           
-
-            console.log(data);
-            
-            $('#LoadingImagePO').show();                
-            form.append("body", JSON.stringify(data));
-                $.ajax({
-                url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
-                type: "POST",
-                processData: false,
-                mimeType: "multipart/form-data",
-                contentType: false,
-                data: form ,               
-                beforeSend: function(xhr){
-                    xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
-                },
-                success:function(data){
-                    var res=JSON.parse(data);
-                    
-                    $('#LoadingImagePO').hide();
-
-                    var settingsAjax = {
-                        "url": `[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/${CustomerFileID}/relateditems`,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "OTCSTicket": "[LL_REPTAG_OTCSTICKET /]",
-                            "Content-Type": "application/x-www-form-urlencoded"
-                        },
-                        "data": {
-                            "rel_bw_id": res.results.id,
-                            "rel_type": "child"
-                        }
-                    };
-
-                    $.ajax(settingsAjax).done(function (response) {
-                        if ($('#AddContract').is(":checked"))
-                        {
-                            createInternalFinanceContract(CustomerFileID,res.results.id);
-                        } else {
-                        
-                            csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                            ModalAlert.showSuccess("Finance Agreement Created").always(function () { 
-                                $("form")[0].reset();
-                            window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
-                            });
-                           }); 
-                        }  
-                    });
-
-                },
-                error: function(xhr, status, error) {
-                    $('#LoadingImagePO').hide();
-                    var err = JSON.parse(xhr.responseText);
-                    //alert(err.error);
-                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                        ModalAlert.showError("Finance Agreement Creation Error. "+err.error).always(function () { 
-                        });
-
-                    });                      
-                }
-            });                      
-        }
-
-        else{
-            if(InternalFileNumber==''){
-                $('#InternalFileNumber').css({'border-color':'red'});
-            }
-            else{
-                $('#InternalFileNumber').css({'border-color':'#ced4da'});
-            }
-            if(TypeOfFinance==''){
-                $('#TypeOfFinance').css({'border-color':'red'});
-            } 
-            else{
-                $('#TypeOfFinance').css({'border-color':'#ced4da'});
-            }
-            
-            csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                ModalAlert.showError("Highlited Fields are Mandatory").always(function () { 
-                });
-            });    
-        }
-        }
-
     function createInternalFinanceContract(CustomerFileID,FinanceAgreementID){
     var DocumentedContractNumber = $('#DocumentedContractNumber').val();
     var DocumentedContractDate = $('#DocumentedContractDate').val();
@@ -1284,9 +1151,9 @@ input#select-state-selectized {
                         
                         
                             csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                            ModalAlert.showSuccess("Finance Agreement Created").always(function () { 
+                            ModalAlert.showSuccess("Internal Finance Contract Created").always(function () { 
                                 $("form")[0].reset();
-                            window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+FinanceAgreementID);
+                            window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
                             });
                             }); 
                         
@@ -1303,7 +1170,7 @@ input#select-state-selectized {
                 var err = JSON.parse(xhr.responseText);
                 //alert(err.error);
                 csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                    ModalAlert.showError("Finance Agreement Creation Error. "+err.error).always(function () { 
+                    ModalAlert.showError("Internal Finance Contract Creation Error. "+err.error).always(function () { 
                     });
 
                 });                      
