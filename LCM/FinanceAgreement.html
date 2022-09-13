@@ -974,7 +974,7 @@ input#select-state-selectized {
             },
             success:function(data){
                 for(const item of data.results){
-                    if(item.data.properties.name == "Customer File Document Template"){
+                    if(item.data.properties.name == "Customer File Document Template" || item.data.properties.name == "ملف العميل"){
                         continue;
                     }
 

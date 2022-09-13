@@ -884,7 +884,7 @@ input#select-state-finance-agreement-selectized {
             },
             success:function(data){
                 for(const item of data.results){
-                    if(item.data.properties.name == "Customer File Document Template"){
+                    if(item.data.properties.name == "Customer File Document Template" || item.data.properties.name == "ملف العميل"){
                         continue;
                     }
 
@@ -913,7 +913,7 @@ input#select-state-finance-agreement-selectized {
             },
             success:function(data){
                 for(const item of data.results){
-                    if(item.data.properties.name == "Finance Agreement Document Template"){
+                    if(item.data.properties.name == "Finance Agreement Document Template" || item.data.properties.name == "التمويل"){
                         continue;
                     }
 
@@ -952,7 +952,7 @@ input#select-state-finance-agreement-selectized {
                     selectize.clearOptions(); 
                     if(data.results.length > 0){
                         for(const item of data.results){
-                            if(item.data.properties.name == "Customer File Document Template"){
+                            if(item.data.properties.name == "Customer File Document Template" || item.data.properties.name == "ملف العميل"){
                                 continue;
                             }
     
@@ -989,7 +989,7 @@ input#select-state-finance-agreement-selectized {
                     selectizeFinance.clearOptions(); 
                     if(data.results.length > 0){
                         for(const item of data.results){
-                            if(item.data.properties.name == "Finance Agreement Document Template"){
+                            if(item.data.properties.name == "Finance Agreement Document Template" || item.data.properties.name == "التمويل"){
                                 continue;
                             }
     
