@@ -36,6 +36,7 @@ td{
           <thead>
             <tr>
               <th>Card Number</th>
+              <th>Cardholder Name</th>
               <th>Delivery Status</th>
               <th style="width: 60%;">Barcode</th>
               
@@ -44,6 +45,7 @@ td{
           <tbody>
             <tr>
               <td>544041******1851</td>
+              <td>Test</td>
               <td>Not Delivered</td>
               <td> <div id="qrcode1"></div>
                 <script type="text/javascript">
@@ -56,6 +58,7 @@ td{
             </tr>
             <tr>
               <td>544041******1851</td>
+              <td>Test</td>
               <td>Not Delivered</td>
               <td> <div id="qrcode2"></div>
                 <script type="text/javascript">
@@ -68,6 +71,7 @@ td{
             </tr>
             <tr>
               <td>544041******1851</td>
+              <td>TestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTest</td>
               <td>Not Delivered</td>
               <td>
                 <div id="qrcode3"></div>
@@ -107,15 +111,16 @@ td{
             bodyStyles: {minCellHeight: 40},
             tableWidth: 'auto',
             columnStyles: {
-            0: {cellWidth: 20},
-            1: {cellWidth: 60},
-            2: {cellWidth: 30},
+            0: {cellWidth: 30},
+            1: {cellWidth: 40},
+            2: {cellWidth: 50},
+            3: {cellWidth: 30},
             // etc
             },
             styles: {fontSize: 6},
-            margin: { left: 50, right: 50, top: 5 },
+            margin: { left: 30, right: 50, top: 5 },
             didDrawCell: function(data) {
-              if (data.column.index === 2 && data.cell.section === 'body') {
+              if (data.column.index === 3 && data.cell.section === 'body') {
                   var td = data.cell.raw;
                   var img = td.getElementsByTagName('img')[0];
                   var dim = data.cell.height - data.cell.padding('vertical');

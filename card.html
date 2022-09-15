@@ -10,6 +10,7 @@
   <thead>
     <tr>
       <th>Card Number</th>
+      <th>Cardholder Name</th>
       <th>Delivery Status</th>
       <th style="width: 60%;">Barcode</th>
       
@@ -349,11 +350,13 @@ const createCardsFromFile = async () => {
               let card_number = reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_29"];
               let card_uid = reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_49"];
               let card_type_1 = reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_24"];
+              let cardholder_name_1= reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_24"];
               
             
               document.getElementById('cards_created').innerHTML += `
               <tr>
                 <td>${card_number}</td>
+                <td>${cardholder_name_1}</td>
                 <td>Not Delivered</td>
                 <td>
                   <div id="qrcode${i}"></div>
@@ -376,6 +379,7 @@ const createCardsFromFile = async () => {
                 `
               <tr>
                 <td>PIN for ${card_number}</td>
+                <td>${cardholder_name_1}</td>
                 <td>Not Delivered</td>
                 <td>
                   <div id="qrcodePIN${i}"></div>
@@ -409,14 +413,15 @@ const createCardsFromFile = async () => {
             bodyStyles: {minCellHeight: 40},
             columnStyles: {
               0: {cellWidth: 20},
-              1: {cellWidth: 60},
-              2: {cellWidth: 30},
+              1: {cellWidth: 40},
+              2: {cellWidth: 50},
+              3: {cellWidth: 30},
             // etc
             },
             styles: {fontSize: 6},
-            margin: { left: 50, right: 50, top: 5 },
+            margin: { left: 30, right: 50, top: 5 },
             didDrawCell: function(data) {
-              if (data.column.index === 2 && data.cell.section === 'body') {
+              if (data.column.index === 3 && data.cell.section === 'body') {
                   var td = data.cell.raw;
                   var img = td.getElementsByTagName('img')[0];
                   var dim = data.cell.height - data.cell.padding('vertical');
@@ -506,7 +511,7 @@ const sendToPrintCarrier = (CardsCreatedID,dataObjs,expiryDates,issuanceDates) =
 
     let issuance_date = issuanceDates[i];
     let specified_on = "Specified on main card carrier";
-
+    let uuid = categoryBody["[LL_REPTAG_$CatCard /]_49"];
     
     
 
@@ -515,11 +520,11 @@ const sendToPrintCarrier = (CardsCreatedID,dataObjs,expiryDates,issuanceDates) =
     
     if(card_type == "CREDIT"){
       if(main_or_supplementary == "MAIN"){
-        text_content = text_file_content_main(card_number,collector,MBR,twelwe_zeros,card_holder_name,address_1,address_2,randomNumber,visa_or_mc,expiry_date_printCarrier,service_code,telephone,mobile,email_address,balance,currency,account_number);
+        text_content = text_file_content_main(card_number,collector,MBR,twelwe_zeros,card_holder_name,address_1,address_2,randomNumber,visa_or_mc,expiry_date_printCarrier,service_code,telephone,mobile,email_address,balance,currency,account_number,uuid);
       }
 
       if(main_or_supplementary == "SUPPLEMENTARY"){
-        text_content = text_file_content_supplementary(card_number,collector,MBR,twelwe_zeros,card_holder_name,address_1,address_2,randomNumber,visa_or_mc,expiry_date_printCarrier,service_code,telephone,mobile,email_address,specified_on);
+        text_content = text_file_content_supplementary(card_number,collector,MBR,twelwe_zeros,card_holder_name,address_1,address_2,randomNumber,visa_or_mc,expiry_date_printCarrier,service_code,telephone,mobile,email_address,specified_on,uuid);
       }
 
 
@@ -584,7 +589,7 @@ const sendToPrintCarrier = (CardsCreatedID,dataObjs,expiryDates,issuanceDates) =
 }  
 
 
-const text_file_content_main = (card_number,collector,MBR,twelwe_zeros,card_holder_name,address_1,address_2,randomNumber,visa_or_mc,expiry_date_printCarrier,service_code,telephone,mobile,email_address,balance,currency,account_number) => {
+const text_file_content_main = (card_number,collector,MBR,twelwe_zeros,card_holder_name,address_1,address_2,randomNumber,visa_or_mc,expiry_date_printCarrier,service_code,telephone,mobile,email_address,balance,currency,account_number,uuid) => {
     let str = "";
     let finalString = "";
 
@@ -662,10 +667,12 @@ const text_file_content_main = (card_number,collector,MBR,twelwe_zeros,card_hold
     str = new Array(20 - account_number.length + 1).join( " " );
     finalString += account_number+str;
 
+    finalString+= " "+uuid;
+
     return finalString;
 }
 
-const text_file_content_supplementary = (card_number,collector,MBR,twelwe_zeros,card_holder_name,address_1,address_2,randomNumber,visa_or_mc,expiry_date_printCarrier,service_code,telephone,mobile,email_address,specified_on) => {
+const text_file_content_supplementary = (card_number,collector,MBR,twelwe_zeros,card_holder_name,address_1,address_2,randomNumber,visa_or_mc,expiry_date_printCarrier,service_code,telephone,mobile,email_address,specified_on,uuid) => {
     let str = "";
     let finalString = "";
 
@@ -735,11 +742,13 @@ const text_file_content_supplementary = (card_number,collector,MBR,twelwe_zeros,
     str = new Array(30 - specified_on.length + 1).join( " " );
     finalString += specified_on+str;
 
+    finalString+= " "+uuid;
+
 
     return finalString;
 }
 
-const csv_file_content = (card_holder_name,card_number,address_2,address_1,expiry_date_printCarrier,email_address,mobile,phone) => {
+const csv_file_content = (card_holder_name,card_number,address_2,address_1,expiry_date_printCarrier,email_address,mobile,phone,uuid) => {
   let excelArray = [card_holder_name,card_number,address_2,address_1,expiry_date_printCarrier,expiry_date_printCarrier,email_address,mobile,phone];
   for(var i=0; i < excelArray.length; i++) {
     excelArray[i] = excelArray[i].replace(/,/g, '');
