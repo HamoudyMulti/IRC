@@ -350,7 +350,7 @@ const createCardsFromFile = async () => {
               let card_number = reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_29"];
               let card_uid = reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_49"];
               let card_type_1 = reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_24"];
-              let cardholder_name_1= reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_24"];
+              let cardholder_name_1= reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_9"];
               
             
               document.getElementById('cards_created').innerHTML += `
@@ -551,7 +551,7 @@ const sendToPrintCarrier = (CardsCreatedID,dataObjs,expiryDates,issuanceDates) =
     }
     
     if(card_type == "DEBIT"){
-      text_content = csv_file_content(card_holder_name,card_number,address_2,address_1,expiry_date_printCarrier,email_address,mobile,phone);
+      text_content = csv_file_content(card_holder_name,card_number,address_2,address_1,expiry_date_printCarrier,email_address,mobile,phone,uuid);
       return fetch("[LL_REPTAG_URLPREFIXFULL /]?func=ll&objId=[LL_REPTAG_$SendCSVFileToPrintSpool /]&objAction=RunReport&nexturl=next&text="+text_content+"&fileName="+file_name, {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
@@ -749,7 +749,7 @@ const text_file_content_supplementary = (card_number,collector,MBR,twelwe_zeros,
 }
 
 const csv_file_content = (card_holder_name,card_number,address_2,address_1,expiry_date_printCarrier,email_address,mobile,phone,uuid) => {
-  let excelArray = [card_holder_name,card_number,address_2,address_1,expiry_date_printCarrier,expiry_date_printCarrier,email_address,mobile,phone];
+  let excelArray = [card_holder_name,card_number,address_2,address_1,expiry_date_printCarrier,expiry_date_printCarrier,email_address,mobile,phone,uuid];
   for(var i=0; i < excelArray.length; i++) {
     excelArray[i] = excelArray[i].replace(/,/g, '');
   }
