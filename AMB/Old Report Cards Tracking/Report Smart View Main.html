@@ -213,6 +213,9 @@
               var From_DStatus =$( "#From_DStatus" ).val();
               var To_DStatus =$( "#To_DStatus" ).val();
               
+              var CName =$( "#CName" ).val();
+              var CNumber =$( "#CNumber" ).val();
+              
               
               
               var fdate=$("#FDate").val();
@@ -243,7 +246,7 @@
                    TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]'; 
                    //console.log("url : "+TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport&CFrom="+cfrom+"&CStatus="+cstatus+"&FDate="+fdate+"&TDate="+tdate);
                       $.ajax({
-                           url:TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport&RNumber="+RNumber+"&Performer="+Performer+"&From_DStatus="+From_DStatus+"&To_DStatus="+To_DStatus+"&fdate="+fdate+"&tdate="+tdate,
+                           url:TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport&RNumber="+RNumber+"&Performer="+Performer+"&From_DStatus="+From_DStatus+"&To_DStatus="+To_DStatus+"&fdate="+fdate+"&tdate="+tdate+"&CName="+CName+"&CNumber="+CNumber,
                           type: "GET",
                           beforeSend: function(xhr){
                               xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
@@ -317,6 +320,32 @@
                           </label>
                       
                       <input class="valueEditable  form-control" type="text" id="RNumber" >
+                      
+                      
+                       
+                  </div>
+              </div> 
+              
+              <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label class="binf-control-label alpaca-control-label" style="font-size: small;">
+                          Cardholder Name
+                          </label>
+                      
+                      <input class="valueEditable  form-control" type="text" id="CName" >
+                      
+                      
+                       
+                  </div>
+              </div> 
+              
+              <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label class="binf-control-label alpaca-control-label" style="font-size: small;">
+                          Card Number
+                          </label>
+                      
+                      <input class="valueEditable  form-control" type="text" id="CNumber" >
                       
                       
                        
@@ -444,7 +473,7 @@
       </div>
      
       
-      <div class="col-8" id="Notify" style="padding-left:10px;">
+      <div class="col-10" id="Notify" style="padding-left:10px;">
           
       </div>
       

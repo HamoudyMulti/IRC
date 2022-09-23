@@ -825,11 +825,13 @@ const addRecordInDB = (CardsCreatedID,dataObjs) => {
     let reqBody = JSON.parse(dataObjs[i].get('body'));
     
     let reference_number= reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_49"];
+    let cardholder_name_sql = reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_9"];
+    let card_number_sql= reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_29"];
     let status = "Not Delivered";
     let performer = '[LL_REPTAG_ACTUALUSERID /]';
 
     let url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$InsertCardsTrackingRecord /]/output?";
-    let encode_url = `inputlabel1=${encodeURIComponent(performer)}&inputlabel2=${encodeURIComponent(reference_number)}&inputlabel3=&inputlabel4=${encodeURIComponent(status)}`;
+    let encode_url = `inputlabel1=${encodeURIComponent(performer)}&inputlabel2=${encodeURIComponent(reference_number)}&inputlabel3=&inputlabel4=${encodeURIComponent(status)}&inputlabel5=${encodeURIComponent(id)}&inputlabel6=${encodeURIComponent(cardholder_name_sql)}&inputlabel7=${encodeURIComponent(card_number_sql)}`;
     let full_url = url+encode_url;
 
     return fetch(full_url, {

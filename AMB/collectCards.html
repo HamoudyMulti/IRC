@@ -64,6 +64,7 @@
 		<thead>
 		  <tr>
 			<th>Card Number</th>
+			<th>Cardholder Name</th>
 			<th>Old Delivery Status</th>
 			<th>New Delivery Status</th>
 			<th style="width: 60%;">Barcode</th>
@@ -172,6 +173,7 @@
 												document.getElementById('cards_created').innerHTML += `
 												<tr>
 													<td>${element.card_number}</td>
+													<td>${element.cardholder_name}</td>
 													<td>${element.old_value}</td>
 													<td>${element.value}</td>
 													<td>
@@ -222,6 +224,7 @@
 													`
 												<tr>
 													<td>PIN for ${element.card_number}</td>
+													<td>${element.cardholder_name}</td>
 													<td>${element.old_value}</td>
 													<td>${element.value}</td>
 													<td>
@@ -266,12 +269,14 @@
 										let requests3 = objRetrieved.map((element) => {
 	
 											let reference_number= element.reference_number;
+											let cardholder_name_sql = element.cardholder_name;
+											let card_number_sql = element.card_number;
 											let old_status = element.old_value;
 											let status = element.value;
 											let performer = '[LL_REPTAG_ACTUALUSERID /]';
 	
 											let url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$InsertCardsTrackingRecord /]/output?";
-											let encode_url = `inputlabel1=${encodeURIComponent(performer)}&inputlabel2=${encodeURIComponent(reference_number)}&inputlabel3=${encodeURIComponent(old_status)}&inputlabel4=${encodeURIComponent(status)}`;
+											let encode_url = `inputlabel1=${encodeURIComponent(performer)}&inputlabel2=${encodeURIComponent(reference_number)}&inputlabel3=${encodeURIComponent(old_status)}&inputlabel4=${encodeURIComponent(status)}&inputlabel5=${encodeURIComponent(element.id)}&inputlabel6=${encodeURIComponent(cardholder_name_sql)}&inputlabel7=${encodeURIComponent(card_number_sql)}`;
 											let full_url = url+encode_url;
 	
 											return fetch(full_url, {
@@ -310,15 +315,16 @@
 														bodyStyles: {minCellHeight: 40},
 														columnStyles: {
 														0: {cellWidth: 20},
-														1: {cellWidth: 50},
-														2: {cellWidth: 50},
-														3: {cellWidth: 30},
+														1: {cellWidth: 30},
+														2: {cellWidth: 40},
+														3: {cellWidth: 40},
+														4: {cellWidth: 30},
 														// etc
 														},
 														styles: {fontSize: 6},
-														margin: { left: 30, right: 30, top: 5 },
+														margin: { left: 20, right: 20, top: 5 },
 														didDrawCell: function(data) {
-														if (data.column.index === 3 && data.cell.section === 'body') {
+														if (data.column.index === 4 && data.cell.section === 'body') {
 															var td = data.cell.raw;
 															var img = td.getElementsByTagName('img')[0];
 															var dim = data.cell.height - data.cell.padding('vertical');
@@ -388,6 +394,7 @@
 											var old_value = $(this).find("input").attr('value');
 											var reference_number = $(this).children('td:first').text();
 											var card_number = $(this).children('td:first').next().text();
+											var cardholder_name = $(this).children('td:first').next().next().text();
 											var cID_arr = cID.split('-');
 	
 											if(cID_arr[0] == 'Card'){ 
@@ -398,7 +405,8 @@
 													value: statusName,
 													old_value: old_value,
 													reference_number: reference_number,
-													card_number: card_number
+													card_number: card_number,
+													cardholder_name:cardholder_name,
 												};
 												
 											}
@@ -411,7 +419,8 @@
 													value: statusName,
 													old_value: old_value,
 													reference_number: reference_number,
-													card_number: card_number
+													card_number: card_number,
+													cardholder_name:cardholder_name,
 													
 												};
 	
