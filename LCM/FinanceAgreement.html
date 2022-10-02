@@ -497,25 +497,46 @@ input#select-state-selectized {
             </div>
 
 
-         <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
-             <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+            <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+   
+                    <label class="binf-control-label alpaca-control-label" style="font-size: small;margin-top:10px;">
+                    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    اضافة عقد موثق
+                  [LL_WEBREPORT_ELSE /]
+                  Add Documented Contract
+                  [LL_WEBREPORT_ENDIF /] 
+                    </label>
+                    
+                <label class="switch" style="margin-top:15px;margin-left:10px;">
+                    
+                    <input id="AddDocumentedContract" type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+   
+            </div>
+        </div>
 
-                 <label class="binf-control-label alpaca-control-label" style="font-size: small;margin-top:10px;">
-                 [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                 اضافة عقد
-               [LL_WEBREPORT_ELSE /]
-               Add Finance Contract
-               [LL_WEBREPORT_ENDIF /] 
-                 </label>
-                 
-             <label class="switch" style="margin-top:15px;margin-left:10px;">
-                 
-                 <input id="AddContract" type="checkbox" >
-                 <span class="slider round"></span>
-             </label>
+     <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+        <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
 
-         </div>
-     </div>
+            <label class="binf-control-label alpaca-control-label" style="font-size: small;margin-top:10px;">
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+            اضافة عقد داخلي
+          [LL_WEBREPORT_ELSE /]
+          Add Internal Contract
+          [LL_WEBREPORT_ENDIF /] 
+            </label>
+            
+        <label class="switch" style="margin-top:15px;margin-left:10px;">
+            
+            <input id="AddInternalContract" type="checkbox" >
+            <span class="slider round"></span>
+        </label>
+
+    </div>
+</div>
+
 
 
             </div>
@@ -525,35 +546,121 @@ input#select-state-selectized {
 
 
 
-        <div id="financeContractAgreementForm" class="row" style="display: none;height: 100%;">
+            <div id="documentedContractForm" class="row" style="height: 100%;display:none;">
 
-            <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                
+            <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                 <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                   <label class="binf-control-label alpaca-control-label" style="font-size:small">
-                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                      رقم العقد الموثق
-                      [LL_WEBREPORT_ELSE /]
-                      Documented Contract Number
-                      [LL_WEBREPORT_ENDIF /]                                  
-                   </label>
-                   <input type="text" class="valueEditable  form-control"  placeholder="Documented Contract Number" id="DocumentedContractNumber" />
+                <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    نوع العقد
+                    [LL_WEBREPORT_ELSE /]
+                        Type of Contract
+                    [LL_WEBREPORT_ENDIF /]                      
+                </label>
+                <select class="valueEditable  form-control"  id="TypeOfContract1" required>
+                    <option value=''>select Contract Type</option>
+                    <option value='اساسي'>اساسي</option>
+                    <option value='تعديل'>تعديل</option>
+                </select>
                 </div>
-             </div>
+            </div>
 
 
-             <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6" style="display: none;" id="originalContractNumber1">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                        
+                        <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                            رقم العقد الأساسي
+                    [LL_WEBREPORT_ELSE /]
+                    Original Contract Number
+                    [LL_WEBREPORT_ENDIF /]                                  
+                </label>
+                    <select id="select-state-internal-doc-contracts-1">
+                        <option value="" placeholder="">Select</option>
+                        
+                    </select>
+                    
+                </div>
+            </div>
+
+
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                       <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                          رقم العقد الموثق
+                          [LL_WEBREPORT_ELSE /]
+                          Documented Contract Number
+                          [LL_WEBREPORT_ENDIF /]                                  
+                       </label>
+                       <input type="text" class="valueEditable  form-control"  placeholder="Documented Contract Number" id="DocumentedContractNumber" />
+                    </div>
+                 </div>
+    
+    
+                 <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        تاريخ العقد الموثق
+                        [LL_WEBREPORT_ELSE /]
+                        Documented Contract Date
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Documented Contract Date" id="DocumentedContractDate" />
+                     <script>
+                        if ( document.getElementById('DocumentedContractDate').type != "date" ){
+                            const input = document.getElementById('DocumentedContractDate');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+    
+    
+    
+              
+    
+               
+               
+    
+               
+    
+    
+               <div id="addSetContract" class="row" style="width: 100%;">
+                
+                
+                <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
                 <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
                  <label class="binf-control-label alpaca-control-label" style="font-size:small">
                     [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                    تاريخ العقد الموثق
+                    تاريخ قيد رهن المحل التجاري
                     [LL_WEBREPORT_ELSE /]
-                    Documented Contract Date
+                    Mortgage Registration Date
                     [LL_WEBREPORT_ENDIF /]                         
                 </label>
-                 <input type="date" class="valueEditable  form-control" placeholder="Documented Contract Date" id="DocumentedContractDate" />
+                 <input type="date" class="valueEditable  form-control" placeholder="Mortgage Registration Date" id="MortgageRegistrationDate1" />
                  <script>
-                    if ( document.getElementById('DocumentedContractDate').type != "date" ){
-                        const input = document.getElementById('DocumentedContractDate');
+                    if ( document.getElementById('MortgageRegistrationDate1').type != "date" ){
+                        const input = document.getElementById('MortgageRegistrationDate1');
                         const datepicker = new TheDatepicker.Datepicker(input);
                         var today = new Date();
                         var dd = today.getDate();
@@ -575,22 +682,23 @@ input#select-state-selectized {
                  </script>
               </div>
            </div>
-
-
-
+    
+    
+           
+           
            <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
             <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
              <label class="binf-control-label alpaca-control-label" style="font-size:small">
                 [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                تاريخ قيد رهن المحل التجاري
+                تاريخ قائمة قيد الرهن
                 [LL_WEBREPORT_ELSE /]
-                Mortgage Registration Date
+                Foreclosure List Date
                 [LL_WEBREPORT_ENDIF /]                         
             </label>
-             <input type="date" class="valueEditable  form-control" placeholder="Mortgage Registration Date" id="MortgageRegistrationDate" />
+             <input type="date" class="valueEditable  form-control" placeholder="Foreclosure List Date" id="ForeclosureListDate1" />
              <script>
-                if ( document.getElementById('MortgageRegistrationDate').type != "date" ){
-                    const input = document.getElementById('MortgageRegistrationDate');
+                if ( document.getElementById('ForeclosureListDate1').type != "date" ){
+                    const input = document.getElementById('ForeclosureListDate1');
                     const datepicker = new TheDatepicker.Datepicker(input);
                     var today = new Date();
                     var dd = today.getDate();
@@ -612,154 +720,204 @@ input#select-state-selectized {
              </script>
           </div>
        </div>
-
-
-       <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+    
+       
+    
+       <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
         <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-           <label class="binf-control-label alpaca-control-label" style="font-size:small">
-              [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-           منطقة
-              [LL_WEBREPORT_ELSE /]
-          Area
-              [LL_WEBREPORT_ENDIF /]                                  
-           </label>
-           <input type="text" class="valueEditable  form-control"  placeholder="Area" id="Area" />
+            <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                رقم قائمة قيد الرهن
+                [LL_WEBREPORT_ELSE /]
+                Foreclosure List Number
+                [LL_WEBREPORT_ENDIF /]                                  
+            </label>
+            <input type="text" class="valueEditable  form-control"  placeholder="Foreclosure List Number" id="ForeclosureListNumber1" />
         </div>
+    </div>
+    
+    <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+     <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+        <label class="binf-control-label alpaca-control-label" style="font-size:small">
+           [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+        منطقة
+           [LL_WEBREPORT_ELSE /]
+       Area
+           [LL_WEBREPORT_ENDIF /]                                  
+        </label>
+        <input type="text" class="valueEditable  form-control"  placeholder="Area" id="Area1" />
      </div>
-     
-      <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
-         <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-            <label class="binf-control-label alpaca-control-label" style="font-size:small">
-               [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-         القطعة
-               [LL_WEBREPORT_ELSE /]
-            Plot
-               [LL_WEBREPORT_ENDIF /]                                  
-            </label>
-            <input type="text" class="valueEditable  form-control"  placeholder="Plot" id="Plot" />
-         </div>
-      </div>
-     
-      <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
-         <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-            <label class="binf-control-label alpaca-control-label" style="font-size:small">
-               [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-               القسيمة
-               [LL_WEBREPORT_ELSE /]
-               Division
-               [LL_WEBREPORT_ENDIF /]                                  
-            </label>
-            <input type="text" class="valueEditable  form-control"  placeholder="Division" id="Division" />
-         </div>
-      </div>
-      
-      
-      
-      
-      
-       <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
-         <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-            <label class="binf-control-label alpaca-control-label" style="font-size:small">
-               [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-               مساحة القسيمة
-               [LL_WEBREPORT_ELSE /]
-               Division Area
-               [LL_WEBREPORT_ENDIF /]                                  
-            </label>
-            <input type="text" class="valueEditable  form-control"  placeholder="Division Area" id="DivisionArea" />
-         </div>
-      </div>
-
-
-      <div id="addSetContract" class="row" style="width: 100%;">
-       <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-        <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+    </div>
+    
+    <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+      <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
          <label class="binf-control-label alpaca-control-label" style="font-size:small">
             [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-            تاريخ قائمة قيد الرهن
+      القطعة
             [LL_WEBREPORT_ELSE /]
-            Foreclosure List Date
-            [LL_WEBREPORT_ENDIF /]                         
-        </label>
-         <input type="date" class="valueEditable  form-control" placeholder="Foreclosure List Date" id="ForeclosureListDate1" />
-         <script>
-            if ( document.getElementById('ForeclosureListDate1').type != "date" ){
-                const input = document.getElementById('ForeclosureListDate1');
-                const datepicker = new TheDatepicker.Datepicker(input);
-                var today = new Date();
-                var dd = today.getDate();
-                var mm = today.getMonth()+1; 
-                var yyyy = today.getFullYear();
-                if(dd<10) 
-                {
-                    dd='0'+dd;
-                } 
-            
-                if(mm<10) 
-                {
-                   mm='0'+mm;
-                } 
-                today = mm+'/'+dd+'/'+yyyy;
-                datepicker.options.setInputFormat(today);
-                datepicker.render();
-            }
-         </script>
+         Plot
+            [LL_WEBREPORT_ENDIF /]                                  
+         </label>
+         <input type="text" class="valueEditable  form-control"  placeholder="Plot" id="Plot1" />
       </div>
-   </div>
-
-
-
-   <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-       <label class="binf-control-label alpaca-control-label" style="font-size:small">
-          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-          رقم قائمة قيد الرهن
-          [LL_WEBREPORT_ELSE /]
-          Foreclosure List Number
-          [LL_WEBREPORT_ENDIF /]                                  
-       </label>
-       <input type="text" class="valueEditable  form-control"  placeholder="Foreclosure List Number" id="ForeclosureListNumber1" />
     </div>
- </div>
-
-
-
- <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-    <div class="col-sm col-lg col-md col-xs">
-       <label class="binf-control-label alpaca-control-label">
-          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-          ضمانات
-          [LL_WEBREPORT_ELSE /]
-          Guarantees
-          [LL_WEBREPORT_ENDIF /]                                  
-       </label>
-       <textarea class="form-control" id="Guarantees1" style="height: 100px"></textarea>
+    
+    <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+      <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+         <label class="binf-control-label alpaca-control-label" style="font-size:small">
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+            القسيمة
+            [LL_WEBREPORT_ELSE /]
+            Division
+            [LL_WEBREPORT_ENDIF /]                                  
+         </label>
+         <input type="text" class="valueEditable  form-control"  placeholder="Division" id="Division1" />
+      </div>
     </div>
- </div>
-
- </div>
-
-<br >
-
-<div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+    
+    
+    
+    
+    
+    <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+      <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+         <label class="binf-control-label alpaca-control-label" style="font-size:small">
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+            مساحة القسيمة
+            [LL_WEBREPORT_ELSE /]
+            Division Area
+            [LL_WEBREPORT_ENDIF /]                                  
+         </label>
+         <input type="text" class="valueEditable  form-control"  placeholder="Division Area" id="DivisionArea1" />
+      </div>
+    </div>
+    
+    
+    
+     <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+        <div class="col-sm col-lg col-md col-xs">
+           <label class="binf-control-label alpaca-control-label">
+              [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+              ضمانات
+              [LL_WEBREPORT_ELSE /]
+              Guarantees
+              [LL_WEBREPORT_ENDIF /]                                  
+           </label>
+           <textarea class="form-control" id="Guarantees1" style="height: 100px"></textarea>
         </div>
-        </div>
- 
-
-
-<br >
-<div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
-    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-            
-            <input type="Submit" value="Add Row" class="binf-btn binf-btn-primary" id="addRowButtonContractAgreementForm"/>
+     </div>
+    
+        <br >
+    </div>
+    <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+        <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                
+                <input type="Submit" value="Add Row" class="binf-btn binf-btn-primary" id="addRowButtonContractAgreementForm"/>
+            </div>
+        
         </div>
     
+     </div>
+
+
+     
+     <div id="internalContractForm" class="row" style="height: 100%;display: none;">
+            
+
+        <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                   نوع العقد
+                  [LL_WEBREPORT_ELSE /]
+                    Type of Contract
+                  [LL_WEBREPORT_ENDIF /]                      
+               </label>
+               <select class="valueEditable  form-control"  id="TypeOfContract2" required>
+                  <option value=''>select Contract Type</option>
+                  <option value='اساسي'>اساسي</option>
+                  <option value='تعديل'>تعديل</option>
+               </select>
+            </div>
+           </div>
+        
+        
+            <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6" style="display: none;" id="originalContractNumber2">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                    
+                    <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        رقم العقد الأساسي
+                [LL_WEBREPORT_ELSE /]
+                Original Contract Number
+                [LL_WEBREPORT_ENDIF /]                                  
+            </label>
+                <select id="select-state-internal-doc-contracts-2">
+                    <option value="" placeholder="">Select</option>
+                    
+                </select>
+                
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+             <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  التاريخ
+                  [LL_WEBREPORT_ELSE /]
+                  Date
+                  [LL_WEBREPORT_ENDIF /]                         
+            </label>
+             <input type="date" class="valueEditable  form-control" placeholder="Date" id="InternalContractDate" />
+             <script>
+                if ( document.getElementById('InternalContractDate').type != "date" ){
+                    const input = document.getElementById('InternalContractDate');
+                    const datepicker = new TheDatepicker.Datepicker(input);
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth()+1; 
+                    var yyyy = today.getFullYear();
+                    if(dd<10) 
+                    {
+                        dd='0'+dd;
+                    } 
+                
+                    if(mm<10) 
+                    {
+                       mm='0'+mm;
+                    } 
+                    today = mm+'/'+dd+'/'+yyyy;
+                    datepicker.options.setInputFormat(today);
+                    datepicker.render();
+                }
+             </script>
+          </div>
+       </div>
+        
+        
+        <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  المبلغ
+                  [LL_WEBREPORT_ELSE /]
+                  Amount
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <input type="text" class="valueEditable  form-control"  placeholder="Amount" id="InternalContractAmount" />
+            </div>
+         </div>
+
+
+         
+
+
+
+
+
     </div>
 
-
-        </div>
-        
 
 
         </div>
@@ -853,7 +1011,24 @@ input#select-state-selectized {
 	setCounterContractAgreementForm += 1;
 		
     var stringTempToAppend = `
-    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+             <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                تاريخ قيد رهن المحل التجاري
+                [LL_WEBREPORT_ELSE /]
+                Mortgage Registration Date
+                [LL_WEBREPORT_ENDIF /]                         
+            </label>
+             <input type="date" class="valueEditable  form-control" placeholder="Mortgage Registration Date" id="MortgageRegistrationDate${setCounterContractAgreementForm}" />
+            
+          </div>
+       </div>
+
+
+       
+       
+       <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
         <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
          <label class="binf-control-label alpaca-control-label" style="font-size:small">
             [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
@@ -863,23 +1038,80 @@ input#select-state-selectized {
             [LL_WEBREPORT_ENDIF /]                         
         </label>
          <input type="date" class="valueEditable  form-control" placeholder="Foreclosure List Date" id="ForeclosureListDate${setCounterContractAgreementForm}" />
+         
       </div>
    </div>
 
-
+   
 
    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
     <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-       <label class="binf-control-label alpaca-control-label" style="font-size:small">
-          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-          رقم قائمة قيد الرهن
-          [LL_WEBREPORT_ELSE /]
-          Foreclosure List Number
-          [LL_WEBREPORT_ENDIF /]                                  
-       </label>
-       <input type="text" class="valueEditable  form-control"  placeholder="Foreclosure List Number" id="ForeclosureListNumber${setCounterContractAgreementForm}" />
+        <label class="binf-control-label alpaca-control-label" style="font-size:small">
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+            رقم قائمة قيد الرهن
+            [LL_WEBREPORT_ELSE /]
+            Foreclosure List Number
+            [LL_WEBREPORT_ENDIF /]                                  
+        </label>
+        <input type="text" class="valueEditable  form-control"  placeholder="Foreclosure List Number" id="ForeclosureListNumber${setCounterContractAgreementForm}" />
     </div>
+</div>
+
+<div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+ <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+    <label class="binf-control-label alpaca-control-label" style="font-size:small">
+       [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+    منطقة
+       [LL_WEBREPORT_ELSE /]
+   Area
+       [LL_WEBREPORT_ENDIF /]                                  
+    </label>
+    <input type="text" class="valueEditable  form-control"  placeholder="Area" id="Area${setCounterContractAgreementForm}" />
  </div>
+</div>
+
+<div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+  القطعة
+        [LL_WEBREPORT_ELSE /]
+     Plot
+        [LL_WEBREPORT_ENDIF /]                                  
+     </label>
+     <input type="text" class="valueEditable  form-control"  placeholder="Plot" id="Plot${setCounterContractAgreementForm}" />
+  </div>
+</div>
+
+<div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+        القسيمة
+        [LL_WEBREPORT_ELSE /]
+        Division
+        [LL_WEBREPORT_ENDIF /]                                  
+     </label>
+     <input type="text" class="valueEditable  form-control"  placeholder="Division" id="Division${setCounterContractAgreementForm}" />
+  </div>
+</div>
+
+
+
+
+
+<div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+        مساحة القسيمة
+        [LL_WEBREPORT_ELSE /]
+        Division Area
+        [LL_WEBREPORT_ENDIF /]                                  
+     </label>
+     <input type="text" class="valueEditable  form-control"  placeholder="Division Area" id="DivisionArea${setCounterContractAgreementForm}" />
+  </div>
+</div>
 
 
 
@@ -895,6 +1127,7 @@ input#select-state-selectized {
        <textarea class="form-control" id="Guarantees${setCounterContractAgreementForm}" style="height: 100px"></textarea>
     </div>
  </div>
+
         `;
 
 
@@ -930,6 +1163,45 @@ input#select-state-selectized {
     });
 
 
+    $("#AddDocumentedContract").change(function() {
+        if(this.checked) {
+            $("#AddInternalContract").prop('checked', false);
+            $('#documentedContractForm').show();
+            $('#internalContractForm').hide();
+        } else {
+            $('#documentedContractForm').hide();
+        }
+	
+    });
+
+    $("#AddInternalContract").change(function() {
+        if(this.checked) {
+            $("#AddDocumentedContract").prop('checked', false);
+            $("#internalContractForm").css("display", "flex");
+            $('#documentedContractForm').hide();
+        } else {
+            $('#internalContractForm').hide();
+        }
+	
+    });
+
+    $('#TypeOfContract1').on('change', function() {
+        if(this.value == "تعديل"){
+            $('#originalContractNumber1').show();
+        } else {
+            $('#originalContractNumber1').hide();
+        }
+    });
+    $('#TypeOfContract2').on('change', function() {
+        if(this.value == "تعديل"){
+            $('#originalContractNumber2').show();
+        } else {
+            $('#originalContractNumber2').hide();
+        }
+    });
+
+
+
     
 
 
@@ -952,8 +1224,12 @@ input#select-state-selectized {
 
    
    var $select = $('#select-state').selectize({});
+   var $selectInternalDocContract1 = $('#select-state-internal-doc-contracts-1').selectize({});
+   var $selectInternalDocContract2 = $('#select-state-internal-doc-contracts-2').selectize({});
 
    var selectize = $select[0].selectize;
+   var selectizeInternalDocContract1 = $selectInternalDocContract1[0].selectize;
+   var selectizeInternalDocContract2 = $selectInternalDocContract2[0].selectize;
    
    csui.require(['csui/lib/jquery'], function ($) {    
        var TileReportConfig = {};
@@ -995,6 +1271,39 @@ input#select-state-selectized {
         });
 
 
+        
+        $.ajax({
+            url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=9&limit=40&page=1",
+            type: "GET",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+            },
+            success:function(data){
+                for(const item of data.results){
+                    if(item.data.properties.name == "Internal Finance Contract Document Template" || item.data.properties.name == "عقد التمويل الداخلي"){
+                        continue;
+                    }
+
+                    console.log(item.data.properties.name);
+                    console.log(item.data.properties.id);
+
+                    selectizeInternalDocContract1.addOption({value: item.data.properties.id, text: item.data.properties.name});
+                    selectizeInternalDocContract2.addOption({value: item.data.properties.id, text: item.data.properties.name});
+                }
+            },
+            error: function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    ModalAlert.showError("Retrieving Internal Finance Contracts records Error. "+err.error).always(function () { 
+                    });
+
+                });                      
+            }
+        });
+
+
+
+
         $('#select-state-selectized').on('input',()=>{
             let value = $('#select-state-selectized').val();
             let condition = "";
@@ -1030,6 +1339,85 @@ input#select-state-selectized {
             
              });
         })
+
+
+        
+
+        $('#select-state-internal-doc-contracts-selectized-1').on('input',()=>{
+            let value = $('#select-state-internal-doc-contracts-selectized-1').val();
+            let condition = "";
+            if(value.length > 0){
+                condition = `&where_name=contains_${value}`;
+            }
+            $.ajax({
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=9&limit=40&page=1${condition}`,
+                type: "GET",
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                },
+                success:function(data){
+                    selectizeInternalDocContract1.clearOptions(); 
+                    if(data.results.length > 0){
+                        for(const item of data.results){
+                            if(item.data.properties.name == "Internal Finance Contract Document Template" || item.data.properties.name == "عقد التمويل الداخلي"){
+                                continue;
+                            }
+    
+                            selectizeInternalDocContract1.addOption({value: item.data.properties.id, text: item.data.properties.name});
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var err = JSON.parse(xhr.responseText);
+                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                        ModalAlert.showError("Retrieving Finance Agreement records Error. "+err.error).always(function () { 
+                        });
+
+                    });                      
+                }
+            
+             });
+        })
+
+
+        
+        $('#select-state-internal-doc-contracts-selectized-2').on('input',()=>{
+            let value = $('#select-state-internal-doc-contracts-selectized-2').val();
+            let condition = "";
+            if(value.length > 0){
+                condition = `&where_name=contains_${value}`;
+            }
+            $.ajax({
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=9&limit=40&page=1${condition}`,
+                type: "GET",
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                },
+                success:function(data){
+                    selectizeInternalDocContract2.clearOptions(); 
+                    if(data.results.length > 0){
+                        for(const item of data.results){
+                            if(item.data.properties.name == "Internal Finance Contract Document Template" || item.data.properties.name == "عقد التمويل الداخلي"){
+                                continue;
+                            }
+    
+                            selectizeInternalDocContract2.addOption({value: item.data.properties.id, text: item.data.properties.name});
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var err = JSON.parse(xhr.responseText);
+                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                        ModalAlert.showError("Retrieving Finance Agreement records Error. "+err.error).always(function () { 
+                        });
+
+                    });                      
+                }
+            
+             });
+        })
+
+
 
        
  
@@ -1138,9 +1526,10 @@ input#select-state-selectized {
                     };
 
                     $.ajax(settingsAjax).done(function (response) {
-                        if ($('#AddContract').is(":checked"))
-                        {
+                        if ($('#AddDocumentedContract').is(":checked")){
                             createInternalFinanceContract(CustomerFileID,res.results.id);
+                        } else if($('#AddInternalContract').is(":checked")) {
+                            createInternalContract(CustomerFileID,res.results.id);
                         } else {
                         
                             csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
@@ -1187,17 +1576,21 @@ input#select-state-selectized {
         }
         }
 
+
+    
     function createInternalFinanceContract(CustomerFileID,FinanceAgreementID){
     var DocumentedContractNumber = $('#DocumentedContractNumber').val();
     var DocumentedContractDate = $('#DocumentedContractDate').val();
-    var MortgageRegistrationCertificateDate = $('#CommitteeDateDecision').val();
-    var Area = $('#Area').val();
-    var Plot = $('#Plot').val();
-    var Division = $('#Division').val();
-    var DivisionArea = $('#DivisionArea').val();
+    var typeOfContract1 = $('#TypeOfContract1').val();
 
+    let valDocumentedContract;
+    if(typeOfContract1 == "تعديل"){
+        valDocumentedContract = selectizeInternalDocContract1.getValue();
+    } else {
+        valDocumentedContract = "";
+    }
 
-    if(DocumentedContractNumber!='' & DocumentedContractDate!=''){
+    if(DocumentedContractNumber!='' & DocumentedContractDate!='' & typeOfContract1!=''){
                         
 
         var form = new FormData();
@@ -1210,11 +1603,7 @@ input#select-state-selectized {
                     "[LL_REPTAG_$CatInternalFinanceContract /]": {
                         "[LL_REPTAG_$CatInternalFinanceContract /]_3":DocumentedContractNumber,
                         "[LL_REPTAG_$CatInternalFinanceContract /]_2":DocumentedContractDate,
-                        "[LL_REPTAG_$CatInternalFinanceContract /]_4":MortgageRegistrationCertificateDate,
-                        "[LL_REPTAG_$CatInternalFinanceContract /]_9":Area,
-                        "[LL_REPTAG_$CatInternalFinanceContract /]_10":Plot,
-                        "[LL_REPTAG_$CatInternalFinanceContract /]_11":Division,
-                        "[LL_REPTAG_$CatInternalFinanceContract /]_12":DivisionArea,
+                        "[LL_REPTAG_$CatInternalFinanceContract /]_19":typeOfContract1,
                     }
                 }
             }
@@ -1226,6 +1615,12 @@ input#select-state-selectized {
             setFieldsWithUpdate[`[LL_REPTAG_$CatInternalFinanceContract /]_5_${i}_6`] = $('#ForeclosureListDate'+i).val();
             setFieldsWithUpdate[`[LL_REPTAG_$CatInternalFinanceContract /]_5_${i}_7`] = $('#ForeclosureListNumber'+i).val();
             setFieldsWithUpdate[`[LL_REPTAG_$CatInternalFinanceContract /]_5_${i}_8`] = $('#Guarantees'+i).val();
+
+            setFieldsWithUpdate[`[LL_REPTAG_$CatInternalFinanceContract /]_5_${i}_14`] = $('#MortgageRegistrationDate'+i).val();
+            setFieldsWithUpdate[`[LL_REPTAG_$CatInternalFinanceContract /]_5_${i}_15`] = $('#Area'+i).val();
+            setFieldsWithUpdate[`[LL_REPTAG_$CatInternalFinanceContract /]_5_${i}_16`] = $('#Plot'+i).val();
+            setFieldsWithUpdate[`[LL_REPTAG_$CatInternalFinanceContract /]_5_${i}_17`] = $('#Division'+i).val();
+            setFieldsWithUpdate[`[LL_REPTAG_$CatInternalFinanceContract /]_5_${i}_18`] = $('#DivisionArea'+i).val();
         }
         
 
@@ -1281,14 +1676,47 @@ input#select-state-selectized {
                     };
     
                     $.ajax(settingsAjax).done(function (response) {
+
                         
-                        
-                            csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                        if(valDocumentedContract != ""){
+                                var settingsAjaxDocumented = {
+                                    "url": `[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/${valDocumentedContract}/relateditems`,
+                                    "method": "POST",
+                                    "timeout": 0,
+                                    "headers": {
+                                        "OTCSTicket": "[LL_REPTAG_OTCSTICKET /]",
+                                        "Content-Type": "application/x-www-form-urlencoded"
+                                    },
+                                    "data": {
+                                        "rel_bw_id": res.results.id,
+                                        "rel_type": "child"
+                                    }
+                                };
+
+                                $.ajax(settingsAjaxDocumented).done(function (response) {
+                                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
                             ModalAlert.showSuccess("Finance Agreement Created").always(function () { 
                                 $("form")[0].reset();
                             window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+FinanceAgreementID);
                             });
-                            }); 
+                           });  
+
+                                });
+
+
+                            } else {
+                        
+                        
+                                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                            ModalAlert.showSuccess("Finance Agreement Created").always(function () { 
+                                $("form")[0].reset();
+                            window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+FinanceAgreementID);
+                            });
+                           });  
+                             }
+                        
+
+                            
                         
                     });
                    
@@ -1303,7 +1731,7 @@ input#select-state-selectized {
                 var err = JSON.parse(xhr.responseText);
                 //alert(err.error);
                 csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                    ModalAlert.showError("Finance Agreement Creation Error. "+err.error).always(function () { 
+                    ModalAlert.showError("Documented Contract Creation Error. "+err.error).always(function () { 
                     });
 
                 });                      
@@ -1312,6 +1740,13 @@ input#select-state-selectized {
     }
 
     else{
+
+        if(typeOfContract1==''){
+            $('#TypeOfContract1').css({'border-color':'red'});
+        }
+        else{
+            $('#TypeOfContract1').css({'border-color':'#ced4da'});
+        }
         if(DocumentedContractDate==''){
             $('#DocumentedContractDate').css({'border-color':'red'});
         }
@@ -1332,7 +1767,166 @@ input#select-state-selectized {
     }
     }
     
+    
+    function createInternalContract(CustomerFileID,FinanceAgreementID){
+    var InternalContractDate = $('#InternalContractDate').val();
+    var InternalContractAmount = $('#InternalContractAmount').val();
 
+    var typeOfContract2 = $('#TypeOfContract2').val();
+
+    let valDocumentedContract;
+    if(typeOfContract2 == "تعديل"){
+        valDocumentedContract = selectizeInternalDocContract2.getValue();
+    } else {
+        valDocumentedContract = "";
+    }
+
+
+    if(InternalContractDate!='' & InternalContractAmount!='' & typeOfContract2 !=''){
+                        
+
+        var form = new FormData();
+        
+        var data = {
+            "template_id":[LL_REPTAG_$InternalContract_DocTemp /] ,
+            "parent_id": [LL_REPTAG_$InternalContract_ParentID /], // folder where the cws will be created
+            "roles": { 
+                "categories": {
+                    "[LL_REPTAG_$CatInternalContract /]": {
+                        "[LL_REPTAG_$CatInternalContract /]_3":InternalContractAmount,
+                        "[LL_REPTAG_$CatInternalContract /]_2":InternalContractDate,
+                        "[LL_REPTAG_$CatInternalContract /]_4":typeOfContract2,
+                    }
+                }
+            }
+        };	
+        
+
+        
+        $('#LoadingImagePO').show();                
+        form.append("body", JSON.stringify(data));
+            $.ajax({
+            url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
+            type: "POST",
+            processData: false,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            data: form ,               
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+            },
+            success:function(data){
+                var res=JSON.parse(data);
+                
+                $('#LoadingImagePO').hide();
+              
+                    
+               
+
+
+                    var settingsAjax = {
+                        "url": `[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/${FinanceAgreementID}/relateditems`,
+                        "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                            "OTCSTicket": "[LL_REPTAG_OTCSTICKET /]",
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        "data": {
+                            "rel_bw_id": res.results.id,
+                            "rel_type": "child"
+                        }
+                    };
+    
+                    $.ajax(settingsAjax).done(function (response) {
+
+
+                            if(valDocumentedContract != ""){
+                                var settingsAjaxDocumented = {
+                                    "url": `[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/${valDocumentedContract}/relateditems`,
+                                    "method": "POST",
+                                    "timeout": 0,
+                                    "headers": {
+                                        "OTCSTicket": "[LL_REPTAG_OTCSTICKET /]",
+                                        "Content-Type": "application/x-www-form-urlencoded"
+                                    },
+                                    "data": {
+                                        "rel_bw_id": res.results.id,
+                                        "rel_type": "child"
+                                    }
+                                };
+
+                                $.ajax(settingsAjaxDocumented).done(function (response) {
+                                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                                    ModalAlert.showSuccess("Finance Agreement Created").always(function () { 
+                                        $("form")[0].reset();
+                                    window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+FinanceAgreementID);
+                                    });
+                                }); 
+
+                                });
+
+
+                            } else {
+                        
+                        
+                                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                            ModalAlert.showSuccess("Finance Agreement Created").always(function () { 
+                                $("form")[0].reset();
+                            window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+FinanceAgreementID);
+                            });
+                           }); 
+                             }
+                        
+                    });
+                   
+                    
+                
+
+
+
+            },
+            error: function(xhr, status, error) {
+                $('#LoadingImagePO').hide();
+                var err = JSON.parse(xhr.responseText);
+                //alert(err.error);
+                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    ModalAlert.showError("Internal Contract Creation Error. "+err.error).always(function () { 
+                    });
+
+                });                      
+            }
+        });                      
+    }
+
+    else{
+
+        if(typeOfContract2==''){
+            $('#TypeOfContract2').css({'border-color':'red'});
+        }
+        else{
+            $('#TypeOfContract2').css({'border-color':'#ced4da'});
+        }
+        if(InternalContractDate==''){
+            $('#InternalContractDate').css({'border-color':'red'});
+        }
+        else{
+            $('#InternalContractDate').css({'border-color':'#ced4da'});
+        }
+        if(InternalContractAmount==''){
+            $('#InternalContractAmount').css({'border-color':'red'});
+        } 
+        else{
+            $('#InternalContractAmount').css({'border-color':'#ced4da'});
+        }
+        
+        csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+            ModalAlert.showError("Highlited Fields are Mandatory").always(function () { 
+            });
+        });    
+    }
+    }
+    
 
     }
         

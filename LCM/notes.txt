@@ -1,6 +1,7 @@
 Username: vmgs2
 Password: $W0y@ma6$@1hau1@V#nd)rMGS
 
+Content Server 20.3, build 16.2.13.1230
 
 
 requirements LCM:
