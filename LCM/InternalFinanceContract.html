@@ -1165,67 +1165,6 @@ input#select-state-finance-agreement-selectized {
         });
 
 
-        $.ajax({
-            url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=8&limit=40&page=1",
-            type: "GET",
-            beforeSend: function(xhr){
-                xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
-            },
-            success:function(data){
-                for(const item of data.results){
-                    if(item.data.properties.name == "Finance Agreement Document Template" || item.data.properties.name == "التمويل"){
-                        continue;
-                    }
-
-                    console.log(item.data.properties.name);
-                    console.log(item.data.properties.id);
-
-                    selectizeFinance.addOption({value: item.data.properties.id, text: item.data.properties.name});
-                }
-            },
-            error: function(xhr, status, error) {
-                var err = JSON.parse(xhr.responseText);
-                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                    ModalAlert.showError("Retrieving Finance Agreement records Error. "+err.error).always(function () { 
-                    });
-
-                });                      
-            }
-        });
-
-
-
-        $.ajax({
-            url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=9&limit=40&page=1",
-            type: "GET",
-            beforeSend: function(xhr){
-                xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
-            },
-            success:function(data){
-                for(const item of data.results){
-                    if(item.data.properties.name == "Internal Finance Contract Document Template" || item.data.properties.name == "عقد التمويل الداخلي"){
-                        continue;
-                    }
-
-                    console.log(item.data.properties.name);
-                    console.log(item.data.properties.id);
-
-                    selectizeInternalDocContract.addOption({value: item.data.properties.id, text: item.data.properties.name});
-                }
-            },
-            error: function(xhr, status, error) {
-                var err = JSON.parse(xhr.responseText);
-                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                    ModalAlert.showError("Retrieving Internal Finance Contracts records Error. "+err.error).always(function () { 
-                    });
-
-                });                      
-            }
-        });
-
-
-
-
 
         $('#select-state-selectized').on('input',()=>{
             let value = $('#select-state-selectized').val();
@@ -1263,28 +1202,27 @@ input#select-state-finance-agreement-selectized {
              });
         })
 
-        
-        $('#select-state-finance-agreement-selectized').on('input',()=>{
-            let value = $('#select-state-finance-agreement-selectized').val();
-            let condition = "";
-            if(value.length > 0){
-                condition = `&where_name=contains_${value}`;
-            }
+
+      
+
+       
+        selectize.on('change', (value) => {
+            selectizeFinance.clearOptions(); 
+            selectizeInternalDocContract.clearOptions();
+            if(!value) return;
             $.ajax({
-                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=8&limit=40&page=1${condition}`,
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v1/businessworkspaces/${value}`,
                 type: "GET",
                 beforeSend: function(xhr){
                     xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
                 },
                 success:function(data){
                     selectizeFinance.clearOptions(); 
-                    if(data.results.length > 0){
-                        for(const item of data.results){
-                            if(item.data.properties.name == "Finance Agreement Document Template" || item.data.properties.name == "التمويل"){
-                                continue;
-                            }
+                    if(data.data.related_business_workspaces.children && data.data.related_business_workspaces.children.length > 0){
+                        for(const item of data.data.related_business_workspaces.children){
+                            
     
-                            selectizeFinance.addOption({value: item.data.properties.id, text: item.data.properties.name});
+                            selectizeFinance.addOption({value: item.id, text: item.name});
                         }
                     }
                 },
@@ -1298,31 +1236,27 @@ input#select-state-finance-agreement-selectized {
                 }
             
              });
-        })
 
+        });
+       
 
-
-        $('#select-state-internal-doc-contracts-selectized').on('input',()=>{
-            let value = $('#select-state-internal-doc-contracts-selectized').val();
-            let condition = "";
-            if(value.length > 0){
-                condition = `&where_name=contains_${value}`;
-            }
+        
+        selectizeFinance.on('change', (value) => {
+            selectizeInternalDocContract.clearOptions();
+            if(!value) return;
             $.ajax({
-                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=9&limit=40&page=1${condition}`,
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v1/businessworkspaces/${value}`,
                 type: "GET",
                 beforeSend: function(xhr){
                     xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
                 },
                 success:function(data){
                     selectizeInternalDocContract.clearOptions(); 
-                    if(data.results.length > 0){
-                        for(const item of data.results){
-                            if(item.data.properties.name == "Internal Finance Contract Document Template" || item.data.properties.name == "عقد التمويل الداخلي"){
-                                continue;
-                            }
+                    if(data.data.related_business_workspaces.children && data.data.related_business_workspaces.children.length > 0){
+                        for(const item of data.data.related_business_workspaces.children){
+                            
     
-                            selectizeInternalDocContract.addOption({value: item.data.properties.id, text: item.data.properties.name});
+                            selectizeInternalDocContract.addOption({value: item.id, text: item.name});
                         }
                     }
                 },
@@ -1336,9 +1270,8 @@ input#select-state-finance-agreement-selectized {
                 }
             
              });
-        })
 
-       
+        });
        
  
      });
