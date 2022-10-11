@@ -493,6 +493,40 @@ input#select-state-selectized {
 
          <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
             <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+               <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  الحالة
+                  [LL_WEBREPORT_ELSE /]
+                  Status
+                  [LL_WEBREPORT_ENDIF /]                      
+               </label>
+               <select class="valueEditable  form-control"  id="StatusFinance" required>
+                  <option value=''>select Status</option>
+                  [LL_WEBREPORT_FOR VAR:StatusFinance DATA:[LL_REPTAG_$CatFinanceAgreement CATINFO:VALIDVALUES:7 /] /]
+                  <option value="[LL_REPTAG_%StatusFinance CURRENTVAL /]">[LL_REPTAG_%StatusFinance CURRENTVAL /]</option>
+                  [LL_WEBREPORT_ENDFOR /]
+               </select>
+            </div>
+           </div>
+
+
+           <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+            <div class="col-sm col-lg col-md col-xs">
+               <label class="binf-control-label alpaca-control-label">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  تعليقات
+                  [LL_WEBREPORT_ELSE /]
+                  Comments
+                  [LL_WEBREPORT_ENDIF /]                                  
+               </label>
+               <textarea class="form-control" id="CommentsFinance" style="height: 50px"></textarea>
+            </div>
+         </div>
+
+
+
+         <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
                 </div>
             </div>
 
@@ -1468,6 +1502,8 @@ input#select-state-selectized {
         var TypeOfFinance = $('#TypeOfFinance').val();
         var CommitteeDateDecision = $('#CommitteeDateDecision').val();
         var FinanceAmount = $('#FinanceAmount').val();
+        var StatusFinance = $('#StatusFinance').val();
+        var CommentsFinance = $('#CommentsFinance').val();
 
 
         if(InternalFileNumber!='' & TypeOfFinance!=''){
@@ -1485,6 +1521,8 @@ input#select-state-selectized {
                             "[LL_REPTAG_$CatFinanceAgreement /]_2":TypeOfFinance,
                             "[LL_REPTAG_$CatFinanceAgreement /]_3":CommitteeDateDecision,
                             "[LL_REPTAG_$CatFinanceAgreement /]_4":FinanceAmount,
+                            "[LL_REPTAG_$CatFinanceAgreement /]_7":StatusFinance,
+                            "[LL_REPTAG_$CatFinanceAgreement /]_8":CommentsFinance,
                         }
                     }
                 }

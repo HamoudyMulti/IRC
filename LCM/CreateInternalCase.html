@@ -287,18 +287,17 @@ box-shadow: 0 0 4px 1px #f91615;
     <div class="p-4 rounded bg-white js-active" style="margin-left: 1%;margin-right: 1%; margin-top: 1%; margin-bottom:20px;">
 
 <div class="tab">
-   <button class="tablinks" onclick="openCase(event, 'Legal')" id="defaultOpen">
-    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-       قضية / ملف تنفيذ
-    [LL_WEBREPORT_ELSE /]
-    Legal Case
-    [LL_WEBREPORT_ENDIF /]       
+   <button class="tablinks" onclick="openCase(event, 'Internal')" id="defaultOpen">
+         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+           شكوى / تحقيق
+        [LL_WEBREPORT_ELSE /]
+           Internal Case
+        [LL_WEBREPORT_ENDIF /]       
    </button>
    
    
-   
 </div>
-<div id="Legal" class="tabcontent" style="display:block">
+<div id="Legal" class="tabcontent" style="display:none">
  
    <div class="container-fluid" style="position: relative;top: 5%;width: 100%;">
       <form NAME="myFormLegal" action="javascript:void(0)()">
@@ -500,7 +499,7 @@ box-shadow: 0 0 4px 1px #f91615;
                    </label>
                    <select class="valueEditable  form-control"  id="claimantTypeL" required>
                     <option value=''>select Claimant Type</option>
-                    <option value="بنك كويت الصناعي">بنك كويت الصناعي</option>
+                    <option value="بنك كويت المركزي">بنك كويت المركزي</option>
                     <option value="عميل">عميل</option>
                     <option value="جهة خارجية">جهة خارجية</option>
                  </select>
@@ -541,7 +540,7 @@ box-shadow: 0 0 4px 1px #f91615;
                        </label>
                        <select class="valueEditable  form-control"  id="defendantTypeL" required>
                         <option value=''>select Defendant Type</option>
-                        <option value="بنك كويت الصناعي">بنك كويت الصناعي</option>
+                        <option value="بنك كويت المركزي">بنك كويت المركزي</option>
                         <option value="عميل">عميل</option>
                         <option value="جهة خارجية">جهة خارجية</option>
                      </select>
@@ -710,7 +709,7 @@ box-shadow: 0 0 4px 1px #f91615;
    </div>
    [// ===================================================================================================================================
 </div>
-<div id="Internal" class="tabcontent">
+<div id="Internal" class="tabcontent" style="display: block;">
 
    <div class="container-fluid" style="position: relative;top: 5%;width: 100%;">
       <form NAME="myFormInternal" action="javascript:void(0)()">
@@ -818,33 +817,33 @@ box-shadow: 0 0 4px 1px #f91615;
 
 
 
-                <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                 <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
                     <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                     <label class="binf-control-label alpaca-control-label">
+                       <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                          الشاكي
+                          [LL_WEBREPORT_ELSE /]
+                          Complainant
+                          [LL_WEBREPORT_ENDIF /]                      
+                       </label>
+                       <input type="text" class="valueEditable form-control" placeholder="Complainant" id="Complainant" />
+                    </div>
+                </div>     
+                
+                <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                   <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label class="binf-control-label alpaca-control-label" style="font-size:small">
                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                         الشاكي
-                        [LL_WEBREPORT_ELSE /]
-                     Complainant
-                        [LL_WEBREPORT_ENDIF /]                           
-                    </label>
-                     <span class="complainantSelect"></span>
-                     <input type="hidden" id="Complainant" >
-                  </div>
-               </div>
-               <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
-                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                 <label class="binf-control-label alpaca-control-label">
-                     [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
-                     المشكو في حقه
-                    [LL_WEBREPORT_ELSE /]
-                    Defendant
-                    [LL_WEBREPORT_ENDIF /]                           
-                </label>
-                 <span class="defendantISelect"></span>
-                 <input type="hidden" id="defendantI" >
-              </div>
-           </div>
-           
+                         المشكو في حقه
+                         [LL_WEBREPORT_ELSE /]
+                         Defendant
+                         [LL_WEBREPORT_ENDIF /]                      
+                      </label>
+                      <input type="text" class="valueEditable form-control" placeholder="Defendant" id="defendantI" />
+                   </div>
+               </div>     
+                
+             
          
          <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
             <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
@@ -1574,7 +1573,7 @@ csui.require(['csui/lib/jquery'], function ($) {
         }); 
         }
 
-        if(this.value == "بنك كويت الصناعي"){
+        if(this.value == "بنك كويت المركزي"){
             $('#claimantForm').hide();
         }
 	
@@ -1637,7 +1636,7 @@ csui.require(['csui/lib/jquery'], function ($) {
         }); 
         }
 
-        if(this.value == "بنك كويت الصناعي"){
+        if(this.value == "بنك كويت المركزي"){
             $('#defendantForm').hide();
         }
 	
@@ -1865,48 +1864,8 @@ csui.require(['csui/lib/jquery'], function ($) {
             optionHidden: "select-pure__option--hidden",
             }
         });
-        var autocomplete_defendantISelect = new SelectPure(".defendantISelect", {
-            options: userList,
-            multiple: true,
-            autocomplete: true,
-            icon: "close-icon",
-            onChange: value => { document.getElementById("defendantI").value = value; },
-            classNames: {
-            select: "select-pure__select",
-            dropdownShown: "select-pure__select--opened",
-            multiselect: "select-pure__select--multiple",
-            label: "select-pure__label",
-            placeholder: "select-pure__placeholder",
-            dropdown: "select-pure__options",
-            option: "select-pure__option",
-            autocompleteInput: "select-pure__autocomplete",
-            selectedLabel: "select-pure__selected-label",
-            selectedOption: "select-pure__option--selected",
-            // placeholderHidden: "select-pure__placeholder--hidden",
-            optionHidden: "select-pure__option--hidden",
-            }
-        });
-        var autocomplete_complainantSelect = new SelectPure(".complainantSelect", {
-            options: userList,
-            multiple: true,
-            autocomplete: true,
-            icon: "close-icon",
-            onChange: value => { document.getElementById("Complainant").value = value; },
-            classNames: {
-            select: "select-pure__select",
-            dropdownShown: "select-pure__select--opened",
-            multiselect: "select-pure__select--multiple",
-            label: "select-pure__label",
-            placeholder: "select-pure__placeholder",
-            dropdown: "select-pure__options",
-            option: "select-pure__option",
-            autocompleteInput: "select-pure__autocomplete",
-            selectedLabel: "select-pure__selected-label",
-            selectedOption: "select-pure__option--selected",
-            // placeholderHidden: "select-pure__placeholder--hidden",
-            optionHidden: "select-pure__option--hidden",
-            }
-        });
+        
+        
         var autocomplete_RResponsibleSelectI = new SelectPure(".RResponsibleSelectI", {
             options: userList,
             multiple: true,
@@ -2222,8 +2181,8 @@ csui.require(['csui/lib/jquery'], function ($) {
                 claimantL = claimantL.split(",").map((e) => e.split("-")[1].trim());
             }
 
-            if(claimaintType == "بنك كويت الصناعي"){
-                claimantL = "بنك كويت الصناعي";
+            if(claimaintType == "بنك كويت المركزي"){
+                claimantL = "بنك كويت المركزي";
             }
 
             if(claimaintType == "جهة خارجية"){
@@ -2240,8 +2199,8 @@ csui.require(['csui/lib/jquery'], function ($) {
                 defendantL = defendantL.split(",").map((e) => e.split("-")[1].trim());
             }
 
-            if(defendantType == "بنك كويت الصناعي"){
-                defendantL = "بنك كويت الصناعي";
+            if(defendantType == "بنك كويت المركزي"){
+                defendantL = "بنك كويت المركزي";
             }
 
             if(defendantType == "جهة خارجية"){
@@ -2451,10 +2410,8 @@ csui.require(['csui/lib/jquery'], function ($) {
 	        var fileStatus=$('#fileStatus').val();
 
 	        var Complainant=$('#Complainant').val();
-			Complainant = Complainant.split(",");
 			
             var defendantI=$('#defendantI').val();    
-			defendantI = defendantI.split(",");
 			
             
 
@@ -2491,8 +2448,8 @@ csui.require(['csui/lib/jquery'], function ($) {
                                 "[LL_REPTAG_$CatInternal /]_26":commityI,
                                 "[LL_REPTAG_$CatInternal /]_27":complaintReceival,
                                 "[LL_REPTAG_$CatInternal /]_28":fileStatus,
-                                "[LL_REPTAG_$CatInternal /]_15":Complainant,
-                                "[LL_REPTAG_$CatInternal /]_16":defendantI,  
+                                "[LL_REPTAG_$CatInternal /]_34":Complainant,
+                                "[LL_REPTAG_$CatInternal /]_35":defendantI,  
                                 "[LL_REPTAG_$CatInternal /]_29":correctiveActions,
                                 "[LL_REPTAG_$CatInternal /]_30":opinion
                             }
