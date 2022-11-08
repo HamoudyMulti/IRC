@@ -1,0 +1,43 @@
+
+[LL_REPTAG_&subworkid WFATTR:'CWID':DISPLAY SETVAR:CWID /]
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_%CWID CURRENTVAL CAT:'Card':'Card Activated':DISPLAY /]" == "NOT ACTIVE" /]
+
+                
+                    
+                    
+                    [LL_WEBREPORT_FOR VAR:k DATA:[LL_REPTAG_'1306083' USERINFO:MEMBERS /] /]
+                        [LL_REPTAG_%k CURRENTVAL RECORD:ID SETVAR:MEMBERID /]
+
+
+                        [LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_%MEMBERID CURRENTVAL /]' USERINFO:MAILADDRESS /]" != "" /]
+        
+                              
+                               [LL_REPTAG_'[LL_REPTAG_%MEMBERID CURRENTVAL /]' USERINFO:FULLNAME SETVAR:fullname /]  
+    
+                                [LL_REPTAG_'[LL_REPTAG_%MEMBERID CURRENTVAL /]' USERINFO:MAILADDRESS SETVAR:mail /] 
+            
+                                [LL_WEBREPORT_SUBWEBREPORT NODEID:[LL_REPTAG_$EmailNotification /] PARM:FULLNAME:[LL_REPTAG_%fullname CURRENTVAL /] PARM:MAIL:[LL_REPTAG_%mail CURRENTVAL /] PARM:CWID:[LL_REPTAG_%CWID CURRENTVAL /] /]
+        
+        
+                                   
+                                        
+                        [LL_WEBREPORT_ENDIF /] 	
+                                
+                                
+                               
+
+                    [LL_WEBREPORT_ENDFOR /] 
+                    
+                    
+    [LL_WEBREPORT_ENDIF /] 					
+                            
+
+
+
+
+                     
+                    
+                    
+                    
