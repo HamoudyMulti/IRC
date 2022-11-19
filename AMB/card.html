@@ -1,9 +1,31 @@
+<style>
+#loader {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 80px;
+  height: 80px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #000000;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+</style>
 
 <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 
-
+<div id="loader"></div>
 <div id="results">Cards are getting created... Please wait...</div>
 
 <table id="my-table-cards" style="width:100%;display: none;" class="table table-bordered">
@@ -311,6 +333,7 @@ const createCardsFromFile = async () => {
 
 
   	if(dataObjs.length == 0){
+      document.getElementById("loader").style.display = "none";
   		document.getElementById("results").innerHTML += "<br >All Cards exist on the system already!<br>";
   		alert("No New Cards Detected from Excel File");
   	} else {
@@ -336,11 +359,16 @@ const createCardsFromFile = async () => {
 
 
       let CardsCreatedID = [];
+      let counterSuccess = 0;
+      let counterError = 0;
+
       data.forEach((res,i) => {
           console.log(res);
           if(res.error){
+              counterError++;
               document.getElementById("results").innerHTML += "<br >Error: "+res.error+"<br>";
           } else {
+              counterSuccess++;
               CardsCreatedID.push(res.results.id);
 
               console.log(dataObjs[i].get('body'));
@@ -435,8 +463,14 @@ const createCardsFromFile = async () => {
           let blob = doc.output('blob');
           doc.save(fileName);
               
-          document.getElementById("results").innerHTML += "<br >All New Cards Created!<br>";
-          document.getElementById("results").innerHTML += "<br >"+dataObjs.length+" New Cards Created!<br>";
+          if(counterError == 0){
+            document.getElementById("results").innerHTML += "<br >All New Cards Created!<br>";
+          }
+          document.getElementById("results").innerHTML += "<br >"+counterSuccess+" New Cards Created!<br>";
+
+          if(counterError != 0){
+            document.getElementById("results").innerHTML += "<br >"+counterError+" Cards Failed. <br>";
+          }
       
       
           url = "";
@@ -447,13 +481,15 @@ const createCardsFromFile = async () => {
       
           if(CardsCreatedID.length == 0){
             document.getElementById("results").innerHTML += "<br >No cards were sent to print carrier!<br>";
+            document.getElementById("loader").style.display = "none";
           } else {
-      
+            
             sendToPrintCarrier(CardsCreatedID,dataObjs,expiryDates,issuanceDates);
-      
+            
             sendPDFtoCreatedCardsReportFiles(blob,fileName);
-
+            
             addRecordInDB(CardsCreatedID,dataObjs);
+            document.getElementById("loader").style.display = "none";
     
           }
 
