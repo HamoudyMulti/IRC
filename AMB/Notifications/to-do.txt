@@ -1,0 +1,11 @@
+
+- notifications
+
+- revise Delivered WF
+- fix sending records to DB for workflows Delivered, Transfered, Cancelled
+
+
+Repeat Steps:
+
+- create notifications folder inside Configurations folder
+

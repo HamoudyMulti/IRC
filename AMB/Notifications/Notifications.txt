@@ -1,0 +1,147 @@
+
+- Upload CSV
+Notification 1  Received by Cards Operation of cards (cards with no errors) that were uploaded by embossing unit on open text
+group email: Cards Operation
+
+- not understandable
+Notification 2 & 3 received to be combined in one email received from Cards operations to branches/Delivery unit (Incomplete Flag to be available)
+group email: Branches - Delivery Unit - Private Banking
+
+- Delivered
+Notification 4 received after Card is delivered by CSO  an alert to be received by Call Center (To activate the card) & Customer on Boarding (To change status to Complete)
+Notification 5 received If after 48 hours of delivery card is not activated by cardholder
+group email: Call Center
+
+- Transfered
+Notification 6 received when card is forwarded from branch x to branch y (Complete / incomplete flag to be shown in list
+group email: branches emails
+
+
+- Cancelled
+Notification 7 received when Cards are set as cancelled by CSO. When CSO sets as cancelled a notification to be sent Branch manager (Retention attempt 1) / This to exclude Visa Infinite Black Product -> To: Branch Manager
+
+Notification 8 received by CSO that originally sent the card as cancelled informing him that the Retention attempt was successful and to call the client again to come receive his card. -> To: Initiator
+
+Notification 9 received by the Call center Manager or failed branch manager attempt here retention attempt 2 starts (Advice if we can set by product. Each product is sent to a different pool) -> To: ???
+
+Notification 10 received by CSO that originally sent the card as cancelled informing him that the Retention attempt done by call center manager was successful and to call the client again to come receive his card. -> To: CSO
+
+Notification 11 received by cards operation showing them the cards that will be received for cancellation from Branch/Delivery Unit -> To: Cards Operation
+
+
+
+
+---Upload CSV File:
+- Cards uploaded and sent to Cards Department to be collected by them (mentioned as point 1 in email)
+Recipient: Cards Department
+
+
+---Collect Cards Page (additional notifications that can be implemented and not mentioned in email):
+- Cards successfully collected by Cards Department
+Recipient: Cards Department
+
+- Cards sent from Cards Department to a specified branch or Delivery Unit or Private Banking
+Recipient: Branch or Delivery Unit or Private Banking
+
+- Cards successfully received by specified branch or Delivery Unit or Private Banking
+Recipient: Branch or Delivery Unit or Private Banking
+
+
+
+
+---Delivered Workflow:
+- Card Delivered to Customer, email to be sent to Call Center to activate his card (mentioned as point 3 in email)
+Recipient: Call Center
+
+- Customer did not activate his card within 48 hours (mentioned as point 4 in email)
+Recipient: Call Center
+
+
+
+---Transfered Workflow:
+- Card Transfered from branch to branch (mentioned as point 5 in email)
+Recipient: Transfered To Branch
+
+Cancelled Workflow:
+- Card Cancelled, email sent to Branch Manager (mentioned as point 6 in email)
+Recipient: Branch Manager
+
+- Card Retention 1 successful, email sent back to initiator of the workflow to call the client and receive the card
+Recipient: Workflow Initiator
+
+- (I did not get point number 8 and 9 in email, discussed below)
+
+- Cards received for cancellation by branch to Cards Department, to be shredded by Cards Department (mentioned as point 10 in email)
+Recipient: Cards Department
+
+
+
+
+
+
+
+
+Email sent to Malda:
+Hello Malda,
+
+Please note that I have summarized and organized the notifications information sent as below into points and have couple of questions regarding some of them:
+
+
+1.	Upload CSV File:
+- Cards uploaded and sent to Cards Department to be collected by them (mentioned as point 1 in email)
+Recipient: Cards Department
+
+
+
+2.	Collect Cards Page (additional notifications that can be implemented and not mentioned in email):
+- Cards successfully collected by Cards Department
+Recipient: Cards Department
+
+- Cards sent from Cards Department to a specified branch or Delivery Unit or Private Banking
+Recipient: Branch or Delivery Unit or Private Banking
+
+- Cards successfully received by specified branch or Delivery Unit or Private Banking
+Recipient: Branch or Delivery Unit or Private Banking
+
+
+
+3.	Delivered Workflow:
+- Card Delivered to Customer, email to be sent to Call Center to activate his card (mentioned as point 3 in email). Discussed more below as I have some difficulty to understand the procedure.
+Recipient: Call Center
+
+- Customer did not activate his card within 48 hours (mentioned as point 4 in email)
+Recipient: Call Center
+
+
+
+4.	Transfered Workflow:
+- Card Transfered from branch to branch (mentioned as point 5 in email)
+Recipient: Transfered To Branch
+
+
+
+5.	Cancelled Workflow:
+- Card Cancelled, email sent to Branch Manager (mentioned as point 6 in email)
+Recipient: Branch Manager
+
+- Card Retention 1 successful, email sent back to initiator of the workflow to call the client and receive the card
+Recipient: Workflow Initiator
+
+- (I did not get point number 8 and 9 in email, discussed below)
+
+- Cards received for cancellation by branch to Cards Department, to be shredded by Cards Department (mentioned as point 10 in email)
+Recipient: Cards Department
+
+
+
+I did not get points number 2, 3, 8 and 9 in the email.
+For point 2, I think I summarized most of it in Collect Cards Page point above, if not please correct me.
+
+For point 3, when the card is delivered to the customer, the email sent to the call center will be for what purpose exactly? Since he needs to receive a phone call from the cardholder to activate his card. Please explain this point in case I didn’t get the purpose of the email.
+
+For point 8 and 9, the retention attempt 2 is sent to the retention party, is it in this case the call center manager? This happens when the branch manager chooses not to retain the card (attempt 1) and goes to the call center manager (attempt 2), then if the card is retained, client can pick the card otherwise it will be sent for shredding by Cards Department. Please let me know if I understood this correctly.
+
+Additionally, I need the email addresses of all the recipients mentioned above including: Cards Department, Branches (all branches emails or small subset for testing), Delivery Unit, Private Banking, Call Center, Branch Manager and Call Center Manager.
+
+Best,
+Mohamad

@@ -486,9 +486,16 @@ const createCardsFromFile = async () => {
             
             sendToPrintCarrier(CardsCreatedID,dataObjs,expiryDates,issuanceDates);
             
-            sendPDFtoCreatedCardsReportFiles(blob,fileName);
+            let documentUploaded = sendPDFtoCreatedCardsReportFiles(blob,fileName);
+
+            if(documentUploaded){
+              console.log(documentUploaded);
+            }
             
             addRecordInDB(CardsCreatedID,dataObjs);
+            
+            //sendEmailToCardsDepartment();
+
             document.getElementById("loader").style.display = "none";
     
           }
@@ -832,7 +839,7 @@ const sendPDFtoCreatedCardsReportFiles = (blob,fileName) => {
 
   formData.append("body", JSON.stringify(data));
   formData.append("file", blob);
-  return fetch("[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes", {
+  await fetch("[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes", {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -845,12 +852,17 @@ const sendPDFtoCreatedCardsReportFiles = (blob,fileName) => {
         body: formData,
     }).then(function(response) {
         if(response.ok){
+          console.log("PDF",response);
           console.log("PDF uploaded to content server");
+          return response.json();
         } else {
           alert("PDF file was not uploaded to content server, please contact administrator.");
         }
+      }).then(function(data) {
+        return data.id;
       }).catch(function(err) {
         alert("PDF file was not uploaded to content server, please contact administrator.");
+        return false;
     });
 
 };
@@ -893,6 +905,34 @@ const addRecordInDB = (CardsCreatedID,dataObjs) => {
     });
 
   });
+}
+
+const sendEmailToCardsDepartment = () => {
+    let url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$SendNotificationToCards /]/output?";
+    let encode_url = `inputlabel1=${encodeURIComponent(performer)}&inputlabel2=${encodeURIComponent(reference_number)}&inputlabel3=&inputlabel4=${encodeURIComponent(status)}&inputlabel5=${encodeURIComponent(id)}&inputlabel6=${encodeURIComponent(cardholder_name_sql)}&inputlabel7=${encodeURIComponent(card_number_sql)}`;
+    let full_url = url+encode_url;
+
+    return fetch(full_url, {
+        method: "GET", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+          OTCSTicket: "[LL_REPTAG_OTCSTICKET /]",
+        },
+        redirect: "follow", // manual, *follow, error
+        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    }).then(function(response) {
+        if(response.ok){
+          console.log("ok");
+        } else {
+          alert("Data was not added to the database, please contact administrator.");
+          throw new Error(err);
+        }
+      }).catch(function(err) {
+        alert("Data was not added to the database, please contact administrator.");
+        throw new Error(err);
+    });
 }
 
 
