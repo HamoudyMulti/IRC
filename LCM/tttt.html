@@ -1,0 +1,210 @@
+[/* Title: Blank Reportview */]
+
+[LL_WEBREPORT_STARTROW /]
+[LL_WEBREPORT_ENDROW /]
+
+[LL_REPTAG_&subworkid WFINFO:ATTACHFOLDER SETVAR:AttachID /] [//Storing Attachment Container ID in variable AttachID
+
+[LL_WEBREPORT_FOR VAR:k DATA:[LL_REPTAG_&subworkid WFINFO:ATTACHFOLDER NODEINFO:CHILDREN /] /]
+    [LL_WEBREPORT_IF "[LL_REPTAG_%k CURRENTVAL RECORD:DataType /]" == "848" /] [// IF ATTACHMENT IS CWS
+        [LL_REPTAG_%k CURRENTVAL RECORD:OriginDataID SETVAR:CWSID /]
+    [LL_WEBREPORT_ENDIF /]
+    [LL_WEBREPORT_IF "[LL_REPTAG_%k CURRENTVAL RECORD:DataType /]" == "144" /] [// IF ATTACHMENT IS DOCUMENT
+         [LL_REPTAG_%k CURRENTVAL RECORD:OriginOwnerID SETVAR:CWSID /] [//Storing CWS ID in variable CWSID
+    [LL_WEBREPORT_ENDIF /]   
+[LL_WEBREPORT_ENDFOR /]
+
+[LL_REPTAG_%CWSID CURRENTVAL SETWFATTR:CWS /]
+
+[LL_REPTAG_'-' SETVAR:minusCWS /]
+[LL_REPTAG_%CWSID CURRENTVAL CONCATVAR:minusCWS /]
+
+
+
+
+[LL_WEBREPORT_FOR VAR:i DATA:[LL_REPTAG_%minusCWS CURRENTVAL NODEINFO:CHILDREN /] /]
+
+	
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL RECORD:Name /]" == "Stage 01 - Initial" /]
+	
+		[LL_REPTAG_'True' SETVAR:isInitial /]
+			
+		
+	[LL_WEBREPORT_ENDIF /]
+	
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL RECORD:Name /]" == "Stage 02 - Appeal" /]
+	
+		[LL_REPTAG_'True' SETVAR:isAppeal /]
+		
+		
+	[LL_WEBREPORT_ENDIF /]
+	
+	
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL RECORD:Name /]" == "Stage 03 - Complaint" /]
+	
+		[LL_REPTAG_'True' SETVAR:isComplaint /]
+		
+	[LL_WEBREPORT_ENDIF /]
+	
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL RECORD:Name /]" == "Stage 04 - Discrimination" /]
+		
+		[LL_REPTAG_'True' SETVAR:isDiscrimination /]
+		
+		
+	[LL_WEBREPORT_ENDIF /]
+	
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL RECORD:Name /]" == "Stage 05 - Judgment Compliance" /]
+	
+		[LL_REPTAG_'True' SETVAR:isJudgmentCompliance /]
+		
+	[LL_WEBREPORT_ENDIF /]
+	
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL RECORD:Name /]" == "Stage 06 - Closed" /]
+		[LL_REPTAG_'True' SETVAR:isClosed /]
+		
+		
+	[LL_WEBREPORT_ENDIF /]
+	
+	
+[LL_WEBREPORT_ENDFOR /]
+
+
+
+
+
+
+[LL_REPTAG_%CWSID CURRENTVAL CATACTION:SETVALUE:"Legal Case Status":"Case Status - حالة القضية":[LL_REPTAG_&subworkid WFATTR:"Case Status - حالة القضية":DISPLAY /] /]
+
+
+[LL_REPTAG_&subworkid WFATTR:"New Case Number - رقم الدعوة الجديد":DISPLAY SETVAR:CaseNumber /]
+
+
+
+
+
+    
+[LL_WEBREPORT_IF "[LL_REPTAG_&subworkid WFATTR:'Case Status - حالة القضية':DISPLAY /]" == "Appeal - استئناف" AND "[LL_REPTAG_%isAppeal CURRENTVAL /]" != "True" /]
+
+
+	
+	[LL_REPTAG_$AppealFolder NODEACTION:COPY:[LL_REPTAG_%CWSID CURRENTVAL /] /]
+
+	
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&subworkid WFATTR:'New Case Number - رقم الدعوة الجديد':DISPLAY /]" != "?" /]
+		
+		
+		[LL_REPTAG_' Appeal - استئناف' CONCATVAR:CaseNumber /]
+		
+		[LL_REPTAG_%CWSID CURRENTVAL CATACTION:ADDVALUE:"Legal Case":"Court Case Number - رقم القضية في المحكمة":[LL_REPTAG_%CaseNumber CURRENTVAL /] /]
+		
+	
+	[LL_WEBREPORT_ENDIF /]
+	
+	
+[LL_WEBREPORT_ENDIF /]
+
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&subworkid WFATTR:'Case Status - حالة القضية':DISPLAY /]" == "Complaint - شكوى" AND "[LL_REPTAG_%isComplaint CURRENTVAL /]" != "True" /]
+
+
+	
+	[LL_REPTAG_$ComplaintFolder NODEACTION:COPY:[LL_REPTAG_%CWSID CURRENTVAL /] /]
+
+	
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&subworkid WFATTR:'New Case Number - رقم الدعوة الجديد':DISPLAY /]" != "?" /]
+		
+		
+		[LL_REPTAG_' Complaint - شكوى' CONCATVAR:CaseNumber /]
+		
+		[LL_REPTAG_%CWSID CURRENTVAL CATACTION:ADDVALUE:"Legal Case":"Court Case Number - رقم القضية في المحكمة":[LL_REPTAG_%CaseNumber CURRENTVAL /] /]
+		
+	
+	[LL_WEBREPORT_ENDIF /]
+	
+	
+[LL_WEBREPORT_ENDIF /]
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&subworkid WFATTR:'Case Status - حالة القضية':DISPLAY /]" == "Discrimination - تمييز" AND "[LL_REPTAG_%isDiscrimination CURRENTVAL /]" != "True" /]
+
+
+	
+	[LL_REPTAG_$DiscriminationFolder NODEACTION:COPY:[LL_REPTAG_%CWSID CURRENTVAL /] /]
+
+	
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&subworkid WFATTR:'New Case Number - رقم الدعوة الجديد':DISPLAY /]" != "?" /]
+		
+		
+		[LL_REPTAG_' Discrimination - تمييز' CONCATVAR:CaseNumber /]
+		
+		[LL_REPTAG_%CWSID CURRENTVAL CATACTION:ADDVALUE:"Legal Case":"Court Case Number - رقم القضية في المحكمة":[LL_REPTAG_%CaseNumber CURRENTVAL /] /]
+		
+	
+	[LL_WEBREPORT_ENDIF /]
+	
+	
+[LL_WEBREPORT_ENDIF /]
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&subworkid WFATTR:'Case Status - حالة القضية':DISPLAY /]" == "Judgment Compliance - تنفيذ احكام" AND "[LL_REPTAG_%isJudgmentCompliance CURRENTVAL /]" != "True" /]
+
+
+	
+	[LL_REPTAG_$JudgmentComplianceFolder NODEACTION:COPY:[LL_REPTAG_%CWSID CURRENTVAL /] /]
+
+	
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&subworkid WFATTR:'New Case Number - رقم الدعوة الجديد':DISPLAY /]" != "?" /]
+		
+		
+		[LL_REPTAG_' Judgment Compliance - تنفيذ احكام' CONCATVAR:CaseNumber /]
+		
+		[LL_REPTAG_%CWSID CURRENTVAL CATACTION:ADDVALUE:"Legal Case":"Court Case Number - رقم القضية في المحكمة":[LL_REPTAG_%CaseNumber CURRENTVAL /] /]
+		
+	
+	[LL_WEBREPORT_ENDIF /]
+	
+	
+[LL_WEBREPORT_ENDIF /]
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&subworkid WFATTR:'Case Status - حالة القضية':DISPLAY /]" == "Closed - مغلقة" AND "[LL_REPTAG_%isClosed CURRENTVAL /]" != "True" /]
+
+
+	
+	[LL_REPTAG_$ClosedFolder NODEACTION:COPY:[LL_REPTAG_%CWSID CURRENTVAL /] /]
+
+	
+	
+	[LL_WEBREPORT_IF "[LL_REPTAG_&subworkid WFATTR:'New Case Number - رقم الدعوة الجديد':DISPLAY /]" != "?" /]
+		
+		
+		[LL_REPTAG_' Closed - مغلقة' CONCATVAR:CaseNumber /]
+		
+		[LL_REPTAG_%CWSID CURRENTVAL CATACTION:ADDVALUE:"Legal Case":"Court Case Number - رقم القضية في المحكمة":[LL_REPTAG_%CaseNumber CURRENTVAL /] /]
+		
+	
+	[LL_WEBREPORT_ENDIF /]
+	
+	
+[LL_WEBREPORT_ENDIF /]
+
+
+
+
+
+
+
