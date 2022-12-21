@@ -1695,7 +1695,7 @@ csui.require(['csui/lib/jquery'], function ($) {
                 success:function(data){
                     var customerFilesRows =JSON.parse(data);
                     $.each(customerFilesRows.myRows,function(i,v){ 
-                        if(v.Name != "ملف العميل") {
+                        if(v.Name != "ملف العميل" && v.Name != "Customer File Document Template") {
                             var objCF ={};
                             objCF.label=v.Name.toString();
                             objCF.value=v.Name.toString() + " - "+v.ID;
