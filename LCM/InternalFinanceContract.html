@@ -1137,7 +1137,7 @@ input#select-state-finance-agreement-selectized {
     $(document).ready(function(){
 
          $.ajax({
-            url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=7&limit=40&page=1",
+            url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=21&limit=40&page=1",
             type: "GET",
             beforeSend: function(xhr){
                 xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
@@ -1173,7 +1173,7 @@ input#select-state-finance-agreement-selectized {
                 condition = `&where_name=contains_${value}`;
             }
             $.ajax({
-                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=7&limit=40&page=1${condition}`,
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=21&limit=40&page=1${condition}`,
                 type: "GET",
                 beforeSend: function(xhr){
                     xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
