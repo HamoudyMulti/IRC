@@ -1,0 +1,1000 @@
+[/* Title: Blank Reportview */]
+<link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]bootstrap.css" />
+<Link rel='stylesheet' href="[LL_REPTAG_LIBPATH /]selectize.bootstrap3.min.css">
+<link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.css" />
+<script src="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.js"></script>
+<script src="[LL_REPTAG_LIBPATH /]jquery.min.js"></script>
+<script src="[LL_REPTAG_LIBPATH /]bundle.min.js"></script>
+<script src="[LL_REPTAG_LIBPATH /]selectize.min.js"></script>
+
+<style>
+.has-options.items.not-full.selectize-input {
+    border: 1px solid #ced4da;
+}
+
+.selectize-input.items.not-full{
+    border: solid 0.5px #ced4da;
+}
+
+.selectize-input.items.has-options.full.has-items{
+    display: flex;
+    align-items: center;
+
+}
+
+#select-area-selectized{
+    left:14px !important;
+}
+
+input#select-area-selectized {
+    position: initial !important;
+}
+
+#select-section-selectized{
+    left:14px !important;
+}
+
+input#select-section-selectized {
+    position: initial !important;
+}
+
+#select-plot-selectized{
+    left:14px !important;
+}
+
+input#select-plot-selectized {
+    position: initial !important;
+}
+
+  .binf-widgets .custLoader{
+  	[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+  		margin-right: 45%;
+  	[LL_WEBREPORT_ELSE /]
+  		margin-left: 50%;
+  	[LL_WEBREPORT_ENDIF /]
+      margin-left: 50%;
+      margin-top: 20%;
+      position: absolute;
+      border: 12px solid #dbf1fe;
+      border-left: 12px solid #0072aa;
+      transform: translateZ(0);
+      -webkit-animation: load8 1s infinite linear;
+      animation: load8 1s infinite linear;
+      width: 67px;
+      height: 67px;
+      z-index: 11111;
+  }
+
+
+  div.inner-border, div.custLoader {
+      border-radius: 100%;
+  }
+  .binf-widgets .close-icon:after {
+     content: "ⓧ";
+  }
+  .binf-widgets .select-wrapper {
+  margin: auto;
+  max-width: 600px;
+  width: calc(100% - 40px);
+  }
+  .binf-widgets .select-pure__select {
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  font-size: 12px;
+  font-weight: 500;
+  justify-content: left;
+  min-height: 54px;
+  padding: 5px 10px;
+  position: relative;
+  transition: 0.2s;
+  width: 100%;
+  }
+  .binf-widgets select{
+      height: calc(1.90rem );
+      font-size: 12px;"
+  }
+  .binf-widgets input{
+      height: calc(1.90rem );
+      font-size: 12px;"
+  }
+
+  .binf-widgets .select-pure__options {
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+  color: #363b3e;
+  display: none;
+  left: 0;
+  max-height: 221px;
+  overflow-y: scroll;
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  z-index: 5;
+  }
+  .binf-widgets .select-pure__select--opened .select-pure__options {
+  display: block;
+  }
+  .binf-widgets .select-pure__option {
+  background: #fff;
+  border-bottom: 1px solid #e4e4e4;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  }
+  .binf-widgets .select-pure__option--disabled {
+  color: #e4e4e4;
+  }
+  .binf-widgets .select-pure__option--selected {
+  color: #e4e4e4;
+  cursor: initial;
+  pointer-events: none;
+  }
+  .binf-widgets .select-pure__option--hidden {
+  display: none;
+  }
+  .binf-widgets .select-pure__selected-label {
+  align-items: 'center';
+  background: #2c5e7d;
+  border-radius: 4px;
+  color: #fff;
+  cursor: initial;
+  display: inline-flex;
+  justify-content: 'center';
+  margin: 5px 10px 5px 0;
+  padding: 3px 7px;
+  }
+  .binf-widgets .select-pure__selected-label:last-of-type {
+  margin-right: 0;
+  }
+  .binf-widgets .select-pure__selected-label i {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 7px;
+  }
+  .binf-widgets  .select-pure__selected-label img {
+  cursor: pointer;
+  display: inline-block;
+  height: 18px;
+  margin-left: 7px;
+  width: 14px;
+  }
+  .binf-widgets  .select-pure__selected-label i:hover {
+  color: #e4e4e4;
+  }
+  .binf-widgets .select-pure__autocomplete {
+  background: #f9f9f8;
+  border-bottom: 1px solid #e4e4e4;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  box-sizing: border-box;
+  font-size: 12px;
+  outline: none;
+  padding: 10px;
+  width: 100%;
+  }
+  .binf-widgets .select-pure__placeholder--hidden {
+  display: none;
+  }
+  .binf-widgets .select-pure__placeholder:befor{
+  content:"hhhh";
+  }
+
+  .binf-widgets .custBtn {
+  bottom: 4px;
+  right: 23px;
+  border-radius: 16px;
+  height: 32px;
+  line-height: 12px;
+  padding: 0 24px;
+  color: #fff;
+  min-width: 80px;
+  border: 0;
+  }
+  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+      .binf-widgets label{
+      padding-top: 10px;
+      float: right;
+      }
+  [LL_WEBREPORT_ELSE /]
+      .binf-widgets label{
+      padding-top: 10px;
+      float: left;
+      }
+  [LL_WEBREPORT_ENDIF /]
+
+  .binf-widgets .buttonDiv{
+  bottom: 0;
+  position: sticky;
+  width: 100%;
+  border-top: 1px solid #a59f9f;
+  float:right;
+  }
+  .binf-widgets input {
+  height: calc(1.90rem );
+  font-size: 12px;
+  }
+  [/*]
+  .binf-widgets select {
+  height: calc(1.90rem );
+  font-size: 12px;
+  }
+  */]
+  .binf-widgets textarea {
+  height: calc(1.92rem );
+  width: 100%;
+  font-size: 12px;
+  }
+  .binf-widgets #inputerror {
+  color: red;
+  }
+  .binf-widgets #result {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  overflow-y: auto;
+  max-height: 400px;
+  box-sizing: border-box;
+  z-index: 1001;
+  }
+  [//]
+  body {font-family: Arial;}
+  /* Style the tab */
+  .tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  }
+  /* Style the buttons inside the tab */
+  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+      .tab button {
+      background-color: inherit;
+      float: right;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+      }
+  [LL_WEBREPORT_ELSE /]
+      .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+      }
+  [LL_WEBREPORT_ENDIF /]
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+  background-color: #ddd;
+  }
+  /* Create an active/current tablink class */
+  .tab button.active {
+  background-color: #ccc;
+  }
+  /* Style the tab content */
+  .tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  }
+  /* Style the close button */
+  .topright {
+  float: right;
+  cursor: pointer;
+  font-size: 28px;
+  }
+  .topright:hover {color: red;}
+  .binf-widgets .center {
+  margin: auto;
+  width: 60%;
+  border: 3px solid #73AD21;
+  padding: 10px;
+  }
+
+  .binf-widgets .center {
+  margin: auto;
+  width: 60%;
+  border: 3px solid #73AD21;
+  padding: 10px;
+  }
+  .showErrorField{
+  box-shadow: 0 0 4px 1px #f91615;
+  }
+</style>
+
+[LL_WEBREPORT_STARTROW /]
+[LL_WEBREPORT_ENDROW /]
+
+<div
+  class="tile-content csui-normal-scrolling csui-no-scroll-x"
+  style="
+    height: 100%;
+    margin-top: 0px;
+    background-color: #0a163c;
+    position: absolute;
+  "
+>
+  <div
+    class="p-4 rounded bg-white js-active"
+    style="
+      margin-left: 1%;
+      margin-right: 1%;
+      margin-top: 1%;
+      margin-bottom: 20px;
+    "
+  >
+    <div class="tab">
+      <button
+        class="tablinks"
+        onclick="openCase(event, 'Project')"
+        id="defaultOpen"
+      >
+        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+        مشروع
+        [LL_WEBREPORT_ELSE /]
+        Project 
+        [LL_WEBREPORT_ENDIF /]
+      </button>
+    </div>
+
+    <div id="Project" class="tabcontent" style="display: block">
+      <div
+        class="container-fluid"
+        style="position: relative; top: 5%; width: 100%"
+      >
+        <form action="javascript:void(0)()">
+          <div style="margin: 14px">
+            <div class="row" style="margin-top: -16px">
+
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+            
+                        <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                            منطقة
+                        [LL_WEBREPORT_ELSE /]
+                        Area
+                        [LL_WEBREPORT_ENDIF /]                                  
+                         </label>
+                        <select id="select-area">
+                            <option value="" placeholder="">Select</option>
+                            
+                            </select>
+                        
+                </div>
+            </div>
+
+
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+            
+                        <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                            قطاع
+                        [LL_WEBREPORT_ELSE /]
+                        Section
+                        [LL_WEBREPORT_ENDIF /]                                  
+                         </label>
+                        <select id="select-section">
+                            <option value="" placeholder="">Select</option>
+                            
+                            </select>
+                        
+                </div>
+            </div>
+
+
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+            
+                        <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                            قطعة
+                        [LL_WEBREPORT_ELSE /]
+                        Plot
+                        [LL_WEBREPORT_ENDIF /]                                  
+                         </label>
+                        <select id="select-plot">
+                            <option value="" placeholder="">Select</option>
+                            
+                            </select>
+                        
+                </div>
+            </div>
+
+
+              <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                  <label
+                    class="binf-control-label alpaca-control-label"
+                    style="font-size: small"
+                  >
+                    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    اسم المشروع
+                    [LL_WEBREPORT_ELSE /] 
+                    Project Name 
+                    [LL_WEBREPORT_ENDIF /]
+                  </label>
+                  <input
+                    type="text"
+                    class="valueEditable form-control"
+                    name="project"
+                    id="project"
+                  />
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+          <div
+            id="buttonDiv"
+            class="bg-white container-fluid"
+            style="
+              bottom: 0;
+              left: 0;
+              position: sticky;
+              width: 100%;
+              border-top: 1px solid #cfcfcf;
+              height: 42px;
+            "
+          >
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+            <input
+              type="Submit"
+              class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn"
+              value="Create"
+              id="CreateProject"
+              style="right: auto"
+            />
+            [LL_WEBREPORT_ELSE /]
+            <input
+              type="Submit"
+              class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn"
+              value="Create"
+              id="CreateProject"
+            />
+            [LL_WEBREPORT_ENDIF /]
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="LoadingImagePO" class="custLoader" style="display: none"></div>
+
+
+<script>
+    var $select_area = $('#select-area').selectize({});
+    var $select_section = $('#select-section').selectize({});
+    var $select_plot = $('#select-plot').selectize({});
+
+    var selectize_area = $select_area[0].selectize;
+    var selectize_section = $select_section[0].selectize;
+    var selectize_plot = $select_plot[0].selectize;
+
+
+    csui.require(['csui/lib/jquery'], function ($) {    
+       var TileReportConfig = {};
+       TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+       TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]';
+    });
+    
+    
+    $(document).ready(function(){
+        $.ajax({
+            url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=60&limit=40&page=1",
+            type: "GET",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+            },
+            success:function(data){
+                for(const item of data.results){
+                    // if(item.data.properties.name == "Customer File Document Template" || item.data.properties.name == "ملف العميل"){
+                    //     continue;
+                    // }
+
+                    selectize_area.addOption({value: item.data.properties.id, text: item.data.properties.name});
+                }
+            },
+            error: function(xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    ModalAlert.showError("Retrieving Customer Files records Error. "+err.error).always(function () { 
+                    });
+
+                });                      
+            }
+        });
+
+
+
+        $('#select-area-selectized').on('input',()=>{
+            let value = $('#select-area-selectized').val();
+            let condition = "";
+            if(value.length > 0){
+                condition = `&where_name=contains_${value}`;
+            }
+            $.ajax({
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces?where_workspace_type_id=60&limit=40&page=1${condition}`,
+                type: "GET",
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                },
+                success:function(data){
+                    selectize_section.clearOptions(); 
+                    if(data.results.length > 0){
+                        for(const item of data.results){
+                            // if(item.data.properties.name == "Customer File Document Template" || item.data.properties.name == "ملف العميل"){
+                            //     continue;
+                            // }
+    
+                            selectize_area.addOption({value: item.data.properties.id, text: item.data.properties.name});
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var err = JSON.parse(xhr.responseText);
+                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                        ModalAlert.showError("Retrieving Customer Files records Error. "+err.error).always(function () { 
+                        });
+
+                    });                      
+                }
+            
+             });
+        })
+
+
+        selectize_area.on('change', (value) => {
+            $('#LoadingImagePO').show();
+            selectize_section.clearOptions(); 
+            selectize_plot.clearOptions();
+            if(!value) return;
+            $.ajax({
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v1/businessworkspaces/${value}`,
+                type: "GET",
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                },
+                success:function(data){
+                    selectize_section.clearOptions(); 
+                    if(data.data.related_business_workspaces.children && data.data.related_business_workspaces.children.length > 0){
+                        for(const item of data.data.related_business_workspaces.children){
+                            
+    
+                            selectize_section.addOption({value: item.id, text: item.name});
+                        }
+
+                    }
+                    $('#LoadingImagePO').hide();
+                },
+                error: function(xhr, status, error) {
+                    var err = JSON.parse(xhr.responseText);
+                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                        ModalAlert.showError("Retrieving Finance Agreement records Error. "+err.error).always(function () { 
+                        });
+
+                    });                      
+                }
+            
+             });
+
+        });
+
+
+        selectize_section.on('change', (value) => {
+            $('#LoadingImagePO').show();
+            selectize_plot.clearOptions();
+            if(!value) return;
+            $.ajax({
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v1/businessworkspaces/${value}`,
+                type: "GET",
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                },
+                success:function(data){
+                    selectize_plot.clearOptions(); 
+                    if(data.data.related_business_workspaces.children && data.data.related_business_workspaces.children.length > 0){
+                        for(const item of data.data.related_business_workspaces.children){
+                            
+    
+                            selectize_plot.addOption({value: item.id, text: item.name});
+                        }
+
+                    }
+                    $('#LoadingImagePO').hide();
+                },
+                error: function(xhr, status, error) {
+                    var err = JSON.parse(xhr.responseText);
+                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                        ModalAlert.showError("Retrieving Finance Agreement records Error. "+err.error).always(function () { 
+                        });
+
+                    });                      
+                }
+            
+             });
+
+        });
+
+    });
+
+
+
+
+  function openCase(evt, caseName) {
+       var i, tabcontent, tablinks;
+       tabcontent = document.getElementsByClassName("tabcontent");
+       for (i = 0; i < tabcontent.length; i++) {
+           tabcontent[i].style.display = "none";
+       }
+       tablinks = document.getElementsByClassName("tablinks");
+       for (i = 0; i < tablinks.length; i++) {
+           tablinks[i].className = tablinks[i].className.replace(" active", "");
+       }
+       document.getElementById(caseName).style.display = "block";
+       evt.currentTarget.className += " active";
+   }
+
+
+      csui.require(['csui/lib/jquery'], function ($) {
+
+    $("#CreateProject").on("click", function(event) {
+        event.preventDefault();
+        let valArea = selectize_area.getValue();
+        let valSection = selectize_section.getValue();
+        let valPlot = selectize_plot.getValue();
+
+        let valAreaText = selectize_area.getItem(selectize_area.getValue())[0].innerHTML;
+        let valSectionText = selectize_section.getItem(selectize_section.getValue())[0].innerHTML;
+        let valPlotText = selectize_plot.getItem(selectize_plot.getValue())[0].innerHTML;
+
+
+        var project=$('#project').val();
+
+        if(valArea.length == 0){
+            csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    ModalAlert.showError("No Area was chosen.").always(function () { 
+                });
+
+            });    
+            return;  
+        }
+
+        if(valSection.length == 0){
+            csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    ModalAlert.showError("No Section was chosen.").always(function () { 
+                });
+
+            });    
+            return;  
+        }
+
+
+        if(valPlot.length == 0){
+            csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    ModalAlert.showError("No Plot was chosen.").always(function () { 
+                });
+
+            });    
+            return;  
+        }
+
+
+        if(project!=''){
+
+            addRecordToDB(project);
+            createWorkspace(valArea, valSection, valPlot, valAreaText, valSectionText, valPlotText, project);
+   	          
+        } else {
+            if(project==''){
+                $('#project').css({'border-color':'red'});
+            }
+            else{
+                $('#project').css({'border-color':'#ced4da'});
+            }
+
+            csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                ModalAlert.showError("Highlited Fields are Mandatory").always(function () {
+                });
+            });
+        }
+    });
+
+
+    function addRecordToDB(project){
+      let url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$InsertProjectRecord /]/output?";
+      let encode_url = `inputlabel1=${encodeURIComponent(project)}`;
+      let full_url = url+encode_url;
+
+      let bad_request = false; 
+      
+      $.ajax({
+          url:full_url,
+          type: "GET",
+          processData: false,
+          mimeType: "multipart/form-data",
+          contentType: false,
+          async:false,
+          beforeSend: function(xhr){
+              xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+          },
+          success:function(data){
+              var res=JSON.parse(data);
+              console.log(res);
+          },
+          error: function(xhr, status, error) {
+              $('#LoadingImagePO').hide();
+              var err = JSON.parse(xhr.responseText);
+              csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                  ModalAlert.showError("Name already exists!").always(function () {
+                  });
+
+              });
+
+              bad_request = true;
+
+          }
+      });
+
+      if(bad_request){
+        throw new Error("Insert to DB failed!");
+      }
+
+
+    }
+
+
+    function createWorkspace(valArea, valSection, valPlot, valAreaText, valSectionText, valPlotText, project){
+      var form = new FormData();
+
+      var data = {
+          "template_id": [LL_REPTAG_$PAHW_Project_DocTemplate /],
+          "parent_id": [LL_REPTAG_$PAHW_Project_ParentID /],
+          "roles": {
+              "categories": {
+                  "[LL_REPTAG_$Cat_PAHW_Project /]": {
+                      "[LL_REPTAG_$Cat_PAHW_Project /]_3": valSectionText, //section
+                      "[LL_REPTAG_$Cat_PAHW_Project /]_5": valPlotText, // plot
+                      "[LL_REPTAG_$Cat_PAHW_Project /]_6": project, //project
+                      "[LL_REPTAG_$Cat_PAHW_Project /]_2": valAreaText, // area
+                      "[LL_REPTAG_$Cat_PAHW_Project /]_7": new Date(), //date
+                  }
+              }
+          }
+      };
+      $('#LoadingImagePO').show();
+      form.append("body", JSON.stringify(data));
+      //create workspace
+      $.ajax({
+          url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
+          type: "POST",
+          processData: false,
+          mimeType: "multipart/form-data",
+          contentType: false,
+          data: form ,
+          beforeSend: function(xhr){
+              xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+          },
+          success:function(data){
+              var res=JSON.parse(data);
+              console.log(res);
+              $('#LoadingImagePO').hide();
+              let workspace_id = res.results.id;
+
+
+
+
+
+
+
+
+
+            //   // copy first folder
+            //   form = new FormData();
+
+            //   data = {
+            //     "original_id": [LL_REPTAG_$PAHW_Plan_Approved_Folder /], 
+            //     "parent_id": workspace_id,
+            //     "roles": {
+            //         "categories": {
+            //             "[LL_REPTAG_$Cat_PAHW_Project /]": {
+            //                 "[LL_REPTAG_$Cat_PAHW_Project /]_3": valSectionText, //section
+            //                 "[LL_REPTAG_$Cat_PAHW_Project /]_5": valPlotText, // plot
+            //                 "[LL_REPTAG_$Cat_PAHW_Project /]_6": project, //project
+            //                 "[LL_REPTAG_$Cat_PAHW_Project /]_2": valAreaText, // area
+            //                 "[LL_REPTAG_$Cat_PAHW_Project /]_7": new Date(), //date
+            //             }
+            //         }
+            //     }
+            //   }
+
+            //   form.append("body", JSON.stringify(data));
+
+              
+            //   $.ajax({
+            //     url:"[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes",
+            //     type: "POST",
+            //     processData: false,
+            //     mimeType: "multipart/form-data",
+            //     contentType: false,
+            //     async:false,
+            //     data: form ,
+            //     beforeSend: function(xhr){
+            //         xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+            //     },
+            //     success:function(data){
+            //         var res=JSON.parse(data);
+            //         console.log(res);
+            //         $('#LoadingImagePO').hide();
+
+            //     },
+            //     error: function(xhr, status, error) {
+            //         $('#LoadingImagePO').hide();
+            //         var err = JSON.parse(xhr.responseText);
+            //         csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+            //             ModalAlert.showError("Copy Folder Error. "+err.error).always(function () {
+            //             });
+
+            //         });
+
+            //         throw new Error("Copying Folder failed!");
+            //     }
+            //   });
+
+
+
+
+
+
+
+
+            //   // copy second folder
+            //   form = new FormData();
+
+            //   data = {
+            //     "original_id": [LL_REPTAG_$PAHW_Plan_Cancelled_Folder /], 
+            //     "parent_id": workspace_id,
+            //     "roles": {
+            //         "categories": {
+            //             "[LL_REPTAG_$Cat_PAHW_Project /]": {
+            //                 "[LL_REPTAG_$Cat_PAHW_Project /]_3": valSectionText, //section
+            //                 "[LL_REPTAG_$Cat_PAHW_Project /]_5": valPlotText, // plot
+            //                 "[LL_REPTAG_$Cat_PAHW_Project /]_6": project, //project
+            //                 "[LL_REPTAG_$Cat_PAHW_Project /]_2": valAreaText, // area
+            //                 "[LL_REPTAG_$Cat_PAHW_Project /]_7": new Date(), //date
+            //             }
+            //         }
+            //     }
+            //   }
+
+            //   form.append("body", JSON.stringify(data));
+              
+            //   $.ajax({
+            //     url:"[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes",
+            //     type: "POST",
+            //     processData: false,
+            //     mimeType: "multipart/form-data",
+            //     contentType: false,
+            //     async:false,
+            //     data: form ,
+            //     beforeSend: function(xhr){
+            //         xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+            //     },
+            //     success:function(data){
+            //         var res=JSON.parse(data);
+            //         console.log(res);
+            //         $('#LoadingImagePO').hide();
+
+            //     },
+            //     error: function(xhr, status, error) {
+            //         $('#LoadingImagePO').hide();
+            //         var err = JSON.parse(xhr.responseText);
+            //         csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+            //             ModalAlert.showError("Copy Folder Error. "+err.error).always(function () {
+            //             });
+
+            //         });
+
+            //         throw new Error("Copying Folder failed!");
+            //     }
+            //   });
+
+
+
+
+
+
+
+
+              // create relationship
+
+              form = new FormData();
+
+              data = {
+                "rel_bw_id": workspace_id,
+                "rel_type": "child"
+              }
+
+              form.append("body", JSON.stringify(data));
+              
+              $.ajax({
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/${valPlot}/relateditems`,
+                type: "POST",
+                processData: false,
+                mimeType: "multipart/form-data",
+                contentType: false,
+                async:false,
+                data: form ,
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                },
+                success:function(data){
+                    var res=JSON.parse(data);
+                    console.log(res);
+                    $('#LoadingImagePO').hide();
+
+                },
+                error: function(xhr, status, error) {
+                    $('#LoadingImagePO').hide();
+                    var err = JSON.parse(xhr.responseText);
+                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                        ModalAlert.showError("Adding relationship failed. "+err.error).always(function () {
+                        });
+
+                    });
+
+                    throw new Error("Adding relationship failed!");
+                }
+              });
+
+
+
+
+
+
+
+          csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+            ModalAlert.showSuccess("Project Created").always(function () { 
+                $("form")[0].reset();
+                window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
+            });
+
+          }); 
+
+          },
+          error: function(xhr, status, error) {
+              $('#LoadingImagePO').hide();
+              var err = JSON.parse(xhr.responseText);
+              csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                  ModalAlert.showError("Project Creation Error. "+err.error).always(function () {
+                  });
+
+              });
+
+              throw new Error("Creating Project workspace failed!");
+          }
+      });
+
+    }
+
+
+   });
+</script>

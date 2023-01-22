@@ -1,0 +1,98 @@
+
+
+
+[/* Title: Blank Reportview */]
+<link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]bootstrap.css" />
+<link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.css" />
+<script src="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.js"></script>
+<script src="[LL_REPTAG_LIBPATH /]bundle.min.js"></script>
+
+
+
+<head>
+    
+    <style>
+
+        .binf-widgets .map-text-section {
+            display: flex;
+            padding-top: 7px;
+        }
+        
+        .binf-widgets .section-image{
+            flex:1;
+            max-width:70%;
+        }
+
+        .binf-widgets .section-text{
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            flex:2;
+            
+        }
+
+        .binf-widgets .areas-header{
+            border: .3rem solid black;
+            padding: 1em 0;
+            margin: 1em 1em;
+            border-radius: 1rem;
+            font-size: 1.2rem;
+            background-color: rgb(72, 169, 255);
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .binf-widgets .areas-content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            overflow: scroll;
+            height: 75vh;
+
+        }
+        
+        .binf-widgets .area-box{
+            border: .2em solid black;
+            border-radius: .5em;
+            width: 60%;
+            padding: 10px;
+            background-color: antiquewhite;
+
+        }
+        
+        </style>
+</head>
+
+<body>
+
+    <div class="map-text-section">
+            <img class="section-image" src="[LL_REPTAG_LIBPATH /]Kuwait-Map.jpg" alt="Kuwait Map"/>
+        
+        <section class="section-text">
+
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                <div class="areas-header">المناطق</div>
+            [LL_WEBREPORT_ELSE /]
+                <div class="areas-header">Areas</div>
+          	[LL_WEBREPORT_ENDIF /]
+
+
+            <div class="areas-content">
+
+                
+            [LL_WEBREPORT_STARTROW /]
+            <a href="" id="item-[LL_REPTAG=Name /]" class="area-box" target="_blank">[LL_REPTAG=Name /]</a>
+            <script>
+                var area_name = "[LL_REPTAG=Name /]";
+                area_name = encodeURIComponent(area_name);
+                document.getElementById("item-[LL_REPTAG=Name /]").href=`[LL_REPTAG_URLPREFIXFULL /]/app/search/SystemAttributes_value1/848/SystemAttributes_value2_ID/%20/Category_1637518__value1/${area_name}/Category_1637518__value2/%20/Category_1637518__value3/%20/Category_1637518__value4/%20/Category_1637518__value5/definedDate/query_id/1647339/forcePerspectiveChange/%20`;
+            </script>
+            [LL_WEBREPORT_ENDROW /]
+
+            </div>
+            
+        </section>
+        
+    </div>
+</body>

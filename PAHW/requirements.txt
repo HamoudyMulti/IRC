@@ -1,0 +1,67 @@
+workspace -> almashrou3
+same metadata as in page
+
+first fields until 2almashrou3 (SAME FIELDS)
+
+first 3 fields from DB -> in from
+
+how filter works?
+
+folders inside workspace
+
+01- 2almukhatatat 2alka2imeh {
+    inside this folder apply category
+    inherit category of workspace + another category to be added
+    new category {
+        no3 2almokhattat dropdown (BU-GN, BU-PD)
+        3enwan 2almokhattat text
+        rakem 2almokhattat text
+        halet 2almokhattat (ka2em - molghi)
+    }
+
+
+    subfolders {
+        BU-GN
+    }
+
+}
+
+02- 2almukhatatat 2almalghiyyeh {
+    subfolders{
+        BU-GN
+    }
+}
+
+
+
+WR trigger -> update category
+
+
+
+2ism 2almtika -> workspace (2ism 2almashrou3)
+
+
+
+mukhattat
+
+
+
+
+
+
+
+
+
+
+
+workspace name en ar error
+
+mentaka read only dropdown (insha2 ket3a)
+
+2insha2 button
+
+faceits mashrou3
+
+subfolder create document
+
+

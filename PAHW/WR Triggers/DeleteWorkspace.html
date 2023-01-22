@@ -1,0 +1,23 @@
+[LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' NODEINFO:SUBTYPE /]" == "848" /]
+
+    [LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'منطقة[!]' /]" == "TRUE" /]
+        [LL_WEBREPORT_SUBWEBREPORT NODEID:[LL_REPTAG_$DeleteArea /] PARM:inputlabel1:[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'منطقة':'اسم المنطقة':DISPLAY /] /]
+    [LL_WEBREPORT_ENDIF /]
+
+
+    [LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'قطاع[!]' /]" == "TRUE" /]
+        [LL_WEBREPORT_SUBWEBREPORT NODEID:[LL_REPTAG_$DeleteSection /] PARM:inputlabel1:[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'قطاع':'اسم القطاع':DISPLAY /] /]
+    [LL_WEBREPORT_ENDIF /]
+
+
+    [LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'قطعة[!]' /]" == "TRUE" /]
+        [LL_WEBREPORT_SUBWEBREPORT NODEID:[LL_REPTAG_$DeletePlot /] PARM:inputlabel1:[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'قطعة':'اسم القطعة':DISPLAY /] /]
+    [LL_WEBREPORT_ENDIF /]
+
+
+    [LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'مشروع[!]' /]" == "TRUE" /]
+        [LL_WEBREPORT_SUBWEBREPORT NODEID:[LL_REPTAG_$DeleteProject /] PARM:inputlabel1:[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'مشروع':'اسم المشروع':DISPLAY /] /]
+    [LL_WEBREPORT_ENDIF /]
+
+
+[LL_WEBREPORT_ENDIF /]
