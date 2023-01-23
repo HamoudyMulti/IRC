@@ -344,7 +344,30 @@ input#select-section-selectized {
           <div style="margin: 14px">
             <div class="row" style="margin-top: -16px">
 
-                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+
+              <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                  <label
+                    class="binf-control-label alpaca-control-label"
+                    style="font-size: small"
+                  >
+                    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    منطقة
+                    [LL_WEBREPORT_ELSE /] 
+                    Area
+                    [LL_WEBREPORT_ENDIF /]
+                  </label>
+                  <input
+                    type="text"
+                    class="valueEditable form-control"
+                    name="area"
+                    id="area"
+                    disabled
+                  />
+                </div>
+              </div>
+
+                <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
                     <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
             
                         <label class="binf-control-label alpaca-control-label" style="font-size:small">
@@ -404,7 +427,7 @@ input#select-section-selectized {
             <input
               type="Submit"
               class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn"
-              value="Create"
+              value="انشاء"
               id="CreatePlot"
               style="right: auto"
             />
@@ -504,6 +527,38 @@ input#select-section-selectized {
             
              });
         })
+
+
+        
+        selectize_section.on('change', (value) => {
+            $('#LoadingImagePO').show();
+            if(!value) return;
+            $.ajax({
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v1/businessworkspaces/${value}`,
+                type: "GET",
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                },
+                success:function(data){
+                    if(data.data.related_business_workspaces.parents && data.data.related_business_workspaces.parents.length > 0){
+                        const item = data.data.related_business_workspaces.parents[0];
+                        $('#area').attr('value', item.name);
+                    }
+                    $('#LoadingImagePO').hide();
+                },
+                error: function(xhr, status, error) {
+                    var err = JSON.parse(xhr.responseText);
+                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                        ModalAlert.showError("Retrieving Finance Agreement records Error. "+err.error).always(function () { 
+                        });
+
+                    });                      
+                }
+            
+             });
+
+        });
+
 
     });
 
