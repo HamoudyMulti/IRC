@@ -1,0 +1,82 @@
+[LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' NODEINFO:SUBTYPE /]" == "144" /]
+
+    [// get workspace id
+    [LL_REPTAG_TRIGGERID NODEINFO:PARENTID NODEINFO:PARENTID SETVAR:containerID /]
+
+    [// get planned folder and cancelled folder ids
+    [LL_WEBREPORT_FOR VAR:l DATA:[LL_REPTAG_%containerID CURRENTVAL NODEINFO:CHILDREN /] /]
+
+        [LL_WEBREPORT_IF "[LL_REPTAG_%l LIST:[LL_REPTAG_%l_index CURRENTVAL /] CURRENTVAL RECORD:Name /]" == "01- المخططات القائمة" /]
+            [LL_REPTAG_'[LL_REPTAG_%l LIST:[LL_REPTAG_%l_index CURRENTVAL /] CURRENTVAL RECORD:DataID /]' SETVAR:plannedFolderID /]
+        [LL_WEBREPORT_ENDIF /]	
+
+        [LL_WEBREPORT_IF "[LL_REPTAG_%l LIST:[LL_REPTAG_%l_index CURRENTVAL /] CURRENTVAL RECORD:Name /]" == "02- المخططات الملغية" /]
+            [LL_REPTAG_'[LL_REPTAG_%l LIST:[LL_REPTAG_%l_index CURRENTVAL /] CURRENTVAL RECORD:DataID /]' SETVAR:cancelledFolderID /]
+        [LL_WEBREPORT_ENDIF /]	
+    [LL_WEBREPORT_ENDFOR /]
+
+
+
+
+
+    [// get folder id
+    [LL_REPTAG_TRIGGERID NODEINFO:PARENTID SETVAR:folderID /]
+
+    [// get folder name
+    [LL_REPTAG_TRIGGERID NODEINFO:PARENTID NODEINFO:NAME SETVAR:"parentFolderName" /]
+
+
+    [// get subfolder
+    [LL_WEBREPORT_FOR VAR:l DATA:[LL_REPTAG_%folderID CURRENTVAL NODEINFO:CHILDREN /] /]
+        [LL_WEBREPORT_IF "[LL_REPTAG_%l LIST:[LL_REPTAG_%l_index CURRENTVAL /] CURRENTVAL RECORD:Name /]" == "[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'مخطط':'نوع المخطط':DISPLAY /]" /]
+
+                [LL_REPTAG_'[LL_REPTAG_%l LIST:[LL_REPTAG_%l_index CURRENTVAL /] CURRENTVAL RECORD:DataID /]' SETVAR:subfolderID /]
+            
+        [LL_WEBREPORT_ENDIF /]	
+            
+    [LL_WEBREPORT_ENDFOR /]
+
+
+
+    [LL_WEBREPORT_IF "[LL_REPTAG_%subfolderID CURRENTVAL /]" != '' /]
+        [// subfolder already created
+        [LL_REPTAG_TRIGGERID NODEACTION:MOVE:[LL_REPTAG_%subfolderID CURRENTVAL /] /]
+        
+    [LL_WEBREPORT_ELSE /]
+        [// subfolder needs to be created in both planned and cancelled folders
+        
+        [// create first subfolder
+        [LL_REPTAG_'' NODEACTION:CREATE:FOLDER:[LL_REPTAG_%folderID CURRENTVAL /]:"[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'مخطط':'نوع المخطط':DISPLAY /]" /]
+        
+        [// get first created subfolder id
+        [LL_WEBREPORT_FOR VAR:l DATA:[LL_REPTAG_%folderID CURRENTVAL NODEINFO:CHILDREN /] /]
+            [LL_WEBREPORT_IF "[LL_REPTAG_%l LIST:[LL_REPTAG_%l_index CURRENTVAL /] CURRENTVAL RECORD:Name /]" == "[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'مخطط':'نوع المخطط':DISPLAY /]" /]
+                [LL_REPTAG_'[LL_REPTAG_%l LIST:[LL_REPTAG_%l_index CURRENTVAL /] CURRENTVAL RECORD:DataID /]' SETVAR:newSubfolderID /]
+            [LL_WEBREPORT_ENDIF /]	
+        [LL_WEBREPORT_ENDFOR /]
+
+
+        
+        
+        [LL_REPTAG_TRIGGERID NODEACTION:MOVE:[LL_REPTAG_%newSubfolderID CURRENTVAL /] /]
+
+
+        [// create second subfolder
+        [// determine which folder we are     
+        [LL_WEBREPORT_IF "[LL_REPTAG_%parentFolderName CURRENTVAL /]" == '01- المخططات القائمة' /]
+            [// inside planned folder
+            [LL_REPTAG_'' NODEACTION:CREATE:FOLDER:[LL_REPTAG_%cancelledFolderID CURRENTVAL /]:"[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'مخطط':'نوع المخطط':DISPLAY /]" /]
+
+
+        [LL_WEBREPORT_ELSE /]
+            [// inside cancelled folder
+            [LL_REPTAG_'' NODEACTION:CREATE:FOLDER:[LL_REPTAG_%plannedFolderID CURRENTVAL /]:"[LL_REPTAG_'[LL_REPTAG_TRIGGERID /]' CAT:'مخطط':'نوع المخطط':DISPLAY /]" /]
+
+        [LL_WEBREPORT_ENDIF /]
+        
+
+
+    [LL_WEBREPORT_ENDIF /]
+
+
+[LL_WEBREPORT_ENDIF /]

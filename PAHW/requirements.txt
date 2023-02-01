@@ -54,11 +54,11 @@ mukhattat
 
 
 
-workspace name en ar error
+//workspace name en ar error
 
-mentaka read only dropdown (insha2 ket3a)
+//mentaka read only dropdown (insha2 ket3a)
 
-2insha2 button
+//2insha2 button
 
 faceits mashrou3
 
