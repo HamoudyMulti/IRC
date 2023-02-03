@@ -22,8 +22,10 @@
 </style>
 
 <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+
+<script src="[LL_REPTAG_LIBPATH /]jspdf/jspdf.umd.js"></script>
+	
+<script src="[LL_REPTAG_LIBPATH /]jspdf/jspdf.plugin.autotable.js"></script>
 
 <div id="loader"></div>
 <div id="results">Cards are getting created... Please wait...</div>
@@ -432,9 +434,9 @@ const createCardsFromFile = async () => {
       });
 
 
-      let doc = new jsPDF();
+      let doc = new jspdf.jsPDF();
 
-      setTimeout(function(){ 
+      setTimeout(async function(){ 
                
         doc.autoTable({
             html: '#my-table-cards',
@@ -486,15 +488,17 @@ const createCardsFromFile = async () => {
             
             sendToPrintCarrier(CardsCreatedID,dataObjs,expiryDates,issuanceDates);
             
-            let documentUploaded = sendPDFtoCreatedCardsReportFiles(blob,fileName);
-
-            if(documentUploaded){
-              console.log(documentUploaded);
-            }
+            let documentUploaded = await sendPDFtoCreatedCardsReportFiles(blob,fileName);
+            console.log("documentUploaded",documentUploaded);
             
             addRecordInDB(CardsCreatedID,dataObjs);
             
-            //sendEmailToCardsDepartment();
+            if(documentUploaded){
+              sendEmailToCardsDepartment(documentUploaded);
+            }
+
+            alert("All New Cards Created and Sent to Print Carrier! Email sent to Card Department");
+
 
             document.getElementById("loader").style.display = "none";
     
@@ -625,7 +629,6 @@ const sendToPrintCarrier = (CardsCreatedID,dataObjs,expiryDates,issuanceDates) =
         document.getElementById("results").innerHTML += "<br >All Cards sent to print carrier!<br>";
         document.getElementById("results").innerHTML += "<br >"+CardsCreatedID.length+" Print Text Files Created!<br>";
   
-        alert("All New Cards Created and Sent to Print Carrier!");
     })
 
 
@@ -826,7 +829,7 @@ const determineFileName = (product_type,card_type,card_state,issuance_date,id) =
   return file_name;
 }
 
-const sendPDFtoCreatedCardsReportFiles = (blob,fileName) => {
+const sendPDFtoCreatedCardsReportFiles = async (blob,fileName) => {
   
   
   let data = {
@@ -839,7 +842,7 @@ const sendPDFtoCreatedCardsReportFiles = (blob,fileName) => {
 
   formData.append("body", JSON.stringify(data));
   formData.append("file", blob);
-  await fetch("[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes", {
+  let docId = await fetch("[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes", {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -864,6 +867,9 @@ const sendPDFtoCreatedCardsReportFiles = (blob,fileName) => {
         alert("PDF file was not uploaded to content server, please contact administrator.");
         return false;
     });
+    console.log("docId",docId);
+
+    return docId;
 
 };
 
@@ -907,10 +913,14 @@ const addRecordInDB = (CardsCreatedID,dataObjs) => {
   });
 }
 
-const sendEmailToCardsDepartment = () => {
+const sendEmailToCardsDepartment = (documentUploaded) => {
+    let cardsDepartmentEmail = "[LL_REPTAG_$CardsDepartmentMail /]";
+
     let url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$SendNotificationToCards /]/output?";
-    let encode_url = `inputlabel1=${encodeURIComponent(performer)}&inputlabel2=${encodeURIComponent(reference_number)}&inputlabel3=&inputlabel4=${encodeURIComponent(status)}&inputlabel5=${encodeURIComponent(id)}&inputlabel6=${encodeURIComponent(cardholder_name_sql)}&inputlabel7=${encodeURIComponent(card_number_sql)}`;
+    let encode_url = `docPDF=${documentUploaded}&mail=${cardsDepartmentEmail}`;
     let full_url = url+encode_url;
+
+    console.log("full_url",full_url);
 
     return fetch(full_url, {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -924,13 +934,13 @@ const sendEmailToCardsDepartment = () => {
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     }).then(function(response) {
         if(response.ok){
-          console.log("ok");
+          console.log("email sent");
         } else {
-          alert("Data was not added to the database, please contact administrator.");
+          alert("Email not sent to Cards Department, please contact administrator.");
           throw new Error(err);
         }
       }).catch(function(err) {
-        alert("Data was not added to the database, please contact administrator.");
+        alert("Email not sent to Cards Department, please contact administrator.");
         throw new Error(err);
     });
 }

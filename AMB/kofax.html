@@ -1,0 +1,52 @@
+using Kofax.AscentCapture.NetScripting;
+using Kofax.Capture.CaptureModule.InteropServices;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Forms;
+
+
+namespace Kofax_HP_OCR_Numeric {
+	
+	
+	public class Kofax_HP_OCR_Numeric : RecognitionScript {
+
+        public Kofax_HP_OCR_Numeric(): base()
+        {
+            //*** Registers batch loading or unloading events
+            this.BatchLoading += Tutorial___OMR_BatchLoading;
+            this.BatchUnloading += Tutorial___OMR_BatchUnloading;
+        }
+
+
+        void Tutorial___OMR_RecognitionPostProcessing(object sender,
+        PostRecognitionEventArgs e)
+        {
+            //*** Display a message box with the image file, value and confidence
+            //for each field
+            MessageBox.Show("value is:" + e.Value + "### Confidence:" +
+            e.Confidence.ToString());
+        }
+        void Tutorial___OMR_BatchUnloading(object sender)
+        {
+    //*** Un-Registers any extra recognition events and then batch
+            //loading/unloading events
+            this.RecognitionPostProcessing -=
+            Tutorial___OMR_RecognitionPostProcessing;
+            this.BatchUnloading -= Tutorial___OMR_BatchUnloading;
+            this.BatchLoading -= Tutorial___OMR_BatchLoading;
+        }
+
+
+        void Tutorial___OMR_BatchLoading(object sender, ref bool
+        ImageFileRequired)
+        {
+            // *** Registers RecognitionPostProcessing event to display the
+            //recognition result for each recognization object
+            this.RecognitionPostProcessing +=
+            Tutorial___OMR_RecognitionPostProcessing;
+            ImageFileRequired = true;
+        }
+
+	}
+}

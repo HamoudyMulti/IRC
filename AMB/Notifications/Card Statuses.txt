@@ -1,0 +1,17 @@
+Not Delivered
+Received By Cards Department
+Sent to Cards Department
+Sent to Branch
+Sent to Delivery Unit
+Sent to Private Banking
+Received By Branch
+Received By Delivery Unit
+Received By Private Banking
+Delivered To Customer
+Transferred To Branch
+Cancelled
+To be Reviewed By Branch Manager
+To be Reviewed By Retention Party
+Retained
+To be Shredded By Cards Department
+Shredded

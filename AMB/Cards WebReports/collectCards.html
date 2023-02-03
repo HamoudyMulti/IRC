@@ -53,11 +53,11 @@
 		}
 	</style>
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+	<script src="[LL_REPTAG_LIBPATH /]jspdf/jspdf.umd.js"></script>
 	
 	<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+	<script src="[LL_REPTAG_LIBPATH /]jspdf/jspdf.plugin.autotable.js"></script>
 	
 	
 	<table id="my-table-cards" style="width:100%;display: none;" class="table table-bordered">
@@ -155,16 +155,166 @@
 									body: formData,
 								}).then(function(response) {
 									console.log("PDF uploaded to content server");
+									return response.json();
+								}).then((data) => {
+									console.log("data is",data);
+									return data.id;
 								}).catch(function(err) {
 									console.log("PDF file was not uploaded to content server, please contact administrator.");
 								});
 	
 							};
+
+							const sendEmail = async (docId,statusName,objRetrieved) => {
+								console.log(objRetrieved);
+								if(objRetrieved.length == 0) return;
+
+								let requesting_branch = objRetrieved[0].requesting_branch;
+
+								let emailTo, url, encode_url, full_url, destination;
+
+								switch(statusName){
+									case 'Received By Cards Department':
+										collectedBy = "Cards Department";
+										emailTo = "[LL_REPTAG_$CardsDepartmentMail /]";
+										url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$CollectedByEmail /]/output?";
+										encode_url = `docPDF=${docId}&mail=${emailTo}&collectedBy=${collectedBy}`;
+										full_url = url+encode_url;
+										
+										break;
+										
+									case 'Sent to Branch':
+										destination = "your branch";
+										emailTo = await getBranchEmail(requesting_branch);
+										if(!emailTo.includes("**")){
+											console.log("emailTo getBranch",emailTo);
+											url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$SentToEmail /]/output?";
+											encode_url = `docPDF=${docId}&mail=${emailTo}&destination=${destination}`;
+											full_url = url+encode_url;
+										} else {
+											document.getElementById("LoadingImagePO").style.display = 'none';
+											alert("Warning: Process completed but email was not sent, branch email is not defined. Please contact administrator.");
+											throw new Error("Warning: Process completed but email was not sent, branch email is not defined. Please contact administrator.");
+										}
+										
+										break;
+
+									case 'Sent to Delivery Unit':
+										emailTo = "[LL_REPTAG_$DeliveryUnitMail /]";
+										destination = "Delivery Unit";
+										
+										url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$SentToEmail /]/output?";
+										encode_url = `docPDF=${docId}&mail=${emailTo}&destination=${destination}`;
+										full_url = url+encode_url;
+										
+										break;
+									case 'Sent to Private Banking':
+											
+										destination = "Private Banking";
+
+										emailTo = "[LL_REPTAG_$PrivateBankingMail /]";
+										url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$SentToEmail /]/output?";
+										encode_url = `docPDF=${docId}&mail=${emailTo}&destination=${destination}`;
+										full_url = url+encode_url;
+										
+										break;
+
+									case 'Received By Branch':
+										collectedBy = "your branch";
+										emailTo = await getBranchEmail(requesting_branch);
+
+										if(!emailTo.includes("**")){
+											url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$CollectedByEmail /]/output?";
+											encode_url = `docPDF=${docId}&mail=${emailTo}&collectedBy=${collectedBy}`;
+											full_url = url+encode_url;
+										} else {
+											document.getElementById("LoadingImagePO").style.display = 'none';
+											alert("Warning: Process completed but email was not sent, branch email is not defined. Please contact administrator.");
+											throw new Error("Warning: Process completed but email was not sent, branch email is not defined. Please contact administrator.");
+										}
+
+										
+										break;
+									case 'Received By Delivery Unit':
+										collectedBy = "Delivery Unit";
+										emailTo = "[LL_REPTAG_$DeliveryUnitMail /]";
+
+										url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$CollectedByEmail /]/output?";
+										encode_url = `docPDF=${docId}&mail=${emailTo}&collectedBy=${collectedBy}`;
+										full_url = url+encode_url;
+
+										break;
+									case 'Received By Private Banking':
+										collectedBy = "Private Banking";
+										emailTo = "[LL_REPTAG_$PrivateBankingMail /]";
+
+										url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$CollectedByEmail /]/output?";
+										encode_url = `docPDF=${docId}&mail=${emailTo}&collectedBy=${collectedBy}`;
+										full_url = url+encode_url;
+
+									
+										break;
+									
+									default:
+										break;
+								}
+
+								console.log("full_url",full_url);
+
+								await fetch(full_url, {
+									method: "GET", // *GET, POST, PUT, DELETE, etc.
+									mode: "cors", // no-cors, *cors, same-origin
+									cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+									credentials: "same-origin", // include, *same-origin, omit
+									headers: {
+									OTCSTicket: "[LL_REPTAG_OTCSTICKET /]",
+									},
+									redirect: "follow", // manual, *follow, error
+									referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+								}).then(function(response) {
+									if(response.ok){
+									console.log("email sent");
+									} else {
+									alert("Email not sent, please contact administrator.");
+									throw new Error(err);
+									}
+								}).catch(function(err) {
+									alert("Email not sent, please contact administrator.");
+									throw new Error(err);
+								});
+							}
+
+
+							const getBranchEmail = async (requesting_branch) => {
+								try {
+									const response = await fetch(`[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$getBranchEmail /]/output?requesting=${requesting_branch}`, {
+										method: "GET", // *GET, POST, PUT, DELETE, etc.
+										mode: "cors", // no-cors, *cors, same-origin
+										cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+										credentials: "same-origin", // include, *same-origin, omit
+										headers: {
+										OTCSTicket: "[LL_REPTAG_OTCSTICKET /]",
+										},
+										redirect: "follow", // manual, *follow, error
+										referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+									});
+
+									const branch = await response.json();
+									return branch.data;
+									
+								} catch(err) {
+									console.log(err);
+									alert("Branch email is not defined, please contact administrator.");
+								}
+
+								
+							}
 	
 						
 			
-						async function callAjaxAndWait(objRetrieved){
+						async function callAjaxAndWait(objRetrieved,statusName){
 										
+
 										let requests = objRetrieved.map((element,i) => {
 		
 											
@@ -306,7 +456,7 @@
 											})
 											.then(function(data){
 	
-												let doc = new jsPDF();
+												let doc = new jspdf.jsPDF();
 												console.log(doc);
 												setTimeout(function(){ 
 														
@@ -338,11 +488,16 @@
 													let blob = doc.output('blob');
 													doc.save(fileName);
 													console.log(data);
-													sendPDFtoCreatedCardsReportFiles(blob,fileName);
-													location.reload();
+													sendPDFtoCreatedCardsReportFiles(blob,fileName).then(function(data){
+														console.log("docId",data);
+														sendEmail(data,statusName,objRetrieved).then(function(data){
+															location.reload();
+														});
+
+													});
 	
 													
-												}, 4000);   
+												}, 5000);   
 	
 												
 											})
@@ -395,6 +550,7 @@
 											var reference_number = $(this).children('td:first').text();
 											var card_number = $(this).children('td:first').next().text();
 											var cardholder_name = $(this).children('td:first').next().next().text();
+											var requesting_branch= $(this).children('td:first').next().next().next().next().next().text();
 											var cID_arr = cID.split('-');
 	
 											if(cID_arr[0] == 'Card'){ 
@@ -407,6 +563,7 @@
 													reference_number: reference_number,
 													card_number: card_number,
 													cardholder_name:cardholder_name,
+													requesting_branch:requesting_branch,
 												};
 												
 											}
@@ -421,6 +578,7 @@
 													reference_number: reference_number,
 													card_number: card_number,
 													cardholder_name:cardholder_name,
+													requesting_branch:requesting_branch,
 													
 												};
 	
@@ -430,7 +588,7 @@
 											$(this).find("input").val(statusName);
 	
 										});
-										callAjaxAndWait(cardsIDs);
+										callAjaxAndWait(cardsIDs,statusName);
 	
 									}
 									
@@ -675,9 +833,28 @@
 								});
 								
 	
-								$('#SendToBranch').on('click',function(){		
-										$('#LoadingImagePO').show();  				
-										onClickDeliveryStatusHandler('Sent to Branch');
+								$('#SendToBranch').on('click',function(){	
+									let currentRequestingBranch;
+									let sameRequestingBranch = true;
+									
+									$("tr.CItem").each(function() {
+										let requesting_branch= $(this).children('td:first').next().next().next().next().next().text();
+										if(currentRequestingBranch){
+											if(currentRequestingBranch != requesting_branch){
+												sameRequestingBranch = false;
+											}
+										} else {
+											currentRequestingBranch = requesting_branch;
+										}
+									});
+
+									if(!sameRequestingBranch){
+										alert("Cannot send cards to branch with multiple destination requesting branch, it must be unique for a single batch.");
+										$('#LoadingImagePO').hide();  				
+										return;
+									}
+
+									onClickDeliveryStatusHandler('Sent to Branch');
 	
 								});
 								
@@ -706,6 +883,28 @@
 																			
 											ajaxForUpdatingCardPermission(cID_arr[1],'Branch','');	
 										});
+
+
+										let currentRequestingBranch;
+										let sameRequestingBranch = true;
+										
+										$("tr.CItem").each(function() {
+											let requesting_branch= $(this).children('td:first').next().next().next().next().next().text();
+											if(currentRequestingBranch){
+												if(currentRequestingBranch != requesting_branch){
+													sameRequestingBranch = false;
+												}
+											} else {
+												currentRequestingBranch = requesting_branch;
+											}
+										});
+
+										if(!sameRequestingBranch){
+											alert("Cannot collect cards with multiple destination requesting branch, it must be unique for a single batch.");
+											$('#LoadingImagePO').hide();
+											return;
+										}
+
 	
 										onClickDeliveryStatusHandler('Received By Branch');
 							

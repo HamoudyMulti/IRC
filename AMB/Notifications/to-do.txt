@@ -1,11 +1,53 @@
 
-- notifications
 
+Problems:
+- notifications
 - revise Delivered WF
 - fix sending records to DB for workflows Delivered, Transfered, Cancelled
+- check constants in Collect Cards WR (BranchGroup - CardsGroup - CatCard - CatPIN - etc..) = IMPORTANT
 
+
+Admin@MGSVM2012.com
 
 Repeat Steps:
 
 - create notifications folder inside Configurations folder
 
+- add constant SendNotificationToCards in Execute WR
+- add constant getBranchEmail in Collect Cards WR
+- add constant CollectedByEmail in Collect Cards WR
+- add constant SentToEmail in Collect Cards WR
+
+
+- add folder Global Constant in Configurations folder
+
+- copy js library jspdf to webreports folder outside content server
+
+
+
+
+Delivered WF:
+
+- add constant InsertCardsTrackingRecord in WR Step in Delivery WF
+
+
+Transfered WF:
+- add constant InsertCardsTrackingRecord in WR Step in Transfered WF
+
+
+Cancelled WF:
+- add BranchManagerMail in Global constants
+
+- add constants CardUpdateStatus and PINUpdateStatus in status changes Shredded and To be Shredded
+
+- CAREFULL: WF STEP "To Be Shredded by Cards Department Status and Add Record to DB" CHANGE ITS WR !!!
+
+
+
+
+
+9373AE5072BFEE03D37EA705A60234B0530C3B80B280F098
+PIN9373AE5072BFEE03D37EA705A60234B0530C3B80B280F098
+
+964D06EC94FB9B165E106029DC36F195D9C033720E9A01D8
+73B25220D944CC7678A6684B44D29DD79DE0321BAE3931B2
