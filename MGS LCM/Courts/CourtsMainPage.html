@@ -1,0 +1,970 @@
+<Link rel='stylesheet' href="[LL_REPTAG_LIBPATH /]bootstrap.css">
+
+<script src="http://[LL_REPTAG_URLDOMAIN /]/img/webreports/library/bundle.min.js"></script>
+
+<link rel="stylesheet" href="http://[LL_REPTAG_URLDOMAIN /]/img/webreports/library/foundation.min.css">
+
+
+<style>
+
+.binf-widgets .webreports-tilereport-content {
+display: flex;
+align-items: stretch;
+flex-direction: column;
+}
+
+.p-4 {
+padding: 1.5rem !important;
+}
+
+.shadow {
+box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+}
+.rounded {
+border-radius: 0.25rem !important;
+}
+.bg-white {
+background-color: #fff !important;
+}
+.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
+width: 100%;
+padding-right: 15px;
+padding-left: 15px;
+margin-right: auto;
+margin-left: auto;
+}
+
+
+.binf-widgets .collapsible {
+background-color: #10265c;
+color: white;
+cursor: pointer;
+padding: 18px;
+width: 80%;
+border: none;
+align:center;
+text-align: left;
+outline: none;
+font-size: 15px;
+}
+
+.binf-widgets .active, .collapsible:hover {
+background-color: #002caa;
+}
+
+.binf-widgets .content {
+padding: 0 18px;
+display: none;
+overflow: hidden;
+background-color: #ffff;
+}
+
+.binf-widgets .custBtn {
+   
+bottom: 4px;
+right: 23px;
+border-radius: 16px;
+height: 32px;
+line-height: 12px;
+padding: 0 24px;
+color: #fff;
+min-width: 80px;
+border: 0;
+}
+
+[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+.binf-widgets label{
+padding-top: 10px;
+float: right;
+}
+
+.text-to-lang{
+    text-align:right;
+}
+
+[LL_WEBREPORT_ELSE /]
+.binf-widgets label{
+padding-top: 10px;
+float: left;
+}
+
+.text-to-lang{
+    text-align:left;
+}
+[LL_WEBREPORT_ENDIF /] 
+
+
+
+ 
+.binf-widgets .buttonDiv{
+       bottom: 0;
+     position: sticky;
+    width: 100%;
+    border-top: 1px solid #a59f9f;
+}
+.binf-widgets input {
+height: calc(1.90rem );
+font-size: 12px;
+
+}
+.binf-widgets textarea {
+height: calc(1.92rem );
+font-size: 12px;
+
+}
+
+.binf-widgets .custBtn {
+   
+bottom: 4px;
+right: 23px;
+border-radius: 16px;
+height: 32px;
+line-height: 12px;
+padding: 0 24px;
+color: #fff;
+min-width: 80px;
+border: 0;
+}
+.binf-widgets select{
+    height: calc(1.90rem );
+    font-size: 12px;
+}
+
+.custLoader {
+margin-left: 50%;
+margin-top: 20%;
+position: absolute;
+border: 12px solid #dbf1fe;
+border-left: 12px solid #0072aa;
+transform: translateZ(0);
+-webkit-animation: load8 1s infinite linear;
+animation: load8 1s infinite linear;
+width: 67px;
+height: 67px;
+z-index: 11111;
+}
+
+div.custLoader {
+border-radius: 100%;
+}
+
+ 
+
+.switch {
+position: relative;
+display: inline-block;
+width: 45px;
+height: 25px;
+float: right;
+margin-top: -3px;
+margin-left: 10px;
+}
+
+.switch input { 
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+.slider:before {
+position: absolute;
+content: "";
+height: 21px;
+width: 21px;
+left: 4px;
+bottom: 2px;
+background-color: white;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+input:checked + .slider {
+background-color: #3975a2;
+}
+
+
+
+input:checked + .slider:before {
+-webkit-transform: translateX(18px);
+-ms-transform: translateX(18px);
+transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.slider.round {
+border-radius: 34px;
+}
+
+.slider.round:before {
+border-radius: 50%;
+}
+
+
+
+.custBtn {
+   
+position: absolute;
+}
+
+.binf-widgets .webreports-tilereport-sample2 {
+padding: 1em;
+}
+.binf-widgets .webreports-tilereport-sample2 th{
+font-weight: bold;
+font-size: 12px;
+}
+
+.binf-widgets .webreports-tilereport-sample2 td{
+font-size: 12px;
+}
+
+.binf-widgets .webreports-tilereport-sample2 h1{
+font-weight: bold;
+font-size: x-small;
+}
+</style>
+
+
+
+            
+[LL_WEBREPORT_IF "[LL_REPTAG_WIDGETCONTAINERID NODEINFO:PARENTID NODEINFO:SUBTYPE /]" != "849" /]
+
+
+
+    [LL_WEBREPORT_IF "[LL_REPTAG_WIDGETCONTAINERID NODEINFO:PARENTID NODEINFO:PARENTID NODEINFO:SUBTYPE /]" != "849" /]
+
+            
+            [LL_WEBREPORT_IF "[LL_REPTAG_WIDGETCONTAINERID NODEINFO:PARENTID NODEINFO:PARENTID NODEINFO:PARENTID NODEINFO:SUBTYPE /]" != "849" /]
+
+                            
+                            [LL_WEBREPORT_IF "[LL_REPTAG_WIDGETCONTAINERID NODEINFO:PARENTID NODEINFO:PARENTID NODEINFO:PARENTID NODEINFO:PARENTID NODEINFO:SUBTYPE /]" != "849" /]
+
+
+
+
+                            [LL_WEBREPORT_ELSE /]
+                                    [LL_REPTAG_WIDGETCONTAINERID NODEINFO:PARENTID NODEINFO:PARENTID NODEINFO:PARENTID NODEINFO:PARENTID SETVAR:ActualContainer /]
+                                
+                                
+                            [LL_WEBREPORT_ENDIF /] 
+
+
+            [LL_WEBREPORT_ELSE /]
+                    [LL_REPTAG_WIDGETCONTAINERID NODEINFO:PARENTID NODEINFO:PARENTID NODEINFO:PARENTID SETVAR:ActualContainer /]
+                
+                
+            [LL_WEBREPORT_ENDIF /] 
+            
+            
+
+
+    [LL_WEBREPORT_ELSE /]
+            [LL_REPTAG_WIDGETCONTAINERID NODEINFO:PARENTID NODEINFO:PARENTID SETVAR:ActualContainer /]
+        
+        
+    [LL_WEBREPORT_ENDIF /] 
+
+
+[LL_WEBREPORT_ELSE /]
+    [LL_REPTAG_WIDGETCONTAINERID NODEINFO:PARENTID SETVAR:ActualContainer /]
+
+
+[LL_WEBREPORT_ENDIF /] 
+
+
+
+        
+[LL_WEBREPORT_IF "[LL_REPTAG_%ActualContainer CURRENTVAL SUBSTR:2 /]" != "" /]
+
+
+<script>	
+    
+    setInterval(function(){
+        if (location.href.indexOf("?tab=2") != -1) {
+            location.replace("[LL_REPTAG_URLPREFIXFULL /]/app/nodes/[LL_REPTAG_%ActualContainer CURRENTVAL SUBSTR:2 /]?tab=1");
+        }
+    },1000 )
+    
+</script>
+
+
+[LL_WEBREPORT_ELSE /]
+
+
+[LL_REPTAG_'-' SETVAR:mainCWS /]
+[LL_REPTAG_WIDGETCONTAINERID CONCATVAR:mainCWS /]
+
+[LL_WEBREPORT_FOR VAR:i DATA:[LL_REPTAG_%mainCWS CURRENTVAL NODEINFO:CHILDREN /] /]
+            
+            [LL_WEBREPORT_IF "[LL_REPTAG_%i CURRENTVAL RECORD:Name /]" == "01- Courts" /]
+                [LL_REPTAG_%i CURRENTVAL RECORD:DataID SETVAR:courtsFolder /]
+            [LL_WEBREPORT_ENDIF /]	
+            
+            
+[LL_WEBREPORT_ENDFOR /]
+
+
+
+
+[LL_WEBREPORT_ENDIF /] 				
+            
+
+
+
+
+
+
+
+
+
+<div id="Main">
+
+
+
+<div class="shadow p-4 rounded bg-white js-active container-fluid">
+
+<div id="LoadingImagePO" class="custLoader" style="display: none;"></div>
+
+    <div class="row" style="margin-top: -24px;">
+        
+        
+         <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                <label class="binf-control-label alpaca-control-label" style="font-size: small;">
+                
+                [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                  تاريخ الجلسة
+              [LL_WEBREPORT_ELSE /]
+               Court Date
+              [LL_WEBREPORT_ENDIF /] 
+                
+                
+                </label>
+                <input type="date" class="valueEditable  form-control text-to-lang" id="CourtDate" required />
+                <script>
+                    if ( document.getElementById('CourtDate').type != "date" ){
+                        const input = document.getElementById('CourtDate');
+                        const datepicker = new TheDatepicker.Datepicker(input);
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth()+1; 
+                        var yyyy = today.getFullYear();
+                        if(dd<10) 
+                        {
+                            dd='0'+dd;
+                        } 
+                    
+                        if(mm<10) 
+                        {
+                           mm='0'+mm;
+                        } 
+                        today = mm+'/'+dd+'/'+yyyy;
+                        datepicker.options.setInputFormat(today);
+                        datepicker.render();
+                    }
+            </script>                      
+            </div>
+        </div>
+        
+        
+        <div class="col-sm-2 col-lg-2 col-md-2 col-xs-2">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                <label class="binf-control-label alpaca-control-label" style="font-size: small;">
+                
+                
+                [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+               وقت الجلسة
+              [LL_WEBREPORT_ELSE /]
+               Court Time
+              [LL_WEBREPORT_ENDIF /] 
+                
+                </label>
+                <input type="time" class="valueEditable  form-control text-to-lang" id="CourtTime" required />
+            </div>
+        </div>
+        
+        
+        
+        <div class="col-sm-2 col-lg-2 col-md-2 col-xs-2">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                
+            
+            
+            </div>
+        </div>
+        
+        
+        
+            <div class="col-sm-8 col-lg-8 col-md-8 col-xs-8">
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                <label class="binf-control-label alpaca-control-label" style="font-size: small;">
+                
+                [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                ملخص الجلسة
+              [LL_WEBREPORT_ELSE /]
+               Court Summary
+              [LL_WEBREPORT_ENDIF /] 
+                
+                </label>
+                <textarea rows="25" class="valueEditable  form-control text-to-lang" placeholder="Court Summary" id="Description" required></textarea>
+            </div>
+        </div>
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+     
+      
+                    
+       
+ 
+                          
+        
+        
+    </div>
+     <div class="col-12" style="margin-top: 10px;">
+           
+           <div id="changeButton" style="text-align: end;">
+           
+                
+                
+            
+                    <button type="button" id="createCourtButton" class="binf-btn binf-btn-primary" onclick="create();">Create Court</button>
+
+                
+            
+        </div>
+        </div>
+        
+        
+</div>
+
+
+
+
+
+
+
+
+
+<div class="webreports-tilereport-sample2">
+
+
+
+
+
+<div class="binf-table-responsive">
+
+
+    
+  <table id="example" class="binf-table binf-table-bordered binf-table-hover">
+
+    
+
+
+ <tr class="binf-info">
+<td style="width:1%"> 
+    Select
+</TD>
+
+
+
+
+<td style="width:30%;text-align:center;">
+[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+               ملخص الجلسة
+              [LL_WEBREPORT_ELSE /]
+               Court Summary
+              [LL_WEBREPORT_ENDIF /]  
+
+
+</td>
+
+
+
+
+
+
+<td style="width:10%;text-align:center;">
+   
+   [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+              تاريخ ووقت الجلسة
+              [LL_WEBREPORT_ELSE /]
+               Court Date and Time
+              [LL_WEBREPORT_ENDIF /] 
+   
+</TD>	
+
+<td style="width:5%;text-align:center;">
+   
+   [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+             الملف
+              [LL_WEBREPORT_ELSE /]
+               Folder
+              [LL_WEBREPORT_ENDIF /] 
+   
+</TD>	
+
+
+
+
+</TR>
+
+[LL_WEBREPORT_SUBWEBREPORT NODEID:[LL_REPTAG_$getCourtsDetails /] PARM:inputlabel1:[LL_REPTAG_WIDGETCONTAINERID /] /]
+
+
+        
+      
+    
+
+</TABLE>
+</div>
+
+
+
+
+<!-- <button type="button" class="binf-btn binf-btn-primary" style="float: right;clear: right;">Primary</button> !-->
+
+
+
+<button type="button" onclick="deleteEntries();" class="binf-btn binf-btn-primary" style="margin-right:4px;">Delete</button>
+<button type="button" onclick="edit();" class="binf-btn binf-btn-primary">Edit</button>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--<button type="Submit" class="binf-btn binf-btn-primary" style="float:right;margin-right:10px;margin-bottom:10px;" id="submit" onclick="ajaxRequest1();">Submit</button>-->
+
+
+
+
+
+
+<div id="demo11"></div>
+
+<input type="hidden" id="editCourtID">
+
+
+[LL_REPTAG_'-' SETVAR:containerID /]
+[LL_REPTAG_WIDGETCONTAINERID CONCATVAR:containerID /]
+
+
+
+
+[LL_REPTAG_'-' SETVAR:CWSID /]
+[LL_REPTAG_WIDGETCONTAINERID CONCATVAR:CWSID /]
+
+
+
+
+
+
+<script>
+
+
+function create(){
+
+
+
+var CourtDate =  document.getElementById("CourtDate").value;
+var CourtTime =  document.getElementById("CourtTime").value;
+var HasDocuments =  true;
+if(HasDocuments == true){
+    HasDocuments=1;
+
+} else {
+    HasDocuments=0;
+}
+
+var Description =  document.getElementById("Description").value;
+
+var FolderID;
+
+    if(HasDocuments == 1){
+
+            var url = '[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes';
+        
+            var http_request = new XMLHttpRequest();
+                
+          
+   
+  
+    
+        var data = {
+          "type": 0,
+          "parent_id": [LL_REPTAG_%courtsFolder CURRENTVAL /],
+          "name": "Court "+CourtDate,
+          "roles": {
+            "categories": {
+              "[LL_REPTAG_$Court_Category /]": {
+                "[LL_REPTAG_$Court_Category /]_2": CourtDate,
+                "[LL_REPTAG_$Court_Category /]_3": Description
+              }
+            }
+          }
+         
+        };
+        
+            var formData = new FormData();
+        
+            formData.append("body",JSON.stringify(data));
+            
+            
+            http_request.onreadystatechange = function() { 
+                if(this.readyState == 4){
+                    FolderID = JSON.parse(this.responseText).id;
+                }
+            };
+        
+            http_request.open( 'POST', url, false );
+           http_request.withCredentials = true;
+            http_request.setRequestHeader("OTCSTicket", '[LL_REPTAG_OTCSTICKET /]');
+        
+        
+       
+             http_request.send(  formData );
+        
+    }
+
+url =  "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$createCourt /]/output?format=webreport&inputlabel1="+Description+"&inputlabel2="+HasDocuments+"&inputlabel3="+CourtDate+" "+CourtTime+"&inputlabel4=[LL_REPTAG_WIDGETCONTAINERID /]&inputlabel5="+FolderID;
+                
+                http_request = new XMLHttpRequest();
+                
+            
+            
+            
+                http_request.onreadystatechange = function() { };
+                http_request.open( 'GET', url, false );
+                http_request.withCredentials = true;
+                 http_request.setRequestHeader("OTCSTicket", '[LL_REPTAG_OTCSTICKET /]');
+                http_request.send( null );
+                
+                
+
+
+location.reload();
+    
+
+
+}
+
+
+
+
+
+
+function deleteEntries(){
+
+var r = confirm("Are you sure you want to delete?");
+if (r == true) {
+  
+
+
+const checkboxes = document.querySelectorAll(`.toDelete:checked`);
+    let values = [];
+    checkboxes.forEach((checkbox) => {
+    
+    
+    
+    var url =  "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$deleteCourt /]/output?format=webreport&inputlabel1="+checkbox.value;
+                
+                var http_request = new XMLHttpRequest();
+                
+            
+            
+            
+                http_request.onreadystatechange = function() { };
+                http_request.open( 'GET', url, false );
+                http_request.withCredentials = true;
+                 http_request.setRequestHeader("OTCSTicket", '[LL_REPTAG_OTCSTICKET /]');
+                http_request.send( null );
+    
+    
+        
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    
+    
+   
+    });
+    
+    
+    
+    
+    location.reload();
+    
+}
+
+
+
+}
+
+function edit(){
+
+
+
+
+
+    var editCounter=0;
+    
+    
+    const checkboxesCount = document.querySelectorAll(`.toDelete:checked`);
+    checkboxesCount.forEach((checkbox) => {
+        editCounter++;
+            
+   
+    });
+    
+    if(editCounter == 1){
+    
+    
+    
+        const checkboxes = document.querySelectorAll(`.toDelete:checked`);
+        checkboxes.forEach((checkbox) => {
+        
+            
+            var url =  "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$editCourt_getValues /]/output?format=webreport&inputlabel1="+checkbox.value;
+                    
+                    var http_request = new XMLHttpRequest();
+                    
+                
+                
+                
+                    http_request.onreadystatechange = function() { populateFields(http_request); };
+                    http_request.open( 'GET', url, false );
+                    http_request.withCredentials = true;
+                     http_request.setRequestHeader("OTCSTicket", '[LL_REPTAG_OTCSTICKET /]');
+                    http_request.send( null );
+        
+        
+            
+        
+        
+        
+        
+       
+        
+        
+        
+        
+        
+       
+        });
+        
+        document.getElementById("changeButton").innerHTML = "<button type=\"button\" class=\"binf-btn binf-btn-primary\" onclick=\"reset();\">Reset</button><button type=\"button\" class=\"binf-btn binf-btn-primary\" style=\"margin-left:10px;\" onclick=\"editRequest();\">Submit</button>";
+    
+        
+        
+        
+    } else {
+        alert("Please select only 1 entry to edit at a time.");
+    }
+        
+    
+    
+    
+
+
+}
+
+
+function populateFields(request){
+
+ if (request.readyState == 4 ) {
+    
+    
+
+        
+    
+        var fieldsData =JSON.parse(request.responseText);
+            
+            console.log(fieldsData)
+                
+                   
+            var res = fieldsData.myRows[0].CourtDate.split("T");
+            
+             document.getElementById("CourtDate").value=res[0];
+             
+             document.getElementById("CourtDate").disabled=true;
+             document.getElementById("CourtTime").value=res[1];
+             
+             
+             
+             
+             
+            
+            
+            document.getElementById("Description").value= fieldsData.myRows[0].Description;		   
+            
+            document.getElementById("editCourtID").value = fieldsData.myRows[0].ID;
+
+    
+    
+}
+
+
+}
+
+
+
+function editRequest(){
+
+var CourtDate =  document.getElementById("CourtDate").value;
+var CourtTime =  document.getElementById("CourtTime").value;
+
+
+var Description =  document.getElementById("Description").value;
+
+var ID =  document.getElementById("editCourtID").value;
+
+var HasDocuments = 1;
+
+var url;
+var http_request;
+if(HasDocuments == 1){
+
+            url = '[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes';
+        
+            http_request = new XMLHttpRequest();
+                    
+          
+   
+  
+    
+        var data = {
+          "type": 0,
+          "parent_id": [LL_REPTAG_%courtsFolder CURRENTVAL /],
+          "name": "Court "+CourtDate,
+          "roles": {
+            "categories": {
+              "[LL_REPTAG_$Court_Category /]": {
+                "[LL_REPTAG_$Court_Category /]_2": CourtDate,
+                "[LL_REPTAG_$Court_Category /]_3": Description
+              }
+            }
+          }
+         
+        };
+        
+            var formData = new FormData();
+        
+            formData.append("body",JSON.stringify(data));
+            
+            
+            http_request.onreadystatechange = function() { };
+        
+            http_request.open( 'POST', url, false );
+           http_request.withCredentials = true;
+            http_request.setRequestHeader("OTCSTicket", '[LL_REPTAG_OTCSTICKET /]');
+        
+        
+       
+             http_request.send(  formData );
+        
+}
+url =  "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$editCourt /]/output?format=webreport&inputlabel1="+ID+"&inputlabel2="+Description+"&inputlabel3="+HasDocuments+"&inputlabel4="+CourtDate+" "+CourtTime;
+                
+                http_request = new XMLHttpRequest();
+                
+            
+            
+            
+                http_request.onreadystatechange = function() { };
+                http_request.open( 'GET', url, false );
+                http_request.withCredentials = true;
+                 http_request.setRequestHeader("OTCSTicket", '[LL_REPTAG_OTCSTICKET /]');
+                http_request.send( null );
+
+
+
+
+
+
+
+
+location.reload();
+
+}
+
+
+
+function reset(){
+
+             document.getElementById("CourtDate").disabled=false;
+
+
+            
+             document.getElementById("CourtDate").value="";
+             document.getElementById("CourtTime").value="";
+             
+              
+            
+             
+             
+             
+             
+            
+            
+            document.getElementById("Description").value= "";
+            
+            document.getElementById("editCourtID").value="";
+
+
+            document.getElementById("changeButton").innerHTML = "<button type=\"button\" class=\"binf-btn binf-btn-primary\" onclick=\"create();\">Create Court</button>";
+                
+                
+            const checkboxes = document.querySelectorAll(`.toDelete:checked`);
+            checkboxes.forEach((checkbox) => {
+        
+                    checkbox.checked = false;
+
+       
+            });
+
+
+}
+
+
+
+
+</script>
+
+            
+
+            

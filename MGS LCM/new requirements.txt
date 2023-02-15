@@ -1,0 +1,87 @@
+:
+•	الطرف المستأنف.
+•	الطرف المستأنف ضده.
+•	وسائل التواصل المستأنف والمستأنف ضده (ارقام الهواتف، الجوال، والبريد الإلكتروني).
+•	المحكمة.
+•	رقم الدائرة.
+
+
+
+
+
+
+Defensive Case
+قضية دفاعية
+
+Appeal Case
+قضية استئناف
+
+Allegation Case
+قضية ادعاء
+
+
+Case Number - رقم القضية	-1	7
+Claimant - الجهة المدعية	-1	3
+Contact Details - وسائل التواصل للجهة المدعية والمدعى عليها	11	5
+Court - المحكمة	-1	6
+Court Date - تاريخ القضية	-7	8
+Defendant - الجهة المدعى عليها	-1	4
+Department Number - رقم الدائرة	-1	9
+Reference Number - رقم المرجع	-1	11
+Title - عنوان الدفاع
+
+
+
+Claimant - الطرف المستأنف	-1	2
+Contact Details - وسائل التواصل المستأنف والمستأنف ضده	11	4
+Court - المحكمة	-1	5
+Defendant - الطرف المستأنف ضده	-1	3
+Department Number - رقم الدائرة	-1	6
+Reference Number - رقم المرجع	-1	7
+
+
+
+
+
+
+landing page:
+insha2 kadiyat difa3iyya -> difa3 
+
+
+الجهة المدعى عليها
+
+ الجهة المدعى عليها - bel2idafa 2ila البنك المركزي السعودي      defensive case
+
+ الجهات المدعية - bel2idafa 2ila البنك المركزي السعودي      defensive case
+
+
+add logo
+
+
+courts page -> rename button to arabic
+arabic align right for description
+
+arabic change for create button on create cases WR
+
+
+Defensive{
+    WF1: dawrat takyim 2alkadaiyyeh
+    WF2: 2e3timad المذكرة الجوابية
+    WF3: 2eghla2 2alkadiyyeh
+}
+
+
+
+Allegation{
+    WF1: 2e3timad kadiyyat 2iddi3a2
+    WF2: 2eghla2 2alkadiyyeh
+}
+
+Appeal{
+    WF1: 2e3timad kadiyyat 2esti3naf
+    WF2: 2eghla2 2alkadiyyeh
+}
+
+
+
+ONLY WF1 FROM EACH

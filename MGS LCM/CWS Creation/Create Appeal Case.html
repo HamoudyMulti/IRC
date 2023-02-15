@@ -1,0 +1,933 @@
+[/* Title: Blank Reportview */]
+<link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]bootstrap.css" />
+<link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.css" />
+<script src="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.js"></script>
+<script src="[LL_REPTAG_LIBPATH /]bundle.min.js"></script>
+<script src="https://rawgit.com/abdennour/hijri-date/master/cdn/hijri-date-latest.min.js" type="text/javascript" ></script>
+<style>
+
+
+
+
+
+  .binf-widgets .custLoader{
+  	[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+  		margin-right: 45%;
+  	[LL_WEBREPORT_ELSE /]
+  		margin-left: 50%;
+  	[LL_WEBREPORT_ENDIF /]
+      margin-left: 50%;
+      margin-top: 20%;
+      position: absolute;
+      border: 12px solid #dbf1fe;
+      border-left: 12px solid #0072aa;
+      transform: translateZ(0);
+      -webkit-animation: load8 1s infinite linear;
+      animation: load8 1s infinite linear;
+      width: 67px;
+      height: 67px;
+      z-index: 11111;
+  }
+
+
+  div.inner-border, div.custLoader {
+      border-radius: 100%;
+  }
+  .binf-widgets .close-icon:after {
+     content: "ⓧ";
+  }
+  .binf-widgets .select-wrapper {
+  margin: auto;
+  max-width: 600px;
+  width: calc(100% - 40px);
+  }
+  .binf-widgets .select-pure__select {
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  font-size: 12px;
+  font-weight: 500;
+  justify-content: left;
+  min-height: 54px;
+  padding: 5px 10px;
+  position: relative;
+  transition: 0.2s;
+  width: 100%;
+  }
+  .binf-widgets select{
+      height: calc(1.90rem );
+      font-size: 12px;"
+  }
+  .binf-widgets input{
+      height: calc(1.90rem );
+      font-size: 12px;"
+  }
+
+  .binf-widgets .select-pure__options {
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+  color: #363b3e;
+  display: none;
+  left: 0;
+  max-height: 221px;
+  overflow-y: scroll;
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  z-index: 5;
+  }
+  .binf-widgets .select-pure__select--opened .select-pure__options {
+  display: block;
+  }
+  .binf-widgets .select-pure__option {
+  background: #fff;
+  border-bottom: 1px solid #e4e4e4;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  }
+  .binf-widgets .select-pure__option--disabled {
+  color: #e4e4e4;
+  }
+  .binf-widgets .select-pure__option--selected {
+  color: #e4e4e4;
+  cursor: initial;
+  pointer-events: none;
+  }
+  .binf-widgets .select-pure__option--hidden {
+  display: none;
+  }
+  .binf-widgets .select-pure__selected-label {
+  align-items: 'center';
+  background: #2c5e7d;
+  border-radius: 4px;
+  color: #fff;
+  cursor: initial;
+  display: inline-flex;
+  justify-content: 'center';
+  margin: 5px 10px 5px 0;
+  padding: 3px 7px;
+  }
+  .binf-widgets .select-pure__selected-label:last-of-type {
+  margin-right: 0;
+  }
+  .binf-widgets .select-pure__selected-label i {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 7px;
+  }
+  .binf-widgets  .select-pure__selected-label img {
+  cursor: pointer;
+  display: inline-block;
+  height: 18px;
+  margin-left: 7px;
+  width: 14px;
+  }
+  .binf-widgets  .select-pure__selected-label i:hover {
+  color: #e4e4e4;
+  }
+  .binf-widgets .select-pure__autocomplete {
+  background: #f9f9f8;
+  border-bottom: 1px solid #e4e4e4;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  box-sizing: border-box;
+  font-size: 12px;
+  outline: none;
+  padding: 10px;
+  width: 100%;
+  }
+  .binf-widgets .select-pure__placeholder--hidden {
+  display: none;
+  }
+  .binf-widgets .select-pure__placeholder:befor{
+  content:"hhhh";
+  }
+
+  .binf-widgets .custBtn {
+  bottom: 4px;
+  right: 23px;
+  border-radius: 16px;
+  height: 32px;
+  line-height: 12px;
+  padding: 0 24px;
+  color: #fff;
+  min-width: 80px;
+  border: 0;
+  }
+  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+      .binf-widgets label{
+      padding-top: 10px;
+      float: right;
+      }
+  [LL_WEBREPORT_ELSE /]
+      .binf-widgets label{
+      padding-top: 10px;
+      float: left;
+      }
+  [LL_WEBREPORT_ENDIF /]
+
+  .binf-widgets .buttonDiv{
+  bottom: 0;
+  position: sticky;
+  width: 100%;
+  border-top: 1px solid #a59f9f;
+  float:right;
+  }
+  .binf-widgets input {
+  height: calc(1.90rem );
+  font-size: 12px;
+  }
+  [/*]
+  .binf-widgets select {
+  height: calc(1.90rem );
+  font-size: 12px;
+  }
+  */]
+  .binf-widgets textarea {
+  height: calc(1.92rem );
+  width: 100%;
+  font-size: 12px;
+  }
+  .binf-widgets #inputerror {
+  color: red;
+  }
+  .binf-widgets #result {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  overflow-y: auto;
+  max-height: 400px;
+  box-sizing: border-box;
+  z-index: 1001;
+  }
+  [//]
+  body {font-family: Arial;}
+  /* Style the tab */
+  .tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  }
+  /* Style the buttons inside the tab */
+  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+      .tab button {
+      background-color: inherit;
+      float: right;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+      }
+  [LL_WEBREPORT_ELSE /]
+      .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+      }
+  [LL_WEBREPORT_ENDIF /]
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+  background-color: #ddd;
+  }
+  /* Create an active/current tablink class */
+  .tab button.active {
+  background-color: #ccc;
+  }
+  /* Style the tab content */
+  .tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  }
+  /* Style the close button */
+  .topright {
+  float: right;
+  cursor: pointer;
+  font-size: 28px;
+  }
+  .topright:hover {color: red;}
+  .binf-widgets .center {
+  margin: auto;
+  width: 60%;
+  border: 3px solid #73AD21;
+  padding: 10px;
+  }
+
+  .binf-widgets .center {
+  margin: auto;
+  width: 60%;
+  border: 3px solid #73AD21;
+  padding: 10px;
+  }
+  .showErrorField{
+  box-shadow: 0 0 4px 1px #f91615;
+  }
+</style>
+[LL_WEBREPORT_STARTROW /] [LL_WEBREPORT_ENDROW /]
+
+<div
+  class="tile-content csui-normal-scrolling csui-no-scroll-x"
+  style="
+    height: 100%;
+    margin-top: 0px;
+    background-color: #0a163c;
+    position: absolute;
+  "
+>
+  <div
+    class="p-4 rounded bg-white js-active"
+    style="
+      margin-left: 1%;
+      margin-right: 1%;
+      margin-top: 1%;
+      margin-bottom: 20px;
+    "
+  >
+    <div class="tab">
+      <button
+        class="tablinks"
+        onclick="openCase(event, 'Appeal')"
+        id="defaultOpen"
+      >
+        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+        قضية استئناف 
+        [LL_WEBREPORT_ELSE /]
+        Appeal Case
+        [LL_WEBREPORT_ENDIF /]
+      </button>
+    </div>
+    <div id="Appeal" class="tabcontent" style="display: block">
+      <div
+        class="container-fluid"
+        style="position: relative; top: 5%; width: 100%"
+      >
+        <form name="myFormLegal" action="javascript:void(0)()">
+          <div style="margin: 14px">
+            <div class="row" style="margin-top: -16px">
+
+
+                <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                    <label
+                      class="binf-control-label alpaca-control-label"
+                      style="font-size: small"
+                    >
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /] 
+                      المحكمة
+                      [LL_WEBREPORT_ELSE /] 
+                     Court
+                      [LL_WEBREPORT_ENDIF /]
+                    </label>
+                    <input
+                      type="text"
+                      class="valueEditable form-control"
+                      placeholder="Court"
+                      id="court"
+                    />
+                  </div>
+                </div>
+    
+    
+    
+                  <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                      <label
+                        class="binf-control-label alpaca-control-label"
+                        style="font-size: small"
+                      >
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /] 
+                        رقم الدائرة
+                        [LL_WEBREPORT_ELSE /] 
+                        Department Number
+                        [LL_WEBREPORT_ENDIF /]
+                      </label>
+                      <input
+                        type="text"
+                        class="valueEditable form-control"
+                        placeholder="Department Number"
+                        id="departmentNumber"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+
+                    </div>
+                  </div>
+
+            <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+              <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                <label
+                  class="binf-control-label alpaca-control-label"
+                  style="font-size: small"
+                >
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /] 
+                  نوع الطرف المستأنف
+                  [LL_WEBREPORT_ELSE /] 
+                  Claimant Type 
+                  [LL_WEBREPORT_ENDIF /]
+                </label>
+                <select
+                  class="valueEditable form-control"
+                  id="claimantTypeL"
+                  required
+                >
+                  <option value="">select Claimant Type</option>
+                  <option value="جهة خارجية">جهة خارجية</option>
+                  <option value="بنك">بنك</option>
+                </select>
+              </div>
+            </div>
+              
+            <div
+              id="claimantForm"
+              class="col-sm-3 col-lg-3 col-md-3 col-xs-3"
+            >
+              <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                <label class="binf-control-label alpaca-control-label">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /] 
+                  الطرف المستأنف
+                  [LL_WEBREPORT_ELSE /] 
+                  Claimant 
+                  [LL_WEBREPORT_ENDIF /]
+                </label>
+                <span class="claimantLSelect"></span>
+                <input type="hidden" id="claimantL" />
+              </div>
+            </div>
+
+            <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+              <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                <label
+                  class="binf-control-label alpaca-control-label"
+                  style="font-size: small"
+                >
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /] 
+                    نوع الطرف المستأنف ضده
+                  [LL_WEBREPORT_ELSE /] 
+                  Defendant Type 
+                  [LL_WEBREPORT_ENDIF /]
+                </label>
+                <select
+                  class="valueEditable form-control"
+                  id="defendantTypeL"
+                  required
+                >
+                  <option value="">select Defendant Type</option>
+                  <option value="جهة خارجية">جهة خارجية</option>
+                  <option value="بنك">بنك</option>
+                </select>
+              </div>
+            </div>
+
+            <div
+              id="defendantForm"
+              class="col-sm-3 col-lg-3 col-md-3 col-xs-3"
+            >
+              <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                <label class="binf-control-label alpaca-control-label">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /] 
+                  الطرف المستأنف ضده
+                  [LL_WEBREPORT_ELSE /] 
+                  Defendant 
+                  [LL_WEBREPORT_ENDIF /]
+                </label>
+                <span class="defendantLSelect"></span>
+                <input type="hidden" id="defendantL" />
+              </div>
+            </div>
+
+
+            <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+              <div class="col-sm col-lg col-md col-xs">
+                <label class="binf-control-label alpaca-control-label">
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /] 
+                  وسائل التواصل المستأنف والمستأنف ضده
+                  [LL_WEBREPORT_ELSE /] 
+                  Contact Details 
+                  [LL_WEBREPORT_ENDIF /]
+                </label>
+                <textarea
+                  class="form-control"
+                  id="contactDetails"
+                  style="height: 100px"
+                ></textarea>
+              </div>
+            </div>
+
+
+
+
+
+              
+
+              
+
+             
+
+
+            </div>
+          </div>
+          <div
+            id="buttonDiv"
+            class="bg-white container-fluid"
+            style="
+              bottom: 0;
+              left: 0;
+              position: sticky;
+              width: 100%;
+              border-top: 1px solid #cfcfcf;
+              height: 42px;
+            "
+          >
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+            <input
+              type="Submit"
+              class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn"
+              value="Create"
+              id="CreateAppealCase"
+              style="right: auto"
+            />
+            [LL_WEBREPORT_ELSE /]
+            <input
+              type="Submit"
+              class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn"
+              value="Create"
+              id="CreateAppealCase"
+            />
+            [LL_WEBREPORT_ENDIF /]
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<div id="LoadingImagePO" class="custLoader" style="display: none"></div>
+
+<script>
+  csui.require(["csui/lib/jquery"], function ($) {
+    $(document).ready(function () {
+      $("#claimantTypeL").change(function () {
+        if (this.value == "جهة خارجية") {
+          $("#claimantForm").show();
+          document.getElementsByClassName("claimantLSelect")[0].innerHTML = "";
+          var autocomplete_claimantLSelect = new SelectPure(
+            ".claimantLSelect",
+            {
+              options: externalPartiesList,
+              multiple: true,
+              autocomplete: true,
+              icon: "close-icon",
+              onChange: (value) => {
+                document.getElementById("claimantL").value = value;
+              },
+              classNames: {
+                select: "select-pure__select",
+                dropdownShown: "select-pure__select--opened",
+                multiselect: "select-pure__select--multiple",
+                label: "select-pure__label",
+                placeholder: "select-pure__placeholder",
+                dropdown: "select-pure__options",
+                option: "select-pure__option",
+                autocompleteInput: "select-pure__autocomplete",
+                selectedLabel: "select-pure__selected-label",
+                selectedOption: "select-pure__option--selected",
+                // placeholderHidden: "select-pure__placeholder--hidden",
+                optionHidden: "select-pure__option--hidden",
+              },
+            }
+          );
+        }
+
+        if (this.value == "بنك") {
+          $("#claimantForm").show();
+          document.getElementsByClassName("claimantLSelect")[0].innerHTML = "";
+          var autocomplete_claimantLSelect = new SelectPure(
+            ".claimantLSelect",
+            {
+              options: banksList,
+              multiple: true,
+              autocomplete: true,
+              icon: "close-icon",
+              onChange: (value) => {
+                document.getElementById("claimantL").value = value;
+              },
+              classNames: {
+                select: "select-pure__select",
+                dropdownShown: "select-pure__select--opened",
+                multiselect: "select-pure__select--multiple",
+                label: "select-pure__label",
+                placeholder: "select-pure__placeholder",
+                dropdown: "select-pure__options",
+                option: "select-pure__option",
+                autocompleteInput: "select-pure__autocomplete",
+                selectedLabel: "select-pure__selected-label",
+                selectedOption: "select-pure__option--selected",
+                // placeholderHidden: "select-pure__placeholder--hidden",
+                optionHidden: "select-pure__option--hidden",
+              },
+            }
+          );
+        }
+      });
+
+      $("#defendantTypeL").change(function () {
+        if (this.value == "جهة خارجية") {
+          $("#defendantForm").show();
+          document.getElementsByClassName("defendantLSelect")[0].innerHTML = "";
+          var autocomplete_claimantLSelect = new SelectPure(
+            ".defendantLSelect",
+            {
+              options: externalPartiesList,
+              multiple: true,
+              autocomplete: true,
+              icon: "close-icon",
+              onChange: (value) => {
+                document.getElementById("defendantL").value = value;
+              },
+              classNames: {
+                select: "select-pure__select",
+                dropdownShown: "select-pure__select--opened",
+                multiselect: "select-pure__select--multiple",
+                label: "select-pure__label",
+                placeholder: "select-pure__placeholder",
+                dropdown: "select-pure__options",
+                option: "select-pure__option",
+                autocompleteInput: "select-pure__autocomplete",
+                selectedLabel: "select-pure__selected-label",
+                selectedOption: "select-pure__option--selected",
+                // placeholderHidden: "select-pure__placeholder--hidden",
+                optionHidden: "select-pure__option--hidden",
+              },
+            }
+          );
+        }
+
+        if (this.value == "بنك") {
+          $("#defendantForm").show();
+          document.getElementsByClassName("defendantLSelect")[0].innerHTML = "";
+          var autocomplete_claimantLSelect = new SelectPure(
+            ".defendantLSelect",
+            {
+              options: banksList,
+              multiple: true,
+              autocomplete: true,
+              icon: "close-icon",
+              onChange: (value) => {
+                document.getElementById("defendantL").value = value;
+              },
+              classNames: {
+                select: "select-pure__select",
+                dropdownShown: "select-pure__select--opened",
+                multiselect: "select-pure__select--multiple",
+                label: "select-pure__label",
+                placeholder: "select-pure__placeholder",
+                dropdown: "select-pure__options",
+                option: "select-pure__option",
+                autocompleteInput: "select-pure__autocomplete",
+                selectedLabel: "select-pure__selected-label",
+                selectedOption: "select-pure__option--selected",
+                // placeholderHidden: "select-pure__placeholder--hidden",
+                optionHidden: "select-pure__option--hidden",
+              },
+            }
+          );
+        }
+      });
+    });
+  });
+
+  //Initial Load
+  var banksList = [];
+  var externalPartiesList = [];
+
+  csui.require(["csui/lib/jquery"], function ($) {
+    var TileReportConfig = {};
+    TileReportConfig.urlPrefix = "[LL_REPTAG_URLPREFIX /]";
+    TileReportConfig.otcsTicket = "[LL_REPTAG_OTCSTICKET /]";
+
+
+    $.ajax({
+      url:
+        TileReportConfig.urlPrefix +
+        "/api/v1/nodes/[LL_REPTAG_$BANKS /]/output?format=webreport",
+      type: "GET",
+      async: false,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader("OTCSTicket", TileReportConfig.otcsTicket);
+      },
+      success: function (data) {
+        var items = JSON.parse(data);
+        $.each(items.myRows, function (i, v) {
+          var objItem = {};
+          objItem.label = v.Name;
+          objItem.value = v.Name.toString();
+          banksList.push(objItem);
+        });
+      },
+    });
+
+
+    $.ajax({
+      url:
+        TileReportConfig.urlPrefix +
+        "/api/v1/nodes/[LL_REPTAG_$EXTERNAL_PARTIES /]/output?format=webreport",
+      type: "GET",
+      async: false,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader("OTCSTicket", TileReportConfig.otcsTicket);
+      },
+      success: function (data) {
+        var items = JSON.parse(data);
+        $.each(items.myRows, function (i, v) {
+          var objItem = {};
+          objItem.label = v.Name;
+          objItem.value = v.Name.toString();
+          externalPartiesList.push(objItem);
+        });
+      },
+    });
+
+
+    makedropdown(); // populates the select pure elements. NOTE: Only call this once in here
+  });
+</script>
+<script>
+  function openCase(evt, caseName) {
+       var i, tabcontent, tablinks;
+       tabcontent = document.getElementsByClassName("tabcontent");
+       for (i = 0; i < tabcontent.length; i++) {
+           tabcontent[i].style.display = "none";
+       }
+       tablinks = document.getElementsByClassName("tablinks");
+       for (i = 0; i < tablinks.length; i++) {
+           tablinks[i].className = tablinks[i].className.replace(" active", "");
+       }
+       document.getElementById(caseName).style.display = "block";
+       evt.currentTarget.className += " active";
+   }
+
+   function makedropdown(){
+       var autocomplete_claimantLSelect = new SelectPure(".claimantLSelect", {
+           options: externalPartiesList,
+           multiple: true,
+           autocomplete: true,
+           icon: "close-icon",
+           onChange: value => {
+               document.getElementById("claimantL").value = value;
+            },
+           classNames: {
+           select: "select-pure__select",
+           dropdownShown: "select-pure__select--opened",
+           multiselect: "select-pure__select--multiple",
+           label: "select-pure__label",
+           placeholder: "select-pure__placeholder",
+           dropdown: "select-pure__options",
+           option: "select-pure__option",
+           autocompleteInput: "select-pure__autocomplete",
+           selectedLabel: "select-pure__selected-label",
+           selectedOption: "select-pure__option--selected",
+           // placeholderHidden: "select-pure__placeholder--hidden",
+           optionHidden: "select-pure__option--hidden",
+           }
+       });
+
+
+
+
+       var autocomplete_defendantLSelect = new SelectPure(".defendantLSelect", {
+           options: externalPartiesList,
+           multiple: true,
+           autocomplete: true,
+           icon: "close-icon",
+           onChange: value => { document.getElementById("defendantL").value = value; },
+           classNames: {
+           select: "select-pure__select",
+           dropdownShown: "select-pure__select--opened",
+           multiselect: "select-pure__select--multiple",
+           label: "select-pure__label",
+           placeholder: "select-pure__placeholder",
+           dropdown: "select-pure__options",
+           option: "select-pure__option",
+           autocompleteInput: "select-pure__autocomplete",
+           selectedLabel: "select-pure__selected-label",
+           selectedOption: "select-pure__option--selected",
+           // placeholderHidden: "select-pure__placeholder--hidden",
+           optionHidden: "select-pure__option--hidden",
+           }
+       });
+   }
+
+   csui.require(['csui/lib/jquery'], function ($) {
+
+       //Legal
+    $("#CreateAppealCase").on("click", function(event) {
+        event.preventDefault();
+        var court=$('#court').val();
+        var departmentNumber=$('#departmentNumber').val();
+
+        var claimaintType = $("#claimantTypeL").val();
+        var defendantType = $("#defendantTypeL").val();
+
+        var contactDetails=$('#contactDetails').val();
+
+
+
+        var claimantL=$('#claimantL').val();
+        var defendantL=$('#defendantL').val();
+        
+        claimantL = claimantL.split(",");
+        defendantL = defendantL.split(",");
+
+
+
+        if(claimaintType!='' & defendantType!='' & court!=''){
+               var courtDateFormat = new Date();
+              //  var yearGregorian = courtDateFormat.getFullYear();
+
+              //  var yearHijri = `${(yearGregorian - 622) * 1.03}`;
+              
+              var hijriDate = courtDateFormat.toHijri(); 
+              var hijriYear = hijriDate.year.toString().substring(2,4);
+
+
+              var seq = "[LL_WEBREPORT_SUBWEBREPORT NODEID:[LL_REPTAG_$APPEAL_SEQUENCE /] /]";
+              var paddedSeq = '0000'+seq;
+              var paddedSeq = paddedSeq.substring(paddedSeq.length-5, paddedSeq.length);
+
+              if(paddedSeq == '0000'){
+                alert("Max sequence number reached, please contact administrator.");
+              }
+
+
+               var referenceNumber = paddedSeq + hijriYear + '/ أ';
+
+
+   	          var form = new FormData();
+
+               var data = {
+                   "template_id": [LL_REPTAG_$AppealCase_DocTemplate /],
+                   "parent_id": [LL_REPTAG_$AppealCase_ParentID /], // folder where the cws will be created
+                   "roles": {
+                       "categories": {
+                           "[LL_REPTAG_$CatAppeal /]": {
+                                "[LL_REPTAG_$CatAppeal /]_5":court,
+                                "[LL_REPTAG_$CatAppeal /]_6":departmentNumber,
+                                "[LL_REPTAG_$CatAppeal /]_2":claimantL,
+                                "[LL_REPTAG_$CatAppeal /]_3":defendantL,
+                                "[LL_REPTAG_$CatAppeal /]_4":contactDetails,
+                                "[LL_REPTAG_$CatAppeal /]_7":referenceNumber,
+
+                           }
+                       }
+                   }
+               };
+               $('#LoadingImagePO').show();
+               form.append("body", JSON.stringify(data));
+                $.ajax({
+                   url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
+                   type: "POST",
+                   processData: false,
+                   mimeType: "multipart/form-data",
+                   contentType: false,
+                   data: form ,
+                   beforeSend: function(xhr){
+                       xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                   },
+                   success:function(data){
+                       var res=JSON.parse(data);
+                       $('#LoadingImagePO').hide();
+
+
+                       csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                           ModalAlert.showSuccess("Appeal Case Created").always(function () {
+                               $("form")[0].reset();
+                               window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
+                           });
+
+                           });
+
+
+
+                   },
+                   error: function(xhr, status, error) {
+                       $('#LoadingImagePO').hide();
+                       var err = JSON.parse(xhr.responseText);
+                       //alert(err.error);
+                       csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                           ModalAlert.showError("Appeal Case Creation Error. "+err.error).always(function () {
+                           });
+
+                       });
+                   }
+               });
+           }
+           else{
+               if(title==''){
+                   $('#title').css({'border-color':'red'});
+               }
+               else{
+                   $('#title').css({'border-color':'#ced4da'});
+               }
+               if(claimaintType==''){
+                   $('#claimaintType').css({'border-color':'red'});
+               }
+               else{
+                   $('#claimaintType').css({'border-color':'#ced4da'});
+               }
+
+               if(defendantType==''){
+                   $('#defendantType').css({'border-color':'red'});
+               }
+               else{
+                   $('#defendantType').css({'border-color':'#ced4da'});
+               }
+               if(court==''){
+                   $('#court').css({'border-color':'red'});
+               }
+               else{
+                   $('#court').css({'border-color':'#ced4da'});
+               }
+               if(caseNumber==''){
+                   $('#caseNumber').css({'border-color':'red'});
+               }
+               else{
+                   $('#caseNumber').css({'border-color':'#ced4da'});
+               }
+               if(courtDate==''){
+                   $('#courtDate').css({'border-color':'red'});
+               }
+               else{
+                   $('#courtDate').css({'border-color':'#ced4da'});
+               }
+
+               csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                   ModalAlert.showError("Highlited Fields are Mandatory").always(function () {
+                   });
+               });
+           }
+    });
+
+
+
+   });
+</script>
