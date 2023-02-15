@@ -8,8 +8,13 @@
 	</td>
 	
 	
-	
-    <td style="vertical-align: middle;">
+	[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+			<td style="text-align:right;vertical-align: middle;">
+               
+    [LL_WEBREPORT_ELSE /]
+			  <td style="text-align:left;vertical-align: middle;">
+               
+    [LL_WEBREPORT_ENDIF /] 
         [LL_REPTAG_2 /]
     </td>
 	

@@ -447,9 +447,14 @@ font-size: x-small;
            <div id="changeButton" style="text-align: end;">
            
                 
-                
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                <button type="button" id="createCourtButton" class="binf-btn binf-btn-primary" onclick="create();">انشاء محكمة</button>
             
-                    <button type="button" id="createCourtButton" class="binf-btn binf-btn-primary" onclick="create();">Create Court</button>
+           [LL_WEBREPORT_ELSE /]
+                <button type="button" id="createCourtButton" class="binf-btn binf-btn-primary" onclick="create();">Create Court</button>
+            
+           [LL_WEBREPORT_ENDIF /] 
+            
 
                 
             
@@ -546,9 +551,15 @@ font-size: x-small;
 <!-- <button type="button" class="binf-btn binf-btn-primary" style="float: right;clear: right;">Primary</button> !-->
 
 
+[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+    <button type="button" onclick="deleteEntries();" class="binf-btn binf-btn-primary" style="margin-right:4px;">حذف</button>
+    <button type="button" onclick="edit();" class="binf-btn binf-btn-primary">تعديل</button>
 
-<button type="button" onclick="deleteEntries();" class="binf-btn binf-btn-primary" style="margin-right:4px;">Delete</button>
-<button type="button" onclick="edit();" class="binf-btn binf-btn-primary">Edit</button>
+[LL_WEBREPORT_ELSE /]
+    <button type="button" onclick="deleteEntries();" class="binf-btn binf-btn-primary" style="margin-right:4px;">Delete</button>
+    <button type="button" onclick="edit();" class="binf-btn binf-btn-primary">Edit</button>
+
+[LL_WEBREPORT_ENDIF /] 
 
 
 
@@ -787,7 +798,14 @@ function edit(){
        
         });
         
-        document.getElementById("changeButton").innerHTML = "<button type=\"button\" class=\"binf-btn binf-btn-primary\" onclick=\"reset();\">Reset</button><button type=\"button\" class=\"binf-btn binf-btn-primary\" style=\"margin-left:10px;\" onclick=\"editRequest();\">Submit</button>";
+        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+            document.getElementById("changeButton").innerHTML = "<button type=\"button\" class=\"binf-btn binf-btn-primary\" onclick=\"reset();\">اعادة تعيين</button><button type=\"button\" class=\"binf-btn binf-btn-primary\" style=\"margin-left:10px;\" onclick=\"editRequest();\">إرسال</button>";
+               
+        [LL_WEBREPORT_ELSE /]
+            document.getElementById("changeButton").innerHTML = "<button type=\"button\" class=\"binf-btn binf-btn-primary\" onclick=\"reset();\">Reset</button><button type=\"button\" class=\"binf-btn binf-btn-primary\" style=\"margin-left:10px;\" onclick=\"editRequest();\">Submit</button>";
+        
+        [LL_WEBREPORT_ENDIF /] 
+
     
         
         
@@ -945,8 +963,13 @@ function reset(){
             
             document.getElementById("editCourtID").value="";
 
-
-            document.getElementById("changeButton").innerHTML = "<button type=\"button\" class=\"binf-btn binf-btn-primary\" onclick=\"create();\">Create Court</button>";
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                document.getElementById("changeButton").innerHTML = "<button type=\"button\" class=\"binf-btn binf-btn-primary\" onclick=\"create();\">انشاء محكمة</button>";
+               
+            [LL_WEBREPORT_ELSE /]
+                document.getElementById("changeButton").innerHTML = "<button type=\"button\" class=\"binf-btn binf-btn-primary\" onclick=\"create();\">Create Court</button>";
+               
+            [LL_WEBREPORT_ENDIF /] 
                 
                 
             const checkboxes = document.querySelectorAll(`.toDelete:checked`);

@@ -338,7 +338,7 @@
                     <input
                       type="text"
                       class="valueEditable form-control"
-                      placeholder="Court"
+                      placeholder="المحكمة"
                       id="court"
                     />
                   </div>
@@ -361,7 +361,7 @@
                       <input
                         type="text"
                         class="valueEditable form-control"
-                        placeholder="Department Number"
+                        placeholder="رقم الدائرة"
                         id="departmentNumber"
                       />
                     </div>
@@ -373,33 +373,11 @@
                     </div>
                   </div>
 
-            <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
-              <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                <label
-                  class="binf-control-label alpaca-control-label"
-                  style="font-size: small"
-                >
-                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /] 
-                  نوع الطرف المستأنف
-                  [LL_WEBREPORT_ELSE /] 
-                  Claimant Type 
-                  [LL_WEBREPORT_ENDIF /]
-                </label>
-                <select
-                  class="valueEditable form-control"
-                  id="claimantTypeL"
-                  required
-                >
-                  <option value="">select Claimant Type</option>
-                  <option value="جهة خارجية">جهة خارجية</option>
-                  <option value="بنك">بنك</option>
-                </select>
-              </div>
-            </div>
+            
               
             <div
               id="claimantForm"
-              class="col-sm-3 col-lg-3 col-md-3 col-xs-3"
+              class="col-sm-6 col-lg-6 col-md-6 col-xs-6"
             >
               <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
                 <label class="binf-control-label alpaca-control-label">
@@ -414,33 +392,11 @@
               </div>
             </div>
 
-            <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
-              <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
-                <label
-                  class="binf-control-label alpaca-control-label"
-                  style="font-size: small"
-                >
-                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /] 
-                    نوع الطرف المستأنف ضده
-                  [LL_WEBREPORT_ELSE /] 
-                  Defendant Type 
-                  [LL_WEBREPORT_ENDIF /]
-                </label>
-                <select
-                  class="valueEditable form-control"
-                  id="defendantTypeL"
-                  required
-                >
-                  <option value="">select Defendant Type</option>
-                  <option value="جهة خارجية">جهة خارجية</option>
-                  <option value="بنك">بنك</option>
-                </select>
-              </div>
-            </div>
+            
 
             <div
               id="defendantForm"
-              class="col-sm-3 col-lg-3 col-md-3 col-xs-3"
+              class="col-sm-6 col-lg-6 col-md-6 col-xs-6"
             >
               <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
                 <label class="binf-control-label alpaca-control-label">
@@ -502,7 +458,7 @@
             <input
               type="Submit"
               class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn"
-              value="Create"
+              value="انشاء"
               id="CreateAppealCase"
               style="right: auto"
             />
@@ -524,137 +480,7 @@
 <div id="LoadingImagePO" class="custLoader" style="display: none"></div>
 
 <script>
-  csui.require(["csui/lib/jquery"], function ($) {
-    $(document).ready(function () {
-      $("#claimantTypeL").change(function () {
-        if (this.value == "جهة خارجية") {
-          $("#claimantForm").show();
-          document.getElementsByClassName("claimantLSelect")[0].innerHTML = "";
-          var autocomplete_claimantLSelect = new SelectPure(
-            ".claimantLSelect",
-            {
-              options: externalPartiesList,
-              multiple: true,
-              autocomplete: true,
-              icon: "close-icon",
-              onChange: (value) => {
-                document.getElementById("claimantL").value = value;
-              },
-              classNames: {
-                select: "select-pure__select",
-                dropdownShown: "select-pure__select--opened",
-                multiselect: "select-pure__select--multiple",
-                label: "select-pure__label",
-                placeholder: "select-pure__placeholder",
-                dropdown: "select-pure__options",
-                option: "select-pure__option",
-                autocompleteInput: "select-pure__autocomplete",
-                selectedLabel: "select-pure__selected-label",
-                selectedOption: "select-pure__option--selected",
-                // placeholderHidden: "select-pure__placeholder--hidden",
-                optionHidden: "select-pure__option--hidden",
-              },
-            }
-          );
-        }
-
-        if (this.value == "بنك") {
-          $("#claimantForm").show();
-          document.getElementsByClassName("claimantLSelect")[0].innerHTML = "";
-          var autocomplete_claimantLSelect = new SelectPure(
-            ".claimantLSelect",
-            {
-              options: banksList,
-              multiple: true,
-              autocomplete: true,
-              icon: "close-icon",
-              onChange: (value) => {
-                document.getElementById("claimantL").value = value;
-              },
-              classNames: {
-                select: "select-pure__select",
-                dropdownShown: "select-pure__select--opened",
-                multiselect: "select-pure__select--multiple",
-                label: "select-pure__label",
-                placeholder: "select-pure__placeholder",
-                dropdown: "select-pure__options",
-                option: "select-pure__option",
-                autocompleteInput: "select-pure__autocomplete",
-                selectedLabel: "select-pure__selected-label",
-                selectedOption: "select-pure__option--selected",
-                // placeholderHidden: "select-pure__placeholder--hidden",
-                optionHidden: "select-pure__option--hidden",
-              },
-            }
-          );
-        }
-      });
-
-      $("#defendantTypeL").change(function () {
-        if (this.value == "جهة خارجية") {
-          $("#defendantForm").show();
-          document.getElementsByClassName("defendantLSelect")[0].innerHTML = "";
-          var autocomplete_claimantLSelect = new SelectPure(
-            ".defendantLSelect",
-            {
-              options: externalPartiesList,
-              multiple: true,
-              autocomplete: true,
-              icon: "close-icon",
-              onChange: (value) => {
-                document.getElementById("defendantL").value = value;
-              },
-              classNames: {
-                select: "select-pure__select",
-                dropdownShown: "select-pure__select--opened",
-                multiselect: "select-pure__select--multiple",
-                label: "select-pure__label",
-                placeholder: "select-pure__placeholder",
-                dropdown: "select-pure__options",
-                option: "select-pure__option",
-                autocompleteInput: "select-pure__autocomplete",
-                selectedLabel: "select-pure__selected-label",
-                selectedOption: "select-pure__option--selected",
-                // placeholderHidden: "select-pure__placeholder--hidden",
-                optionHidden: "select-pure__option--hidden",
-              },
-            }
-          );
-        }
-
-        if (this.value == "بنك") {
-          $("#defendantForm").show();
-          document.getElementsByClassName("defendantLSelect")[0].innerHTML = "";
-          var autocomplete_claimantLSelect = new SelectPure(
-            ".defendantLSelect",
-            {
-              options: banksList,
-              multiple: true,
-              autocomplete: true,
-              icon: "close-icon",
-              onChange: (value) => {
-                document.getElementById("defendantL").value = value;
-              },
-              classNames: {
-                select: "select-pure__select",
-                dropdownShown: "select-pure__select--opened",
-                multiselect: "select-pure__select--multiple",
-                label: "select-pure__label",
-                placeholder: "select-pure__placeholder",
-                dropdown: "select-pure__options",
-                option: "select-pure__option",
-                autocompleteInput: "select-pure__autocomplete",
-                selectedLabel: "select-pure__selected-label",
-                selectedOption: "select-pure__option--selected",
-                // placeholderHidden: "select-pure__placeholder--hidden",
-                optionHidden: "select-pure__option--hidden",
-              },
-            }
-          );
-        }
-      });
-    });
-  });
+  
 
   //Initial Load
   var banksList = [];
@@ -785,8 +611,6 @@
         var court=$('#court').val();
         var departmentNumber=$('#departmentNumber').val();
 
-        var claimaintType = $("#claimantTypeL").val();
-        var defendantType = $("#defendantTypeL").val();
 
         var contactDetails=$('#contactDetails').val();
 
@@ -800,7 +624,7 @@
 
 
 
-        if(claimaintType!='' & defendantType!='' & court!=''){
+        if(court!=''){
                var courtDateFormat = new Date();
               //  var yearGregorian = courtDateFormat.getFullYear();
 
@@ -859,10 +683,24 @@
 
 
                        csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                           ModalAlert.showSuccess("Appeal Case Created").always(function () {
+
+
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                           ModalAlert.showSuccess(`تم إنشاء قضية الاستئناف`).always(function () {
                                $("form")[0].reset();
                                window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
                            });
+                           
+                           [LL_WEBREPORT_ELSE /]
+
+                           ModalAlert.showSuccess(`Appeal Case Created`).always(function () {
+                               $("form")[0].reset();
+                               window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
+                           });
+
+                           [LL_WEBREPORT_ENDIF /]
+
+
 
                            });
 
@@ -882,42 +720,12 @@
                });
            }
            else{
-               if(title==''){
-                   $('#title').css({'border-color':'red'});
-               }
-               else{
-                   $('#title').css({'border-color':'#ced4da'});
-               }
-               if(claimaintType==''){
-                   $('#claimaintType').css({'border-color':'red'});
-               }
-               else{
-                   $('#claimaintType').css({'border-color':'#ced4da'});
-               }
-
-               if(defendantType==''){
-                   $('#defendantType').css({'border-color':'red'});
-               }
-               else{
-                   $('#defendantType').css({'border-color':'#ced4da'});
-               }
+               
                if(court==''){
                    $('#court').css({'border-color':'red'});
                }
                else{
                    $('#court').css({'border-color':'#ced4da'});
-               }
-               if(caseNumber==''){
-                   $('#caseNumber').css({'border-color':'red'});
-               }
-               else{
-                   $('#caseNumber').css({'border-color':'#ced4da'});
-               }
-               if(courtDate==''){
-                   $('#courtDate').css({'border-color':'red'});
-               }
-               else{
-                   $('#courtDate').css({'border-color':'#ced4da'});
                }
 
                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {

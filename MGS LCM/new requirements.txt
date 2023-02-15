@@ -11,7 +11,7 @@
 
 
 Defensive Case
-قضية دفاعية
+قضية دفاع
 
 Appeal Case
 قضية استئناف
@@ -52,7 +52,7 @@ insha2 kadiyat difa3iyya -> difa3
 
  الجهة المدعى عليها - bel2idafa 2ila البنك المركزي السعودي      defensive case
 
- الجهات المدعية - bel2idafa 2ila البنك المركزي السعودي      defensive case
+ الجهات المدعية - bel2idafa 2ila البنك المركزي السعودي      allegation case
 
 
 add logo
