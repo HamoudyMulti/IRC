@@ -1,0 +1,19 @@
+[LL_REPTAG_&subworkid WFINFO:ATTACHFOLDER SETVAR:AttachID /] [//Storing Attachment Container ID in variable AttachID
+
+[LL_WEBREPORT_FOR VAR:k DATA:[LL_REPTAG_&subworkid WFINFO:ATTACHFOLDER NODEINFO:CHILDREN /] /]
+    [LL_WEBREPORT_IF "[LL_REPTAG_%k CURRENTVAL RECORD:DataType /]" == "848" /] [// IF ATTACHMENT IS CWS
+        [LL_REPTAG_%k CURRENTVAL RECORD:OriginDataID SETVAR:CWSID /]
+    [LL_WEBREPORT_ENDIF /]
+    [LL_WEBREPORT_IF "[LL_REPTAG_%k CURRENTVAL RECORD:DataType /]" == "144" /] [// IF ATTACHMENT IS DOCUMENT
+         [LL_REPTAG_%k CURRENTVAL RECORD:OriginOwnerID SETVAR:CWSID /] [//Storing CWS ID in variable CWSID
+    [LL_WEBREPORT_ENDIF /]   
+[LL_WEBREPORT_ENDFOR /]
+
+
+
+[LL_REPTAG_'[LL_REPTAG_%CWSID CURRENTVAL CAT:"Allegation Case":"Title - عنوان الادعاء":DISPLAY /]' SETWFATTR:'Title - عنوان الادعاء' /]
+
+
+[LL_WEBREPORT_FOR DATA:[LL_REPTAG_'[LL_REPTAG_%CWSID CURRENTVAL CAT:"Allegation Case":"Defendant - الجهة المدعى عليها":DISPLAY /]' TOLIST:"," /] VAR:"value" /]
+   [LL_REPTAG_%value CURRENTVAL SETWFATTR:MV++:'Defendant - الجهة المدعى عليها' /]
+[LL_WEBREPORT_ENDFOR /]

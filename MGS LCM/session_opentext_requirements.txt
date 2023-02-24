@@ -1,0 +1,45 @@
+3 relationships -> 3 cases
+
+3enwan 2alkadiyyeh 
+rakem 2alkadiiyeh
+
+
+=================================
+
+worlflows 2 maps just name
+
+==================================
+
+perspectives
+
+title: title
+description: claimant
+
+
+meta in preview pane: title - claimant
+top right: status
+
+custom column: title - claimant
+
+
+==============================
+
+add 3 types of relationships
+
+
+========================
+
+workflow -> attributes on page
+on each step
+
+===============
+
+item handler WF - some WR not executed in WF
+
+
+
+
+قضايا الدفاع
+قضايا الادعاء
+قضايا الاستئناف
+
