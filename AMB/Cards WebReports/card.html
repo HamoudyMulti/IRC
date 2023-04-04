@@ -340,22 +340,31 @@ const createCardsFromFile = async () => {
   		alert("No New Cards Detected from Excel File");
   	} else {
 
+    let responsePromise = [];
 
-  	let responsePromise = await Promise.all(dataObjs.map((objRetrieved) => {
-      return fetch("[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces", {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          mode: "cors", // no-cors, *cors, same-origin
-          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: "same-origin", // include, *same-origin, omit
-          headers: {
-              OTCSTicket: "[LL_REPTAG_OTCSTICKET /]",
-          },
-          redirect: "follow", // manual, *follow, error
-          referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-          body: objRetrieved // body data type must match "Content-Type" header
+    // set batch size
+    const batchSize = 15;
 
-          })
-      }));
+    
+    for (let i = 0; i < dataObjs.length; i += batchSize) {
+      const batch = dataObjs.slice(i, i + batchSize); // Get the current batch
+      const responses = await Promise.all(batch.map((objRetrieved) => {
+        return fetch("[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces", {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                OTCSTicket: "[LL_REPTAG_OTCSTICKET /]",
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: objRetrieved // body data type must match "Content-Type" header
+
+            })
+        }));
+      responsePromise.push(...responses);
+    }
 
       data = await Promise.all(responsePromise.map(res => res.json()));
 
