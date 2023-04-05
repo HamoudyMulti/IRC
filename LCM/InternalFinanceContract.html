@@ -1310,21 +1310,56 @@ input#select-state-finance-agreement-selectized {
                 return;  
             }
 
-            if($("#AddDocumentedContract").is(":checked")){
-                createInternalFinanceContract(valCustomerFile,valFinanceAgreement);
-            }
+
+            $.ajax({
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/${valCustomerFile}/categories/[LL_REPTAG_$CatCustomerFile /]/`,
+                type: "GET",
+                processData: false,
+                mimeType: "multipart/form-data",
+                contentType: false,
+                data: null ,               
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                },
+                success:function(data){
+                    var res=JSON.parse(data);
+
+                    let customerFileCIF = res.data['[LL_REPTAG_$CatCustomerFile /]_2'] ?? '';
+
+                    
+                    $('#LoadingImagePO').hide();
+
+                    if($("#AddDocumentedContract").is(":checked")){
+                        createInternalFinanceContract(valCustomerFile,valFinanceAgreement,customerFileCIF);
+                    }
+        
+        
+                    if($("#AddInternalContract").is(":checked")){
+                        createInternalContract(valCustomerFile,valFinanceAgreement,customerFileCIF);
+                    }
 
 
-            if($("#AddInternalContract").is(":checked")){
-                createInternalContract(valCustomerFile,valFinanceAgreement);
-            }
+
+                },
+                error: function(xhr, status, error) {
+                    $('#LoadingImagePO').hide();
+                    var err = JSON.parse(xhr.responseText);
+                    //alert(err.error);
+                    csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                        ModalAlert.showError("Error. "+err.error).always(function () { 
+                        });
+
+                    });                      
+                }
+            });
+
 	        
 	    });
 		
 		
 
    
-    function createInternalFinanceContract(CustomerFileID,FinanceAgreementID){
+    function createInternalFinanceContract(CustomerFileID,FinanceAgreementID,customerFileCIF){
     var DocumentedContractNumber = $('#DocumentedContractNumber').val();
     var DocumentedContractDate = $('#DocumentedContractDate').val();
     var typeOfContract1 = $('#TypeOfContract').val();
@@ -1347,6 +1382,7 @@ input#select-state-finance-agreement-selectized {
             "roles": { 
                 "categories": {
                     "[LL_REPTAG_$CatInternalFinanceContract /]": {
+                        "[LL_REPTAG_$CatInternalFinanceContract /]_20":customerFileCIF,
                         "[LL_REPTAG_$CatInternalFinanceContract /]_3":DocumentedContractNumber,
                         "[LL_REPTAG_$CatInternalFinanceContract /]_2":DocumentedContractDate,
                         "[LL_REPTAG_$CatInternalFinanceContract /]_19":typeOfContract1,
@@ -1513,7 +1549,7 @@ input#select-state-finance-agreement-selectized {
     }
     
     
-    function createInternalContract(CustomerFileID,FinanceAgreementID){
+    function createInternalContract(CustomerFileID,FinanceAgreementID,customerFileCIF){
     var InternalContractDate = $('#InternalContractDate').val();
     var InternalContractAmount = $('#InternalContractAmount').val();
 
@@ -1538,6 +1574,7 @@ input#select-state-finance-agreement-selectized {
             "roles": { 
                 "categories": {
                     "[LL_REPTAG_$CatInternalContract /]": {
+                        "[LL_REPTAG_$CatInternalContract /]_7":customerFileCIF,
                         "[LL_REPTAG_$CatInternalContract /]_3":InternalContractAmount,
                         "[LL_REPTAG_$CatInternalContract /]_2":InternalContractDate,
                         "[LL_REPTAG_$CatInternalContract /]_4":typeOfContract2,

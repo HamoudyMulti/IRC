@@ -1630,86 +1630,142 @@ input#select-state-selectized {
         }
 	
     function createFinanceAgreement(CustomerFileID){
-        var InternalFileNumber = $('#InternalFileNumber').val();
-        var TypeOfFinance = $('#TypeOfFinance').val();
-        var CommitteeDateDecision = $('#CommitteeDateDecision').val();
-        var FinanceAmount = $('#FinanceAmount').val();
-        var StatusFinance = $('#StatusFinance').val();
-        var CommentsFinance = $('#CommentsFinance').val();
 
-
-        if(InternalFileNumber!='' & TypeOfFinance!=''){
-                	        
-    
-            var form = new FormData();
-            
-            var data = {
-                "template_id":[LL_REPTAG_$FinanceAgreement_DocTemplate /] ,
-                "parent_id": [LL_REPTAG_$FinanceAgreement_ParentID /], // folder where the cws will be created
-                "roles": { 
-                    "categories": {
-                        "[LL_REPTAG_$CatFinanceAgreement /]": {
-                            "[LL_REPTAG_$CatFinanceAgreement /]_5":InternalFileNumber,
-                            "[LL_REPTAG_$CatFinanceAgreement /]_2":TypeOfFinance,
-                            "[LL_REPTAG_$CatFinanceAgreement /]_3":CommitteeDateDecision,
-                            "[LL_REPTAG_$CatFinanceAgreement /]_4":FinanceAmount,
-                            "[LL_REPTAG_$CatFinanceAgreement /]_7":StatusFinance,
-                            "[LL_REPTAG_$CatFinanceAgreement /]_8":CommentsFinance,
-                        }
-                    }
-                }
-            };	
-            
-           
-
-            console.log(data);
-            
-            $('#LoadingImagePO').show();                
-            form.append("body", JSON.stringify(data));
-                $.ajax({
-                url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
-                type: "POST",
+        $.ajax({
+                url:`[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/${CustomerFileID}/categories/[LL_REPTAG_$CatCustomerFile /]/`,
+                type: "GET",
                 processData: false,
                 mimeType: "multipart/form-data",
                 contentType: false,
-                data: form ,               
+                data: null ,               
                 beforeSend: function(xhr){
                     xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
                 },
                 success:function(data){
                     var res=JSON.parse(data);
+
+                    let customerFileCIF = res.data['[LL_REPTAG_$CatCustomerFile /]_2'] ?? '';
+
                     
                     $('#LoadingImagePO').hide();
 
-                    var settingsAjax = {
-                        "url": `[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/${CustomerFileID}/relateditems`,
-                        "method": "POST",
-                        "timeout": 0,
-                        "headers": {
-                            "OTCSTicket": "[LL_REPTAG_OTCSTICKET /]",
-                            "Content-Type": "application/x-www-form-urlencoded"
-                        },
-                        "data": {
-                            "rel_bw_id": res.results.id,
-                            "rel_type": "child"
-                        }
-                    };
 
-                    $.ajax(settingsAjax).done(function (response) {
-                        if ($('#AddDocumentedContract').is(":checked")){
-                            createInternalFinanceContract(CustomerFileID,res.results.id);
-                        } else if($('#AddInternalContract').is(":checked")) {
-                            createInternalContract(CustomerFileID,res.results.id);
-                        } else {
+                    var InternalFileNumber = $('#InternalFileNumber').val();
+                    var TypeOfFinance = $('#TypeOfFinance').val();
+                    var CommitteeDateDecision = $('#CommitteeDateDecision').val();
+                    var FinanceAmount = $('#FinanceAmount').val();
+                    var StatusFinance = $('#StatusFinance').val();
+                    var CommentsFinance = $('#CommentsFinance').val();
+            
+            
+                    if(InternalFileNumber!='' & TypeOfFinance!=''){
+                                        
+                
+                        var form = new FormData();
                         
-                            csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                            ModalAlert.showSuccess("Customer File Created").always(function () { 
-                                $("form")[0].reset();
-                            window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+CustomerFileID);
+                        var data = {
+                            "template_id":[LL_REPTAG_$FinanceAgreement_DocTemplate /] ,
+                            "parent_id": [LL_REPTAG_$FinanceAgreement_ParentID /], // folder where the cws will be created
+                            "roles": { 
+                                "categories": {
+                                    "[LL_REPTAG_$CatFinanceAgreement /]": {
+                                        "[LL_REPTAG_$CatFinanceAgreement /]_9":customerFileCIF,
+                                        "[LL_REPTAG_$CatFinanceAgreement /]_5":InternalFileNumber,
+                                        "[LL_REPTAG_$CatFinanceAgreement /]_2":TypeOfFinance,
+                                        "[LL_REPTAG_$CatFinanceAgreement /]_3":CommitteeDateDecision,
+                                        "[LL_REPTAG_$CatFinanceAgreement /]_4":FinanceAmount,
+                                        "[LL_REPTAG_$CatFinanceAgreement /]_7":StatusFinance,
+                                        "[LL_REPTAG_$CatFinanceAgreement /]_8":CommentsFinance,
+                                    }
+                                }
+                            }
+                        };	
+                        
+                       
+            
+                        console.log(data);
+                        
+                        $('#LoadingImagePO').show();                
+                        form.append("body", JSON.stringify(data));
+                            $.ajax({
+                            url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
+                            type: "POST",
+                            processData: false,
+                            mimeType: "multipart/form-data",
+                            contentType: false,
+                            data: form ,               
+                            beforeSend: function(xhr){
+                                xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                            },
+                            success:function(data){
+                                var res=JSON.parse(data);
+                                
+                                $('#LoadingImagePO').hide();
+            
+                                var settingsAjax = {
+                                    "url": `[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/${CustomerFileID}/relateditems`,
+                                    "method": "POST",
+                                    "timeout": 0,
+                                    "headers": {
+                                        "OTCSTicket": "[LL_REPTAG_OTCSTICKET /]",
+                                        "Content-Type": "application/x-www-form-urlencoded"
+                                    },
+                                    "data": {
+                                        "rel_bw_id": res.results.id,
+                                        "rel_type": "child"
+                                    }
+                                };
+            
+                                $.ajax(settingsAjax).done(function (response) {
+                                    if ($('#AddDocumentedContract').is(":checked")){
+                                        createInternalFinanceContract(CustomerFileID,res.results.id,customerFileCIF);
+                                    } else if($('#AddInternalContract').is(":checked")) {
+                                        createInternalContract(CustomerFileID,res.results.id,customerFileCIF);
+                                    } else {
+                                    
+                                        csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                                        ModalAlert.showSuccess("Customer File Created").always(function () { 
+                                            $("form")[0].reset();
+                                        window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+CustomerFileID);
+                                        });
+                                       }); 
+                                    }  
+                                });
+            
+                            },
+                            error: function(xhr, status, error) {
+                                $('#LoadingImagePO').hide();
+                                var err = JSON.parse(xhr.responseText);
+                                //alert(err.error);
+                                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                                    ModalAlert.showError("Customer File Creation Error. "+err.error).always(function () { 
+                                    });
+            
+                                });                      
+                            }
+                        });                      
+                    }
+            
+                    else{
+                        if(InternalFileNumber==''){
+                            $('#InternalFileNumber').css({'border-color':'red'});
+                        }
+                        else{
+                            $('#InternalFileNumber').css({'border-color':'#ced4da'});
+                        }
+                        if(TypeOfFinance==''){
+                            $('#TypeOfFinance').css({'border-color':'red'});
+                        } 
+                        else{
+                            $('#TypeOfFinance').css({'border-color':'#ced4da'});
+                        }
+                        
+                        csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                            ModalAlert.showError("Highlited Fields are Mandatory").always(function () { 
                             });
-                           }); 
-                        }  
-                    });
+                        });    
+                    }
+                    
 
                 },
                 error: function(xhr, status, error) {
@@ -1717,38 +1773,19 @@ input#select-state-selectized {
                     var err = JSON.parse(xhr.responseText);
                     //alert(err.error);
                     csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                        ModalAlert.showError("Customer File Creation Error. "+err.error).always(function () { 
+                        ModalAlert.showError("Error. "+err.error).always(function () { 
                         });
 
                     });                      
                 }
-            });                      
-        }
+            });
 
-        else{
-            if(InternalFileNumber==''){
-                $('#InternalFileNumber').css({'border-color':'red'});
-            }
-            else{
-                $('#InternalFileNumber').css({'border-color':'#ced4da'});
-            }
-            if(TypeOfFinance==''){
-                $('#TypeOfFinance').css({'border-color':'red'});
-            } 
-            else{
-                $('#TypeOfFinance').css({'border-color':'#ced4da'});
-            }
-            
-            csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
-                ModalAlert.showError("Highlited Fields are Mandatory").always(function () { 
-                });
-            });    
-        }
+
         }
 
 
     
-    function createInternalFinanceContract(CustomerFileID,FinanceAgreementID){
+    function createInternalFinanceContract(CustomerFileID,FinanceAgreementID,customerFileCIF){
     var DocumentedContractNumber = $('#DocumentedContractNumber').val();
     var DocumentedContractDate = $('#DocumentedContractDate').val();
     var typeOfContract1 = $('#TypeOfContract1').val();
@@ -1771,6 +1808,7 @@ input#select-state-selectized {
             "roles": { 
                 "categories": {
                     "[LL_REPTAG_$CatInternalFinanceContract /]": {
+                        "[LL_REPTAG_$CatInternalFinanceContract /]_20":customerFileCIF,
                         "[LL_REPTAG_$CatInternalFinanceContract /]_3":DocumentedContractNumber,
                         "[LL_REPTAG_$CatInternalFinanceContract /]_2":DocumentedContractDate,
                         "[LL_REPTAG_$CatInternalFinanceContract /]_19":typeOfContract1,
@@ -1938,7 +1976,7 @@ input#select-state-selectized {
     }
     
     
-    function createInternalContract(CustomerFileID,FinanceAgreementID){
+    function createInternalContract(CustomerFileID,FinanceAgreementID,customerFileCIF){
     var InternalContractDate = $('#InternalContractDate').val();
     var InternalContractAmount = $('#InternalContractAmount').val();
 
@@ -1963,6 +2001,7 @@ input#select-state-selectized {
             "roles": { 
                 "categories": {
                     "[LL_REPTAG_$CatInternalContract /]": {
+                        "[LL_REPTAG_$CatInternalContract /]_7":customerFileCIF,
                         "[LL_REPTAG_$CatInternalContract /]_3":InternalContractAmount,
                         "[LL_REPTAG_$CatInternalContract /]_2":InternalContractDate,
                         "[LL_REPTAG_$CatInternalContract /]_4":typeOfContract2,
