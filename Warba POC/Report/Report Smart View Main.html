@@ -1,0 +1,439 @@
+
+
+
+<Link rel='stylesheet' href="[LL_REPTAG_LIBPATH /]bootstrap.css">
+    <link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.css">
+    <script src="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.js"></script>
+    <script src="http://[LL_REPTAG_URLDOMAIN /]/img/webreports/library/bundle.min.js"></script>
+    <script src="[LL_REPTAG_LIBPATH /]jquery.min.js"></script>
+  
+  <style>
+  
+  
+  
+  .binf-widgets .webreports-tilereport-sample2 {
+      padding: 1em;
+  }
+  .binf-widgets .webreports-tilereport-sample2 th{
+      font-weight: bold;
+  }
+  .binf-widgets .webreports-tilereport-sample2 h1{
+      font-weight: bold;
+      font-size: x-large;
+  }
+  .binf-widgets .custBtn {
+         
+      bottom: 4px;
+      right: 23px;
+      border-radius: 16px;
+      height: 32px;
+      line-height: 12px;
+      padding: 0 24px;
+      color: #fff;
+      min-width: 80px;
+      border: 0;
+      }
+      .binf-widgets select {
+          height: calc(1.90rem );
+          font-size: 12px;
+          border-radius: 12px;
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+      }
+      .binf-widgets input {
+          height: calc(1.90rem );
+          font-size: 12px;
+          border-radius: 12px;
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+      }
+      .binf-widgets label {
+          font-size: small;
+      }
+      .binf-widgets #Fields{
+          padding-top:10px;
+      }
+      .binf-widgets form{
+          height: 100%;
+      }
+      .binf-widgets #LoadingImage{
+      text-align: center;
+      margin-top: auto;
+      margin-bottom: auto;
+      display: none;
+      }
+      .MListIncoming :hover{
+          background-color: #bac9ce;
+      }
+      table#MergePTable {
+          width:100%;
+          font-size: small;
+      }
+  </style>
+  <style>
+       
+          .binf-widgets .close-icon:after {
+              content: "ⓧ";
+          }
+        .binf-widgets .select-wrapper {
+          margin: auto;
+          max-width: 600px;
+          width: calc(100% - 40px);
+        }
+  
+       .binf-widgets .select-pure__select {
+          align-items: center;
+          
+          border-radius: 4px;
+          border: 1px solid rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+          box-sizing: border-box;
+          
+          cursor: pointer;
+          display: flex;
+          font-size: 12px;
+          font-weight: 500;
+          justify-content: left;
+          min-height: 44px;
+          padding: 5px 10px;
+          position: relative;
+          transition: 0.2s;
+          width: 100%;
+        }
+  
+       .binf-widgets .select-pure__options {
+          border-radius: 4px;
+          border: 1px solid rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+          box-sizing: border-box;
+          color: #363b3e;
+          display: none;
+          left: 0;
+          max-height: 221px;
+          overflow-y: scroll;
+          position: absolute;
+          top: 50px;
+          width: 100%;
+          z-index: 5;
+        }
+  
+       .binf-widgets .select-pure__select--opened .select-pure__options {
+          display: block;
+        }
+  
+       .binf-widgets .select-pure__option {
+          background: #fff;
+          border-bottom: 1px solid #e4e4e4;
+          box-sizing: border-box;
+          height: auto;
+          
+          padding: 10px;
+        }
+  
+       .binf-widgets .select-pure__option--disabled {
+          color: #e4e4e4;
+        }
+  
+       .binf-widgets .select-pure__option--selected {
+          color: #e4e4e4;
+          cursor: initial;
+          pointer-events: none;
+        }
+  
+       .binf-widgets .select-pure__option--hidden {
+          display: none;
+        }
+  
+       .binf-widgets .select-pure__selected-label {
+          align-items: 'center';
+          background: #2c5e7d;
+          border-radius: 4px;
+          color: #fff;
+          cursor: initial;
+          display: inline-flex;
+          justify-content: 'center';
+          margin: 5px 10px 5px 0;
+          padding: 3px 7px;
+        }
+  
+       .binf-widgets .select-pure__selected-label:last-of-type {
+          margin-right: 0;
+        }
+  
+       .binf-widgets .select-pure__selected-label i {
+          cursor: pointer;
+          display: inline-block;
+          margin-left: 7px;
+        }
+  
+      .binf-widgets  .select-pure__selected-label img {
+          cursor: pointer;
+          display: inline-block;
+          height: 18px;
+          margin-left: 7px;
+          width: 14px;
+        }
+  
+      .binf-widgets  .select-pure__selected-label i:hover {
+          color: #e4e4e4;
+        }
+  
+       .binf-widgets .select-pure__autocomplete {
+          background: #f9f9f8;
+          border-bottom: 1px solid #e4e4e4;
+          border-left: none;
+          border-right: none;
+          border-top: none;
+          box-sizing: border-box;
+          font-size: 12px;
+          outline: none;
+          padding: 10px;
+          width: 100%;
+        }
+  
+       .binf-widgets .select-pure__placeholder--hidden {
+          display: none;
+        }
+        .binf-widgets .select-pure__placeholder:befor{
+            content:"hhhh";
+        }
+      </style>
+  
+  <script>
+      csui.require(['csui/lib/jquery'], function ($) {
+                
+         
+  
+         $("form").on("submit", function(event) {
+              event.preventDefault();
+             
+              
+              var contract_number =$( "#contract_number" ).val();
+              var initiator_name =$( "#initiator_name" ).val();
+              
+              var fdate=$("#FDate").val();
+              var tdate=$("#TDate").val();
+              
+
+              var status =$( "#status" ).val();
+
+              
+              
+              if( fdate=="" && tdate=="" ){
+                  fdate='01/01/1980';
+                  tdate='01/01/2100';
+                  
+              }
+              
+               if( fdate=="" && tdate!="" ){
+                  fdate='01/01/1980';
+                  
+                  
+              }
+              
+              if( fdate!="" && tdate=="" ){
+                  tdate='01/01/2100';
+              }
+  
+              
+                   var TileReportConfig = {};
+                   TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+                   TileReportConfig.wrID = '[LL_REPTAG_$CSubReport /]'; //(The web report ID)
+                   TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]'; 
+                   //console.log("url : "+TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport&CFrom="+cfrom+"&CStatus="+cstatus+"&FDate="+fdate+"&TDate="+tdate);
+                      $.ajax({
+                           url:TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport&contract_number="+contract_number+"&initiator_name="+initiator_name+"&status="+status+"&fdate="+fdate+"&tdate="+tdate,
+                          type: "GET",
+                          beforeSend: function(xhr){
+                              xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+                              //$("#btnSearch").prop('disabled', true);
+                          },   
+                          success: function(data) { 
+                              console.log("data was sent!");
+                               $('#Notify').html(data);
+  
+                           },
+                            error: function(){
+                              //$("#btnSearch").prop('disabled', false);
+                              alert('failure');
+                            }
+                      }); 
+                  
+          });
+
+          $("#btnSearchAll").on("click", function(event) {
+              event.preventDefault();
+              
+              var TileReportConfig = {};
+                   TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+                   TileReportConfig.wrID = '[LL_REPTAG_$CSubReportAll /]'; //(The web report ID)
+                   TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]'; 
+                   //console.log("url : "+TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport&CFrom="+cfrom+"&CStatus="+cstatus+"&FDate="+fdate+"&TDate="+tdate);
+                      $.ajax({
+                           url:TileReportConfig.urlPrefix + "/api/v1/nodes/"+TileReportConfig.wrID+"/output?format=webreport",
+                          type: "GET",
+                          beforeSend: function(xhr){
+                              xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+                              //$("#btnSearch").prop('disabled', true);
+                          },   
+                          success: function(data) { 
+                              console.log("data was sent!");
+                               $('#Notify').html(data);
+  
+                           },
+                            error: function(){
+                              //$("#btnSearch").prop('disabled', false);
+                              alert('failure');
+                            }
+                      }); 
+
+          });
+      });
+      
+      
+   </script>   
+  
+  
+  
+  <div class="row" style="height:89vh">
+    <div class="col-2">
+        <form>
+            
+            
+            <div class="shadow p-4 rounded bg-white js-active container-fluid" style=" height: 100%;">
+
+
+              <div class="row"  id="Fields">
+                 <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
+                     <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                         <label class="binf-control-label alpaca-control-label">
+                            Contract Number
+                             </label>
+                          <select class="valueEditable  form-control" id="contract_number" data-live-search="true">
+                             <option value="">--SELECT--</option>
+                             <option value="01">01</option>
+                             <option value="02">02</option>
+                             <option value="03">03</option>
+                         </select>
+                     </div>
+                 </div> 
+             </div>
+
+
+              <div class="row"  id="Fields">
+                  <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
+                      <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                          <label class="binf-control-label alpaca-control-label">
+                              Initiator Name
+                              </label>
+                           <input class="valueEditable  form-control" type="text" id="initiator_name" >
+                      </div>
+                  </div> 
+                </div>
+                
+
+                <div class="row"  id="Fields">
+                    <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                        <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                            <label class="binf-control-label alpaca-control-label">
+                                [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                من تاريخ
+                                [LL_WEBREPORT_ELSE /]
+                                From Date
+                                [LL_WEBREPORT_ENDIF /]   
+                                </label>
+                             <input type="date" class="valueEditable  form-control" name="FDate" placeholder="From Date" id="FDate"/>
+                        </div>
+                    </div> 
+                </div>
+                
+                 <div class="row"  id="Fields">
+                     <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                        <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                            <label class="binf-control-label alpaca-control-label">
+                                [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                إلى تاريخ
+                                [LL_WEBREPORT_ELSE /]
+                                To Date
+                                [LL_WEBREPORT_ENDIF /]
+                                </label>
+                             <input type="date" class="valueEditable  form-control" name="TDate" placeholder="To Date" id="TDate"/>
+                        </div>
+                    </div> 
+                     
+                 </div>
+                
+
+                 <div class="row"  id="Fields">
+                    <div class="col-sm-12 col-lg-12 col-md-12 co12-xs-12">
+                        <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                            <label class="binf-control-label alpaca-control-label">
+                               Status
+                                </label>
+                             <select class="valueEditable  form-control" id="status" data-live-search="true">
+                                <option value="">--SELECT--</option>
+                                <option value="IN PROGRESS">IN PROGRESS</option>
+                                <option value="COMPLETED">COMPLETED</option>
+                            </select>
+                        </div>
+                    </div> 
+                </div>
+
+              
+          
+          
+          
+           
+          
+
+        
+          
+          
+          
+           
+           
+           <div class="row" id="Fields">
+               <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                  <div style="padding-top:15px; text-align:center;">
+                      <button type="Submit" class="binf-btn binf-btn-primary custBtn" id="btnSearch" name="btnSearch">
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                          بحث
+                          [LL_WEBREPORT_ELSE /]
+                          Search
+                          [LL_WEBREPORT_ENDIF /]
+                          </button>
+                  </div>
+              </div> 
+           </div>
+
+           
+           <div class="row" id="Fields">
+            <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+               <div style="padding-top:15px; text-align:center;">
+                   <button type="button" class="binf-btn binf-btn-primary custBtn" id="btnSearchAll" >
+                       [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                       بحث
+                       [LL_WEBREPORT_ELSE /]
+                       All Contracts
+                       [LL_WEBREPORT_ENDIF /]
+                       </button>
+               </div>
+           </div> 
+        </div>
+          
+            
+         
+     </div> 
+      
+      
+   
+  
+  </form>
+      </div>
+     
+      
+      <div class="col-10" id="Notify" style="padding-left:10px;">
+          
+      </div>
+      
+  </div>
+  
+  
