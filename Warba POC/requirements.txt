@@ -1,0 +1,147 @@
+1 - almatika => dropdown
+- dropdown to look in DB => searchable
+
+2- each contract in a workflow
+
+1 step initiator
+1 step to CAD manager (all fields read only)
+can go back with form disposition
+
+
+word saved on content server when last step approved
+
+
+3- remove workflow field from dashboard
+
+
+4- status workflow
+
+- DRAFT UNDER REVIEW
+- APPROVED
+
+
+points:
+
+
+
+if word to HTML works:
+    - display PDF in the same page with every field populated
+    - convert HTML to PDF
+else:
+    - word to PDF => converter
+    - form not closing when downloading a document
+
+
+
+last things:
+- read only
+- populate all areas
+- create contract dropdown
+
+
+issue: dropdown value not shown for CAD Manager
+
+
+
+
+--------------------------------------------------
+
+changes:
+- readonly for number text
+- title add
+- dropdown populate using contract name
+
+
+
+
+البند الرائع -> alrabe3  // contract 05
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------
+
+
+- investigate how to make text bold on form
+- add دك at end of value text
+
+
+
+
+
+
+
+
+
+
+
+------------------
+
+
+Statuses:
+- APPROVED -> (wf COMPLETED)CAD MANAGER VIEW PRE-SUBMIT
+- DRAFT ->  CAD AND CAD SaveDraft VIEWS SAVE DRAFT BUTTON
+- REVISION -> CAD VIEW REVISE BUTTON
+- APPROVAL -> CAD Initiator Step VIEWS SUBMIT Button
+
+
+
+CAD Save as DRAFT
+
+
+- fix titles
+- fix searchable dropdown problem
+- add version from content script
+
+dashboard {
+    add signed document (add version smart view button)
+    approver name (name of approved CAD Manager)
+}
+
+dropdown currencies
+
+
+282296
+
+
+
+
+محمد صالحاني
+في الشرق– قطعة 10 - برج
+10
+15
+50 كم
+مساحة كبيرة
+565
+اسبوعان
+1000
+2
+400
+أسبوع
+
+
+
+
+
+محمد صالحاني
+امارتي
+012345678912
+في الشرق– قطعة 10 - برج
+0534522361
+mohamad.salhani@outlook.com
+10
+15
+50 كم
+مساحة كبيرة
+654
+محمد عدنان

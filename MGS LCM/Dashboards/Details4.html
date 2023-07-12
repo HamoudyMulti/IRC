@@ -1,0 +1,428 @@
+http://mgsdev.uaenorth.cloudapp.azure.com/otcs/cs.exe/app/search/
+
+FullText_value1/NOT%20%5BQLREGION%20%22OTName%22%5D%20%22Template%22/
+SystemAttributes_value1/848/
+SystemAttributes_value2_ID/%20/
+Category_302721__value9/t1/
+Category_302721__value10/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/
+Category_302723__value6/t2/
+Category_302723__value7/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/
+Category_302722__value9/t3/
+Category_302722__value10/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/
+
+query_id/437920/forcePerspectiveChange/true/enableSearchForm/true
+
+
+
+http://mgsdev.uaenorth.cloudapp.azure.com/otcs/cs.exe/app/search/query_id/437920/forcePerspectiveChange/true/enableSearchForm/true/FullText_value1/NOT%20%5BQLREGION%20%22OTName%22%5D%20%22Template%22/SystemAttributes_value1/848/SystemAttributes_value2_ID/%20/Category_302721__value9/t1/Category_302721__value10/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/Category_302723__value6/t2/Category_302723__value7/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/Category_302722__value9/t3/Category_302722__value10/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9
+
+
+
+http://mgsdev.uaenorth.cloudapp.azure.com/otcs/cs.exe/app/search/FullText_value1/NOT%20%5BQLREGION%20%22OTName%22%5D%20%22Template%22/SystemAttributes_value1/848/SystemAttributes_value2_ID/%20/Category_302721__value9/%20/Category_302721__value10_1/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/Category_302721__value10_2/%D9%82%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%82%D9%8A%D9%8A%D9%85/Category_302721__value10_3/%20/Category_302721__value10_4/%20/Category_302721__value10_5/%20/Category_302723__value6/%20/Category_302723__value7_1/%20/Category_302723__value7_2/%20/Category_302723__value7_3/%20/Category_302723__value7_4/%20/Category_302723__value7_5/%20/Category_302722__value9/%20/Category_302722__value10_1/%20/Category_302722__value10_2/%20/Category_302722__value10_3/%20/Category_302722__value10_4/%20/Category_302722__value10_5/%20/query_id/437920/forcePerspectiveChange/%20/enableSearchForm/true
+
+
+
+Defensive {
+    جديدة
+    قيد التقييم
+    تحضير المذكرة الجوابية
+    عدم إختصاص
+    قيد التقاضي
+    مغلقة
+
+}
+
+
+Allegation {
+    جديدة
+    قيد الإعتماد
+    قيد التقاضي
+    مغلقة    
+}
+
+
+Appeal {
+    جديدة
+    قيد الإعتماد
+    قيد التقاضي
+    مغلقة
+}
+
+http://mgsdev.uaenorth.cloudapp.azure.com/otcs/cs.exe/app/search/query_id/437920/forcePerspectiveChange/true/enableSearchForm/true/Category_302721__value13_1/%D9%82%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%82%D9%8A%D9%8A%D9%85
+
+
+http://mgsdev.uaenorth.cloudapp.azure.com/otcs/cs.exe/app/search/
+FullText_value1/NOT%20%5BQLREGION%20%22OTName%22%5D%20%22Template%22/
+SystemAttributes_value1/848/
+SystemAttributes_value2_ID/%20/
+
+
+Category_302721__value9/%20/
+Category_302721__value10_1/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/
+Category_302721__value10_2/%20/
+Category_302721__value10_3/%20/
+Category_302721__value10_4/%20/
+Category_302721__value10_5/%20/
+
+Category_302723__value6/%20/
+Category_302723__value7_1/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/
+Category_302723__value7_2/%20/
+Category_302723__value7_3/%20/
+Category_302723__value7_4/%20/
+Category_302723__value7_5/%20/
+
+Category_302722__value9/%20/
+Category_302722__value10_1/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/
+Category_302722__value10_2/%20/
+Category_302722__value10_3/%20/
+Category_302722__value10_4/%20/
+Category_302722__value10_5/%20/
+
+
+query_id/437920/forcePerspectiveChange/%20/enableSearchForm/true
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" == "دفاعية" /]
+	[LL_REPTAG_'Category_[LL_REPTAG_$CatDefensive /]__value[LL_REPTAG_$CatDefensiveReferenceNumberID /]/د/' CONCATVAR:CWSSTRSEARCH /]
+[LL_WEBREPORT_ENDIF /]  
+
+[LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" == "ادعاء" /]
+    [LL_REPTAG_'Category_[LL_REPTAG_$CatAllegation /]__value[LL_REPTAG_$CatAllegationReferenceNumberID /]/ع/' CONCATVAR:CWSSTRSEARCH /]
+[LL_WEBREPORT_ENDIF /]  
+
+[LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" == "استئناف" /]
+    [LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealReferenceNumberID /]/أ/' CONCATVAR:CWSSTRSEARCH /]
+[LL_WEBREPORT_ENDIF /]  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[LL_WEBREPORT_FOR DATA:[LL_REPTAG_&fc_filters TRIM FROMJSON /] VAR:"value" /]
+        
+
+    [LL_WEBREPORT_IF "[LL_REPTAG_%value CURRENTVAL ASSOC:column /]" == "CStatus" /]
+    
+        [LL_WEBREPORT_FOR DATA:[LL_REPTAG_%value CURRENTVAL ASSOC:value /] VAR:"cwsvalue" /] [// traverse through for multiple selection
+        
+            [LL_WEBREPORT_IF "[LL_REPTAG_%DefensiveChosen CURRENTVAL /]" != "True" AND  "[LL_REPTAG_%AllegationChosen CURRENTVAL /]" != "True" AND "[LL_REPTAG_%AppealChosen CURRENTVAL /]" != "True" /]
+                
+                [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد التقييم,تحضير المذكرة الجوابية,عدم إختصاص,قيد التقاضي,مغلقة" /]
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatDefensive /]__value[LL_REPTAG_$CatDefensiveStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_WEBREPORT_ENDIF /]  
+                
+                [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد الإعتماد,قيد التقاضي,مغلقة" /]
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatAllegation /]__value[LL_REPTAG_$CatAllegationStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_WEBREPORT_ENDIF /]  
+
+            [LL_WEBREPORT_ELSE /]
+
+                [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد التقييم,تحضير المذكرة الجوابية,عدم إختصاص,قيد التقاضي,مغلقة" AND "[LL_REPTAG_%DefensiveChosen CURRENTVAL /]" == "True" /]
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatDefensive /]__value[LL_REPTAG_$CatDefensiveStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_WEBREPORT_ENDIF /]  
+
+                [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد الإعتماد,قيد التقاضي,مغلقة" AND "[LL_REPTAG_%AllegationChosen CURRENTVAL /]" == "True" /]                      
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatAllegation /]__value[LL_REPTAG_$CatAllegationStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_WEBREPORT_ENDIF /]  
+
+                [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد الإعتماد,قيد التقاضي,مغلقة" AND "[LL_REPTAG_%AppealChosen CURRENTVAL /]" == "True" /]
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_WEBREPORT_ENDIF /]  
+
+
+            [LL_WEBREPORT_ENDIF /]  
+            
+
+        [LL_WEBREPORT_ENDFOR /]
+        
+    
+    [LL_WEBREPORT_ENDIF /]   
+    
+    
+[LL_WEBREPORT_ENDFOR /]
+
+
+
+
+
+
+http://mgsdev.uaenorth.cloudapp.azure.com/otcs/cs.exe/app/search/query_id/437920/forcePerspectiveChange/true/enableSearchForm/true/
+Category_302722__value9/ع/
+Category_302721__value9/د/
+Category_302723__value6/أ/
+Category_302721__value10_1/قيد التقييم/
+Category_302722__value10_2/قيد الإعتماد/
+Category_302723__value7_2/قيد الإعتماد/
+Category_302721__value10_3/مغلقة/
+Category_302722__value10_3/مغلقة/
+Category_302723__value7_3/مغلقة/
+Category_302721__value10_4/قيد التقاضي/
+Category_302722__value10_4/قيد التقاضي/
+Category_302723__value7_4/قيد التقاضي/
+Category_302721__value10_5/جديدة/
+Category_302722__value10_5/جديدة/
+Category_302723__value7_5/جديدة/
+
+
+http://mgsdev.uaenorth.cloudapp.azure.com/otcs/cs.exe/app/search/query_id/437920/forcePerspectiveChange/true/enableSearchForm/true/Category_302722__value9/%D8%B9/Category_302721__value9/%D8%AF/Category_302723__value6/%D8%A3/Category_302721__value10_1/%D9%85%D8%BA%D9%84%D9%82%D8%A9/Category_302722__value10_1/%D9%85%D8%BA%D9%84%D9%82%D8%A9/Category_302723__value7_1/%D9%85%D8%BA%D9%84%D9%82%D8%A9/Category_302721__value10_2/%D9%82%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%82%D8%A7%D8%B6%D9%8A/Category_302722__value10_2/%D9%82%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%82%D8%A7%D8%B6%D9%8A/Category_302723__value7_2/%D9%82%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%82%D8%A7%D8%B6%D9%8A/Category_302721__value10_3/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/Category_302722__value10_3/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/Category_302723__value7_3/%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/
+
+
+
+
+SELECT ValStr as Party,N'مدعى عليه' as CType
+FROM OTCS.otcs.LLAttrData AS A WITH (NOLOCK)
+JOIN OTCS.otcs.DTree AS D WITH (NOLOCK) ON D.DataID = A.ID
+WHERE A.DefID = 302721
+  AND D.SubType = 848
+  AND A.AttrID = 4
+  AND D.Name NOT LIKE '%Defensive Case%'
+  
+
+
+UNION ALL
+
+SELECT ValStr as Party,N'مدعي' as CType
+FROM OTCS.otcs.LLAttrData AS A WITH (NOLOCK)
+JOIN OTCS.otcs.DTree AS D WITH (NOLOCK) ON D.DataID = A.ID
+WHERE A.DefID = 302722
+  AND D.SubType = 848
+  AND A.AttrID = 3
+  AND D.Name NOT LIKE '%Allegation Case%'
+  
+  
+ 
+
+[LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" == "مدعي" /]
+    [LL_REPTAG_'Category_[LL_REPTAG_$CatAllegation /]__value[LL_REPTAG_$CatAllegationClaimantID /]/البنك المركزي السعودي/' CONCATVAR:CWSSTRSEARCH /]
+    [LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealClaimantID /]/البنك المركزي السعودي/' CONCATVAR:CWSSTRSEARCH /]
+
+    [LL_REPTAG_'True' SETVAR:ClaimantChosen /]
+[LL_WEBREPORT_ENDIF /]  
+
+[LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" == "مدعى عليه" /]
+  [LL_REPTAG_'Category_[LL_REPTAG_$CatDefensive /]__value[LL_REPTAG_$CatDefensiveDefendantID /]/البنك المركزي السعودي/' CONCATVAR:CWSSTRSEARCH /]
+  [LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealDefendantID /]/البنك المركزي السعودي/' CONCATVAR:CWSSTRSEARCH /]
+
+  [LL_REPTAG_'True' SETVAR:DefendantChosen /]
+[LL_WEBREPORT_ENDIF /]  
+
+
+
+
+
+[LL_WEBREPORT_FOR DATA:[LL_REPTAG_&fc_filters TRIM FROMJSON /] VAR:"value" /]
+            
+    
+    [LL_WEBREPORT_IF "[LL_REPTAG_%value CURRENTVAL ASSOC:column /]" == "CStatus" /]
+    
+        [LL_WEBREPORT_FOR DATA:[LL_REPTAG_%value CURRENTVAL ASSOC:value /] VAR:"cwsvalue" /] [// traverse through for multiple selection
+        
+            [LL_WEBREPORT_IF "[LL_REPTAG_%ClaimantChosen CURRENTVAL /]" != "True" AND  "[LL_REPTAG_%DefendantChosen CURRENTVAL /]" != "True" /]
+                
+                [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد التقييم,تحضير المذكرة الجوابية,عدم إختصاص,قيد التقاضي,مغلقة" /]
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatDefensive /]__value[LL_REPTAG_$CatDefensiveStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_WEBREPORT_ENDIF /]  
+                
+                [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد الإعتماد,قيد التقاضي,مغلقة" /]
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatAllegation /]__value[LL_REPTAG_$CatAllegationStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_WEBREPORT_ENDIF /]  
+
+            [LL_WEBREPORT_ELSE /]
+
+                [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد التقييم,تحضير المذكرة الجوابية,عدم إختصاص,قيد التقاضي,مغلقة" AND "[LL_REPTAG_%DefendantChosen CURRENTVAL /]" == "True" /]
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatDefensive /]__value[LL_REPTAG_$CatDefensiveStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_WEBREPORT_ENDIF /]  
+
+                [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد الإعتماد,قيد التقاضي,مغلقة" AND "[LL_REPTAG_%ClaimantChosen CURRENTVAL /]" == "True" /]                      
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatAllegation /]__value[LL_REPTAG_$CatAllegationStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_WEBREPORT_ENDIF /]  
+
+                [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد الإعتماد,قيد التقاضي,مغلقة" /]
+                    [LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_WEBREPORT_ENDIF /]  
+
+
+            [LL_WEBREPORT_ENDIF /]  
+            
+
+        [LL_WEBREPORT_ENDFOR /]
+        
+    
+    [LL_WEBREPORT_ENDIF /]   
+    
+    
+[LL_WEBREPORT_ENDFOR /]
+
+
+
+
+
+
+رفض الدعوى
+عدم اختصاص ولائي
+عدم اختصاص نوعي
+عدم اختصاص مكاني
+عدم قبول الدعوى
+صرف النظر عن الدعوى
+شطب
+ثبوت إدانة
+عدم ثبوت إدان
+
+
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+   [LL_REPTAG_'الحكم' SETVAR:CJudgment /]
+[LL_WEBREPORT_ELSE /]
+     [LL_REPTAG_'Judgment' SETVAR:CJudgment /]    
+[LL_WEBREPORT_ENDIF /]
+
+
+
+
+
+
+
+
+
+
+
+
+
+    [LL_WEBREPORT_FOR DATA:[LL_REPTAG_&fc_filters TRIM FROMJSON /] VAR:"value" /]
+        
+        
+        [LL_WEBREPORT_IF "[LL_REPTAG_%value CURRENTVAL ASSOC:column /]" == "CJudgment" /]
+        
+            [LL_WEBREPORT_FOR DATA:[LL_REPTAG_%value CURRENTVAL ASSOC:value /] VAR:"cwsvalue" /] [// traverse through for multiple selection
+            
+                
+                [LL_REPTAG_'Category_[LL_REPTAG_$CatDefensive /]__value[LL_REPTAG_$CatDefensiveJudgmentID /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_REPTAG_'Category_[LL_REPTAG_$CatAllegation /]__value[LL_REPTAG_$CatAllegationJudgmentID /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                [LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealJudgmentID /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+            
+    
+            [LL_WEBREPORT_ENDFOR /]
+            
+        
+        [LL_WEBREPORT_ENDIF /]  
+
+    [LL_WEBREPORT_ENDFOR /]
+
+
+
+
+
+
+
+
+
+
+    [LL_WEBREPORT_FOR DATA:[LL_REPTAG_&fc_filters TRIM FROMJSON /] VAR:"value" /]
+                
+        
+        [LL_WEBREPORT_IF "[LL_REPTAG_%value CURRENTVAL ASSOC:column /]" == "CType" /]
+        
+            [LL_WEBREPORT_FOR DATA:[LL_REPTAG_%value CURRENTVAL ASSOC:value /] VAR:"cwsvalue" /] [// traverse through for multiple selection
+            
+                [LL_WEBREPORT_IF "[LL_REPTAG_%ClaimantChosen CURRENTVAL /]" != "True" AND  "[LL_REPTAG_%DefendantChosen CURRENTVAL /]" != "True" /]
+                    
+                    [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد التقييم,تحضير المذكرة الجوابية,عدم إختصاص,قيد التقاضي,مغلقة" /]
+                        [LL_REPTAG_'Category_[LL_REPTAG_$CatDefensive /]__value[LL_REPTAG_$CatDefensiveStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                    [LL_WEBREPORT_ENDIF /]  
+                    
+                    [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد الإعتماد,قيد التقاضي,مغلقة" /]
+                        [LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                        [LL_REPTAG_'Category_[LL_REPTAG_$CatAllegation /]__value[LL_REPTAG_$CatAllegationStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                    [LL_WEBREPORT_ENDIF /]  
+    
+                [LL_WEBREPORT_ELSE /]
+    
+                    [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد التقييم,تحضير المذكرة الجوابية,عدم إختصاص,قيد التقاضي,مغلقة" AND "[LL_REPTAG_%DefendantChosen CURRENTVAL /]" == "True" /]
+                        [LL_REPTAG_'Category_[LL_REPTAG_$CatDefensive /]__value[LL_REPTAG_$CatDefensiveStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                    [LL_WEBREPORT_ENDIF /]  
+    
+                    [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد الإعتماد,قيد التقاضي,مغلقة" AND "[LL_REPTAG_%ClaimantChosen CURRENTVAL /]" == "True" /]                      
+                        [LL_REPTAG_'Category_[LL_REPTAG_$CatAllegation /]__value[LL_REPTAG_$CatAllegationStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                    [LL_WEBREPORT_ENDIF /]  
+    
+                    [LL_WEBREPORT_IF "[LL_REPTAG_%cwsvalue CURRENTVAL /]" IN "جديدة,قيد الإعتماد,قيد التقاضي,مغلقة" /]
+                        [LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealStatusID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+                    [LL_WEBREPORT_ENDIF /]  
+    
+    
+                [LL_WEBREPORT_ENDIF /]  
+                
+    
+            [LL_WEBREPORT_ENDFOR /]
+            
+        
+        [LL_WEBREPORT_ENDIF /]   
+        
+        
+    [LL_WEBREPORT_ENDFOR /]
+
+
+
+
+
+
+    http://mgsdev.uaenorth.cloudapp.azure.com/otcs/cs.exe/app/search/FullText_value1/NOT%20%5BQLREGION%20%22OTName%22%5D%20%22Template%22/SystemAttributes_value1/848/SystemAttributes_value2_ID/%20/Category_302721__value10/%20/Category_302721__value11/%D8%B1%D9%81%D8%B6%20%D8%A7%D9%84%D8%AF%D8%B9%D9%88%D9%89/Category_302723__value7/%20/Category_302723__value8/%D8%B9%D8%AF%D9%85%20%D8%A7%D8%AE%D8%AA%D8%B5%D8%A7%D8%B5%20%D9%88%D9%84%D8%A7%D8%A6%D9%8A/Category_302722__value10/%20/Category_302722__value11/%D8%AB%D8%A8%D9%88%D8%AA%20%D8%A5%D8%AF%D8%A7%D9%86%D8%A9/query_id/437936/forcePerspectiveChange/%20/enableSearchForm/true
+
+
+
+
+
+
+    http://mgsdev.uaenorth.cloudapp.azure.com/otcs/cs.exe/app/search/FullText_value1/NOT%20%5BQLREGION%20%22OTName%22%5D%20%22Template%22/SystemAttributes_value1/848/SystemAttributes_value2_ID/%20/Category_302721__value10_1/%20/Category_302721__value10_2/%20/Category_302721__value10_3/%20/Category_302721__value10_4/%20/Category_302721__value10_5/%20/Category_302721__value10_6/%20/Category_302721__value10_7/%20/Category_302721__value12/tab1/Category_302723__value7_1/%20/Category_302723__value7_2/%20/Category_302723__value7_3/%20/Category_302723__value7_4/%20/Category_302723__value7_5/%20/Category_302723__value7_6/%20/Category_302723__value7_7/%20/Category_302723__value9/tab2/Category_302722__value10_1/%20/Category_302722__value10_2/%20/Category_302722__value10_3/%20/Category_302722__value10_4/%20/Category_302722__value10_5/%20/Category_302722__value10_6/%20/Category_302722__value10_7/%20/Category_302722__value12/tab3/query_id/442059/forcePerspectiveChange/true/enableSearchForm/true
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+   [LL_REPTAG_'المستشار القانوني' SETVAR:CParty /]
+[LL_WEBREPORT_ELSE /]
+     [LL_REPTAG_'Legal Advisor' SETVAR:CParty /]    
+[LL_WEBREPORT_ENDIF /]
+
+
+[LL_REPTAG_'Category_[LL_REPTAG_$CatAllegation /]__value[LL_REPTAG_$CatAllegationAdvisorID /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+[LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealAdvisorID /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+[LL_REPTAG_'Category_[LL_REPTAG_$CatDefensive /]__value[LL_REPTAG_$CatDefensiveAdvisorID /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[LL_REPTAG_'Category_[LL_REPTAG_$CatAllegation /]__value[LL_REPTAG_$CatAllegationAdvisorID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+[LL_REPTAG_'Category_[LL_REPTAG_$CatAppeal /]__value[LL_REPTAG_$CatAppealAdvisorID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]
+[LL_REPTAG_'Category_[LL_REPTAG_$CatDefensive /]__value[LL_REPTAG_$CatDefensiveAdvisorID /]_[LL_REPTAG_%cwsvalue_index CURRENTVAL /]/[LL_REPTAG_%cwsvalue CURRENTVAL /]/' CONCATVAR:CWSSTRSEARCH /]

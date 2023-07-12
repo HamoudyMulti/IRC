@@ -1,0 +1,55 @@
+Second_Party_Name = form.second_Party_Name.value
+Second_Party_Address = form.second_Party_Address.value
+Second_Party_Mail = form.second_Party_Mail.value
+Third_Party_Name = form.third_Party_Name.value
+Third_Party_Address = form.third_Party_Address.value
+Third_Party_Mail = form.third_Party_Mail.value
+First_To_Second_Outside_Scope_Amount = form.first_To_Second_Outside_Scope_Amount.value
+First_To_Second_Outside_Scope_Amount_Text = form.first_To_Second_Outside_Scope_Amount_Text.value
+Second_Clause_Amount = form.second_Clause_Amount.value
+Second_Clause_Amount_Text = form.second_Clause_Amount_Text.value
+Second_Clause_Profit_Rate_Percentage_Amount = form.second_Clause_Profit_Rate_Percentage_Amount.value
+Second_Clause_Payment_Due_Date = form.second_Clause_Payment_Due_Date.value
+Property_Document_Number = form.property_Document_Number.value
+Property_Document_Date = form.property_Document_Date.value
+Area = form.area.value
+Lot_Number = form.lot_Number.value
+Plot_Number = form.plot_Number.value
+Space = form.space.value
+Plan_Number = form.plan_Number.value
+Description = form.description.value
+Eight_Clause_Guarantees_Coverage_Percentage_Amount = form.eight_Clause_Guarantees_Coverage_Percentage_Amount.value
+Party_Number = ""
+Party_Number_Addon = ""
+Fifth_Clause_Second_Or_Third_Party = form.fifth_Clause_Second_Or_Third_Party.value
+Sixth_Clause_Second_Or_Third_Party = form.sixth_Clause_Second_Or_Third_Party.value
+Seventh_Clause_Second_Or_Third_Party = form.seventh_Clause_Second_Or_Third_Party.value
+Eighth_Clause_Second_Or_Third_Party = form.eighth_Clause_Second_Or_Third_Party.value
+Ninth_Clause_Second_Or_Third_Party = form.ninth_Clause_Second_Or_Third_Party.value
+Tenth_Clause_Second_Or_Third_Party = form.tenth_Clause_Second_Or_Third_Party.value
+Eleventh_Clause_Second_Or_Third_Party = form.eleventh_Clause_Second_Or_Third_Party.value
+Twelfth_Clause_Second_Or_Third_Party = form.twelfth_Clause_Second_Or_Third_Party.value
+Thirteenth_Clause_Second_Or_Third_Party = form.thirteenth_Clause_Second_Or_Third_Party.value
+Fourteenth_Clause_Second_Or_Third_Party = form.fourteenth_Clause_Second_Or_Third_Party.value
+Fifteenth_Clause_Second_Or_Third_Party = form.fifteenth_Clause_Second_Or_Third_Party.value
+Sixteenth_Clause_Second_Or_Third_Party = form.sixteenth_Clause_Second_Or_Third_Party.value
+
+
+
+
+def Party_Number_Dropdown = []
+    Party_Number_Dropdown.add( id:"الطرفان",text:"الطرفان");
+    Party_Number_Dropdown.add( id:"الأطراف",text:"الأطراف");
+
+    def Second_Or_Third_Party_Dropdown = []
+    Second_Or_Third_Party_Dropdown.add( id:"الطرف الثاني",text:"الطرف الثاني");
+    Second_Or_Third_Party_Dropdown.add( id:"الطرف الثالث",text:"الطرف الثالث");
+
+
+
+
+
+    // populate dropdowns
+    form.viewParams.Party_Number_Dropdown =  Party_Number_Dropdown
+
+    form.viewParams.Second_Or_Third_Party_Dropdown = Second_Or_Third_Party_Dropdown
