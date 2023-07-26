@@ -1,0 +1,3 @@
+SELECT ID,Name
+FROM KUAF
+WHERE Name = %1

@@ -1,0 +1,61 @@
+[/* Title: Blank Reportview */]
+
+<SCRIPT SRC="[LL_REPTAG_LIBPATH /]JsBarcode.all.min.js"></SCRIPT>
+<SCRIPT SRC="[LL_REPTAG_LIBPATH /]bootstrap.js"></SCRIPT>
+<LINK rel='stylesheet' href='[LL_REPTAG_LIBPATH /]bootstrap.css'>
+  
+<style>
+.bottomright {
+  position: absolute;
+  bottom: 20px;
+  right: 16px;
+  
+}
+
+</style>
+  
+<div style="text-align:center;">
+	<svg id="barcode" style="text-align:center;"></svg>
+
+</div>
+
+<div class="bottomright">
+	<div class="col-sm-12 col-lg-12 col-md-12 col-xs-12" style="padding-top: 15px; text-align:right;">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                    <button type="button" class="binf-btn binf-btn-primary custBtn" id="BarcodeBtn" name="BarcodeBtn" onclick="printDiv();">Print Barcode<img href='[LL_REPTAG_LIBPATH /]images/printer.png'/></button>
+                   
+				</div>
+	</div>
+</div>
+
+
+<div id="Display" style="display:none;">
+    <div id="Displayin" class="Displayin" style="width:190.43307087px;height:100.84251969px;margin-top:0px;" >
+   
+   <div style="text-align:center;">
+	<svg id="barcode" style="text-align:center;"></svg>
+
+	</div>
+    
+   
+	</div>
+</div>
+
+<script>
+
+	JsBarcode("#barcode", "[LL_REPTAG_'[LL_REPTAG_WIDGETCONTAINERID /]' CAT:'Card':'Reference Number':DISPLAY /]");
+  
+	function printDiv(){
+		var divToPrint=document.getElementById('Display');
+        var newWin=window.open('','Print-Window');
+        newWin.document.open();
+       
+        newWin.document.write("<html><head><style>@page { size: landscape;transform:scale(88);margin-top:0px; }</style></head><body onload='window.print()'>"+divToPrint.innerHTML+"</body></html>");
+        newWin.document.close();
+        setTimeout(function(){newWin.close();},3000);
+
+	}
+
+ </script>
+[LL_WEBREPORT_STARTROW /]
+[LL_WEBREPORT_ENDROW /]

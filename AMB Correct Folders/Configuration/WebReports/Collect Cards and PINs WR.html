@@ -1,0 +1,1061 @@
+<Link rel='stylesheet' href="[LL_REPTAG_LIBPATH /]bootstrap.css">
+
+	<style>
+	
+	.binf-widgets .custLoader{
+		margin-left: 50%;
+		margin-top: 20%;
+		position: absolute;
+		border: 12px solid #dbf1fe;
+		border-left: 12px solid #0072aa;
+		transform: translateZ(0);
+		-webkit-animation: load8 1s infinite linear;
+		animation: load8 1s infinite linear;
+		width: 67px;
+		height: 67px;
+		z-index: 11111;
+	}
+	div.inner-border, div.custLoader {
+		border-radius: 100%;
+	} 
+	
+	.binf-widgets .webreports-tilereport-sample2 {
+		padding: 1em;
+	}
+	.binf-widgets .webreports-tilereport-sample2 th{
+		font-weight: bold;
+	}
+	.binf-widgets .webreports-tilereport-sample2 h1{
+		font-weight: bold;
+		font-size: x-large;
+	}
+	.binf-widgets .custBtn {
+		bottom: 4px;
+		right: 23px;
+		border-radius: 16px;
+		height: 32px;
+		line-height: 12px;
+		padding: 0 24px;
+		color: #fff;
+		min-width: 80px;
+		border: 0;
+		}
+		.binf-widgets select {
+			height: calc(1.90rem );
+			font-size: 12px;
+		}
+		.binf-widgets input {
+			height: calc(1.90rem );
+			font-size: 12px;
+		}
+		.binf-widgets label {
+			font-size: small;
+		}
+	</style>
+	
+	<script src="[LL_REPTAG_LIBPATH /]jspdf/jspdf.umd.js"></script>
+	
+	<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+	
+	<script src="[LL_REPTAG_LIBPATH /]jspdf/jspdf.plugin.autotable.js"></script>
+	
+	
+	<table id="my-table-cards" style="width:100%;display: none;" class="table table-bordered">
+		<thead>
+		  <tr>
+			<th>Card Number</th>
+			<th>Cardholder Name</th>
+			<th>Old Delivery Status</th>
+			<th>New Delivery Status</th>
+			<th style="width: 60%;">Barcode</th>
+			
+		  </tr>
+		</thead>
+		<tbody id="cards_created">
+		  
+		  
+		</tbody>
+	  </table>
+	
+		<div class="shadow p-4 rounded  js-active container-fluid">
+			<div class="row" style="margin-top: -16px;">
+				<div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+					<div class="col-sm-8 col-lg-8 col-md-8 col-xs-8">
+						<label class="binf-control-label alpaca-control-label">Reference No</label>
+							<input type="text" class="valueEditable  form-control"  name="ref" placeholder="Reference No" id="ref" required/>
+							<script>
+							
+							var username="admin";
+						var password="P@ssw0rd";
+						var ticket = "";
+						
+						var counter=0;
+						
+						var form = new FormData();
+						
+						
+									
+						form.append("username", username);
+						form.append("password", password);
+						
+						
+						
+						function deleteRow(rowID){
+						
+							document.getElementById(""+rowID).remove();
+						
+						}
+	
+	
+			
+	
+						const formatDateFileSave = (date) => {
+							let hours = date.getHours();
+							let minutes = date.getMinutes();
+							let seconds = date.getSeconds();
+							minutes = minutes < 10 ? '0'+minutes : minutes;
+							seconds = seconds < 10 ? '0'+seconds : seconds;
+	
+							let year= date.getFullYear();
+							let month = date.getMonth()+1;
+							let day = date.getDate();
+	
+							month = month < 10 ? '0'+month : month;
+							day = day < 10 ? '0'+day : day;
+							hours = hours < 10 ? '0'+hours : hours;
+	
+	
+							let finalDateFormat = year +"-"+month+"-"+day+"_"+hours + '-' + minutes+"-"+ seconds;
+							return finalDateFormat;
+						}
+	
+						const sendPDFtoCreatedCardsReportFiles = (blob,fileName) => {
+	  
+	  
+							let data = {
+								"type":144, 
+								"parent_id":"[LL_REPTAG_$ChangeStatusReportFilesFolder /]", 
+								"name":fileName
+							};
+							
+							formData = new FormData();
+	
+							formData.append("body", JSON.stringify(data));
+							formData.append("file", blob);
+							return fetch("[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes", {
+									method: "POST", // *GET, POST, PUT, DELETE, etc.
+									mode: "cors", // no-cors, *cors, same-origin
+									cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+									credentials: "same-origin", // include, *same-origin, omit
+									headers: {
+									OTCSTicket: "[LL_REPTAG_OTCSTICKET /]",
+									},
+									redirect: "follow", // manual, *follow, error
+									referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+									body: formData,
+								}).then(function(response) {
+									console.log("PDF uploaded to content server");
+									return response.json();
+								}).then((data) => {
+									console.log("data is",data);
+									return data.id;
+								}).catch(function(err) {
+									console.log("PDF file was not uploaded to content server, please contact administrator.");
+								});
+	
+							};
+
+							const sendEmail = async (docId,statusName,objRetrieved) => {
+								console.log(objRetrieved);
+								if(objRetrieved.length == 0) return;
+
+								let requesting_branch = objRetrieved[0].requesting_branch;
+
+								let emailTo, url, encode_url, full_url, destination;
+
+								switch(statusName){
+									case 'Received By Cards Department':
+										collectedBy = "Cards Department";
+										emailTo = "[LL_REPTAG_$CardsDepartmentMail /]";
+										url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$CollectedByEmail /]/output?";
+										encode_url = `docPDF=${docId}&mail=${emailTo}&collectedBy=${collectedBy}`;
+										full_url = url+encode_url;
+										
+										break;
+										
+									case 'Sent to Branch':
+										destination = "your branch";
+										emailTo = await getBranchEmail(requesting_branch);
+										if(!emailTo.includes("**")){
+											console.log("emailTo getBranch",emailTo);
+											url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$SentToEmail /]/output?";
+											encode_url = `docPDF=${docId}&mail=${emailTo}&destination=${destination}`;
+											full_url = url+encode_url;
+										} else {
+											document.getElementById("LoadingImagePO").style.display = 'none';
+											alert("Warning: Process completed but email was not sent, branch email is not defined. Please contact administrator.");
+											throw new Error("Warning: Process completed but email was not sent, branch email is not defined. Please contact administrator.");
+										}
+										
+										break;
+
+									case 'Sent to Delivery Unit':
+										emailTo = "[LL_REPTAG_$DeliveryUnitMail /]";
+										destination = "Delivery Unit";
+										
+										url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$SentToEmail /]/output?";
+										encode_url = `docPDF=${docId}&mail=${emailTo}&destination=${destination}`;
+										full_url = url+encode_url;
+										
+										break;
+									case 'Sent to Private Banking':
+											
+										destination = "Private Banking";
+
+										emailTo = "[LL_REPTAG_$PrivateBankingMail /]";
+										url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$SentToEmail /]/output?";
+										encode_url = `docPDF=${docId}&mail=${emailTo}&destination=${destination}`;
+										full_url = url+encode_url;
+										
+										break;
+
+									case 'Received By Branch':
+										collectedBy = "your branch";
+										emailTo = await getBranchEmail(requesting_branch);
+
+										if(!emailTo.includes("**")){
+											url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$CollectedByEmail /]/output?";
+											encode_url = `docPDF=${docId}&mail=${emailTo}&collectedBy=${collectedBy}`;
+											full_url = url+encode_url;
+										} else {
+											document.getElementById("LoadingImagePO").style.display = 'none';
+											alert("Warning: Process completed but email was not sent, branch email is not defined. Please contact administrator.");
+											throw new Error("Warning: Process completed but email was not sent, branch email is not defined. Please contact administrator.");
+										}
+
+										
+										break;
+									case 'Received By Delivery Unit':
+										collectedBy = "Delivery Unit";
+										emailTo = "[LL_REPTAG_$DeliveryUnitMail /]";
+
+										url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$CollectedByEmail /]/output?";
+										encode_url = `docPDF=${docId}&mail=${emailTo}&collectedBy=${collectedBy}`;
+										full_url = url+encode_url;
+
+										break;
+									case 'Received By Private Banking':
+										collectedBy = "Private Banking";
+										emailTo = "[LL_REPTAG_$PrivateBankingMail /]";
+
+										url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$CollectedByEmail /]/output?";
+										encode_url = `docPDF=${docId}&mail=${emailTo}&collectedBy=${collectedBy}`;
+										full_url = url+encode_url;
+
+									
+										break;
+									
+									default:
+										break;
+								}
+
+								console.log("full_url",full_url);
+
+								await fetch(full_url, {
+									method: "GET", // *GET, POST, PUT, DELETE, etc.
+									mode: "cors", // no-cors, *cors, same-origin
+									cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+									credentials: "same-origin", // include, *same-origin, omit
+									headers: {
+									OTCSTicket: "[LL_REPTAG_OTCSTICKET /]",
+									},
+									redirect: "follow", // manual, *follow, error
+									referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+								}).then(function(response) {
+									if(response.ok){
+									console.log("email sent");
+									} else {
+									alert("Email not sent, please contact administrator.");
+									throw new Error(err);
+									}
+								}).catch(function(err) {
+									alert("Email not sent, please contact administrator.");
+									throw new Error(err);
+								});
+							}
+
+
+							const getBranchEmail = async (requesting_branch) => {
+								try {
+									const response = await fetch(`[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$getBranchEmail /]/output?requesting=${requesting_branch}`, {
+										method: "GET", // *GET, POST, PUT, DELETE, etc.
+										mode: "cors", // no-cors, *cors, same-origin
+										cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+										credentials: "same-origin", // include, *same-origin, omit
+										headers: {
+										OTCSTicket: "[LL_REPTAG_OTCSTICKET /]",
+										},
+										redirect: "follow", // manual, *follow, error
+										referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+									});
+
+									const branch = await response.json();
+									return branch.data;
+									
+								} catch(err) {
+									console.log(err);
+									alert("Branch email is not defined, please contact administrator.");
+								}
+
+								
+							}
+	
+						
+			
+						async function callAjaxAndWait(objRetrieved,statusName){
+										
+
+										let requests = objRetrieved.map((element,i) => {
+		
+											
+											if(element.type === 'Card'){
+	
+												document.getElementById('cards_created').innerHTML += `
+												<tr>
+													<td>${element.card_number}</td>
+													<td>${element.cardholder_name}</td>
+													<td>${element.old_value}</td>
+													<td>${element.value}</td>
+													<td>
+													<div id="qrcode${i}"></div>
+													</td>
+												</tr>
+												`;
+	
+												setTimeout(function(){ 
+													new QRCode(document.getElementById(`qrcode${i}`), {
+													text: `${element.reference_number}`,
+													width: 300,
+													height: 300,
+													});
+												
+												}, 150);
+	
+	
+											
+												var formData = new FormData();
+	
+												formData.append("[LL_REPTAG_$CatCard /]_26", element.value);
+												
+											
+												return fetch("[LL_REPTAG_URLPREFIXFULL /]/api/v2/nodes/"+element.id+"/categories/[LL_REPTAG_$CatCard /]", {
+													method: "PUT", // *GET, POST, PUT, DELETE, etc.
+													mode: "cors", // no-cors, *cors, same-origin
+													cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+													credentials: "same-origin", // include, *same-origin, omit
+													headers: {
+													OTCSTicket: ticket,
+													},
+													redirect: "follow", // manual, *follow, error
+													referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+													body: formData // body data type must match "Content-Type" header
+												})
+											
+											}
+	
+										
+										});
+	
+										let requests2 = objRetrieved.map((element,i) => {
+	
+											if(element.type === 'PIN'){
+	
+												document.getElementById('cards_created').innerHTML += 
+													`
+												<tr>
+													<td>PIN for ${element.card_number}</td>
+													<td>${element.cardholder_name}</td>
+													<td>${element.old_value}</td>
+													<td>${element.value}</td>
+													<td>
+													<div id="qrcodePIN${i}"></div>
+													</td>
+												</tr>
+												`;
+	
+												
+												setTimeout(function(){ 
+													new QRCode(document.getElementById(`qrcodePIN${i}`), {
+													text: `${element.reference_number}`,
+													width: 300,
+													height: 300,
+													});
+												}, 150);
+	
+	
+	
+												var formData = new FormData();
+	
+												formData.append("[LL_REPTAG_$CatPIN /]_4", element.value);
+	
+	
+												return fetch("[LL_REPTAG_URLPREFIXFULL /]/api/v2/nodes/"+element.id+"/categories/[LL_REPTAG_$CatPIN /]", {
+													method: "PUT", // *GET, POST, PUT, DELETE, etc.
+													mode: "cors", // no-cors, *cors, same-origin
+													cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+													credentials: "same-origin", // include, *same-origin, omit
+													headers: {
+													OTCSTicket: ticket,
+													},
+													redirect: "follow", // manual, *follow, error
+													referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+													body: formData // body data type must match "Content-Type" header
+												})
+	
+											}
+	
+										});
+	
+										let requests3 = objRetrieved.map((element) => {
+	
+											let reference_number= element.reference_number;
+											let cardholder_name_sql = element.cardholder_name;
+											let card_number_sql = element.card_number;
+											let old_status = element.old_value;
+											let status = element.value;
+											let performer = '[LL_REPTAG_ACTUALUSERID /]';
+	
+											let url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$InsertCardsTrackingRecord /]/output?";
+											let encode_url = `inputlabel1=${encodeURIComponent(performer)}&inputlabel2=${encodeURIComponent(reference_number)}&inputlabel3=${encodeURIComponent(old_status)}&inputlabel4=${encodeURIComponent(status)}&inputlabel5=${encodeURIComponent(element.id)}&inputlabel6=${encodeURIComponent(cardholder_name_sql)}&inputlabel7=${encodeURIComponent(card_number_sql)}`;
+											let full_url = url+encode_url;
+	
+											return fetch(full_url, {
+												method: "GET", // *GET, POST, PUT, DELETE, etc.
+												mode: "cors", // no-cors, *cors, same-origin
+												cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+												credentials: "same-origin", // include, *same-origin, omit
+												headers: {
+												OTCSTicket: "[LL_REPTAG_OTCSTICKET /]",
+												},
+												redirect: "follow", // manual, *follow, error
+												referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+											});
+	
+										});
+											
+											await Promise.all(requests,requests2,requests3)
+	
+											.then(function (responses) {
+												// Get a JSON object from each of the responses
+												return Promise.all(
+												responses.map(function (re) {
+													console.log(re);
+													return re;
+												})
+												);
+											})
+											.then(function(data){
+	
+												let doc = new jspdf.jsPDF();
+												console.log(doc);
+												setTimeout(function(){ 
+														
+													doc.autoTable({
+														html: '#my-table-cards',
+														bodyStyles: {minCellHeight: 40},
+														columnStyles: {
+														0: {cellWidth: 20},
+														1: {cellWidth: 30},
+														2: {cellWidth: 40},
+														3: {cellWidth: 40},
+														4: {cellWidth: 30},
+														// etc
+														},
+														styles: {fontSize: 6},
+														margin: { left: 20, right: 20, top: 5 },
+														didDrawCell: function(data) {
+														if (data.column.index === 4 && data.cell.section === 'body') {
+															var td = data.cell.raw;
+															var img = td.getElementsByTagName('img')[0];
+															var dim = data.cell.height - data.cell.padding('vertical');
+															var textPos = data.cell;
+															doc.addImage(img.src, textPos.x,  textPos.y, 30, 30);
+														}
+														}
+													});
+													const formattedDate = formatDateFileSave(new Date());
+													const fileName = "Change_Status_[LL_REPTAG_ACTUALUSERID /]_"+formattedDate+".pdf";
+													let blob = doc.output('blob');
+													doc.save(fileName);
+													console.log(data);
+													sendPDFtoCreatedCardsReportFiles(blob,fileName).then(function(data){
+														console.log("docId",data);
+														sendEmail(data,statusName,objRetrieved).then(function(data){
+															location.reload();
+														});
+
+													});
+	
+													
+												}, 5000);   
+	
+												
+											})
+	
+											.catch(function (error) {
+												// if there's an error, log it
+												console.log(error);
+												alert(error);
+												alert("Please contact administrator.")
+											});
+	
+						}
+									
+							csui.require(['csui/lib/jquery'], function ($) {
+	
+									function ajaxForUpdatingCardPermission(ID,role,groupid){
+									
+										var TileReportConfig = {};
+												TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+												TileReportConfig.otcsTicket = ticket;
+								
+											$.ajax({
+													url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$Update_Permission_Card /]/output?format=webreport&cID="+ID+"&role="+role+"&groupid="+groupid,
+													type: "GET",
+													
+													dataType:"json",
+													beforeSend: function(xhr){
+														xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+														$('#LoadingImagePO').show(); 
+													},    
+													success: function(data) {
+														//alert('success');
+														
+													}
+												});
+							
+									}
+	
+									function onClickDeliveryStatusHandler(statusName){
+										var cardsIDs = [];
+	
+										$("tr.CItem").each(function() {
+										
+											var objToPush = {};
+										
+											$('#LoadingImagePO').show(); 
+										
+											var cID = $(this).find("input").attr('id');
+											var old_value = $(this).find("input").attr('value');
+											var reference_number = $(this).children('td:first').text();
+											var card_number = $(this).children('td:first').next().text();
+											var cardholder_name = $(this).children('td:first').next().next().text();
+											var requesting_branch= $(this).children('td:first').next().next().next().next().next().text();
+											var cID_arr = cID.split('-');
+	
+											if(cID_arr[0] == 'Card'){ 
+													
+												objToPush = {
+													id: cID_arr[1],
+													type: 'Card',
+													value: statusName,
+													old_value: old_value,
+													reference_number: reference_number,
+													card_number: card_number,
+													cardholder_name:cardholder_name,
+													requesting_branch:requesting_branch,
+												};
+												
+											}
+											
+											if(cID_arr[0] == 'PIN'){
+											
+												objToPush = {
+													id: cID_arr[1],
+													type: 'PIN',
+													value: statusName,
+													old_value: old_value,
+													reference_number: reference_number,
+													card_number: card_number,
+													cardholder_name:cardholder_name,
+													requesting_branch:requesting_branch,
+													
+												};
+	
+											}
+											cardsIDs.push(objToPush);
+											//$('#LoadingImagePO').hide(); 
+											$(this).find("input").val(statusName);
+	
+										});
+										callAjaxAndWait(cardsIDs,statusName);
+	
+									}
+									
+						$.fn.myFunction = function(id,reference,deliveryStatus) { 
+							var markup="";
+							
+							var TileReportConfig = {};
+							TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+							TileReportConfig.otcsTicket = ticket; 
+										$.ajax({
+											url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$Get_PIN_Details_by_ID /]/output?format=webreport&inputlabel1="+id,
+											type: "GET",
+											dataType:"json",
+											async: false,
+											beforeSend: function(xhr){
+												xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+											},   
+											success: function(data) { 
+												
+												if(Object.keys(data.myRows).length !=0){
+													
+														//var Reference=data.myRows[0].Reference_Number.replace(/\"/g, ""); 
+														//var PINNumber='';
+														//var DeliveryStatus=data.myRows[0].Delivery_Status;
+														
+														var cardNumber = data.myRows[0].Card_Number;
+														var cardholderName = data.myRows[0].Cardholder_Name;
+														var type = data.myRows[0].Type;
+														var accountNumber = data.myRows[0].Account_Number;
+														
+														var requestingBranch = data.myRows[0].Requesting_Branch;
+														if(requestingBranch == undefined){
+															requestingBranch="";
+														}
+														
+														var found=false;
+														
+														$("tr.CItem").each(function() {
+															var cID = $(this).find("input").attr('id');
+														
+															
+															var PINwithID = 'PIN-'+data.myRows[0].ID;
+															if (cID == PINwithID){
+																found=true;
+															
+															}
+															
+														});
+														
+														if(found){
+															markup = "";
+															alert("Item already scanned!");
+														
+														} else {
+															counter++;
+															markup='<tr id="'+counter+'" class="CItem"><td>'+reference+'</td><td>'+cardNumber+'</td><td>'+cardholderName+'</td><td>'+type+'</td><td>'+accountNumber+'</td><td>'+requestingBranch+'</td><td><input type="text" class="valueEditable form-control" value="'+deliveryStatus+'" name="'+data.myRows[0].ID+'" id="PIN-'+data.myRows[0].ID+'" readonly /></td><td><button type=\"button\" onclick="deleteRow('+counter+');" class=\"binf-btn binf-btn-danger\">Delete</button></td></tr>';
+														}
+												}
+											},
+											error: function(){
+												alert('failure');
+											}
+										}); 
+							return markup;		
+						}
+									
+							$(document).ready(function(){	
+							
+							$('#LoadingImagePO').hide(); 
+								$.ajax({
+											
+								
+											url: "[LL_REPTAG_URLPREFIX /]/api/v1/auth",
+											type: "POST",
+											processData: false,
+											contentType: false,
+											data: form,
+											dataType:"json",
+												
+											success: function(data) { 
+												ticket= data.ticket;
+												
+												//console.log(ticket);
+											},
+											error: function(){
+												//alert('failure');
+											}
+								}); 
+							});	
+								
+								
+								var i=1;
+								$('#ref').keypress(function(e){
+									
+								
+									if(e.which == 13) {
+										e.preventDefault();
+										var markup="";
+									
+										console.log('You pressed enter!');
+									
+										console.log("changed");
+										var TileReportConfig = {};
+										TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+										TileReportConfig.otcsTicket = ticket; 
+										$.ajax({
+											url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$Get_Card /]/output?format=webreport&inputlabel1="+$(this).val(),
+											type: "GET",
+											dataType:"json",
+											beforeSend: function(xhr){
+												xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+											},   
+											success: function(data) { 
+												//console.log(JSON.stringify(data));
+												console.log('d');
+												console.log("data was sent!"+Object.keys(data.myRows).length);
+												if(Object.keys(data.myRows).length !=0){
+													
+														var Reference=data.myRows[0].Reference_Number.replace(/\"/g, ""); 
+														var CardNumber=data.myRows[0].Card_Number;
+														var CardholderName=data.myRows[0].Cardholder_Name;
+														var Type=data.myRows[0].Type;
+														var AccountNumber=data.myRows[0].Account_Number;
+														var DeliveryStatus=data.myRows[0].Delivery_Status;
+														
+														var requestingBranch = data.myRows[0].Requesting_Branch;
+														if(requestingBranch == undefined){
+															requestingBranch="";
+														}
+															
+															
+														var found=false;
+														
+														$("tr.CItem").each(function() {
+															var cID = $(this).find("input").attr('id');
+														
+															var CardwithID = 'Card-'+data.myRows[0].ID;
+															
+															if (cID == CardwithID){
+																found=true;
+																console.log("Card Component Found Already!");
+															
+															}
+															
+														});
+														
+														if(found){
+															markup = "";
+															alert("Item already scanned!");
+														
+														} else {
+															counter++;
+															markup='<tr id="'+counter+'" class="CItem"><td>'+Reference+'</td><td>'+CardNumber+'</td><td>'+CardholderName+'</td><td>'+Type+'</td><td>'+AccountNumber+'</td><td>'+requestingBranch+'</td><td><input type="text" class="valueEditable form-control" value="'+DeliveryStatus+'" name="'+data.myRows[0].ID+'" id="Card-'+data.myRows[0].ID+'" readonly /></td><td><button type=\"button\" onclick="deleteRow('+counter+');" class=\"binf-btn binf-btn-danger\">Delete</button></td></tr>';
+														} 
+															
+														
+														$("#tdata").append(markup);
+												}
+											},
+											error: function(){
+												alert('failure');
+											}
+										}); 
+										
+				
+										$.ajax({
+	
+											url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$Get_PIN /]/output?format=webreport&inputlabel1="+$(this).val(),
+											type: "GET",
+											dataType:"json",
+											beforeSend: function(xhr){
+												xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+											},   
+											success: function(data) { 
+												var markup="";
+											
+												//console.log(JSON.stringify(data));
+												console.log('d');
+												console.log("data was sent!"+Object.keys(data.myRows).length);
+												if(Object.keys(data.myRows).length !=0){
+													
+														var ID = data.myRows[0].ID;
+														
+														var Reference=data.myRows[0].Reference_Number.replace(/\"/g, ""); 
+														//var PINNumber='';
+														
+														var DeliveryStatus=data.myRows[0].Delivery_Status;
+	
+														var found=false;
+														
+														$("tr.CItem").each(function() {
+															var cID = $(this).find("input").attr('id');
+														
+															
+															var PINwithID = 'PIN-'+data.myRows[0].ID;
+															if (cID == PINwithID){
+																found=true;
+																
+																console.log("PIN Component Found Already!");
+															
+															}
+															
+														});
+														
+														if(found){
+															markup = "";
+															alert("Item already scanned!");
+															
+														} else {
+															markup = $.fn.myFunction(ID,Reference,DeliveryStatus);
+														} 
+	
+														console.log(markup);
+	
+														$("#tdata").append(markup);	
+												}
+											},
+											error: function(){
+												alert('failure');
+											}
+										}); 
+										
+										
+										$('#ref').val('');	
+									}
+		
+								});
+								
+								
+									$('#ReceivedByCards').on('click',function(){		
+										$('#LoadingImagePO').show();    
+										
+										$("tr.CItem").each(function() {
+											var cID = $(this).find("input").attr('id');
+											var cID_arr = cID.split('-');
+																			
+											ajaxForUpdatingCardPermission(cID_arr[1],'Cards Department',[LL_REPTAG_$CardsGroup /]);	
+										});
+		
+										onClickDeliveryStatusHandler('Received By Cards Department');
+			
+								});
+								
+	
+								$('#SendToBranch').on('click',function(){	
+									let currentRequestingBranch;
+									let sameRequestingBranch = true;
+									
+									$("tr.CItem").each(function() {
+										let requesting_branch= $(this).children('td:first').next().next().next().next().next().text();
+										if(currentRequestingBranch){
+											if(currentRequestingBranch != requesting_branch){
+												sameRequestingBranch = false;
+											}
+										} else {
+											currentRequestingBranch = requesting_branch;
+										}
+									});
+
+									if(!sameRequestingBranch){
+										alert("Cannot send cards to branch with multiple destination requesting branch, it must be unique for a single batch.");
+										$('#LoadingImagePO').hide();  				
+										return;
+									}
+
+									onClickDeliveryStatusHandler('Sent to Branch');
+	
+								});
+								
+		
+								$('#SendToDeliveryUnit').on('click',function(){
+										$('#LoadingImagePO').show();        
+										onClickDeliveryStatusHandler('Sent to Delivery Unit');
+		
+								});
+								
+		
+								$('#SendToPrivateBanking').on('click',function(){    
+										$('#LoadingImagePO').show();  
+									
+										onClickDeliveryStatusHandler('Sent to Private Banking');
+		
+								});
+								
+	
+								$('#ReceivedByBranch').on('click',function(){             
+										$('#LoadingImagePO').show();  
+										
+										$("tr.CItem").each(function() {
+											var cID = $(this).find("input").attr('id');
+											var cID_arr = cID.split('-');
+																			
+											ajaxForUpdatingCardPermission(cID_arr[1],'Branch','');	
+										});
+
+
+										let currentRequestingBranch;
+										let sameRequestingBranch = true;
+										
+										$("tr.CItem").each(function() {
+											let requesting_branch= $(this).children('td:first').next().next().next().next().next().text();
+											if(currentRequestingBranch){
+												if(currentRequestingBranch != requesting_branch){
+													sameRequestingBranch = false;
+												}
+											} else {
+												currentRequestingBranch = requesting_branch;
+											}
+										});
+
+										if(!sameRequestingBranch){
+											alert("Cannot collect cards with multiple destination requesting branch, it must be unique for a single batch.");
+											$('#LoadingImagePO').hide();
+											return;
+										}
+
+	
+										onClickDeliveryStatusHandler('Received By Branch');
+							
+								});
+	
+								$('#ReceivedByDeliveryUnit').on('click',function(){      		
+										$('#LoadingImagePO').show();
+										
+										$("tr.CItem").each(function() {
+											var cID = $(this).find("input").attr('id');
+											var cID_arr = cID.split('-');
+																			
+											ajaxForUpdatingCardPermission(cID_arr[1],'Delivery Unit',[LL_REPTAG_$DeliveryUnitGroup /]);
+										});
+		
+										onClickDeliveryStatusHandler('Received By Delivery Unit');		
+								});
+					
+								
+								$('#ReceivedByPrivateBanking').on('click',function(){
+									
+										$('#LoadingImagePO').show();
+										
+										$("tr.CItem").each(function() {
+											var cID = $(this).find("input").attr('id');
+											var cID_arr = cID.split('-');
+																			
+											ajaxForUpdatingCardPermission(cID_arr[1],'Private Banking',[LL_REPTAG_$PrivateBankingGroup /]);
+										});
+										
+										onClickDeliveryStatusHandler('Received By Private Banking');
+									
+									
+								});
+				
+								function delivered(){
+									
+									$('#LoadingImagePO').show();
+									
+										$("tr.CItem").each(function() {
+											var cID = $(this).find("input").attr('id');
+											var cID_arr = cID.split('-');
+											
+											var TileReportConfig = {};
+												TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+												TileReportConfig.otcsTicket = ticket;
+											
+												$.ajax({
+													url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$Check_Card_Activation_Email /]/output?format=webreport&cID="+cID_arr[1],
+													type: "GET",
+													
+													dataType:"json",
+													beforeSend: function(xhr){
+														xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+													}, 
+													success: function(data) {
+														//alert('success');
+													}
+												});
+												
+											});	
+											
+										onClickDeliveryStatusHandler('Delivered To Customer');	
+								};
+										
+							});
+						</script>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-6 col-md-6 col-xs-6" style="text-align: end;padding-top: 16px;">
+					<div>
+					[// Cards
+					[LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_$CardsGroup /]' USERINGROUP /]" == "TRUE" /]
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="ReceivedByCards">Collect</button>
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="SendToBranch">Send to Branch</button>
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="SendToDeliveryUnit">Send to Delivery Unit</button>
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="SendToPrivateBanking">Send to Private Banking</button>			  
+								
+												
+					[LL_WEBREPORT_ENDIF /]
+					
+					
+					[// Branch
+					[LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_$BranchGroup /]' USERINGROUP /]" == "TRUE" /]
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="ReceivedByBranch">Collect</button>
+						<!-- <button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn5">Cancelled</button>
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn6" onclick="delivered();">Delivered</button>
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn7">Transfered</button>			   -->
+								
+												
+					[LL_WEBREPORT_ENDIF /] 
+					
+					
+					[// Delivery Unit
+					[LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_$DeliveryUnitGroup /]' USERINGROUP /]" == "TRUE" /]
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="ReceivedByDeliveryUnit">Collect</button>
+						<!-- <button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn10">Cancelled</button>
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn11" onclick="delivered();">Delivered</button>
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn12">Transfered</button> -->
+																
+					[LL_WEBREPORT_ENDIF /]
+	
+	
+					[// Private Banking
+					[LL_WEBREPORT_IF "[LL_REPTAG_'[LL_REPTAG_$PrivateBankingGroup /]' USERINGROUP /]" == "TRUE" /]
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="ReceivedByPrivateBanking">Collect</button>
+						<!-- <button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn13">Cancelled</button>
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn14" onclick="delivered();">Delivered</button>
+						<button type="button" class="binf-btn binf-btn-primary custBtn" id="updateBtn15">Transfered</button> -->
+																
+					[LL_WEBREPORT_ENDIF /] 
+					
+					
+					
+					
+				
+					
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	
+	<div class="webreports-tilereport-sample2">
+		<div class="binf-table-responsive">
+			<table class="binf-table binf-table-bordered binf-table-hover myTable" id="myTable" style="table-layout: fixed;word-wrap: break-word;">
+			<tr class="binf-active">
+		
+				<th>Reference Number</th>
+				<th>Card Number</th>
+				<th>Cardholder Name</th>
+				<th>Type</th>
+				<th>Account Number</th>
+				<th>Requesting Branch</th>
+				<th>Delivery Status</th>
+				<th></th>
+				
+		  </tr>
+		<tbody id="tdata">
+		
+		</tbody>
+		 </table>
+		</div>
+	</div>
+	
+	<div id="LoadingImagePO" class="custLoader" style="display: none;"></div>
+	
+	
+	
+	
+	[LL_WEBREPORT_STARTROW /]
+	[LL_WEBREPORT_ENDROW /]
+	

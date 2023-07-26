@@ -1,0 +1,81 @@
+[/* Title: 		WebReport CS16+ Smart UI Visual Count widget - Sample Template for use with filtering, grouping and sorting within the WebReport.
+	Version: 	1.01
+	Modified: 	10th October 2017
+	--------------------------------------------------------------------------------------------------------------------------------------------
+	- Uses the INSERTJSON tag with the @FILTEREDCOUNT directive to generate the correct data for use with the Visual Count widget.
+	- All data will be returned from the database to the Content Server instance, the data will then be filtered, grouped and sorted by WebReports and sent to the client.
+	- This reportview should only be used where the data source doesn't returned grouped data.
+	- This reportview should only be used for small to medium datasets as every row from the data source is returned from the database to the Content Server instance.
+	- The advantage of using the template is that sometimes it's not possible to do grouping and filtering in the data source. It also doesn't return all rows to the client which can improve performance between the client and server.
+	
+	Additional manual configuration options for this data scenario:
+	
+	- INCLUDECOLUMNS and EXCLUDECOLUMNS can be added to only return relevant columns to the client.
+	
+	For example:
+	
+	1)INCLUDECOLUMNS:
+	
+	This supports both oscript List and JSON array data types.
+	
+	INCLUDECOLUMNS:"{'Reviewer','DocType'}"
+	INCLUDECOLUMNS:'["Reviewer","DocType"]'
+	
+	This would return only the 'Reviewer' and 'DocType' columns to the client for use with the filtering controls. 
+	
+	2) EXCLUDECOLUMNS:
+	
+	This supports both oscript List and JSON array data types.
+	
+	EXCLUDECOLUMNS:"{'DataID','ParentID'}"
+	EXCLUDECOLUMNS:'["DataID","ParentID"]'
+	
+	This would return all columns from the data source except 'DataID' and 'ParentID' to the client for use with the filtering controls. In general it's recommended to exclude columns such as DataID where all values are unique or highly distinct.
+	
+	- FORMATCOLUMNNAMES can be added to show a formatted label for each data source column name.
+
+	For example:
+
+	FORMATCOLUMNNAMES:Status:"Document Status":Type:"[LL_REPTAG_'WEBNODE_HTMLLABEL.Type' XLATE /]"
+
+	This supports hard-coded strings and tags. The XLATE sub-tag can be used here to support localized column labels. This option affects the column name labels wherever they appear in the Visual Count widget user interface.
+
+	- FORMATCOLUMNS can be added to allow sub-tags to be used to format data values in the Active Column before the data is returned to the client.
+
+	For example:
+
+	FORMATCOLUMNS:DocType:"[LL_REPTAG=DocType CAPITALIZE /]":Reviewer:"[LL_REPTAG=Reviewer USERINFO:FULLNAME /]"
+
+	This allows you to associate different sub-tags with different columns and can be interpreted as:
+
+	1) If the user chooses the Active Column of 'DocType' on the client then all grouped values for that column will be processed using the CAPITALIZE sub-tag.
+	2) If the user chooses the Active Column of 'Reviewer' on the client then all grouped values for that column will be processed using the USERINFO:FULLNAME sub-tag.
+	3) If the user chooses any other Active Columns then the data will be returned as is from the data source.	
+	
+	- COUNTFORMAT can be used to tell the widget how to render the counts.
+	
+	This supports the values: "none", "si" and "bytes". For instance, for a count value of 69877015, the following outputs would be shown:
+	
+	COUNTFORMAT:"none"
+	Output: 69877015
+	
+	COUNTFORMAT:"si"
+	Output: 69.9M
+	
+	COUNTFORMAT:"bytes"
+	Output: 66.6MB	
+*/]
+
+     [LL_REPTAG_'State' SETVAR:CSTATE /]
+
+
+
+[LL_WEBREPORT_INSERTJSON @FILTEREDCOUNT 
+ACTIVECOLUMN:"[LL_REPTAG_&active_column /]"
+FORMATCOLUMNNAMES:CState:[LL_REPTAG_%CSTATE CURRENTVAL /]
+FILTERBY:"[LL_REPTAG_&fc_filters /]"
+GROUPBY:"TRUE" 
+GROUPAFTER:"[LL_REPTAG_&group_after /]" 
+SORTCOL:"[LL_REPTAG_&sort_by /]"
+SORTDIR:"[LL_REPTAG_&sort_order /]"
+COUNTFORMAT:"SI" /][LL_WEBREPORT_STARTROW /][LL_WEBREPORT_ENDROW /]

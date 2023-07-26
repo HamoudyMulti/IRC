@@ -1,0 +1,50 @@
+[LL_WEBREPORT_FOR VAR:i DATA:[LL_REPTAG_&cID PERMINFO:ASSIGNEDACCESS /] /] 
+										
+										[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL ASSOC:RightID SETVAR:ROLEID /]
+										[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL ASSOC:Name  SETVAR:ROLENAME /]
+										
+						   
+						   
+									[LL_WEBREPORT_IF "[LL_REPTAG_%ROLENAME CURRENTVAL /]" == "Cards Department" /]
+										[LL_WEBREPORT_IF "[LL_REPTAG_&role /]" == "Cards Department" /]
+											[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL ASSOC:RightID USERACTION:ADD:[LL_REPTAG_&groupid /] /]
+											
+
+										[LL_WEBREPORT_ENDIF /]
+									[LL_WEBREPORT_ENDIF /]	
+										
+									[LL_WEBREPORT_IF "[LL_REPTAG_%ROLENAME CURRENTVAL /]" == "Branch" /]	
+										[LL_WEBREPORT_IF "[LL_REPTAG_&role /]" == "Branch" /]
+										
+											[LL_REPTAG_&cID CAT:"Card":"Requesting Branch":DISPLAY USERINFO:ID SETVAR:branchid /]
+										
+										
+											[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL ASSOC:RightID USERACTION:ADD:[LL_REPTAG_%branchid CURRENTVAL /] /]
+											
+											
+
+										[LL_WEBREPORT_ENDIF /]
+									[LL_WEBREPORT_ENDIF /]		
+										
+									[LL_WEBREPORT_IF "[LL_REPTAG_%ROLENAME CURRENTVAL /]" == "Delivery Unit" /]	
+										[LL_WEBREPORT_IF "[LL_REPTAG_&role /]" == "Delivery Unit" /]
+											[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL ASSOC:RightID USERACTION:ADD:[LL_REPTAG_&groupid /] /]
+											
+
+										[LL_WEBREPORT_ENDIF /]
+									[LL_WEBREPORT_ENDIF /]		
+										
+									[LL_WEBREPORT_IF "[LL_REPTAG_%ROLENAME CURRENTVAL /]" == "Private Banking" /]	
+										[LL_WEBREPORT_IF "[LL_REPTAG_&role /]" == "Private Banking" /]
+											[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL ASSOC:RightID USERACTION:ADD:[LL_REPTAG_&groupid /] /]
+											
+
+										[LL_WEBREPORT_ENDIF /]
+									[LL_WEBREPORT_ENDIF /]		
+							
+
+							
+
+
+
+[LL_WEBREPORT_ENDFOR /]

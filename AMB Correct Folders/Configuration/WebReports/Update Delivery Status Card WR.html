@@ -1,0 +1,129 @@
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "ReceivedByCards" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Received By Cards Department' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /] 	
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "SendToCards" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Sent to Cards Department' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /] 	
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "SendToBranch" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Sent to Branch' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /] 	
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "SendToDeliveryUnit" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Sent to Delivery Unit' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /] 	
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "SendToPrivateBanking" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Sent to Private Banking' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /] 	
+
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "ReceivedByBranch" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Received By Branch' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /] 	
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "ReceivedByDeliveryUnit" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Received By Delivery Unit' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /] 	
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "ReceivedByPrivateBanking" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Received By Private Banking' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /]
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "DeliveredToCustomer" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Delivered To Customer' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /] 	
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "TransferredToBranch" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Transferred To Branch' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /] 
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "ToBeReviewedByBranchManager" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'To be Reviewed By Branch Manager' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /]
+
+
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "ToBeReviewedByRetentionParty" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'To be Reviewed By Retention Party' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /]
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "Retained" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Retained' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /]
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "Cancelled" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Cancelled' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /] 	
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "ToBeShredded" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'To be Shredded By Cards Department' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /] 
+
+[LL_WEBREPORT_IF "[LL_REPTAG_&action /]" == "Shredded" /]
+[LL_REPTAG_'[LL_REPTAG_&cID /]' CATACTION:SETVALUE:'Card':'Card Delivery Status':'Shredded' /]
+                      
+                
+                                
+[LL_WEBREPORT_ENDIF /]
+
+
+

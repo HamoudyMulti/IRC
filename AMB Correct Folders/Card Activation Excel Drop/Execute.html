@@ -1,0 +1,38 @@
+
+
+
+<div id="results">Cards are getting activated... Please wait...</div>
+
+
+    [LL_WEBREPORT_STARTROW /]
+							
+		
+	her	[LL_REPTAG=MASKED_CARD /]
+	
+	
+	
+	 [/*LL_WEBREPORT_FOR VAR:i DATA:[LL_REPTAG_$CardsFolder NODEINFO:CHILDREN /] /]
+	   
+			[LL_WEBREPORT_IF "[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL RECORD:DataID CAT:Card:'Card Number':DISPLAY /]" == "[LL_REPTAG=MASKED_CARD /]" /]
+			
+				<p>Activating Card [LL_REPTAG=MASKED_CARD /] ...</p>
+				[LL_REPTAG_"[LL_REPTAG_%i LIST:[LL_REPTAG_%i_index CURRENTVAL /] CURRENTVAL RECORD:DataID /]" CATACTION:SETVALUE:'Card':'Card Activated':'ACTIVE' /]
+				
+				
+			[LL_WEBREPORT_ENDIF /]
+	
+		[LL_WEBREPORT_ENDFOR */]
+	  	
+		
+		
+		
+    [LL_WEBREPORT_ENDROW /]
+	
+	<p>All Cards Activated!</p>
+	
+
+
+
+
+
+

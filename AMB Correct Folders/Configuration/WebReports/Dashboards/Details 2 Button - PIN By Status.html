@@ -1,0 +1,28 @@
+[LL_REPTAG_&fc_filters TRIM FROMJSON LENGTH SETVAR:FLENGTH /]
+[LL_REPTAG_'[LL_REPTAG_URLPREFIXFULL /]/app/nodes/[LL_REPTAG_$RootCWSFolder /]?filter={"facet":[{"id":"[LL_REPTAG_$ContentTypeID /]","values":[{"id":"848"}]}' SETVAR:CWSSTRSEARCH /] [//Business Workspace to be defaut
+[LL_WEBREPORT_IF "[LL_REPTAG_&fc_filters TRIM FROMJSON LENGTH /]" == "0" /]
+    [LL_REPTAG_']}' CONCATVAR:CWSSTRSEARCH /]
+[LL_WEBREPORT_ELSE /]
+    [LL_REPTAG_',' CONCATVAR:CWSSTRSEARCH /]
+    [LL_WEBREPORT_FOR DATA:[LL_REPTAG_&fc_filters TRIM FROMJSON /] VAR:"value" /]
+        [LL_REPTAG_'{"id":"[LL_REPTAG_$[LL_REPTAG_%value CURRENTVAL ASSOC:column /] /]","values":[' CONCATVAR:CWSSTRSEARCH /]  [//Concat and Store Format
+        [LL_WEBREPORT_FOR DATA:[LL_REPTAG_%value CURRENTVAL ASSOC:value /] VAR:"cwsvalue" /] [// traverse through for multiple selection
+            [LL_REPTAG_'{"id":"[LL_REPTAG_%cwsvalue CURRENTVAL /]"}' CONCATVAR:CWSSTRSEARCH /] 
+            [LL_WEBREPORT_IF "[LL_REPTAG_%value CURRENTVAL ASSOC:value LENGTH /]" !="[LL_REPTAG_%cwsvalue_index CURRENTVAL /]" /]
+                [LL_REPTAG_',' CONCATVAR:CWSSTRSEARCH /]
+            [LL_WEBREPORT_ENDIF /]                
+            [LL_WEBREPORT_ENDFOR /]
+            [LL_REPTAG_']}' CONCATVAR:CWSSTRSEARCH /]
+            [LL_WEBREPORT_IF "[LL_REPTAG_%FLENGTH CURRENTVAL /]" !="[LL_REPTAG_%value_index CURRENTVAL /]" /]
+               [LL_REPTAG_',' CONCATVAR:CWSSTRSEARCH /]
+            [LL_WEBREPORT_ENDIF /]   
+            [LL_WEBREPORT_IF "[LL_REPTAG_%FLENGTH CURRENTVAL /]" =="[LL_REPTAG_%value_index CURRENTVAL /]" /]
+                [LL_REPTAG_']}' CONCATVAR:CWSSTRSEARCH /]
+            [LL_WEBREPORT_ENDIF /]                       
+        [LL_WEBREPORT_ENDFOR /]
+[LL_WEBREPORT_ENDIF /]
+[LL_REPTAG_%CWSSTRSEARCH CURRENTVAL REDIRECT /]
+[//LL_REPTAG_%CWSSTRSEARCH CURRENTVAL /]
+
+[LL_WEBREPORT_STARTROW /]
+[LL_WEBREPORT_ENDROW /]
