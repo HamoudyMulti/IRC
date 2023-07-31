@@ -270,7 +270,12 @@
                 if(email.trim() == 'null'){
                   email = '';
                 }
-                
+
+                let TO_RETAIN = "[LL_REPTAG=TO_RETAIN /]";
+                TO_RETAIN = TO_RETAIN.trim();
+
+                let RETENTION_DESTINATION = "[LL_REPTAG=RETENTION_DESTINATION /]";
+                RETENTION_DESTINATION = RETENTION_DESTINATION.trim();
     
     
                   data = {
@@ -315,6 +320,8 @@
                                   "[LL_REPTAG_$CatCard /]_47": "[LL_REPTAG=PRIORITY_CODE /]",
                                   "[LL_REPTAG_$CatCard /]_48": "[LL_REPTAG=KYC_ID /]",
                                   "[LL_REPTAG_$CatCard /]_49": "[LL_REPTAG=UID /]",
+                                  "[LL_REPTAG_$CatCard /]_61": TO_RETAIN,
+                                  "[LL_REPTAG_$CatCard /]_62": RETENTION_DESTINATION,
                                   
                              },
                            },
@@ -393,7 +400,7 @@
                   <tr>
                     <td>${card_number}</td>
                     <td>${cardholder_name_1}</td>
-                    <td>Not Delivered</td>
+                    <td>Embossed</td>
                     <td>
                       <div id="qrcode${i}"></div>
                     </td>
@@ -416,7 +423,7 @@
                   <tr>
                     <td>PIN for ${card_number}</td>
                     <td>${cardholder_name_1}</td>
-                    <td>Not Delivered</td>
+                    <td>Embossed</td>
                     <td>
                       <div id="qrcodePIN${i}"></div>
                     </td>
@@ -887,7 +894,7 @@
         let reference_number= reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_49"];
         let cardholder_name_sql = reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_9"];
         let card_number_sql= reqBody.roles.categories["[LL_REPTAG_$CatCard /]"]["[LL_REPTAG_$CatCard /]_29"];
-        let status = "Not Delivered";
+        let status = "Embossed";
         let performer = '[LL_REPTAG_ACTUALUSERID /]';
     
         let url = "[LL_REPTAG_URLPREFIXFULL /]/api/v1/nodes/[LL_REPTAG_$InsertCardsTrackingRecord /]/output?";

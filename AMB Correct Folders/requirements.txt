@@ -1,0 +1,35 @@
+a)	When Cards are uploaded by Embossing unit status to be changed from New to Embossed AM BANK: In attached Visio previously shared with MGS I colored the box that states this point in  yellow 
+change status "Not Delivered" to "Embossed"
+
+b)	“Requesting branch” to be added i.e. This is needed in order for Cards Operation to know the cards that fall under each branch (Screen shot below) AM BANK: In attached Visio previously shared with MGS I colored the box that states this point in  green
+wait for them
+
+c)	Retention 1 to be disabled/Turn off (Might need to enable in the future) AM Bank: We understood that any step in the workflow can be enabled or disabled. Please advice 
+
+
+
+d)	Retention 2 should be setup as follows:
+
+	Mass to be sent to Call Center Manager (Option to choose all mass or specific products / Example only Titanium Fresh) AM BANK: In attached Visio previously shared with MGS I colored the box that states this point in orange. In reference to having the option to choose all or specific mass, here during setup want we have access to add all or specific mass that will be listed in retention. Advice if current setup enables us with no change request
+to question about it
+infinite -> goes to call center Manager
+private banking -> skips call center Manager
+
+
+	High end to be sent to Infinite Manager (Option to choose all infinite or specific products / Example only infinite Fresh) AM BANK: In attached Visio previously shared with MGS I colored the box that states this point in orange. In reference to having the option to choose all or specific high end, here during setup want we have access to add all or specific high end products that will be listed in retention. Advice if current setup enables us with no change request
+	Black Infinite not to be included retention 1 & 2 I.e. cancellation request to be automatically forwarded to Cards Operations for cancellation AM BANK: In attached Visio previously shared with MGS I colored the box that states this point in orange i.e. Black infinite to be excluded from any retention attempt
+question them about type of cards (categories)
+
+	Cancelling delivered card / In Case client no longer want the card on hand
+
+	CSO should have access to search for client on Open text and initiate the cancellation process (Retention 1 & retention 2)  
+AM BANK: In attached Visio Sheet “Cancel delivered cards-Final” previously shared with MGS. Please advise how this was setup
+
+group: branch name => branch name + branch manager
+group: Call center manager
+
+
+create same group created on content server on their active directory (cards tracking groups)
+
+make sure users in content server have email field filled (active directory synchronization)
+

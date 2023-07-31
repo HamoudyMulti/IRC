@@ -10,13 +10,7 @@
 [LL_REPTAG_%CWID CURRENTVAL CAT:'Card':'Reference Number':DISPLAY SETVAR:referencenumber /]
 
 
-
-[LL_REPTAG_'BRANCH_' SETVAR:branchName /]
-[LL_REPTAG_%CWID CURRENTVAL CAT:'Card':'Requesting Branch':DISPLAY CONCATVAR:branchName /]
-[LL_REPTAG_'_MANAGERS' CONCATVAR:branchName /]
-
-
-[LL_REPTAG_$[LL_REPTAG_%branchName CURRENTVAL /] SETVAR:mailing /]
+[LL_REPTAG_$CallCenterManagerMail SETVAR:mailing /]
 
 
 

@@ -1,0 +1,88 @@
+1- Change categories Card and PIN -> Delivery Status -> Add Embossed
+2- Update search widgets
+3- Go to the changes files and update from "Not Delivered" to "Embossed" + new category value flags
+4- Add (Accounting officer - Requesting Branch - Collector) missing values in dropdown
+
+5- Add TO RETAIN AND RETENTION DESTINATION as text popup in cards category
+
+6- Add TO RETAIN AND RETENTION DESTINATION as text popup attributes in cancelled WF
+
+7- Copy Cancelled WF in 43 server, with evaluate steps 
+
+8- Change WR - To Be Reviewed By Branch Manager Email
+
+8.1- Add all branch managers email list 
+
+9- Add update attributes WR 
+
+10- Add 
+    To Be Reviewed By Retention Party Call Center Manager Email
+    To Be Reviewed By Retention Party Infinite Manager Email
+
+11- Add InfiniteManagerMail - CallCenterManagerMail to global constants for emails
+
+12- Update user steps in WF 
+
+
+B-ALEY
+B-ASHRAFIEH
+B-BAAKLINE
+B-COLA
+B-DORA
+B-HAMRA
+B-HASBAYA
+B-JOUNIEH
+B-MANASSEF
+B-SAIFI
+B-SHEHEEM
+B-TRIPOLI
+B-VERDUN
+D-CallCenter
+D-DFS
+X-Departments
+
+
+
+
+
+
+
+Accounting officer:
+
+S-Sanaa Bou
+S-MOHAMMAD TALHOUK
+S-Stephanie Afram
+S-Saadedine
+S-DIANA RIZK
+S-Layal Darwish
+S-LAMA AL HAJJAR
+S-Raja Awar
+S-KATIA HAMADE
+S-Joumana Fr
+S-Joelle Attar
+S-Zafer Shehadeh
+S-SARA NASSAR
+S-Nour El Hajj
+S-REEM SALAMEH
+S-zeina allam
+NOUR EL HAJJ
+S-SARA NASSAR
+
+
+Requesting Branch IS WRONG IN EXCEL FILE
+
+
+
+
+Collector:
+B-119
+B-101-HAMRA
+D-2-Khaled Balhawan
+B-118
+B-103-BAAKLINE
+D-12-C/O Staff
+D-4
+B-115-SAIFI
+
+
+
