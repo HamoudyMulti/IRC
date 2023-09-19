@@ -1,0 +1,1248 @@
+<Link rel='stylesheet' href="[LL_REPTAG_LIBPATH /]bootstrap.css">
+    <link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.css">
+    <script src="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.js"></script>
+      <style>
+      .binf-widgets .custLoader{
+      
+      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+          margin-right: 45%;
+      [LL_WEBREPORT_ELSE /]
+          margin-left: 50%;
+      [LL_WEBREPORT_ENDIF /]
+      
+      
+      margin-top: 20%;
+      position: absolute;
+      border: 12px solid #dbf1fe;
+      border-left: 12px solid #0072aa;
+      transform: translateZ(0);
+      -webkit-animation: load8 1s infinite linear;
+      animation: load8 1s infinite linear;
+      width: 67px;
+      height: 67px;
+      z-index: 11111;
+  }
+  div.inner-border, div.custLoader {
+      border-radius: 100%;
+  }
+      .MListPolicy :hover{
+          background-color: #bac9ce;
+      }
+      table#MergePTable {
+          width:99%;
+          font-size: small;
+      }
+      .switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 25px;
+    float: right;
+    margin-top: -3px;
+    margin-left: 10px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 21px;
+    width: 21px;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #3975a2;
+  }
+  
+  
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(18px);
+    -ms-transform: translateX(18px);
+    transform: translateX(18px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+      .binf-widgets .custBtn {
+         
+      bottom: 4px;
+      right: 23px;
+      border-radius: 16px;
+      height: 32px;
+      line-height: 12px;
+      padding: 0 24px;
+      color: #fff;
+      min-width: 80px;
+      border: 0;
+      background-color: #3975a2;
+      }
+      
+      
+      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+      .binf-widgets label{
+          padding-top: 10px;
+          padding-bottom: 6px;
+          font-size: 15px;
+          float:right;
+      }
+  [LL_WEBREPORT_ELSE /]
+      .binf-widgets label{
+          padding-top: 10px;
+          padding-bottom: 6px;
+          font-size: 15px;
+          float:left;
+      }
+  [LL_WEBREPORT_ENDIF /] 
+      
+      
+      
+       
+      .binf-widgets .buttonDiv{
+             bottom: 0;
+           position: sticky;
+          width: 100%;
+          border-top: 1px solid #a59f9f;
+      }
+      .binf-widgets input {
+      height: calc(1.90rem );
+      font-size: 12px;
+      
+      }
+      .binf-widgets select {
+      height: calc(1.90rem );
+      font-size: 12px;
+      
+      }
+      .binf-widgets textarea {
+      height: calc(1.92rem );
+      font-size: 12px;
+      
+      }
+      .binf-widgets .hidden{
+          display: none;
+      }
+      .binf-widgets tr.spaceUnder>td {
+          padding-bottom: 1em;
+      }
+      .binf-widgets #addrow{
+          text-align: center;
+      }
+      .binf-widgets .list-group-item {
+          background-color:#7580e112;
+       }
+      .binf-widgets .list-group-item:hover {
+          background-color:white;
+       }
+      .binf-widgets #result {
+     position: relative;
+     width: 100%;
+     
+     cursor: pointer;
+    /* overflow-y: auto; */
+     max-height: 400px;
+     box-sizing: border-box;
+     z-index: 1001;
+    }
+    .binf-widgets .requiredField{
+        color: red;
+        display: inline;
+    }
+    .showErrorField{
+        box-shadow: 0 0 4px 1px #f91615;
+    }
+    /* Style the tab */
+  .tab {
+    
+    text-align: center;
+     /*border: 1px solid #ccc;*/
+    /*background-color: #1e4267;*/
+       
+  }
+  
+  /* Style the buttons inside the tab */
+  .tab button {
+  
+      border: 4px solid #ffffff;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+      background: #dedef9;
+      width: 226px;
+      color: #000000ba;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+        
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #2d5f90;
+    color: white;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
+     </style>
+  <script>
+      //policy and procedure
+      csui.require(['csui/lib/jquery'], function ($) {
+          var TileReportConfig = {};
+          TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+          TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]';        
+               $.ajax({
+              url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$csGroups /]/output?format=webreport",
+              type: "GET",
+              beforeSend: function(xhr){
+                  xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+                             
+              },
+              success:function(data){
+                 // alert("suc");
+                 var groups =JSON.parse(data);
+                 
+                 $.each(groups.myRows,function(i,v){
+                     //console.log(v);
+                     if(v.type==1){
+                         $('#Department').append('<option data-value="'+v.ID+'" data-name="'+v.Name+'" value="'+v.ID+'">'+v.Name+'</option>' );
+                         $('#ProcedureDepartment').append('<option data-value="'+v.ID+'" data-name="'+v.Name+'" value="'+v.ID+'">'+v.Name+'</option>' );
+                     }
+                 })
+  
+                      }
+                      
+              });    
+      }); 
+      
+      function DepartmentChange(type,id){
+           csui.require(['csui/lib/jquery'], function ($) { 
+              var Department = $('#'+id).find(':selected').data('name')
+              var DocTempRootId;
+              var DocTypeID;
+            
+              if(type == 'Policy'){
+                  DocTempRootId= [LL_REPTAG_$PolicyDeptDocTemplate /];
+                  DocTypeID = 'DocTempPolicy';
+              }if(type == 'Procedure'){
+                  DocTempRootId = [LL_REPTAG_$ProcedureDeptDocTemplate /];
+                   DocTypeID = 'DocTempProcedure';
+              }
+             $('#'+DocTypeID).html('');
+             $('#'+DocTypeID).append(`<option data-dataid="" value="" >Select</option>`);
+             
+              if(Department){
+                  $.ajax({
+                      url:"[LL_REPTAG_URLPREFIX /]/api/v1/nodes/[LL_REPTAG_$getDocTypeByDepartment /]/output?format=webreport&DepartmentName="+Department+"&AncestorID="+DocTempRootId,
+                      type: "GET",
+                      beforeSend: function(xhr){
+                          xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                      },
+                      success:function(data){
+                           var DocType =JSON.parse(data);
+                           console.log(DocType.totalRows)
+                          if(DocType.totalRows==0){
+                             csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                                  
+                                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                      ModalAlert.showWarning("لم يتم تعيين أنواع مستندات لهذه الدائرة. ستفشل الخلق. الرجاء تحديد قسم مختلف").always(function () { 
+                                  [LL_WEBREPORT_ELSE /]
+                      ModalAlert.showWarning("No document types are assigned to this Department. Creation will be failed. Please select different Department").always(function () { 
+                                  [LL_WEBREPORT_ENDIF /] 
+                                  
+                                  
+                                  });
+          
+                              });                              
+                          }
+                          else{
+                             $.each(DocType.myRows,function(i,v){
+                                 $('#'+DocTypeID).append(`<option value="${v.DocName}"  data-dataid="${v.DataID}">${v.DocName}</option>`);
+                             
+                              })                        
+                          }
+                      }
+                  });
+              }
+               
+           })
+      }
+      
+      function CopyDocumentTemplateToCMS(cmsID,DocID,DocTempName){
+          csui.require(['csui/lib/jquery'], function ($) {
+              var form = new FormData();
+              $('#LoadingImagePO').show();			
+              var data = {};
+              if(DocTempName == "Policy"){
+                  data={
+                      "template_id":DocID,
+                      "parent_id":cmsID,
+                      "name":DocTempName,
+                      "name_multilingual":{
+                          "_en_US":DocTempName,
+                          "_ar": "وثيقة سياسة عمل"
+                      },
+                      "type":144,
+                      "description":""
+                      }
+                      
+              }
+              
+              if(DocTempName == "Procedure"){
+                  data={
+                      "template_id":DocID,
+                      "parent_id":cmsID,
+                      "name":DocTempName,
+                      "name_multilingual":{
+                          "_en_US":DocTempName,
+                          "_ar": "اجراء"
+                      },
+                      "type":144,
+                      "description":""
+                      }
+                      
+              }
+  
+                  
+              
+          
+          
+              form.append("body", JSON.stringify(data));   
+          
+              var settings = {
+                "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/doctemplates",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                  "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+                },
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+              };
+              
+              $.ajax(settings).done(function (response) {
+                  console.log('done');
+                  $('#LoadingImagePO').hide();
+                  //alert('Success-for action');
+              });                 
+          });
+          
+      }
+      //Procedure
+      csui.require(['csui/lib/jquery'], function ($) {
+          
+          //Load all the Procedure Name by Keypress -- Start
+          $('#MergeProcedureTableDiv').hide();
+           $('#ProcedureResultBox').hide();
+          var TileReportConfig = {};
+          TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+          TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]';
+          var ProcedureNameList=[];
+          $.ajax({
+              url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$ProcedureFolder /]/nodes?where_type=848",
+              type: "GET",
+              beforeSend: function(xhr){
+                  xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+              },
+              success:function(data){
+                  for(var i=0; i<data.data.length;i++){
+                      var procedureObj = {};
+                      procedureObj.Name=data.data[i].name;
+                      procedureObj.Id = data.data[i].id;
+                      ProcedureNameList.push(procedureObj);
+                     // $("#MergePTable").append('<tr class="MListPolicy"><td data-id="'+data.data[i].id+'" style="width:20px;text-align:center;"><input onclick="MergePolicyfunc();" style="width:17px;" type="checkbox" id="MergePolicy" data-id="'+data.data[i].id+'"></td><td style="vertical-align: middle;">'+data.data[i].name+'</td></tr>');
+                  }
+                  console.log("ProcedureNameList " +ProcedureNameList);
+              }
+                          
+          }); 
+          //Load all the Procedure Name by Keypress -- End
+          
+          
+          $('#procedureStatus').click(function(){
+             if($(this).is(":checked")){
+                 $('#MergeProcedureTableDiv').show();
+             }else{
+                 $('#MergeProcedureTable').find('input[type=checkbox]').each(function(){
+                     $(this).removeAttr("checked");
+                 });
+                $('#MergeProcedureTableDiv').hide();
+             }
+          })    
+          
+          $('#ProcedureTitle').on('keyup',function(event){
+              event.preventDefault();
+              $('#Procedureresult').html('');
+              var searchField = $('#ProcedureTitle').val();
+              var expression = new RegExp(searchField, "i");
+             // $('#Procedureresult').removeClass('hidden');
+               $('#ProcedureResultBox').show();
+              $.each(ProcedureNameList, function(key, value){
+                  if (value.Name.search(expression) != -1 ){
+                      console.log("ProcedureNameList " +value.Name);
+                      $('#Procedureresult').append('<li class="list-group-item link-class" id="'+value.Id+'"><img height="16px" src="[LL_REPTAG_LIBPATH /]/images/workspace.png"><a href="[LL_REPTAG_URLPREFIX /]/app/nodes/'+value.Id+'" target="_blank">'+value.Name+'</a></li>');
+                  }
+              });
+          });  
+          $('#ProcedureTitle').focusout(function() {
+                if($(this).val()==''){
+                 //   $('#Procedureresult').addClass('hidden');
+                    $('#ProcedureResultBox').hide();
+                }
+          });
+          
+  
+          $.ajax({
+              url:TileReportConfig.urlPrefix + "/api/v2/search?query_id=[LL_REPTAG_$ProcedureSearch /]",
+              type: "GET",
+              beforeSend: function(xhr){
+                  xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+              },
+              success:function(data){
+                  $.each(data.results,function(key,value){
+                      $("#MergeProcedureTable").append('<tr class="MListProcedure"><td data-id="'+value.data.properties.id+'" style="width:20px;text-align:center;"><input  style="width:17px;" type="checkbox" id="MergePolicy" data-id="'+value.data.properties.id+'"></td><td style="vertical-align: middle;">'+value.data.properties.name+'</td></tr>');
+  
+                  })
+              }
+                          
+          });
+          
+          $("#ProcedureSearch").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#MergeProcedureTable tr").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+          });
+              
+          $("#btnSaveProcedure").on("click", function(event) {
+            event.preventDefault();
+            var status = "Draft - مسودة";
+            var flag=0;
+            var subProcedureList = [];  
+              var DocID =   $('#DocTempProcedure').find(':selected').data('dataid');
+            var DocTempName = "Procedure"
+            if($('#procedureStatus').is(":checked")){
+               
+               if ($('#MergeProcedureTable input[type=checkbox]:checked').length >= 1) {
+                  $('#MergeProcedureTable').find('input[type=checkbox]').each(function(){
+                      if($(this).is(":checked")){
+                          subProcedureList.push($(this).data("id"));
+                      }    
+                     })
+                  }else{
+                      flag =1;
+                  }
+              }	   
+              var ProcedureDepartment=$('#ProcedureDepartment option:selected').val();
+              var ProcedureTitle = $('#ProcedureTitle').val();
+              
+              if(flag!=1 & ProcedureTitle!='' & ProcedureDepartment!=''& DocID!=''){
+                  $('#LoadingImagePO').show();
+                
+                 // --- recheck code    
+                  var refL=[];
+                  $("tr#tablerow").each(function() {
+                      if($(this).find("input").val()!=''){
+                          refL.push($(this).find("input").val());
+                      }
+                  });
+     
+                    var data = {
+                      "template_id":[LL_REPTAG_$DocTemplateIDProcedure /], //Document Template ID
+                      "parent_id": [LL_REPTAG_$ProcedureFolder /],  //Parent ID of CMS Creation
+                      "roles": {
+                          "categories": {
+                              "[LL_REPTAG_$ProcedureCAT /]": {
+                                  "[LL_REPTAG_$ProcedureCAT /]_2": ProcedureTitle,  //DocumentName
+                                  "[LL_REPTAG_$ProcedureCAT /]_9":ProcedureDepartment, //Version
+                                  "[LL_REPTAG_$ProcedureCAT /]_11":status,
+                                  "[LL_REPTAG_$ProcedureCAT /]_12":subProcedureList,
+                              }
+                          }
+                      }
+                  };
+                     
+                  
+                 
+                  
+                                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                           CreateWorkspace(data,'اجراء',DocID,DocTempName);
+                            [LL_WEBREPORT_ELSE /]
+                                           CreateWorkspace(data,'Procedure',DocID,DocTempName);
+                            [LL_WEBREPORT_ENDIF /] 
+                       
+              }else{
+                  if(ProcedureTitle==''){
+                      $('#ProcedureTitle').addClass("showErrorField");}if(ProcedureDepartment==''){$('#ProcedureDepartment').addClass("showErrorField");}if(DocID==''){$('#DocTempProcedure').addClass("showErrorField");}
+                       
+                       if(flag==0){
+                            csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                             ModalAlert.showError('* Required fields must be filled')
+                              .always(function () {
+                              // Continue here when the dialog was closed
+                          });
+      
+                          });
+                       }else{
+                           csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                              ModalAlert.showWarning("Select any two Procedures").always(function () { 
+                                  $("#Title").val('');
+                              /* closed */ });
+      
+                          });
+                       }
+                          
+  
+                   }
+          });
+          
+          
+      }); 
+      
+      //Policy 
+      csui.require(['csui/lib/jquery'], function ($) {
+          
+          $('#MergePTableDiv').hide();  //Disable the Merge Policy List by Default 
+          $('#PolicyResultBox').hide();
+          var TileReportConfig = {};
+                   TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+                   TileReportConfig.wrID = '[LL_REPTAG_$SubWR /]'; //(The web report ID)
+                   TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]';
+          var PolicyNameList=[];
+          $.ajax({
+              url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$PolicyFolder /]/nodes?where_type=848",
+              type: "GET",
+              beforeSend: function(xhr){
+                  xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+              },
+              success:function(data){
+                  for(var i=0; i<data.data.length;i++){
+                      var policyObj = {};
+                      //console.log(data.data[i].name);
+                      policyObj.Name=data.data[i].name;
+                      policyObj.Id = data.data[i].id;
+                      PolicyNameList.push(policyObj);
+                     // $("#MergePTable").append('<tr class="MListPolicy"><td data-id="'+data.data[i].id+'" style="width:20px;text-align:center;"><input onclick="MergePolicyfunc();" style="width:17px;" type="checkbox" id="MergePolicy" data-id="'+data.data[i].id+'"></td><td style="vertical-align: middle;">'+data.data[i].name+'</td></tr>');
+  
+                  }
+  
+              }
+                          
+              });
+          $.ajax({
+              url:TileReportConfig.urlPrefix + "/api/v2/search?query_id=[LL_REPTAG_$PolicySearch /]",
+              type: "GET",
+              beforeSend: function(xhr){
+                  xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+              },
+              success:function(data){
+                  
+                 // console.log("serach :::"+data.results);
+                  $.each(data.results,function(key,value){
+                     // console.log("Name :: "+value.data.properties.name);
+                      
+                      $("#MergePTable").append('<tr class="MListPolicy"><td data-id="'+value.data.properties.id+'" style="width:20px;text-align:center;"><input  style="width:17px;" type="checkbox" id="MergePolicy" data-id="'+value.data.properties.id+'"></td><td style="vertical-align: middle;">'+value.data.properties.name+'</td></tr>');
+  
+                  })
+                 [/* for(var i=0; i<data.data.length;i++){
+                      var policyObj = {};
+                      policyObj.Name=data.data[i].name;
+                      policyObj.Id = data.data[i].id;
+                      PolicyNameList.push(policyObj);
+                      $("#MergePTable").append('<tr class="MListPolicy"><td data-id="'+data.data[i].id+'" style="width:20px;text-align:center;"><input  style="width:17px;" type="checkbox" id="MergePolicy" data-id="'+data.data[i].id+'"></td><td style="vertical-align: middle;">'+data.data[i].name+'</td></tr>');
+  
+                  } */]
+  
+              }
+                          
+              });
+          $('#Title').on('keyup',function(event){
+              event.preventDefault();
+              $('#result').html('');
+              var searchField = $('#Title').val();
+              var expression = new RegExp(searchField, "i");
+             // $('#result').removeClass('hidden');
+              $('#PolicyResultBox').show();
+              $.each(PolicyNameList, function(key, value){
+                  if (value.Name.search(expression) != -1 ){
+                      $('#result').append('<li class="list-group-item link-class" id="'+value.Id+'"><img height="16px" src="[LL_REPTAG_LIBPATH /]/images/workspace.png"><a href="[LL_REPTAG_URLPREFIX /]/app/nodes/'+value.Id+'" target="_blank">'+value.Name+'</a></li>');
+                  }
+              });
+          });  
+          $('#Title').focusout(function() {
+                if($(this).val()==''){
+                    //$('#result').addClass('hidden');
+                    $('#PolicyResultBox').hide();
+                }
+           });
+           
+           
+           
+           
+          $("#btnSavePolicy").on("click", function(event) {
+            event.preventDefault();
+            var status = "Draft - مسودة";
+            var flag=0;
+            var subPolicyList = [];
+            var DocID =   $('#DocTempPolicy').find(':selected').data('dataid');
+            var DocTempName = "Policy"
+            if($('#policyStatus').is(":checked")){
+               
+               if ($('#MergePTable input[type=checkbox]:checked').length >= 1) {
+                  $('#MergePTable').find('input[type=checkbox]').each(function(){
+                      if($(this).is(":checked")){
+                          subPolicyList.push($(this).data("id"));
+                      }    
+                     })
+                  }else{
+                      flag =1;
+                  }
+              }
+             
+         
+              
+              var Reference=$('#Reference').val();
+              var To=$('#Department option:selected').val();
+              var title = $('#Title').val();
+                 
+                   
+                  if(flag!=1 & title!='' & To!=''& DocID !=''){
+                      $('#LoadingImagePO').show();
+  
+                      
+                      var refL=[];
+                      $("tr#tablerow").each(function() {
+                          
+                          if($(this).find("input").val()!=''){
+                              refL.push($(this).find("input").val());
+                          }
+                      });
+                      
+                     var data = {
+                      "template_id": [LL_REPTAG_$DocTemplateIDPolicy /], //Document Template ID
+                      "parent_id": [LL_REPTAG_$PolicyFolder /],  //Parent ID of CMS Creation
+                      "roles": {
+                          "categories": {
+                              "[LL_REPTAG_$PolicyCAT /]": {
+                                  "[LL_REPTAG_$PolicyCAT /]_2": title,  //DocumentName
+                                  "[LL_REPTAG_$PolicyCAT /]_9":To, //Version
+                                  "[LL_REPTAG_$PolicyCAT /]_10":refL,
+                                  
+                                  "[LL_REPTAG_$PolicyCAT /]_19":status,
+                                  "[LL_REPTAG_$PolicyCAT /]_22":subPolicyList,
+                              }
+                          }
+                      }
+                  };
+               //    alert(DocID)
+     
+            
+                                    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                   CreateWorkspace(data,'وثيقة سياسة عمل',DocID,DocTempName);
+                            [LL_WEBREPORT_ELSE /]
+                                       CreateWorkspace(data,'Policy',DocID,DocTempName);
+                            [LL_WEBREPORT_ENDIF /] 
+            
+                         
+                       
+                   }else{
+                       
+                       if(title==''){
+                           $('#Title').addClass("showErrorField");}if(To==''){$('#Department').addClass("showErrorField");}if(DocID==''){$('#DocTempPolicy').addClass("showErrorField");}
+                       
+                       if(flag==0){
+                            csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                             ModalAlert.showError('* Required fields must be filled')
+                              .always(function () {
+                              // Continue here when the dialog was closed
+                          });
+      
+                          });
+                       }else{
+                           csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                              ModalAlert.showWarning("Select any two Policies").always(function () { 
+                                  $("#Title").val('');
+                              /* closed */ });
+      
+                          });
+                       }
+                          
+  
+                   }
+          });
+          $('td#addrow').each(function(){
+            $(this).on('click',function(){
+              // alert("sk");
+               $(this).find('img').hide();
+               var index =  $(this).closest('tr').index();
+                  $(this).closest('table').find('tr').eq(index+1).removeClass('hidden');
+               $(this).closest('table').find('tr').eq(index+1).find('.hidden').removeClass('hidden');
+            });
+          });
+          
+           
+  
+              
+              
+          $('#policyStatus').click(function(){
+             if($(this).is(":checked")){
+                 $('#MergePTableDiv').show();
+             }else{
+                 $('#MergePTable').find('input[type=checkbox]').each(function(){
+                     $(this).removeAttr("checked");
+                 });
+                $('#MergePTableDiv').hide();
+             }
+          })   
+          
+           $("#plolicySerach").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#MergePTable tr").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+          });
+      });//Policy End
+  
+      //Standard Documents
+      csui.require(['csui/lib/jquery'], function ($) {
+          
+          var TileReportConfig = {};
+          TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+          TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]';
+          var DocumentNameList=[];
+          $.ajax({
+              url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$StandardDocFolder /]/nodes?where_type=848",
+              type: "GET",
+              beforeSend: function(xhr){
+                  xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+              },
+              success:function(data){
+                  for(var i=0; i<data.data.length;i++){
+                      var StandardDocObj = {};
+                      StandardDocObj.Name=data.data[i].name;
+                      StandardDocObj.Id = data.data[i].id;
+                      DocumentNameList.push(StandardDocObj);
+                  }
+              }
+                          
+          }); 
+          //Load all the Standard Documents Name by Keypress -- End
+          
+          $('#DocumentName').on('keyup',function(event){
+              event.preventDefault();
+              $('#StandardDocResult').html('');
+              var searchField = $('#DocumentName').val();
+              var expression = new RegExp(searchField, "i");
+              $('#StandardDocResult').removeClass('hidden');
+              $.each(DocumentNameList, function(key, value){
+                  if (value.Name.search(expression) != -1 ){
+                      console.log("DocumentNameList " +value.Name);
+                      $('#StandardDocResult').append('<li class="list-group-item link-class" id="'+value.Id+'"><img height="16px" src="[LL_REPTAG_LIBPATH /]/images/workspace.png"><a href="[LL_REPTAG_URLPREFIX /]/app/nodes/'+value.Id+'" target="_blank">'+value.Name+'</a></li>');
+                  }
+              });
+          });  
+          $('#DocumentName').focusout(function() {
+                if($(this).val()==''){
+                    $('#StandardDocResult').addClass('hidden');
+                }
+          });
+          
+          $('#btnSaveStandardDoc').on('click',function(){
+              var DocumentName = $('#DocumentName').val();
+              var DocumentVersion = $('#DocumentVersion').val();
+              if(DocumentVersion !='' & DocumentName !=''){
+                   var data = {
+                      "template_id": [LL_REPTAG_$DocTemplateIDStandard /], //Document Template ID
+                      "parent_id": [LL_REPTAG_$ParentIDStandard /],  //Parent ID of CMS Creation
+                      "roles": {
+                          "categories": {
+                              "[LL_REPTAG_$CatStandard /]": {
+                                  "[LL_REPTAG_$CatStandard /]_2": DocumentName,  //DocumentName
+                                  "[LL_REPTAG_$CatStandard /]_3":DocumentVersion, //Version
+                              }
+                          }
+                      }
+                  };
+                                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                       CreateWorkspace(data,'Standard');
+                            [LL_WEBREPORT_ELSE /]
+                                       CreateWorkspace(data,',وثيقة قياس');
+                            [LL_WEBREPORT_ENDIF /] 
+                 
+              }
+          });
+          
+      }); 
+       function CreateWorkspace(JsonData,CwsType,DocID,DocTempName){
+         csui.require(['csui/lib/jquery'], function ($) {
+             var form = new FormData();
+              form.append("body", JSON.stringify(JsonData));   
+              $('#LoadingImagePO').show();   //Reloading Icon on screen
+               $.ajax({
+                  url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
+                  type: "POST",
+                  processData: false,
+                  mimeType: "multipart/form-data",
+                  contentType: false,
+                  data: form ,               
+                  beforeSend: function(xhr){
+                      xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                  },
+                  success:function(data){
+                      var res=JSON.parse(data);
+                      CopyDocumentTemplateToCMS(res.results.id,DocID,DocTempName);
+                      
+                      $('#LoadingImagePO').hide();
+                      csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                          ModalAlert.showSuccess(CwsType+"  Created").always(function () { 
+                              $("form")[0].reset();
+                              window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
+                          });
+  
+                      });
+                  },
+                  error: function(xhr, status, error) {
+                      $('#LoadingImagePO').hide();
+                      var err = JSON.parse(xhr.responseText);
+                      csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                          ModalAlert.showError(CwsType+" Creation Error. "+err.error).always(function () { 
+                          });
+  
+                      });                      
+                  }
+              });                   
+             
+         });
+          
+          
+      }
+      
+      function valida(id){
+          csui.require(['csui/lib/jquery'], function ($) {
+              $('#'+id).removeClass("showErrorField");
+          });
+      }
+  </script>
+  
+  
+  
+  
+  <div class="tile-content csui-normal-scrolling csui-no-scroll-x" style="height: 100%; margin-top: 0px; background-color:#0a163c;position:absolute;">
+      <div class="p-4 rounded bg-white js-active" style="margin-left: 15%;margin-right: 15%; margin-top: 5%; margin-bottom:25px;">
+             <div class="tab" style="margin-bottom:35px;">
+             
+             
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                          
+                          
+                            <button class="tablinks active" onclick="enable(event, 'Policy')">وثيقة سياسة عمل</button>
+                          <button class="tablinks" onclick="enable(event, 'Procedure')">اجراء</button> 
+                          <button class="tablinks" onclick="enable(event, 'StandardDoc')">وثيقة قياس</button>
+                          
+                          
+                            [LL_WEBREPORT_ELSE /]
+                          <button class="tablinks active" onclick="enable(event, 'Policy')">Policy</button>
+                          <button class="tablinks" onclick="enable(event, 'Procedure')">Procedure</button> 
+                          <button class="tablinks" onclick="enable(event, 'StandardDoc')">Standard Document</button>
+                            [LL_WEBREPORT_ENDIF /] 
+             
+             
+             
+             
+             
+              
+                  
+                  
+                  
+                  
+              </div>       
+         
+         <div id="Policy" class="tabcontent" style="display:block">
+          <form NAME="PolicyForm">
+              
+                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                  <legend style="font-weight: bold;">تفاصيل وثيقة سياسة عمل</legend><hr>
+                            [LL_WEBREPORT_ELSE /]
+                              <legend style="font-weight: bold;">Policy Details</legend><hr>
+                            [LL_WEBREPORT_ENDIF /] 
+          
+              
+              <div class="row" >
+              <style>
+                  .binf-widgets .box {
+                      border-top: 4px solid #0a163c;
+                      background-color: #7580e112;
+                      box-shadow: 0px 30px 40px -20px hsl(229deg 6% 66%);
+                      border-radius: 5px;
+                      line-height: 10px;
+                      font-size: 12px;
+                      padding: 8px;
+                  }
+              </style>
+              <div  class="box col-12" id="PolicyResultBox">
+               <ul class="list-group" id="result"></ul>
+               </div>
+               
+               <div class="form-row col-6">
+                   <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   
+                    
+                       [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                           <label class="binf-control-label alpaca-control-label">عنوان وثيقة سياسة عمل<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ELSE /]
+                          <label class="binf-control-label alpaca-control-label">Policy Title<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ENDIF /] 
+                     
+                      
+                      
+                      <input class="valueEditable form-control" type="TEXT" onchange="valida(this.id)"  id="Title" name="Title"  size="23">
+                      
+                   </div>
+                   
+               </div>
+               
+               
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                   <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                       
+                       
+                           [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                  <label class="binf-control-label alpaca-control-label">القسم<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ELSE /]
+                                  <label class="binf-control-label alpaca-control-label">Department<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ENDIF /] 
+                       
+                       
+                       <select class="valueEditable  form-control" onchange="valida(this.id),DepartmentChange('Policy',this.id)" name="Department "  id="Department" >
+                           <option value=''>select</option>
+                       </select>
+                   </div>
+               </div>
+               
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                   <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                  <label class="binf-control-label alpaca-control-label">نموذج الوثيقة<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ELSE /]
+                                  <label class="binf-control-label alpaca-control-label">Document Template<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ENDIF /] 
+                   
+                   
+                       
+                       <select class="valueEditable  form-control" onchange="valida(this.id)" name="DocTempPolicy"  id="DocTempPolicy" >
+                           <option data-dataid='' value=''>select</option>
+                       </select>
+                   </div>
+               </div>
+               
+           
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <table id='referencelist' style="width: 94%;margin-top: 11px;" >
+                  <tbody>
+                  
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                              <th>المراجع الخارجية</th>
+                            [LL_WEBREPORT_ELSE /]
+                              <th>External References</th>
+                            [LL_WEBREPORT_ENDIF /] 
+                  
+                  
+                      
+                      <tr id="tablerow">
+                          <td style="width: 94%; padding-bottom: 1em;"> 
+                              <input type="text" class="valueEditable  form-control" name="Reference1" placeholder="Reference by" id="Reference1" >
+                          </td>
+                          <td  id="addrow"><img src="[LL_REPTAG_LIBPATH /]/images/add.png"></td>
+                      </tr>
+                      
+                      <tr id="tablerow" class="  hidden" >
+                          <td style="width: 94%; padding-bottom: 1em;"> 
+                              <input type="text" class="valueEditable  form-control" name="Reference2" placeholder="Reference by" id="Reference2" >
+                          </td>
+                          <td class="hidden" id="addrow"><img src="[LL_REPTAG_LIBPATH /]/images/add.png"></td>
+                      </tr>
+                      
+                      <tr id="tablerow" class="  hidden">
+                          <td style="width: 94%; padding-bottom: 1em;"> 
+                              <input type="text" class="valueEditable  form-control" name="Reference3" placeholder="Reference by" id="Reference3" >
+                          </td>
+                          <td ></td>
+                      </tr>
+                  </tbody>
+              </table>
+               </div>
+          </div>
+          <div class="form-row col-12" style="margin-bottom:10px;">
+                  
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                  هل هذه نتيجة الدمج مع وثيقة سياسة عمل
+                            [LL_WEBREPORT_ELSE /]
+                                  As result of merging Policy 
+                            [LL_WEBREPORT_ENDIF /] 
+                  
+                  
+                  
+                  <label class="switch" style="margin-top:-3px;margin-left:10px;">
+                      <input id="policyStatus" type="checkbox" >
+                      <span class="slider round"></span>
+                  </label>
+              </div>
+          <div id ="MergePTableDiv" class="form-row col-12" style="background-color: #f5f5f5;margin-bottom: 18px;box-shadow: 0px 0px 9px #a9a9a9;">
+                   <input type="text"  id="plolicySerach" class="form-control" style="background-image: url([LL_REPTAG_LIBPATH /]images/searchicon.png);margin:5px;background-repeat: no-repeat;background-position: 5px 6px;width: 50%;background-size:15px;padding: 12px 20px 12px 33px;" placeholder="search Policy">
+                   <div class="form-row col-12" style="max-height: 152px;overflow: overlay;">
+                       <table class=" table-bordered" id="MergePTable">
+                   </table>
+                   </div>
+                   
+               </div>
+          <div style="text-align:right;">
+          
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                              <button type="Submit" class="custBtn" id="btnSavePolicy" name="btnSavePolicy">انشاء وثيقة سياسة عمل</button>
+                            [LL_WEBREPORT_ELSE /]
+                              <button type="Submit" class="custBtn" id="btnSavePolicy" name="btnSavePolicy">Create Policy</button>
+                            [LL_WEBREPORT_ENDIF /] 
+          
+                 
+          </div>
+          </form>
+          </div>
+          
+          <div id="Procedure" class="tabcontent" >
+              <form NAME="ProcedureForm">
+                 
+                  
+                  
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                   <legend style="font-weight: bold;">تفاصيل الاجراء</legend><hr>
+                            [LL_WEBREPORT_ELSE /]
+                                   <legend style="font-weight: bold;">Procedure Details</legend><hr>
+                            [LL_WEBREPORT_ENDIF /] 
+                  
+                  
+                  <div class="row" >        
+                    <div class="box col-12" id="ProcedureResultBox">
+                          <ul class="list-group" id="Procedureresult"></ul>
+                      </div>
+                      <div class="form-row col-6">
+                          <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                          
+                          
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                   <label class="binf-control-label alpaca-control-label">عنوان الاجراء<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ELSE /]
+                                   <label class="binf-control-label alpaca-control-label">Procedure Title<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ENDIF /] 
+                          
+                             
+                              
+                              
+                              
+                              <input class="valueEditable form-control" type="TEXT" onchange="valida(this.id)"  id="ProcedureTitle" name="ProcedureTitle"  size="23">
+                          </div>
+                   
+                      </div>
+               
+                      <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                          <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                          
+                          
+                              [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                  <label class="binf-control-label alpaca-control-label">القسم<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ELSE /]
+                                  <label class="binf-control-label alpaca-control-label">Department<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ENDIF /] 
+                             
+                              
+                              
+                              
+                              
+                              <select class="valueEditable  form-control" onchange="valida(this.id),DepartmentChange('Procedure',this.id)" name="ProcedureDepartment"  id="ProcedureDepartment" >
+                                  <option value=''>select</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                   <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                   
+                   
+                      
+                       
+                       
+                           [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                   <label class="binf-control-label alpaca-control-label">نموذج الوثيقة<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ELSE /]
+                                   <label class="binf-control-label alpaca-control-label">Document Template<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ENDIF /] 
+                       
+                       
+                       <select class="valueEditable  form-control" onchange="valida(this.id)" name="DocTempProcedure "  id="DocTempProcedure" >
+                           <option data-dataid='' value=''>select</option>
+                       </select>
+                   </div>
+               </div>
+                      
+              </div>
+              
+                  <div class="form-row col-12" style="margin-bottom:10px;">
+                  
+                  
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                  هل هذه نتيجة الدمج مع الاجراء؟
+                            [LL_WEBREPORT_ELSE /]
+                                  As result of merging Procedure ? 
+                            [LL_WEBREPORT_ENDIF /] 
+                  
+                  
+                       
+                      <label class="switch" style="margin-top:-3px;margin-left:10px;">
+                          <input id="procedureStatus" type="checkbox" >
+                          <span class="slider round"></span>
+                      </label>
+                  </div>
+                  <div id ="MergeProcedureTableDiv" class="form-row col-12" style="background-color: #f5f5f5;margin-bottom: 18px;box-shadow: 0px 0px 9px #a9a9a9;">
+                      <input type="text"  id="ProcedureSearch" class="form-control" style="background-image: url([LL_REPTAG_LIBPATH /]images/searchicon.png);margin:5px;background-repeat: no-repeat;background-position: 5px 6px;width: 50%;background-size:15px;padding: 12px 20px 12px 33px;" placeholder="search Procedure">
+                      <div class="form-row col-12" style="max-height: 152px;overflow: overlay;">
+                          <table class=" table-bordered" id="MergeProcedureTable">
+                          </table>
+                      </div>
+                  </div>
+                  <div style="text-align:right;">
+                  
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                   <button type="Submit" class="custBtn" id="btnSaveProcedure" name="btnSaveProcedure">انشاء الاجراء</button>
+                            [LL_WEBREPORT_ELSE /]
+                                   <button type="Submit" class="custBtn" id="btnSaveProcedure" name="btnSaveProcedure">Create Procedure</button>
+                            [LL_WEBREPORT_ENDIF /] 
+                            
+                  
+                     
+                  </div>
+              </form>
+           </div>
+      
+      
+          <div id="StandardDoc" class="tabcontent" >
+                
+                
+                
+                      [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                   <legend style="font-weight: bold;">وثيقة قياس</legend><hr>
+                            [LL_WEBREPORT_ELSE /]
+                                   <legend style="font-weight: bold;">Standard Document</legend><hr>
+                            [LL_WEBREPORT_ENDIF /] 
+                
+                 
+                  <div class="row" >        
+                      <div class="form-row col-12">
+                          <ul class="list-group" id="StandardDocResult"></ul>
+                      </div>
+                      <div class="form-row col-6">
+                          <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                            
+                              
+                              [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                    <label class="binf-control-label alpaca-control-label">عنوان الوثيقة<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ELSE /]
+                                    <label class="binf-control-label alpaca-control-label">Document Name<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ENDIF /] 
+                              
+                              
+                              <input class="valueEditable form-control" type="TEXT" onchange="valida(this.id)"  id="DocumentName" name="DocumentName"  size="23">
+                          </div>
+                   
+                      </div>
+                      <div class="form-row col-6">
+                          <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                             
+                              
+                              
+                              
+                                  [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                      <label class="binf-control-label alpaca-control-label">نسخة الوثيقة<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ELSE /]
+                                      <label class="binf-control-label alpaca-control-label">Document Version<p class="requiredField">*</p></label>
+                            [LL_WEBREPORT_ENDIF /] 
+                              
+                              <input class="valueEditable form-control" type="TEXT" onchange="valida(this.id)"  id="DocumentVersion" name="DocumentVersion"  size="23">
+                          </div>
+                   
+                      </div>
+              </div>
+                  <div style="text-align:right;margin-top:20px">
+                      
+                          [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                                   <button type="Submit" class="custBtn" id="btnSaveStandardDoc" name="btnSaveStandardDoc">انشاء وثيقة قياس</button>
+                            [LL_WEBREPORT_ELSE /]
+                                   <button type="Submit" class="custBtn" id="btnSaveStandardDoc" name="btnSaveStandardDoc">Create Standard Document</button>
+                            [LL_WEBREPORT_ENDIF /] 
+                  
+                  
+                     
+                  </div>
+              
+          </div>
+      </div>
+  </div>
+  <div id="LoadingImagePO" class="custLoader" style="display: none;"></div>
+      
+  <script>
+  function enable(evt, type) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(type).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+   //document.getElementById("Home").click();
+  </script>
+  
+  
+  
+  <script href="[LL_REPTAG_LIBPATH /]bootstrap.js"></script>
+  
