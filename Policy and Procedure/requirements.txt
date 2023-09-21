@@ -31,3 +31,23 @@ regulations per department
 
 
 
+
+- hide Standard document in create CWS
+
+landing page:
+- remove Standard - put regulation
+
+
+
+dashboards:
+-remove Policy to Revision
+-remove Procedure to Revision
+- add regulation dashboard
+
+
+policies and procedure perspectives:
+Related Gaps -> rename to empty (remove)
+
+
+regulation perspective:
+- add document widget

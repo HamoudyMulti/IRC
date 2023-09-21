@@ -1,0 +1,52 @@
+create CWS (3 types):
+- summary textarea
+
+
+perspective (on categories widget):
+-  action single text
+-  update multivalue (up to 15 values)
+
+
+landing page perspective:
+
+incoming:
+- reference number (link to CWS)
+- Subject
+- summary
+- from 
+- action 
+- update 
+
+
+outgoing: 
+- reference number (link to CWS)
+- Subject
+- summary
+- to (multiple)
+- action 
+- update 
+
+internal:
+- reference number (link to CWS)
+- Subject
+- summary
+- owner department (user created CWS - get his group)
+- action 
+- update 
+
+
+documents (column):
+link to each document as icon - next to it the name
+viewable
+
+
+relationships:
+dummy CWS - Initiatives
+dummy CWS - Projects
+
+category fields:
+-title
+-date 
+-reference number
+
+add these 2 relationships to the three types of CWS (incoming - internal - outgoing)
