@@ -32,22 +32,24 @@ regulations per department
 
 
 
-- hide Standard document in create CWS
-
-landing page:
-- remove Standard - put regulation
+- hide Standard document in create CWS [DONE]
 
 
 
-dashboards:
--remove Policy to Revision
--remove Procedure to Revision
-- add regulation dashboard
+landing page: [DONE]
+- remove Standard - put regulation [DONE]
 
 
-policies and procedure perspectives:
-Related Gaps -> rename to empty (remove)
+
+dashboards: [DONE]
+-remove Policy to Revision [DONE]
+-remove Procedure to Revision [DONE] 
+- add regulation dashboard [DONE]
 
 
-regulation perspective:
-- add document widget
+policies and procedure perspectives: [DONE]
+Related Gaps -> rename to empty (remove) [DONE]
+
+
+regulation perspective: [DONE]
+- add document widget [DONE]

@@ -35,9 +35,11 @@ internal:
 - update 
 
 
-documents (column):
-link to each document as icon - next to it the name
-viewable
+Optional task:{
+    documents (column):
+    link to each document as icon - next to it the name
+    viewable
+}
 
 
 relationships:
