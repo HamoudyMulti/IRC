@@ -541,7 +541,20 @@ box-shadow: 0 0 4px 1px #f91615;
                      <span class="Owner_Incoming_select"></span>
                      <input type="hidden" id="Owner_Incoming" >
                   </div>
-               </div>     
+               </div>    
+               
+               <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                <label class="binf-control-label alpaca-control-label">
+                    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    ملخص
+                    [LL_WEBREPORT_ELSE /]
+                    Summary
+                    [LL_WEBREPORT_ENDIF /]                                  
+                </label>
+                <textarea  class="valueEditable  form-control" rows="7" style="height:auto;" id="summary_incoming"></textarea>
+                </div>
+            </div>
                
             </div>
          </div>
@@ -862,7 +875,23 @@ box-shadow: 0 0 4px 1px #f91615;
                      <span class="Owner_Outgoing_select"></span>
                      <input type="hidden" id="Owner_Outgoing" >
                   </div>
-               </div>     
+               </div>   
+               
+
+               <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                    <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                    <label class="binf-control-label alpaca-control-label">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        ملخص
+                        [LL_WEBREPORT_ELSE /]
+                        Summary
+                        [LL_WEBREPORT_ENDIF /]                                  
+                    </label>
+                    <textarea  class="valueEditable  form-control" rows="7" style="height:auto;" id="summary_outgoing"></textarea>
+                    </div>
+                </div>
+
+
                
             </div>
          </div>
@@ -1103,7 +1132,22 @@ box-shadow: 0 0 4px 1px #f91615;
                      <span class="Owner_Internal_select"></span>
                      <input type="hidden" id="Owner_Internal" >
                   </div>
-               </div>     
+               </div>   
+               
+               
+               <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                <label class="binf-control-label alpaca-control-label">
+                    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                    ملخص
+                    [LL_WEBREPORT_ELSE /]
+                    Summary
+                    [LL_WEBREPORT_ENDIF /]                                  
+                </label>
+                <textarea  class="valueEditable  form-control" rows="7" style="height:auto;" id="summary_internal"></textarea>
+                </div>
+            </div>
+
                
             </div>
          </div>
@@ -1796,7 +1840,6 @@ box-shadow: 0 0 4px 1px #f91615;
     }
     
     function CopyDocumentTemplateToCMS(cmsID,DocID,DocTempName){
-	alert("saifan")
         csui.require(['csui/lib/jquery'], function ($) {
         	var form = new FormData();
         	$('#LoadingImagePO').show();			
@@ -1807,7 +1850,6 @@ box-shadow: 0 0 4px 1px #f91615;
         		"type":144,
         		"description":""
         		}
-        alert(data+"shameer")
         
         	form.append("body", JSON.stringify(data));   
         
@@ -1823,7 +1865,6 @@ box-shadow: 0 0 4px 1px #f91615;
         	  "contentType": false,
         	  "data": form
         	};
-        	alert("shameer3")
         	$.ajax(settings).done(function (response) {
         		console.log('done');
         	    $('#LoadingImagePO').hide();
@@ -1908,6 +1949,7 @@ box-shadow: 0 0 4px 1px #f91615;
 	        var CMS_Incoming_ForInfo=$('#ForInfo_Incoming').val();
 	        var CMS_Incoming_ForReviewFeedback=$('#ReviewFeedback_Incoming').val();
 	        var CMS_Incoming_Owner=$('#Owner_Incoming').val();
+	        var CMS_Incoming_Summary=$('#summary_incoming').val();
 	        
 	        if(CMS_Incoming_Date!='' & CMS_Incoming_Subject!='' &  CMS_Incoming_From!='' & CMS_Incoming_Company!='' & CMS_Incoming_Category!=''){
                 var CMS_Incoming_Date_Format = new Date(CMS_Incoming_Date);
@@ -1939,7 +1981,8 @@ box-shadow: 0 0 4px 1px #f91615;
                                 "[LL_REPTAG_$CatIncoming /]_5":CMS_Incoming_Security,//Security
                                 "[LL_REPTAG_$CatIncoming /]_10":CMS_Incoming_Keywords,//keywords
                                 "[LL_REPTAG_$CatIncoming /]_11":CMS_Incoming_Remarks,//remarks
-                                "[LL_REPTAG_$CatIncoming /]_32":CMS_Incoming_Category//category
+                                "[LL_REPTAG_$CatIncoming /]_32":CMS_Incoming_Category,//category
+                                "[LL_REPTAG_$CatIncoming /]_33":CMS_Incoming_Summary//category
                             }
                         }
                     }
@@ -2010,6 +2053,7 @@ box-shadow: 0 0 4px 1px #f91615;
 	        var CMS_Internal_ForInfo=$('#ForInfo_Internal').val();
 	        var CMS_Internal_ForReviewFeedback=$('#ReviewFeedback_Internal').val();
 	        var CMS_Internal_Owner=$('#Owner_Internal').val();
+	        var CMS_Internal_Summary=$('#summary_internal').val();
 	        
 	        if(CMS_Internal_Date!='' & CMS_Internal_Subject!='' & CMS_Internal_Company!='' & CMS_Internal_DocumentType!='' & CMS_Internal_Category!=''){  //if all mandatory Fields are filled
 	            //ajax call to Create CWS
@@ -2040,7 +2084,8 @@ box-shadow: 0 0 4px 1px #f91615;
                                 "[LL_REPTAG_$CatInternal /]_4":CMS_Internal_Priority,//Priority
                                 "[LL_REPTAG_$CatInternal /]_11":CMS_Internal_Remarks,//remarks
                                 "[LL_REPTAG_$CatInternal /]_5":CMS_Internal_Security,//Security
-                                "[LL_REPTAG_$CatInternal /]_26":CMS_Internal_Category//category
+                                "[LL_REPTAG_$CatInternal /]_26":CMS_Internal_Category,//category
+                                "[LL_REPTAG_$CatInternal /]_27":CMS_Internal_Summary//summary
                               
                             }
                         }
@@ -2132,6 +2177,7 @@ box-shadow: 0 0 4px 1px #f91615;
 	        var CMS_Outgoing_ForInfo=$('#ForInfo_Outgoing').val();
 	        var CMS_Outgoing_ForReviewFeedback=$('#ReviewFeedback_Outgoing').val();
 	        var CMS_Outgoing_Owner=$('#Owner_Outgoing').val();
+	        var CMS_Outgoing_Summary=$('#summary_outgoing').val();
 			
 			
 	        
@@ -2188,7 +2234,8 @@ box-shadow: 0 0 4px 1px #f91615;
                                 "[LL_REPTAG_$CatOutgoing /]_4":CMS_Outgoing_Priority,//Priority
                                 "[LL_REPTAG_$CatOutgoing /]_11":CMS_Outgoing_Remarks,//remarks
                                 "[LL_REPTAG_$CatOutgoing /]_5":CMS_Outgoing_Security,//Security
-                                "[LL_REPTAG_$CatOutgoing /]_28":CMS_Outgoing_Category//category
+                                "[LL_REPTAG_$CatOutgoing /]_28":CMS_Outgoing_Category,//category
+                                "[LL_REPTAG_$CatOutgoing /]_29":CMS_Outgoing_Summary,//summary
                               
                             }
                         }
