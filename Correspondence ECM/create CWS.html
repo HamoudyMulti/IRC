@@ -1,0 +1,2281 @@
+[/* Title: Blank Reportview */]
+<Link rel='stylesheet' href="[LL_REPTAG_LIBPATH /]bootstrap.css">
+<link rel="stylesheet" href="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.css">
+<script src="[LL_REPTAG_LIBPATH /]datejs/the-datepicker.js"></script>
+<script src="http://[LL_REPTAG_URLDOMAIN /]/img/webreports/library/bundle.min.js"></script>
+
+<style>
+.binf-widgets .custLoader{
+    margin-left: 50%;
+    margin-top: 20%;
+    position: absolute;
+    border: 12px solid #dbf1fe;
+    border-left: 12px solid #0072aa;
+    transform: translateZ(0);
+    -webkit-animation: load8 1s infinite linear;
+    animation: load8 1s infinite linear;
+    width: 67px;
+    height: 67px;
+    z-index: 11111;
+}
+div.inner-border, div.custLoader {
+    border-radius: 100%;
+}   
+.binf-widgets .close-icon:after {
+   content: "ⓧ";
+}
+.binf-widgets .select-wrapper {
+margin: auto;
+max-width: 600px;
+width: calc(100% - 40px);
+}
+.binf-widgets .select-pure__select {
+align-items: center;
+border-radius: 4px;
+border: 1px solid rgba(0, 0, 0, 0.15);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+box-sizing: border-box;
+cursor: pointer;
+display: flex;
+font-size: 12px;
+font-weight: 500;
+justify-content: left;
+min-height: 54px;
+padding: 5px 10px;
+position: relative;
+transition: 0.2s;
+width: 100%;
+}
+.binf-widgets select{
+    height: calc(1.90rem );
+    font-size: 12px;"
+}
+.binf-widgets input{
+    height: calc(1.90rem );
+    font-size: 12px;"
+}
+    
+.binf-widgets .select-pure__options {
+border-radius: 4px;
+border: 1px solid rgba(0, 0, 0, 0.15);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+box-sizing: border-box;
+color: #363b3e;
+display: none;
+left: 0;
+max-height: 221px;
+overflow-y: scroll;
+position: absolute;
+top: 50px;
+width: 100%;
+z-index: 5;
+}
+.binf-widgets .select-pure__select--opened .select-pure__options {
+display: block;
+}
+.binf-widgets .select-pure__option {
+background: #fff;
+border-bottom: 1px solid #e4e4e4;
+box-sizing: border-box;
+height: auto;
+padding: 10px;
+}
+.binf-widgets .select-pure__option--disabled {
+color: #e4e4e4;
+}
+.binf-widgets .select-pure__option--selected {
+color: #e4e4e4;
+cursor: initial;
+pointer-events: none;
+}
+.binf-widgets .select-pure__option--hidden {
+display: none;
+}
+.binf-widgets .select-pure__selected-label {
+align-items: 'center';
+background: #2c5e7d;
+border-radius: 4px;
+color: #fff;
+cursor: initial;
+display: inline-flex;
+justify-content: 'center';
+margin: 5px 10px 5px 0;
+padding: 3px 7px;
+}
+.binf-widgets .select-pure__selected-label:last-of-type {
+margin-right: 0;
+}
+.binf-widgets .select-pure__selected-label i {
+cursor: pointer;
+display: inline-block;
+margin-left: 7px;
+}
+.binf-widgets  .select-pure__selected-label img {
+cursor: pointer;
+display: inline-block;
+height: 18px;
+margin-left: 7px;
+width: 14px;
+}
+.binf-widgets  .select-pure__selected-label i:hover {
+color: #e4e4e4;
+}
+.binf-widgets .select-pure__autocomplete {
+background: #f9f9f8;
+border-bottom: 1px solid #e4e4e4;
+border-left: none;
+border-right: none;
+border-top: none;
+box-sizing: border-box;
+font-size: 12px;
+outline: none;
+padding: 10px;
+width: 100%;
+}
+.binf-widgets .select-pure__placeholder--hidden {
+display: none;
+}
+.binf-widgets .select-pure__placeholder:befor{
+content:"hhhh";
+} 
+
+.binf-widgets .custBtn {
+bottom: 4px;
+/*right: 23px;*/
+border-radius: 16px;
+height: 32px;
+line-height: 12px;
+padding: 0 24px;
+color: #fff;
+min-width: 80px;
+border: 0;
+}
+[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+    .binf-widgets label{
+    padding-top: 10px;
+    float: right;
+    }
+[LL_WEBREPORT_ELSE /]
+    .binf-widgets label{
+    padding-top: 10px;
+    float: left;
+    }
+[LL_WEBREPORT_ENDIF /] 
+
+.binf-widgets .buttonDiv{
+bottom: 0;
+position: sticky;
+width: 100%;
+border-top: 1px solid #a59f9f;
+float:right;
+}
+.binf-widgets input {
+height: calc(1.90rem );
+font-size: 12px;
+}
+[/*]
+.binf-widgets select {
+height: calc(1.90rem );
+font-size: 12px;
+}
+*/]
+.binf-widgets textarea {
+height: calc(1.92rem );
+width: 100%;
+font-size: 12px;
+}
+.binf-widgets #inputerror {
+color: red;
+}     
+.binf-widgets #result {
+position: relative;
+width: 100%;
+cursor: pointer;
+overflow-y: auto;
+max-height: 400px;
+box-sizing: border-box;
+z-index: 1001;
+}
+[//]
+body {font-family: Arial;}
+/* Style the tab */
+.tab {
+overflow: hidden;
+border: 1px solid #ccc;
+background-color: #f1f1f1;
+}
+/* Style the buttons inside the tab */
+[LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+    .tab button {
+    background-color: inherit;
+    float: right;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    }
+[LL_WEBREPORT_ELSE /]
+    .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    }
+[LL_WEBREPORT_ENDIF /] 
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+background-color: #ddd;
+}
+/* Create an active/current tablink class */
+.tab button.active {
+background-color: #ccc;
+}
+/* Style the tab content */
+.tabcontent {
+display: none;
+padding: 6px 12px;
+border: 1px solid #ccc;
+border-top: none;
+}
+/* Style the close button */
+.topright {
+float: right;
+cursor: pointer;
+font-size: 28px;
+}
+.topright:hover {color: red;}
+.binf-widgets .center {
+margin: auto;
+width: 60%;
+border: 3px solid #73AD21;
+padding: 10px;
+}
+
+.binf-widgets .center {
+margin: auto;
+width: 60%;
+border: 3px solid #73AD21;
+padding: 10px;
+}
+.showErrorField{
+box-shadow: 0 0 4px 1px #f91615;
+}
+
+</style>
+[LL_WEBREPORT_STARTROW /]
+[LL_WEBREPORT_ENDROW /]
+[LL_WEBREPORT_IF "[LL_REPTAG_$ParentIDIncoming PERMCHECK:ADDITEMS /]"=="TRUE" AND "[LL_REPTAG_$DocTemplateIDIncoming PERMCHECK:SEE /]"=="TRUE" /]
+    [LL_REPTAG_'defaultOpen' SETVAR:'IncomingDefault' /]
+[LL_WEBREPORT_ELSEIF "[LL_REPTAG_$ParentIDOutgoing PERMCHECK:ADDITEMS /]"=="TRUE" AND "[LL_REPTAG_$DocTemplateIDOutgoing PERMCHECK:SEE /]"=="TRUE" /]
+     [LL_REPTAG_'defaultOpen' SETVAR:'OutgoingDefault' /]
+[//LL_WEBREPORT_ELSEIF "[LL_REPTAG_$ParentIDInternal PERMCHECK:ADDITEMS /]"=="TRUE" AND "[LL_REPTAG_$DocTemplateIDInternal PERMCHECK:SEE /]"=="TRUE" /]
+[LL_WEBREPORT_ELSEIF "[LL_REPTAG_$ParentIDInternal PERMCHECK:ADDITEMS /]"=="TRUE" AND "[LL_REPTAG_$DocTemplateIDInternal PERMCHECK:SEE /]"=="TRUE" /]
+     [LL_REPTAG_'defaultOpen' SETVAR:'InternalDefault' /]     
+[LL_WEBREPORT_ENDIF /]   
+[LL_REPTAG_'defaultOpen' SETVAR:'InternalDefault' /]  
+<div class="tile-content csui-normal-scrolling csui-no-scroll-x" style="height: 100%; margin-top: 0px; background-color:#0a163c;position:absolute;">
+    <div class="p-4 rounded bg-white js-active" style="margin-left: 1%;margin-right: 1%; margin-top: 1%; margin-bottom:20px;">
+
+  
+<div class="tab">
+[LL_WEBREPORT_IF "[LL_REPTAG_$ParentIDIncoming PERMCHECK:ADDITEMS /]"=="TRUE" AND "[LL_REPTAG_$DocTemplateIDIncoming PERMCHECK:SEE /]"=="TRUE" /]
+   <button class="tablinks" onclick="openCorrespondence(event, 'Incoming')" id="[LL_REPTAG_%IncomingDefault /]">
+    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+       واردة
+    [LL_WEBREPORT_ELSE /]
+       Incoming
+    [LL_WEBREPORT_ENDIF /]       
+   </button>
+[LL_WEBREPORT_ENDIF /]    
+[LL_WEBREPORT_IF "[LL_REPTAG_$ParentIDOutgoing PERMCHECK:ADDITEMS /]"=="TRUE" AND "[LL_REPTAG_$DocTemplateIDOutgoing PERMCHECK:SEE /]"=="TRUE" /]
+   <button class="tablinks" onclick="openCorrespondence(event, 'Outgoing')"  id="[LL_REPTAG_%OutgoingDefault /]">
+        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+          صــــادرة
+        [LL_WEBREPORT_ELSE /]
+           Outgoing
+        [LL_WEBREPORT_ENDIF /] 
+    </button>
+[LL_WEBREPORT_ENDIF /] 
+[LL_WEBREPORT_IF "[LL_REPTAG_$ParentIDInternal PERMCHECK:ADDITEMS /]"=="TRUE" AND "[LL_REPTAG_$DocTemplateIDInternal PERMCHECK:SEE /]"=="TRUE" /]
+   <button class="tablinks" onclick="openCorrespondence(event, 'Internal')" id="[LL_REPTAG_%InternalDefault /]">
+         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+           داخليــــة
+        [LL_WEBREPORT_ELSE /]
+           Internal
+        [LL_WEBREPORT_ENDIF /]       
+   </button>
+ [LL_WEBREPORT_ENDIF /]  
+</div>
+[LL_WEBREPORT_IF "[LL_REPTAG_$ParentIDIncoming PERMCHECK:ADDITEMS /]"=="FALSE" AND "[LL_REPTAG_$DocTemplateIDIncoming PERMCHECK:SEE /]"=="FALSE" AND "[LL_REPTAG_$ParentIDOutgoing PERMCHECK:ADDITEMS /]"=="FALSE"  AND "[LL_REPTAG_$DocTemplateIDOutgoing PERMCHECK:SEE /]"=="FALSE" AND  "[LL_REPTAG_$ParentIDInternal PERMCHECK:ADDITEMS /]"=="FALSE" AND "[LL_REPTAG_$DocTemplateIDInternal PERMCHECK:SEE /]"=="FALSE" /] [//if user doesnot have permissions to any correspondences
+    <H2>User doesnot have Permissions to Create any Correspondnecs</H2>
+ [LL_WEBREPORT_ELSE /]
+
+[LL_WEBREPORT_IF "[LL_REPTAG_$ParentIDIncoming PERMCHECK:ADDITEMS /]"=="TRUE" AND "[LL_REPTAG_$DocTemplateIDIncoming PERMCHECK:SEE /]"=="TRUE" /]  [//if user  have permission to incoming
+<div id="Incoming" class="tabcontent" style="display:block">
+   <div class="container-fluid" style="    position: relative;top: 5%;width: 100%;">
+      <form NAME="myFormIncoming" action="javascript:void(0)()">
+         [//<div class="p-4 rounded bg-white js-active container">
+         <div style="margin: 14px;">
+            <div class="row" style="margin-top: -16px;">
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         تاريخ المراسلة
+                        [LL_WEBREPORT_ELSE /]
+                         Correspondence Date
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                   
+                    </label>
+                     <input type="date" class="valueEditable  form-control"  name="RDate" placeholder="Correspondence Date" id="CDate_Incoming" required/>
+                     <script>
+                        if ( document.getElementById('CDate_Incoming').type != "date" ){
+                            const input = document.getElementById('CDate_Incoming');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+               <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الموضــوع
+                        [LL_WEBREPORT_ELSE /]
+                         Subject
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                           
+                     </label>
+                     <input type="text" class="valueEditable  form-control"  name="Subject_Incoming" placeholder="Subject" id="Subject_Incoming" required />
+                  </div>
+               </div>
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الجهة المرسلة
+                        [LL_WEBREPORT_ELSE /]
+                         From
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                    
+                     </label>
+                     <select class="valueEditable  form-control"  name="From_Incoming"  id="From_Incoming" required>
+                        <option value=''>select From Details</option><font color="red">*</font>         
+                     </select>
+                  </div>
+               </div>
+               <div class="col-sm-2 col-lg-2 col-md-2 col-xs-2">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /] [//renamed UI Fields from Company to To
+                        الإدارة المعنية
+                        [LL_WEBREPORT_ELSE /]
+                         To
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                    
+                     </label>
+                     <select class="valueEditable  form-control"  name="Company_Incoming"  id="Company_Incoming" required>
+                        <option value=''>select To</option><font color="red">*</font>         
+                     </select>
+                  </div>
+               </div>
+        
+               <div class="col-sm-2 col-lg-2 col-md-2 col-xs-2">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        رقم الإشارة الوارد
+                        [LL_WEBREPORT_ELSE /]
+                         Source Serial
+                        [LL_WEBREPORT_ENDIF /]                        
+                     </label>
+                     <input type="text" class="valueEditable  form-control"  name="SourceSerial_Incoming" placeholder="Source Serial" id="SourceSerial_Incoming" />
+                  </div>
+               </div>
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         درجة الأهميــــة
+                        [LL_WEBREPORT_ELSE /]
+                         Priority
+                        [LL_WEBREPORT_ENDIF /]                      
+                     </label>
+                     <select class="valueEditable  form-control"  name="Priority_Incoming"  id="Priority_Incoming" >
+                        <option value=''>select Priority</option>
+                        [LL_WEBREPORT_FOR VAR:PRIORITY DATA:[LL_REPTAG_$CatIncoming CATINFO:VALIDVALUES:4 /] /]
+                        <option value="[LL_REPTAG_%PRIORITY CURRENTVAL /]">[LL_REPTAG_%PRIORITY CURRENTVAL /]</option>
+                        [LL_WEBREPORT_ENDFOR /]
+                     </select>
+                  </div>
+               </div>
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         درجة الســـريــة
+                        [LL_WEBREPORT_ELSE /]
+                        Security
+                        [LL_WEBREPORT_ENDIF /]                           
+                    </label>
+                     <select class="valueEditable  form-control"  name="Security_Incoming"  id="Security_Incoming" >
+                        <option value=''>select Security</option>
+                        <option value='Normal - عادي'>Normal - عادي</option>
+                        <option value='Secure - سري'>Secure - سري</option>
+                        <option value='Very Secure - سري جدا'>Very Secure - سري جدا</option>                        
+                        [/*
+                        [LL_WEBREPORT_FOR VAR:SECURITY DATA:[LL_REPTAG_$CatIncoming CATINFO:VALIDVALUES:5 /] /]
+                        <option value="[LL_REPTAG_%PRIORITY CURRENTVAL /]">[LL_REPTAG_%SECURITY CURRENTVAL /]</option>
+                        [LL_WEBREPORT_ENDFOR /]
+                        */]
+                     </select>
+					 
+                  </div>
+               </div>
+               <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        نوع المراسلة
+                        [LL_WEBREPORT_ELSE /]
+                        Correspondence Category
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                       
+                    </label>
+                     <select class="valueEditable  form-control"  name="CMSCategory_Incoming"  id="CMSCategory_Incoming" >
+                        <option value=''>select CMS Category</option>
+                     </select>
+                  </div>
+               </div>               
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الكلمـــات الدالــة
+                        [LL_WEBREPORT_ELSE /]
+                        Keywords
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="text" class="valueEditable  form-control"  name="Keywords_Incoming" placeholder="Keywords" id="Keywords_Incoming" />
+                  </div>
+               </div>
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         معلومــات إضــافيـــة
+                        [LL_WEBREPORT_ELSE /]
+                        Remarks
+                        [LL_WEBREPORT_ENDIF /]                           
+                     </label>
+                     <input type="text" class="valueEditable  form-control"  name="Remarks_Incoming" placeholder="Remarks" id="Remarks_Incoming" />
+                  </div>
+               </div>
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         لإجـــراء اللازم
+                        [LL_WEBREPORT_ELSE /]
+                        For Action
+                        [LL_WEBREPORT_ENDIF /]                           
+                    </label>
+                     <span class="ForAction_Incoming_select"></span>
+                     <input type="hidden" id="ForAction_Incoming" >
+                  </div>
+               </div>
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         للاطـــلاع
+                        [LL_WEBREPORT_ELSE /]
+                        For Info
+                        [LL_WEBREPORT_ENDIF /]                           
+                    </label>
+                     <span class="ForInfo_Incoming_select"></span>
+                     <input type="hidden" id="ForInfo_Incoming" >
+                  </div>
+               </div>    
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         للمراجعـــة وإبداء الرأي
+                        [LL_WEBREPORT_ELSE /]
+                        Review and Feedback
+                        [LL_WEBREPORT_ENDIF /]                            
+                    </label>
+                     <span class="ReviewFeedback_Incoming_select"></span>
+                     <input type="hidden" id="ReviewFeedback_Incoming" >
+                  </div>
+               </div>     
+               
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الجهة المسؤولة
+                        [LL_WEBREPORT_ELSE /]
+                        Owner
+                        [LL_WEBREPORT_ENDIF /]                            
+                    </label>
+                     <span class="Owner_Incoming_select"></span>
+                     <input type="hidden" id="Owner_Incoming" >
+                  </div>
+               </div>     
+               
+            </div>
+         </div>
+         <div id="buttonDiv" class=" bg-white container-fluid" style="bottom: 0; left:0;position: sticky; width: 100%;border-top: 1px solid #cfcfcf;height:42px;">
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                          <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="إنشاء" id="CreateIncomingCMS" />
+                        [LL_WEBREPORT_ELSE /]
+                         <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="Create" id="CreateIncomingCMS" />
+                        [LL_WEBREPORT_ENDIF /] 
+            [//onclick="ajaxRequestCreateIncoming();"/>
+         </div>
+      </form>
+   </div>
+   [// 
+</div>
+ [LL_WEBREPORT_ENDIF /] 
+ 
+ [LL_WEBREPORT_IF "[LL_REPTAG_$ParentIDOutgoing PERMCHECK:ADDITEMS /]"=="TRUE" AND "[LL_REPTAG_$DocTemplateIDOutgoing PERMCHECK:SEE /]"=="TRUE" /] [//if user  have permission to Outgoing
+<div id="Outgoing" class="tabcontent">
+   
+   <div class="container-fluid" style="    position: relative;top: 5%;width: 100%;">
+      <form NAME="myFormIncoming" action="javascript:void(0)()">
+         [//<div class="p-4 rounded bg-white js-active container">
+         <div style="margin: 14px;">
+            <div class="row" style="margin-top: -16px;">
+			
+			
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         تاريخ المراسلة
+                        [LL_WEBREPORT_ELSE /]
+                         Correspondence Date
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                  
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Correspondence Date" id="CDate_Outgoing" required/>
+                     <script>
+                        if ( document.getElementById('CDate_Outgoing').type != "date" ){
+                            const input = document.getElementById('CDate_Outgoing');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+			   
+			   
+			   
+			      <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         تاريخ التصدير
+                        [LL_WEBREPORT_ELSE /]
+                         Export Date
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                  
+                    </label>
+                     <input type="date" class="valueEditable  form-control" placeholder="Export Date" id="EDate_Outgoing" required/>
+                     <script>
+                        if ( document.getElementById('EDate_Outgoing').type != "date" ){
+                            const input = document.getElementById('EDate_Outgoing');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+			   
+			   
+			   
+			   
+			   
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الموضــوع
+                        [LL_WEBREPORT_ELSE /]
+                         Subject
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                           
+                     </label>
+                     <input type="text" class="valueEditable  form-control"  placeholder="Subject" id="Subject_Outgoing" required />
+                  </div>
+               </div>
+			   
+			   
+			    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الجهات الخارجية
+                        [LL_WEBREPORT_ELSE /]
+                        External Parties
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                     
+                    </label>
+                     <span class="ExternalParties_Outgoing_select"></span>
+                     <input type="hidden" id="ExternalParties_Outgoing" >
+                  </div>
+               </div>  
+			   
+			   
+			   
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الإدارة المرسلة
+                        [LL_WEBREPORT_ELSE /]
+                         From
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                    
+                     </label>
+                     <select class="valueEditable  form-control"  id="From_Outgoing" onchange="CompanyChange(this.id,'DocumentType_Outgoing');" required> [//DocumentType_Outgoing is the ID of Doctype Dropdown
+                        <option value=''>select From Details</option>
+                     </select>
+                  </div>
+               </div>
+			   
+			   
+			   
+			   
+            <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        نوع الوثيقة
+                        [LL_WEBREPORT_ELSE /]
+                         Document Type
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                    
+                     </label>
+                     <select class="valueEditable  form-control"   id="DocumentType_Outgoing" required>
+                        <option value=''>select Document Type</option>
+                     </select>
+                  </div>
+               </div>   
+        
+            
+			   
+			   
+			   
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         درجة الأهميــــة
+                        [LL_WEBREPORT_ELSE /]
+                         Priority
+                        [LL_WEBREPORT_ENDIF /]                      
+                     </label>
+                     <select class="valueEditable  form-control"  id="Priority_Outgoing" >
+                        <option value=''>select Priority</option>
+                        [LL_WEBREPORT_FOR VAR:PRIORITY DATA:[LL_REPTAG_$CatOutgoing CATINFO:VALIDVALUES:4 /] /]
+                        <option value="[LL_REPTAG_%PRIORITY CURRENTVAL /]">[LL_REPTAG_%PRIORITY CURRENTVAL /]</option>
+                        [LL_WEBREPORT_ENDFOR /]
+                     </select>
+                  </div>
+               </div>
+			   
+			   
+			   
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         درجة الســـريــة
+                        [LL_WEBREPORT_ELSE /]
+                        Security
+                        [LL_WEBREPORT_ENDIF /]                           
+                    </label>
+                     <select class="valueEditable  form-control" id="Security_Outgoing" >
+                        <option value=''>select Security</option>
+                        <option value='Normal - عادي'>Normal - عادي</option>
+                        <option value='Secure - سري'>Secure - سري</option>
+                        <option value='Very Secure - سري جدا'>Very Secure - سري جدا</option>                        
+                        [/*
+                        [LL_WEBREPORT_FOR VAR:SECURITY DATA:[LL_REPTAG_$CatOutgoing CATINFO:VALIDVALUES:5 /] /]
+                        <option value="[LL_REPTAG_%PRIORITY CURRENTVAL /]">[LL_REPTAG_%SECURITY CURRENTVAL /]</option>
+                        [LL_WEBREPORT_ENDFOR /]
+                        */]
+                     </select>
+					 
+                  </div>
+               </div>
+			   
+			   
+              <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        نوع المراسلة
+                        [LL_WEBREPORT_ELSE /]
+                        Correspondence Category
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                            
+                    </label>
+                     <select class="valueEditable  form-control"  name="CMSCategory_Outgoing"  id="CMSCategory_Outgoing" >
+                        <option value=''>select CMS Category</option>
+                     </select>
+                  </div>
+               </div>                
+       
+       
+       
+       
+       
+               
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الكلمـــات الدالــة
+                        [LL_WEBREPORT_ELSE /]
+                        Keywords
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="text" class="valueEditable  form-control"  placeholder="Keywords" id="Keywords_Outgoing" />
+                  </div>
+               </div>
+			   
+			   
+			   
+			   
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         معلومــات إضــافيـــة
+                        [LL_WEBREPORT_ELSE /]
+                        Remarks
+                        [LL_WEBREPORT_ENDIF /]                           
+                     </label>
+                     <input type="text" class="valueEditable  form-control"  name="Remarks_Incoming" placeholder="Remarks" id="Remarks_Outgoing" />
+                  </div>
+               </div>
+			   
+			   
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         لإجـــراء اللازم
+                        [LL_WEBREPORT_ELSE /]
+                        For Action
+                        [LL_WEBREPORT_ENDIF /]                           
+                    </label>
+                     <span class="ForAction_Outgoing_select"></span>
+                     <input type="hidden" id="ForAction_Outgoing" >
+                  </div>
+               </div>
+			   
+			   
+			   
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         للاطـــلاع
+                        [LL_WEBREPORT_ELSE /]
+                        For Info
+                        [LL_WEBREPORT_ENDIF /]                           
+                    </label>
+                     <span class="ForInfo_Outgoing_select"></span>
+                     <input type="hidden" id="ForInfo_Outgoing" >
+                  </div>
+               </div>    
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         للمراجعـــة وإبداء الرأي
+                        [LL_WEBREPORT_ELSE /]
+                        Review and Feedback
+                        [LL_WEBREPORT_ENDIF /]                            
+                    </label>
+                     <span class="ReviewFeedback_Outgoing_select"></span>
+                     <input type="hidden" id="ReviewFeedback_Outgoing" >
+                  </div>
+               </div>     
+               
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الجهة المسؤولة
+                        [LL_WEBREPORT_ELSE /]
+                        Owner
+                        [LL_WEBREPORT_ENDIF /]                            
+                    </label>
+                     <span class="Owner_Outgoing_select"></span>
+                     <input type="hidden" id="Owner_Outgoing" >
+                  </div>
+               </div>     
+               
+            </div>
+         </div>
+         <div id="buttonDiv" class=" bg-white container-fluid" style="bottom: 0; left:0;position: sticky; width: 100%;border-top: 1px solid #cfcfcf;height:42px;">
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                          <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="إنشاء" id="CreateOutgoingCMS" />
+                        [LL_WEBREPORT_ELSE /]
+                         <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="Create" id="CreateOutgoingCMS" />
+                        [LL_WEBREPORT_ENDIF /] 
+            [//onclick="ajaxRequestCreateIncoming();"/>
+         </div>
+      </form>
+   </div>
+   [// 
+
+   
+   
+</div>
+ [LL_WEBREPORT_ENDIF /] 
+  [LL_WEBREPORT_IF "[LL_REPTAG_$ParentIDInternal PERMCHECK:ADDITEMS /]"=="TRUE" AND "[LL_REPTAG_$DocTemplateIDInternal PERMCHECK:SEE /]"=="TRUE" /] [//if user  have permission to Internal
+<div id="Internal" class="tabcontent">
+
+   <div class="container-fluid" style="    position: relative;top: 5%;width: 100%;">
+      <form NAME="myFormInternal" action="javascript:void(0)()">
+         [//<div class="p-4 rounded bg-white js-active container">
+         <div style="margin: 14px;">
+            <div class="row" style="margin-top: -16px;">
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         تاريخ المراسلة
+                        [LL_WEBREPORT_ELSE /]
+                         Correspondence Date
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                  
+                    </label>
+                     <input type="date" class="valueEditable  form-control"  name="RDate" placeholder="Correspondence Date" id="CDate_Internal" required/>
+                     <script>
+                        if ( document.getElementById('CDate_Internal').type != "date" ){
+                            const input = document.getElementById('CDate_Internal');
+                            const datepicker = new TheDatepicker.Datepicker(input);
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; 
+                            var yyyy = today.getFullYear();
+                            if(dd<10) 
+                            {
+                                dd='0'+dd;
+                            } 
+                        
+                            if(mm<10) 
+                            {
+                               mm='0'+mm;
+                            } 
+                            today = mm+'/'+dd+'/'+yyyy;
+                            datepicker.options.setInputFormat(today);
+                            datepicker.render();
+                        }
+                     </script>
+                  </div>
+               </div>
+               <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الموضــوع
+                        [LL_WEBREPORT_ELSE /]
+                         Subject
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                           
+                     </label>
+                     <input type="text" class="valueEditable  form-control"  name="Subject_Internal" placeholder="Subject" id="Subject_Internal" required />
+                  </div>
+               </div>
+               <div class="col-sm-2 col-lg-2 col-md-2 col-xs-2">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /] [//Renamed Company Field to From Only in UI,Js Script Field is Company
+                         الإدارة المرسلة
+                        [LL_WEBREPORT_ELSE /]
+                         From
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                    
+                     </label>
+                     <select class="valueEditable  form-control"  name="Company_Internal"  id="Company_Internal" required onchange="CompanyChange(this.id,'DocumentType_Internal');">
+                        <option value=''>select From</option>
+                     </select>
+                  </div>
+               </div>
+			   
+			   
+              <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        نوع الوثيقة
+                        [LL_WEBREPORT_ELSE /]
+                         Document Type
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                                    
+                     </label>
+                     <select class="valueEditable  form-control"  name="DocumentType_Internal"  id="DocumentType_Internal" required>
+                        <option value=''>select Document Type</option>
+                     </select>
+                  </div>
+               </div>   
+
+			   
+
+			   
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         درجة الأهميــــة
+                        [LL_WEBREPORT_ELSE /]
+                         Priority
+                        [LL_WEBREPORT_ENDIF /]                      
+                     </label>
+                     <select class="valueEditable  form-control"  name="Priority_Internal"  id="Priority_Internal" >
+                        <option value=''>select Priority</option>
+                        [LL_WEBREPORT_FOR VAR:PRIORITY DATA:[LL_REPTAG_$CatInternal CATINFO:VALIDVALUES:4 /] /]
+                        <option value="[LL_REPTAG_%PRIORITY CURRENTVAL /]">[LL_REPTAG_%PRIORITY CURRENTVAL /]</option>
+                        [LL_WEBREPORT_ENDFOR /]
+                     </select>
+                  </div>
+               </div>
+               <div class="col-sm-3 col-lg-3 col-md-3 col-xs-3">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                        [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         درجة الســـريــة
+                        [LL_WEBREPORT_ELSE /]
+                        Security
+                        [LL_WEBREPORT_ENDIF /]                           
+                    </label>
+                     <select class="valueEditable  form-control"  name="Security_Internal"  id="Security_Internal" >
+                        <option value=''>select Security</option>
+                        <option value='Normal - عادي'>Normal - عادي</option>
+                        <option value='Secure - سري'>Secure - سري</option>  
+                        <option value='Very Secure - سري جدا'>Very Secure - سري جدا</option>            
+                        [/*
+                        [LL_WEBREPORT_FOR VAR:SECURITY DATA:[LL_REPTAG_$CatInternal CATINFO:VALIDVALUES:5 /] /]
+                        <option value="[LL_REPTAG_%PRIORITY CURRENTVAL /]">[LL_REPTAG_%SECURITY CURRENTVAL /]</option>
+                        [LL_WEBREPORT_ENDFOR /]
+                        */]
+                     </select>
+					 
+                  </div>
+               </div>
+             
+              <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        نوع المراسلة
+                        [LL_WEBREPORT_ELSE /]
+                        Correspondence Category
+                        [LL_WEBREPORT_ENDIF /]<font color="red">*</font>                             
+                    </label>
+                     <select class="valueEditable  form-control"  name="CMSCategory_Internal"  id="CMSCategory_Internal" >
+                        <option value=''>select CMS Category</option>
+                     </select>
+                  </div>
+               </div>        
+               
+                            
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الكلمـــات الدالــة
+                        [LL_WEBREPORT_ELSE /]
+                        Keywords
+                        [LL_WEBREPORT_ENDIF /]                         
+                    </label>
+                     <input type="text" class="valueEditable  form-control"  name="Keywords_Internal" placeholder="Keywords" id="Keywords_Internal" />
+                  </div>
+               </div>
+              <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label" style="font-size:small">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         معلومــات إضــافيـــة
+                        [LL_WEBREPORT_ELSE /]
+                        Remarks
+                        [LL_WEBREPORT_ENDIF /]                           
+                     </label>
+                     <input type="text" class="valueEditable  form-control"  name="Remarks_Internal" placeholder="Remarks" id="Remarks_Internal" />
+                  </div>
+               </div>
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         لإجـــراء اللازم
+                        [LL_WEBREPORT_ELSE /]
+                        For Action
+                        [LL_WEBREPORT_ENDIF /]                           
+                    </label>
+                     <span class="ForAction_Internal_select"></span>
+                     <input type="hidden" id="ForAction_Internal" >
+                  </div>
+               </div>
+                <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         للاطـــلاع
+                        [LL_WEBREPORT_ELSE /]
+                        For Info
+                        [LL_WEBREPORT_ENDIF /]                           
+                    </label>
+                     <span class="ForInfo_Internal_select"></span>
+                     <input type="hidden" id="ForInfo_Internal" >
+                  </div>
+               </div>    
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         للمراجعـــة وإبداء الرأي
+                        [LL_WEBREPORT_ELSE /]
+                        Review and Feedback
+                        [LL_WEBREPORT_ENDIF /]                            
+                    </label>
+                     <span class="ReviewFeedback_Internal_select"></span>
+                     <input type="hidden" id="ReviewFeedback_Internal" >
+                  </div>
+               </div>     
+               
+               <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                  <div class="col-sm-11 col-lg-11 col-md-11 col-xs-11">
+                     <label class="binf-control-label alpaca-control-label">
+                         [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                         الجهة المسؤولة
+                        [LL_WEBREPORT_ELSE /]
+                        Owner
+                        [LL_WEBREPORT_ENDIF /]                            
+                    </label>
+                     <span class="Owner_Internal_select"></span>
+                     <input type="hidden" id="Owner_Internal" >
+                  </div>
+               </div>     
+               
+            </div>
+         </div>
+         <div id="buttonDiv" class=" bg-white container-fluid" style="bottom: 0; left:0;position: sticky; width: 100%;border-top: 1px solid #cfcfcf;height:42px;">
+            [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                          <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="إنشاء" id="CreateInternalCMS" />
+                        [LL_WEBREPORT_ELSE /]
+                         <input type="Submit" class="binf-btn binf-btn-primary csui-custom-search-form-submit custBtn" value="Create" id="CreateInternalCMS" />
+                        [LL_WEBREPORT_ENDIF /] 
+            [//onclick="ajaxRequestCreateInternal();"/>
+         </div>
+      </form>
+   </div>
+   
+</div>
+ [LL_WEBREPORT_ENDIF /] 
+ 
+[LL_WEBREPORT_ENDIF /] 
+    </div>
+</div>
+
+<div id="LoadingImagePO" class="custLoader" style="display: none;"></div>
+<script>
+  //Initial Load
+   var userList=[];
+   var externalPartiesList=[];
+            
+   csui.require(['csui/lib/jquery'], function ($) {    
+       	var TileReportConfig = {};
+        TileReportConfig.urlPrefix =  '[LL_REPTAG_URLPREFIX /]';
+        TileReportConfig.otcsTicket = '[LL_REPTAG_OTCSTICKET /]';
+        $('#LoadingImagePO').show();
+        //user list-------------------------------------------------------------------------------------------------------Start
+        $.ajax({
+            url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$csUserGroups /]/output?format=webreport",
+            type: "GET",
+			async: false,
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+            },
+            success:function(data){
+                var groups =JSON.parse(data);
+                $.each(groups.myRows,function(i,v){
+                    var objUser ={};
+                    objUser.label=v.Name;
+                    var vals=v.ID;
+                    objUser.value=vals.toString();
+                    userList.push(objUser);
+                })
+               
+                $('#LoadingImagePO').hide();
+            }
+        });
+        //user list-------------------------------------------------------------------------------------------------------End
+		
+		//loading Correspondnece category ----------Start
+         $.ajax({
+            url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$CMSCatgeory /]/output?format=webreport",
+            type: "GET",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+            },
+            success:function(data){
+                var CMSCategory =JSON.parse(data);
+                $.each(CMSCategory.myRows,function(i,v){
+                    if(v.Correspondence_Type == 'All'){
+                        $('#CMSCategory_Incoming').append(`<option value="${v.Correspondence_Category}">${v.Correspondence_Category}</option>`);
+                        $('#CMSCategory_Outgoing').append(`<option value="${v.Correspondence_Category}">${v.Correspondence_Category}</option>`);
+                        $('#CMSCategory_Internal').append(`<option value="${v.Correspondence_Category}">${v.Correspondence_Category}</option>`);
+                    }
+                   if(v.Correspondence_Type == 'Incoming'){
+                        $('#CMSCategory_Incoming').append(`<option value="${v.Correspondence_Category}">${v.Correspondence_Category}</option>`);
+                    } 
+                   if(v.Correspondence_Type == 'Outgoing'){
+                        $('#CMSCategory_Outgoing').append(`<option value="${v.Correspondence_Category}">${v.Correspondence_Category}</option>`);
+                    } 
+                   if(v.Correspondence_Type == 'Internal'){
+                        $('#CMSCategory_Internal').append(`<option value="${v.Correspondence_Category}">${v.Correspondence_Category}</option>`);
+                    }                     
+                 })
+                
+            }
+        });   	
+
+        //loading Correspondnece category ----------end
+        
+        //Load External Parties into From Field----------------------------------------------------------------------------Start
+        $('#LoadingImagePO').show();
+        //function getExternalParties(){
+             $.ajax({
+                url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$ExternalParties /]/output?format=webreport",
+                type: "GET",
+				async: false,
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('OTCSTicket', TileReportConfig.otcsTicket);
+                },
+                success:function(data){
+                    var externalparties =JSON.parse(data);
+                    $.each(externalparties.myRows,function(i,v){
+                        $('#From_Incoming').append('<option value="'+v.Name+'">'+v.Name+'</option>' ); 
+                        //$('#From_Internal').append('<option value="'+v.Name+'">'+v.Name+'</option>' );
+                         //$('#Department').append('<option data-value="'+v.ID+'" value="'+v.ID+'">'+v.Name+'</option>' );
+						 
+						 var objParty ={};
+						objParty.label=v.Name;
+						var EPvals=v.Name;
+						objParty.value=EPvals.toString();
+						externalPartiesList.push(objParty);
+						 
+                    })
+                   $('#LoadingImagePO').hide();
+                }
+            });  
+            
+        //}
+        //Load External Parties into From Field----------------------------------------------------------------------------End
+        
+        //Load Companies into From Field----------------------------------------------------------------------------Start
+        $('#LoadingImagePO').show();
+         $.ajax({
+            url:TileReportConfig.urlPrefix + "/api/v1/nodes/[LL_REPTAG_$Company /]/output?format=webreport",
+            type: "GET",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+            },
+            success:function(data){
+                var Companies =JSON.parse(data);
+                if(Companies.totalRows==1){  // if single Company
+                    $('#Company_Incoming').append(`<option selected="selected" value="${Companies.myRows[0].Company}">${Companies.myRows[0].Company}</option>`); //Incoming Company by Default the first record
+                    $('#Company_Internal').append(`<option selected="selected" value="${Companies.myRows[0].Company}">${Companies.myRows[0].Company}</option>`); //Internal Company by Default the first record
+					$('#From_Outgoing').append(`<option selected="selected" value="${Companies.myRows[0].Company}">${Companies.myRows[0].Company}</option>`); //Internal Company by Default the first record
+                    CompanyChange('Company_Internal','DocumentType_Internal');  // by default load the document type if Single Company for Internal
+					CompanyChange('From_Outgoing','DocumentType_Outgoing');
+                }
+                else{ //if multile subsidiary companies
+                    $.each(Companies.myRows,function(i,v){
+                        $('#Company_Incoming').append(`<option value="${v.Company}">${v.Company}</option>`);
+                        $('#Company_Internal').append(`<option value="${v.Company}">${v.Company}</option>`);
+						$('#From_Outgoing').append(`<option value="${v.Company}">${v.Company}</option>`);
+                    })
+                }
+               $('#LoadingImagePO').hide();
+            }
+        });   
+        //Load Companies into From Field----------------------------------------------------------------------------End
+        //Inital Load done
+        //$('#LoadingImagePO').hide();
+		
+		 makedropdown(); //call this when userList and externalPartiesList are populated. Call it once. Async is false for retrieval of these lists
+		
+    
+   });
+   
+    //Onchange Event for Company to Load Document Type
+    function CompanyChange(id,DocTypeID){
+        csui.require(['csui/lib/jquery'], function ($) { 
+            $('#'+DocTypeID).empty().append('<option selected="" value="">Select Document Type</option>');
+             var Company=$('#'+id+' option:selected').val();
+             var DocTempRootId;
+             console.log(Company);
+             if(DocTypeID=="DocumentType_Outgoing"){
+                 DocTempRootId='[LL_REPTAG_$DocTemplateOutgoingRoot /]';
+             }
+             if(DocTypeID=="DocumentType_Internal"){
+                 DocTempRootId='[LL_REPTAG_$DocTemplateInternalRoot /]';
+             }
+             if(Company!=''){
+                 $.ajax({
+                    url:"[LL_REPTAG_URLPREFIX /]/api/v1/nodes/[LL_REPTAG_$getDocTypeByCompany /]/output?format=webreport&Company="+Company+"&AncestorID="+DocTempRootId,
+                    type: "GET",
+                    beforeSend: function(xhr){
+                        xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+                    },
+                    success:function(data){
+                        var DocType =JSON.parse(data);
+                       // console.log(DocType.totalRows);
+                        if(DocType.totalRows==0){
+                           csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                                ModalAlert.showWarning("No document types are assigned to this option. Creation will be failed. Please select different option").always(function () { 
+                                });
+        
+                            });                              
+                        }
+                        else if(DocType.totalRows==1){
+                            $('#'+DocTypeID).append(`<option data-dname="${DocType.myRows[0].Name}" data-dataid="${DocType.myRows[0].DataID}" selected="selected" value="${DocType.myRows[0].DocName}">${DocType.myRows[0].DocName}</option>`); //Document Type by Default the first record if single record
+                        }
+                        else{
+                           $.each(DocType.myRows,function(i,v){
+                                console.log(v.DocName+'--'+v.DataID);
+                                $('#'+DocTypeID).append(`<option value="${v.DocName}" data-dname="${v.Name}" data-dataid="${v.DataID}">${v.DocName}</option>`);
+                            })                        
+                        }
+     
+                       
+                    }
+                }); 
+             }
+        });
+            
+    }
+        
+</script>
+<script>
+   function openCorrespondence(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    
+    
+    document.getElementById("defaultOpen").click();
+   
+   
+    function makedropdown(){
+        var autocomplete_ForInfo_Incoming_select = new SelectPure(".ForInfo_Incoming_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("ForInfo_Incoming").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        }); 
+
+        
+        var autocomplete_ForAction_Incoming_select = new SelectPure(".ForAction_Incoming_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("ForAction_Incoming").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });        
+        
+        var autocomplete_ReviewFeedback_Incoming_select = new SelectPure(".ReviewFeedback_Incoming_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("ReviewFeedback_Incoming").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });      
+        
+        var autocomplete_Owner_Incoming_select = new SelectPure(".Owner_Incoming_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("Owner_Incoming").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        }); 
+
+       var autocomplete_ForInfo_Internal_select = new SelectPure(".ForInfo_Internal_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("ForInfo_Internal").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        }); 
+
+        
+        var autocomplete_ForAction_Internal_select = new SelectPure(".ForAction_Internal_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("ForAction_Internal").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });        
+        
+        var autocomplete_ReviewFeedback_Internal_select = new SelectPure(".ReviewFeedback_Internal_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("ReviewFeedback_Internal").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });      
+        
+        var autocomplete_Owner_Internal_select = new SelectPure(".Owner_Internal_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("Owner_Internal").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });  
+
+
+		var autocomplete_ForInfo_Outgoing_select = new SelectPure(".ForInfo_Outgoing_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("ForInfo_Outgoing").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        }); 
+		
+		 var autocomplete_ForAction_Outgoing_select = new SelectPure(".ForAction_Outgoing_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("ForAction_Outgoing").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });  
+		
+		var autocomplete_ReviewFeedback_Outgoing_select = new SelectPure(".ReviewFeedback_Outgoing_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("ReviewFeedback_Outgoing").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        });      
+		
+		 var autocomplete_Owner_Outgoing_select = new SelectPure(".Owner_Outgoing_select", {
+            options: userList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("Owner_Outgoing").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        }); 
+		
+		
+		 var autocomplete_ExternalParties_Outgoing_select = new SelectPure(".ExternalParties_Outgoing_select", {
+            options: externalPartiesList,
+            multiple: true,
+            autocomplete: true,
+            icon: "close-icon",
+            onChange: value => { document.getElementById("ExternalParties_Outgoing").value = value; },
+            classNames: {
+            select: "select-pure__select",
+            dropdownShown: "select-pure__select--opened",
+            multiselect: "select-pure__select--multiple",
+            label: "select-pure__label",
+            placeholder: "select-pure__placeholder",
+            dropdown: "select-pure__options",
+            option: "select-pure__option",
+            autocompleteInput: "select-pure__autocomplete",
+            selectedLabel: "select-pure__selected-label",
+            selectedOption: "select-pure__option--selected",
+            // placeholderHidden: "select-pure__placeholder--hidden",
+            optionHidden: "select-pure__option--hidden",
+            }
+        }); 
+			
+        
+    }
+    function resetAutocomplete() {
+        autocomplete_ForAction_Incoming_select.reset();
+        autocomplete_ForInfo_Incoming_select.reset();
+        autocomplete_ReviewFeedback_Incoming_select.reset();
+        autocomplete_Owner_Incoming_select.reset();
+        autocomplete_ForAction_Internal_select.reset();
+        autocomplete_ForInfo_Internal_select.reset();
+        autocomplete_ReviewFeedback_Internal_select.reset();
+        autocomplete_Owner_Internal_select.reset(); 
+			
+		autocomplete_ForAction_Outgoing_select.reset();
+        autocomplete_ForInfo_Outgoing_select.reset();
+        autocomplete_ReviewFeedback_Outgoing_select.reset();
+        autocomplete_Owner_Outgoing_select.reset();
+		autocomplete_ExternalParties_Outgoing_select.reset();		
+		
+		
+    }
+    function selectObj(text){
+        csui.require(['csui/lib/jquery'], function ($) {
+        });
+    }
+
+
+ 
+    
+    //Getting Roles for the CMS Created
+    function getRoles(CmsID,ForAction,ForInfo,ForReviewFeedback,Owner){
+        var ReviewFeedback_ID;
+       var Owner_ID;
+       var ForAction_ID;
+       var ForInfo_ID;        
+        csui.require(['csui/lib/jquery'], function ($) {
+            var settings = {
+              "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles",
+              "method": "GET",
+              "timeout": 0,
+              "headers": {
+                "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+              },
+              "processData": false,
+              "mimeType": "multipart/form-data",
+              "contentType": false,
+            };
+            
+
+            $.ajax(settings).done(function (response) {
+                var res=JSON.parse(response);
+               for(var i=0; i<res.results.length;i++){  
+                   if(res.results[i].data.properties.name=='[LL_REPTAG_$RoleForAction /]'){
+                       ForAction_ID=res.results[i].data.properties.id;
+                   }
+                   if(res.results[i].data.properties.name=='[LL_REPTAG_$RoleForInfo /]'){
+                       ForInfo_ID=res.results[i].data.properties.id;
+                   }
+                   if(res.results[i].data.properties.name=='[LL_REPTAG_$RoleForReview /]'){
+                       ReviewFeedback_ID=res.results[i].data.properties.id;
+                   }
+                   if(res.results[i].data.properties.name=='[LL_REPTAG_$RoleOwner /]'){
+                       Owner_ID=res.results[i].data.properties.id;
+                   }               
+                }
+                //Add the Members into Roles
+                addRoles(ForAction,ForInfo,ForReviewFeedback,Owner,CmsID,ForAction_ID,ForInfo_ID,ReviewFeedback_ID,Owner_ID);
+            });     
+        });
+    }
+    
+  
+
+    function addRoles(ForAction,ForInfo,ForReviewFeedback,Owner,CmsID,ForAction_ID,ForInfo_ID,ReviewFeedback_ID,Owner_ID){
+         console.log('step 3 adding members to roles');
+        console.log("id of for info perm id" +ForInfo_ID);
+        csui.require(['csui/lib/jquery'], function ($) {
+            //For Action
+            var ForAction_Arr = ForAction.split(',');
+            $.each(ForAction_Arr, function( index, value ) {
+                var form_ForAction = new FormData();
+                form_ForAction.append("id", value);
+                console.log("url for info [LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+ForAction_ID+"/members");
+                var settings = {
+                  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+ForAction_ID+"/members",
+                  "method": "POST",
+                  "timeout": 0,
+                  "headers": {
+                    "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+                  },
+                  "processData": false,
+                  "mimeType": "multipart/form-data",
+                  "contentType": false,
+                  "data": form_ForAction
+                };
+                
+                $.ajax(settings).done(function (response) {
+                    //alert('Success-for action');
+                });                 
+                
+            });    
+            
+            
+            //For Info
+            var ForInfo_Arr = ForInfo.split(',');
+            $.each(ForInfo_Arr, function( index, value ) {
+                var form_ForInfo = new FormData();
+                form_ForInfo.append("id", value);
+                var settings = {
+                  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+ForInfo_ID+"/members",
+                  "method": "POST",
+                  "timeout": 0,
+                  "headers": {
+                    "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+                  },
+                  "processData": false,
+                  "mimeType": "multipart/form-data",
+                  "contentType": false,
+                  "data": form_ForInfo
+                };
+                
+                $.ajax(settings).done(function (response) {
+                    //alert('Success-for info');
+                });                 
+                
+            });                
+            
+            
+            //For Review and Feedback
+            var ForReviewFeedback_Arr = ForReviewFeedback.split(',');
+            $.each(ForReviewFeedback_Arr, function( index, value ) {
+                var form_ForReviewFeedback = new FormData();
+                form_ForReviewFeedback.append("id", value);
+                var settings = {
+                  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+ReviewFeedback_ID+"/members",
+                  "method": "POST",
+                  "timeout": 0,
+                  "headers": {
+                    "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+                  },
+                  "processData": false,
+                  "mimeType": "multipart/form-data",
+                  "contentType": false,
+                  "data": form_ForReviewFeedback
+                };
+                
+                $.ajax(settings).done(function (response) {
+                    //alert('Success- review and feedback');
+                });                 
+                
+            }); 
+            
+            //Owner
+            var Owner_Arr = Owner.split(',');
+            $.each(Owner_Arr, function( index, value ) {
+                var form_Owner = new FormData();
+                form_Owner.append("id", value);
+                var settings = {
+                  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces/"+CmsID+"/roles/"+Owner_ID+"/members",
+                  "method": "POST",
+                  "timeout": 0,
+                  "headers": {
+                    "otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+                  },
+                  "processData": false,
+                  "mimeType": "multipart/form-data",
+                  "contentType": false,
+                  "data": form_Owner
+                };
+                
+                $.ajax(settings).done(function (response) {
+                    //alert('Success- review and feedback');
+                });                 
+                
+            });             
+            
+        });
+        console.log('step 3 end add roles');
+    }
+    
+    function CopyDocumentTemplateToCMS(cmsID,DocID,DocTempName){
+	alert("saifan")
+        csui.require(['csui/lib/jquery'], function ($) {
+        	var form = new FormData();
+        	$('#LoadingImagePO').show();			
+        	var data={
+        		"template_id":DocID,
+        		"parent_id":cmsID,
+        		"name":DocTempName,
+        		"type":144,
+        		"description":""
+        		}
+        alert(data+"shameer")
+        
+        	form.append("body", JSON.stringify(data));   
+        
+        	var settings = {
+        	  "url": "[LL_REPTAG_URLPREFIXFULL /]/api/v2/doctemplates",
+        	  "method": "POST",
+        	  "timeout": 0,
+        	  "headers": {
+        		"otcsTicket": '[LL_REPTAG_OTCSTICKET /]'
+        	  },
+        	  "processData": false,
+        	  "mimeType": "multipart/form-data",
+        	  "contentType": false,
+        	  "data": form
+        	};
+        	alert("shameer3")
+        	$.ajax(settings).done(function (response) {
+        		console.log('done');
+        	    $('#LoadingImagePO').hide();
+        		//alert('Success-for action');
+        	});                 
+        });
+        
+    }
+    function CreateWorkspace(JsonData,CwsType,ForAction,ForInfo,ForReviewFeedback,Owner,DocID,DocTempName){
+       csui.require(['csui/lib/jquery'], function ($) {
+           var form = new FormData();
+            form.append("body", JSON.stringify(JsonData));   
+            $('#LoadingImagePO').show();   //Reloading Icon on screen
+			 $.ajax({
+				url:"[LL_REPTAG_URLPREFIXFULL /]/api/v2/businessworkspaces",
+				type: "POST",
+				processData: false,
+				mimeType: "multipart/form-data",
+				contentType: false,
+				data: form ,               
+				beforeSend: function(xhr){
+					xhr.setRequestHeader('OTCSTicket', '[LL_REPTAG_OTCSTICKET /]');
+				},
+				success:function(data){
+					var res=JSON.parse(data);
+					getRoles(res.results.id,ForAction,ForInfo,ForReviewFeedback,Owner);  //Calling Get Roles Function on CWS Creation Success
+					if(CwsType=='Internal' || CwsType=='Outgoing'){
+					     CopyDocumentTemplateToCMS(res.results.id,DocID,DocTempName);
+					}
+					$('#LoadingImagePO').hide();
+					csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+					    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                            ModalAlert.showSuccess("تم إنشاء المراسلة").always(function () { 
+							$("form")[0].reset();
+							window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
+						});
+						
+                        [LL_WEBREPORT_ELSE /]
+						ModalAlert.showSuccess(CwsType+" Correspondnece Created").always(function () { 
+							$("form")[0].reset();
+							window.location.replace("[LL_REPTAG_URLPREFIX /]/app/nodes/"+res.results.id);
+						});
+						
+						[LL_WEBREPORT_ENDIF /]
+
+					});
+				},
+				error: function(xhr, status, error) {
+					$('#LoadingImagePO').hide();
+					var err = JSON.parse(xhr.responseText);
+					csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+						ModalAlert.showError(CwsType+" Correspondnece Creation Error. "+err.error).always(function () { 
+						});
+
+					});                      
+				}
+			});                   
+           
+       });
+        
+        
+    }
+    
+   
+    csui.require(['csui/lib/jquery'], function ($) {
+        
+        //Incoming
+	    $("#CreateIncomingCMS").on("click", function(event) {
+	        event.preventDefault();
+	        var CMS_Incoming_Date=$('#CDate_Incoming').val();
+	        var CMS_Incoming_Subject=$('#Subject_Incoming').val();
+	        var CMS_Incoming_From=$('#From_Incoming option:selected').val();
+	        var CMS_Incoming_Company=$('#Company_Incoming option:selected').val();
+	        var CMS_Incoming_Category=$('#CMSCategory_Incoming option:selected').val();
+	        var CMS_Incoming_SourceSerial=$('#SourceSerial_Incoming').val();
+	        var CMS_Incoming_Priority=$('#Priority_Incoming option:selected').val();
+	        var CMS_Incoming_Security=$('#Security_Incoming option:selected').val();
+	        var CMS_Incoming_Keywords=$('#Keywords_Incoming').val();
+	        var CMS_Incoming_Remarks=$('#Remarks_Incoming').val();
+	        
+	        var CMS_Incoming_ForAction=$('#ForAction_Incoming').val();
+	        var CMS_Incoming_ForInfo=$('#ForInfo_Incoming').val();
+	        var CMS_Incoming_ForReviewFeedback=$('#ReviewFeedback_Incoming').val();
+	        var CMS_Incoming_Owner=$('#Owner_Incoming').val();
+	        
+	        if(CMS_Incoming_Date!='' & CMS_Incoming_Subject!='' &  CMS_Incoming_From!='' & CMS_Incoming_Company!='' & CMS_Incoming_Category!=''){
+                var CMS_Incoming_Date_Format = new Date(CMS_Incoming_Date);
+                var dd = CMS_Incoming_Date_Format.getDate();
+                var mm = CMS_Incoming_Date_Format.getMonth()+1; 
+                var yyyy = CMS_Incoming_Date_Format.getFullYear();
+                if(dd<10) {
+                    dd='0'+dd;
+                } 
+                if(mm<10) {
+                    mm='0'+mm;
+                } 
+                CMS_Incoming_Date_Format = mm+'/'+dd+'/'+yyyy;	 	        
+    
+    	        var form = new FormData();
+               
+                var data = {
+                    "template_id": [LL_REPTAG_$DocTemplateIDIncoming /],
+                    "parent_id": [LL_REPTAG_$ParentIDIncoming /],
+                    "roles": {
+                        "categories": {
+                            "[LL_REPTAG_$CatIncoming /]": {
+                                "[LL_REPTAG_$CatIncoming /]_2": CMS_Incoming_Date,  //cdate
+                                "[LL_REPTAG_$CatIncoming /]_30":CMS_Incoming_From,   //from
+                                "[LL_REPTAG_$CatIncoming /]_3":CMS_Incoming_Subject,  //subject
+                                "[LL_REPTAG_$CatIncoming /]_31":CMS_Incoming_Company, //Company
+                                "[LL_REPTAG_$CatIncoming /]_23":CMS_Incoming_SourceSerial,//source Serial
+                                "[LL_REPTAG_$CatIncoming /]_4":CMS_Incoming_Priority,//Priority
+                                "[LL_REPTAG_$CatIncoming /]_5":CMS_Incoming_Security,//Security
+                                "[LL_REPTAG_$CatIncoming /]_10":CMS_Incoming_Keywords,//keywords
+                                "[LL_REPTAG_$CatIncoming /]_11":CMS_Incoming_Remarks,//remarks
+                                "[LL_REPTAG_$CatIncoming /]_32":CMS_Incoming_Category//category
+                            }
+                        }
+                    }
+                };	      
+                CreateWorkspace(data,'Incoming',CMS_Incoming_ForAction,CMS_Incoming_ForInfo,CMS_Incoming_ForReviewFeedback,CMS_Incoming_Owner,'','');           
+        
+            }
+            else{
+                if(CMS_Incoming_Date==''){
+                    $('#CDate_Incoming').css({'border-color':'red'});
+                }
+                else{
+                    $('#CDate_Incoming').css({'border-color':'#ced4da'});
+                }
+                if(CMS_Incoming_Subject==''){
+                    $('#Subject_Incoming').css({'border-color':'red'});
+                } 
+                else{
+                    $('#Subject_Incoming').css({'border-color':'#ced4da'});
+                }
+                if(CMS_Incoming_From==''){
+                    $('#From_Incoming').css({'border-color':'red'});
+                } 
+                else{
+                    $('#From_Incoming').css({'border-color':'#ced4da'});
+                }
+                if(CMS_Incoming_Company==''){
+                    $('#Company_Incoming').css({'border-color':'red'});
+                } 
+                else{
+                    $('#Company_Incoming').css({'border-color':'#ced4da'});
+                }                
+                if(CMS_Incoming_Category==''){
+                    $('#CMSCategory_Incoming').css({'border-color':'red'});
+                } 
+                else{
+                    $('#CMSCategory_Incoming').css({'border-color':'#ced4da'});
+                } 
+                
+                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        ModalAlert.showError("ضرورة ملئ الخانات المضاءة").always(function () { 
+                    });
+                    [LL_WEBREPORT_ELSE /]
+                        ModalAlert.showError("Highlited Fields are Mandatory").always(function () { 
+                        });
+                        
+                    [LL_WEBREPORT_ENDIF /]
+                });    
+            }
+	    });
+      
+        //Internal
+        $("#CreateInternalCMS").on("click", function(event) {   
+	        event.preventDefault();
+	        var CMS_Internal_Date=$('#CDate_Internal').val();
+	        var CMS_Internal_Subject=$('#Subject_Internal').val();
+	        var CMS_Internal_Company=$('#Company_Internal option:selected').val();
+	        var CMS_Internal_DocumentType=$('#DocumentType_Internal option:selected').val();
+	        var CMS_Internal_DocumentType_Id=$('#DocumentType_Internal option:selected').data('dataid');
+	        var CMS_Internal_DocumentType_Name=$('#DocumentType_Internal option:selected').data('dname');
+	        var CMS_Internal_Priority=$('#Priority_Internal option:selected').val();
+	        var CMS_Internal_Security=$('#Security_Internal option:selected').val();
+	        var CMS_Internal_Category=$('#CMSCategory_Internal option:selected').val();
+	        var CMS_Internal_Keywords=$('#Keywords_Internal').val();
+	        var CMS_Internal_Remarks=$('#Remarks_Internal').val();
+	        var CMS_Internal_ForAction=$('#ForAction_Internal').val();
+	        var CMS_Internal_ForInfo=$('#ForInfo_Internal').val();
+	        var CMS_Internal_ForReviewFeedback=$('#ReviewFeedback_Internal').val();
+	        var CMS_Internal_Owner=$('#Owner_Internal').val();
+	        
+	        if(CMS_Internal_Date!='' & CMS_Internal_Subject!='' & CMS_Internal_Company!='' & CMS_Internal_DocumentType!='' & CMS_Internal_Category!=''){  //if all mandatory Fields are filled
+	            //ajax call to Create CWS
+                var CMS_Internal_Date_Format = new Date(CMS_Internal_Date);
+                var dd = CMS_Internal_Date_Format.getDate();
+                var mm = CMS_Internal_Date_Format.getMonth()+1; 
+                var yyyy = CMS_Internal_Date_Format.getFullYear();
+                if(dd<10) {
+                    dd='0'+dd;
+                } 
+                if(mm<10) {
+                    mm='0'+mm;
+                } 
+                CMS_Internal_Date_Format = mm+'/'+dd+'/'+yyyy;	 
+                
+
+                var data = {
+                    "template_id": [LL_REPTAG_$DocTemplateIDInternal /], //Document Template ID
+                    "parent_id": [LL_REPTAG_$ParentIDInternal /],  //Parent ID of CMS Creation
+                    "roles": {
+                        "categories": {
+                            "[LL_REPTAG_$CatInternal /]": {
+                                "[LL_REPTAG_$CatInternal /]_2": CMS_Internal_Date,  //cdate
+                                "[LL_REPTAG_$CatInternal /]_24":CMS_Internal_Company, //Company
+                                "[LL_REPTAG_$CatInternal /]_25":CMS_Internal_DocumentType, //Company
+                                "[LL_REPTAG_$CatInternal /]_3":CMS_Internal_Subject,  //subject
+                                "[LL_REPTAG_$CatInternal /]_10":CMS_Internal_Keywords,//keywords                                
+                                "[LL_REPTAG_$CatInternal /]_4":CMS_Internal_Priority,//Priority
+                                "[LL_REPTAG_$CatInternal /]_11":CMS_Internal_Remarks,//remarks
+                                "[LL_REPTAG_$CatInternal /]_5":CMS_Internal_Security,//Security
+                                "[LL_REPTAG_$CatInternal /]_26":CMS_Internal_Category//category
+                              
+                            }
+                        }
+                    }
+                };
+                
+                CreateWorkspace(data,'Internal',CMS_Internal_ForAction,CMS_Internal_ForInfo,CMS_Internal_ForReviewFeedback,CMS_Internal_Owner,CMS_Internal_DocumentType_Id,CMS_Internal_DocumentType_Name);
+ 
+	        }
+            else{
+                
+                if(CMS_Internal_Date==''){
+                    $('#CDate_Internal').css({'border-color':'red'});
+                }
+                else{
+                    $('#CDate_Internal').css({'border-color':'#ced4da'});
+                }
+                if(CMS_Internal_Subject==''){
+                    $('#Subject_Internal').css({'border-color':'red'});
+                } 
+                else{
+                    $('#Subject_Internal').css({'border-color':'#ced4da'});
+                }
+                if(CMS_Internal_Company==''){
+                    $('#Company_Internal').css({'border-color':'red'});
+                } 
+                else{
+                    $('#Company_Internal').css({'border-color':'#ced4da'});
+                }                
+
+                if(CMS_Internal_DocumentType==''){
+                    $('#DocumentType_Internal').css({'border-color':'red'});
+                } 
+                else{
+                    $('#DocumentType_Internal').css({'border-color':'#ced4da'});
+                } 
+                if(CMS_Internal_Category==''){
+                    $('#CMSCategory_Internal').css({'border-color':'red'});
+                } 
+                else{
+                    $('#CMSCategory_Internal').css({'border-color':'#ced4da'});
+                } 
+                
+                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                   [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        ModalAlert.showError("ضرورة ملئ الخانات المضاءة").always(function () { 
+                    });
+                    [LL_WEBREPORT_ELSE /]
+                        ModalAlert.showError("Highlited Fields are Mandatory").always(function () { 
+                        });
+                        
+                    [LL_WEBREPORT_ENDIF /]
+                });    
+            }	        
+        });
+		
+		
+		
+		
+		//Outgoing
+        $("#CreateOutgoingCMS").on("click", function(event) {   
+		
+	        event.preventDefault();
+			
+			
+	        var CMS_Outgoing_Date=$('#CDate_Outgoing').val();
+			var CMS_Outgoing_EDate=$('#EDate_Outgoing').val();
+			
+	        var CMS_Outgoing_Subject=$('#Subject_Outgoing').val();
+			var CMS_Outgoing_Category=$('#CMSCategory_Outgoing option:selected').val();
+			
+	        var CMS_Outgoing_ExternalParties=$('#ExternalParties_Outgoing').val();
+			
+			 var CMS_Outgoing_From=$('#From_Outgoing').val();
+			
+			
+	        var CMS_Outgoing_DocumentType=$('#DocumentType_Outgoing option:selected').val();
+	        var CMS_Outgoing_DocumentType_Id=$('#DocumentType_Outgoing option:selected').data('dataid');
+	        var CMS_Outgoing_DocumentType_Name=$('#DocumentType_Outgoing option:selected').data('dname');
+			
+			
+	        var CMS_Outgoing_Priority=$('#Priority_Outgoing option:selected').val();
+	        var CMS_Outgoing_Security=$('#Security_Outgoing option:selected').val();
+	        var CMS_Outgoing_Keywords=$('#Keywords_Outgoing').val();
+	        var CMS_Outgoing_Remarks=$('#Remarks_Outgoing').val();
+			
+			
+	        var CMS_Outgoing_ForAction=$('#ForAction_Outgoing').val();
+	        var CMS_Outgoing_ForInfo=$('#ForInfo_Outgoing').val();
+	        var CMS_Outgoing_ForReviewFeedback=$('#ReviewFeedback_Outgoing').val();
+	        var CMS_Outgoing_Owner=$('#Owner_Outgoing').val();
+			
+			
+	        
+	        if(CMS_Outgoing_Date!='' & CMS_Outgoing_EDate!='' & CMS_Outgoing_Subject!='' & CMS_Outgoing_ExternalParties != '' & CMS_Outgoing_DocumentType!='' & CMS_Outgoing_Category!=''){  //if all mandatory Fields are filled
+	            //ajax call to Create CWS
+				
+				
+				
+                var CMS_Outgoing_Date_Format = new Date(CMS_Outgoing_Date);
+                var dd = CMS_Outgoing_Date_Format.getDate();
+                var mm = CMS_Outgoing_Date_Format.getMonth()+1; 
+                var yyyy = CMS_Outgoing_Date_Format.getFullYear();
+                if(dd<10) {
+                    dd='0'+dd;
+                } 
+                if(mm<10) {
+                    mm='0'+mm;
+                } 
+                CMS_Outgoing_Date_Format = mm+'/'+dd+'/'+yyyy;	
+
+
+
+
+				var CMS_Outgoing_EDate_Format = new Date(CMS_Outgoing_EDate);
+                dd = CMS_Outgoing_EDate_Format.getDate();
+                mm = CMS_Outgoing_EDate_Format.getMonth()+1; 
+                yyyy = CMS_Outgoing_EDate_Format.getFullYear();
+                if(dd<10) {
+                    dd='0'+dd;
+                } 
+                if(mm<10) {
+                    mm='0'+mm;
+                } 
+                CMS_Outgoing_EDate_Format = mm+'/'+dd+'/'+yyyy;	
+				
+				
+				CMS_Outgoing_ExternalParties = CMS_Outgoing_ExternalParties.split(",");
+				
+                
+
+                var data = {
+                    "template_id": [LL_REPTAG_$DocTemplateIDOutgoing /], //Document Template ID
+                    "parent_id": [LL_REPTAG_$ParentIDOutgoing /],  //Parent ID of CMS Creation
+                    "roles": {
+                        "categories": {
+                            "[LL_REPTAG_$CatOutgoing /]": {
+                                "[LL_REPTAG_$CatOutgoing /]_2": CMS_Outgoing_Date,  //cdate
+								"[LL_REPTAG_$CatOutgoing /]_24": CMS_Outgoing_EDate,  //edate
+                                "[LL_REPTAG_$CatOutgoing /]_25":CMS_Outgoing_ExternalParties, //External Parties
+								"[LL_REPTAG_$CatOutgoing /]_26":CMS_Outgoing_From, //From
+                                "[LL_REPTAG_$CatOutgoing /]_27":CMS_Outgoing_DocumentType, 
+                                "[LL_REPTAG_$CatOutgoing /]_3":CMS_Outgoing_Subject,  //subject
+                                "[LL_REPTAG_$CatOutgoing /]_10":CMS_Outgoing_Keywords,//keywords                                
+                                "[LL_REPTAG_$CatOutgoing /]_4":CMS_Outgoing_Priority,//Priority
+                                "[LL_REPTAG_$CatOutgoing /]_11":CMS_Outgoing_Remarks,//remarks
+                                "[LL_REPTAG_$CatOutgoing /]_5":CMS_Outgoing_Security,//Security
+                                "[LL_REPTAG_$CatOutgoing /]_28":CMS_Outgoing_Category//category
+                              
+                            }
+                        }
+                    }
+                };
+                
+                CreateWorkspace(data,'Outgoing',CMS_Outgoing_ForAction,CMS_Outgoing_ForInfo,CMS_Outgoing_ForReviewFeedback,CMS_Outgoing_Owner,CMS_Outgoing_DocumentType_Id,CMS_Outgoing_DocumentType_Name);
+ 
+	        }
+            else{
+                
+                if(CMS_Outgoing_Date==''){
+                    $('#CDate_Outgoing').css({'border-color':'red'});
+                }
+                else{
+                    $('#CDate_Outgoing').css({'border-color':'#ced4da'});
+                }
+				
+				if(CMS_Outgoing_EDate==''){
+                    $('#EDate_Outgoing').css({'border-color':'red'});
+                }
+                else{
+                    $('#EDate_Outgoing').css({'border-color':'#ced4da'});
+                }
+				
+				
+				
+                if(CMS_Outgoing_Subject==''){
+                    $('#Subject_Outgoing').css({'border-color':'red'});
+                } 
+                else{
+                    $('#Subject_Outgoing').css({'border-color':'#ced4da'});
+                }
+				
+				 if(CMS_Outgoing_From==''){
+                    $('#From_Outgoing').css({'border-color':'red'});
+                } 
+                else{
+                    $('#From_Outgoing').css({'border-color':'#ced4da'});
+                }
+				
+				
+                if(CMS_Outgoing_ExternalParties==''){
+                    $('#ExternalParties_Outgoing_select').css({'border-color':'red'});
+                } 
+                else{
+                    $('#ExternalParties_Outgoing_select').css({'border-color':'#ced4da'});
+                
+				}  
+
+                if(CMS_Outgoing_Category==''){
+                    $('#CMSCategory_Outgoing').css({'border-color':'red'});
+                } 
+                else{
+                    $('#CMSCategory_Outgoing').css({'border-color':'#ced4da'});
+                } 
+				
+
+                if(CMS_Outgoing_DocumentType==''){
+                    $('#DocumentType_Outgoing').css({'border-color':'red'});
+                } 
+                else{
+                    $('#DocumentType_Outgoing').css({'border-color':'#ced4da'});
+                } 
+				
+				
+                
+                csui.require(['csui/dialogs/modal.alert/modal.alert'], function (ModalAlert) {
+                    [LL_WEBREPORT_IF "[LL_REPTAG_USERID USERPREF:GENERAL:LANGUAGE:CODE /]" == "_ar" /]
+                        ModalAlert.showError("ضرورة ملئ الخانات المضاءة").always(function () { 
+                    });
+                    [LL_WEBREPORT_ELSE /]
+                        ModalAlert.showError("Highlited Fields are Mandatory").always(function () { 
+                        });
+                        
+                    [LL_WEBREPORT_ENDIF /]
+                });    
+            }	        
+        });
+		
+		
+		
+		
+		
+        
+    });
+
+
+</script>
+

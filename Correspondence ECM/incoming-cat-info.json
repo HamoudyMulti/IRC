@@ -1,0 +1,51 @@
+{
+    "links": {
+        "data": {
+            "self": {
+                "body": "",
+                "content_type": "",
+                "href": "/api/v2/nodes/1715469/categories",
+                "method": "GET",
+                "name": ""
+            }
+        }
+    },
+    "results": [
+        {
+            "data": {
+                "categories": {
+                    "345176_10": "word",
+                    "345176_11": null,
+                    "345176_2": "2023-09-26T00:00:00",
+                    "345176_23": "234",
+                    "345176_3": "test231",
+                    "345176_30": "United Nations - الأمم المتحدة",
+                    "345176_31": "Human Resources",
+                    "345176_32": "Category 1",
+                    "345176_33": "ss",
+                    "345176_4": "Normal - عادي",
+                    "345176_5": "Secure - سري",
+                    "345176_6": "IN- United Nations - الأمم المتحدة - 0001"
+                }
+            }
+        },
+        {
+            "data": {
+                "categories": {
+                    "438591_2": "In Progress - قيد التنفيذ"
+                }
+            }
+        },
+        {
+            "data": {
+                "categories": {
+                    "1715333_2": null,
+                    "1715333_3": [
+                        null,
+                        null
+                    ]
+                }
+            }
+        }
+    ]
+}

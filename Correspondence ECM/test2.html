@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Table Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Styles for the container */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        /* Styles for buttons */
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        /* Styles for date inputs and filter button */
+        label {
+            font-weight: bold;
+        }
+        
+        input[type="date"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        
+        #filterButton {
+            background-color: #28a745;
+            color: #fff;
+        }
+        
+        /* Styles for search input */
+        #searchInput {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        
+        /* Styles for the table */
+        #dataTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        #dataTable th, #dataTable td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        #dataTable th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        
+        /* Highlight rows on hover */
+        #dataTable tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>Data Table Demo</h1>
+    
+    <!-- Buttons for category selection -->
+    <button id="category1Button">Category 1</button>
+    <button id="category2Button">Category 2</button>
+    <button id="category3Button">Category 3</button>
+    
+    <!-- Date range input -->
+    <label for="startDate">Start Date: </label>
+    <input type="date" id="startDate">
+    <label for="endDate">End Date: </label>
+    <input type="date" id="endDate">
+    <button id="filterButton">Filter</button>
+    
+    <!-- Search input -->
+    <input type="text" id="searchInput" placeholder="Search...">
+    
+    <!-- Table to display data -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be dynamically populated here -->
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
+    <script>
+        // Function to fetch data from a placeholder API using jQuery
+        function fetchData() {
+            // Replace this URL with your API endpoint
+            const apiUrl = 'https://jsonplaceholder.typicode.com/users';
+
+            return $.get(apiUrl);
+        }
+
+        // Function to update the table with data
+        function updateTable(data) {
+            const tableBody = $('#dataTable tbody');
+            tableBody.empty();
+
+            $.each(data, (index, item) => {
+                const row = $('<tr>');
+                row.html(`
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.email}</td>
+                `);
+                tableBody.append(row);
+            });
+        }
+
+        // Event listeners for buttons and filters using jQuery
+        $('#category1Button').on('click', () => {
+            fetchData()
+                .done(response => {
+                    updateTable(response);
+                });
+        });
+
+        $('#category2Button').on('click', () => {
+            // Implement logic to fetch data for Category 2
+        });
+
+        $('#category3Button').on('click', () => {
+            // Implement logic to fetch data for Category 3
+        });
+
+        $('#filterButton').on('click', () => {
+            // Implement filtering logic based on date inputs and search input
+        });
+    </script>
+</body>
+</html>

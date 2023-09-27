@@ -1,0 +1,49 @@
+{
+    "links": {
+        "data": {
+            "self": {
+                "body": "",
+                "content_type": "",
+                "href": "/api/v2/nodes/1715504/categories",
+                "method": "GET",
+                "name": ""
+            }
+        }
+    },
+    "results": [
+        {
+            "data": {
+                "categories": {
+                    "248808_10": null,
+                    "248808_11": null,
+                    "248808_2": "2023-09-25T00:00:00",
+                    "248808_24": "Protocol Directorate",
+                    "248808_25": "Acceptance letter for an award Arabic",
+                    "248808_26": "Category 1",
+                    "248808_27": "sdsd",
+                    "248808_3": "test34643",
+                    "248808_4": "Normal - عادي",
+                    "248808_5": "Normal - عادي",
+                    "248808_6": "INT-20230054"
+                }
+            }
+        },
+        {
+            "data": {
+                "categories": {
+                    "438591_2": "In Progress - قيد التنفيذ"
+                }
+            }
+        },
+        {
+            "data": {
+                "categories": {
+                    "1715333_2": "test1",
+                    "1715333_3": [
+                        "test22"
+                    ]
+                }
+            }
+        }
+    ]
+}

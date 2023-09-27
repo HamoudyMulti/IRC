@@ -1,0 +1,865 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Custom CSS for styling -->
+<style>
+    .binf-widgets body {
+        background-color: #f8f9fa;
+    }
+
+    .binf-widgets .container {
+        margin-top: 30px;
+    }
+
+
+
+
+
+    .binf-widgets button {
+        margin-right: 10px;
+    }
+
+
+    .binf-widgets .form-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .binf-widgets .form-group label {
+        margin-right: 10px;
+    }
+
+    .binf-widgets .form-group input {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+
+
+    .binf-widgets .section-choose {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .binf-widgets .count-display {
+        display: flex;
+        justify-content: center;
+        margin-right: 20px;
+        gap: 140px;
+    }
+
+    /* Custom CSS for the buttons */
+    .binf-widgets .custom-button-blue {
+        background-color: #007BFF;
+        /* Blue background color */
+        color: #fff;
+        /* White text color */
+    }
+
+    .binf-widgets .custom-button-green {
+        background-color: #28A745;
+        /* Green background color */
+        color: #fff;
+        /* White text color */
+    }
+
+    .binf-widgets .custom-button-red {
+        background-color: #DC3545;
+        /* Red background color */
+        color: #fff;
+        /* White text color */
+    }
+
+    .binf-widgets .custom-button {
+        border: none;
+        /* Remove default button border */
+        cursor: pointer;
+        /* Change cursor on hover */
+        border-radius: 8px;
+        /* Rounded corners */
+        padding: 10px 20px;
+        /* Padding for a comfortable size */
+        font-size: 16px;
+        /* Font size */
+        transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+        /* Transitions for hover effects */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        /* Subtle shadow effect */
+    }
+
+    /* Button hover effect */
+    .binf-widgets .custom-button:hover {
+        transform: scale(1.05);
+        /* Slight scale up on hover */
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        /* Enhanced shadow on hover */
+    }
+
+    /* Button click effect */
+    .binf-widgets .custom-button:active {
+        background-color: inherit;
+        /* Keep the same color on click */
+        box-shadow: none;
+        /* Remove shadow on click */
+    }
+
+
+
+    /* Style the table container */
+    .binf-widgets #table-container {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+        /* Add horizontal scrolling for small screens */
+    }
+
+    /* Style the table */
+    .binf-widgets #data-table {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style the table header */
+    .binf-widgets #data-table th {
+        background-color: #007BFF;
+        color: #fff;
+        text-align: left;
+        padding: 15px;
+        border-bottom: 2px solid #0056b3;
+    }
+
+    /* Style alternating table rows */
+    .binf-widgets #data-table tbody tr:nth-child(odd) {
+        background-color: #f5f5f5;
+    }
+
+    /* Style table cells */
+    .binf-widgets #data-table td {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Style table hover effect */
+    .binf-widgets #data-table tbody tr:hover {
+        background-color: #e0e0e0;
+    }
+
+    .binf-widgets .pagination_items {
+        display: flex;
+        padding-right: 22px;
+        list-style: none;
+        border-radius: 0.25rem;
+        justify-content: flex-end;
+    }
+
+    .binf-widgets .page-link {
+
+        position: relative;
+        display: block;
+        padding: 0.5rem 0.75rem;
+        margin-left: -1px;
+        line-height: 1.25;
+        color: #007bff;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+    }
+
+
+
+
+
+    .binf-widgets .page-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* height: 100vh; */
+    }
+
+    .binf-widgets .h1-container {
+        background-color: #98a4b1;
+        padding: 20px;
+        border-radius: 24px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 25px;
+        ;
+        /* Center horizontally within .h1-container */
+        justify-content: center;
+        /* Center vertically within .h1-container */
+    }
+
+    .binf-widgets h1 {
+        color: #333;
+        font-size: 24px;
+    }
+
+    .binf-widgets .status-count {
+        display: inline-block;
+        margin-bottom: 20px;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    .binf-widgets .count-circle {
+        background-color: #3498db;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .binf-widgets .count-label {
+        font-size: 14px;
+        /* Decreased font size */
+        color: #555;
+        /* Darker text color */
+        text-transform: uppercase;
+        /* Uppercase text */
+        letter-spacing: 1px;
+        /* Letter spacing for a more spaced-out look */
+        font-weight: bold;
+        /* Bold font */
+        display: block;
+        margin-top: 8px;
+        /* Slightly reduced margin from the count */
+    }
+
+    .binf-widgets .hidden {
+        display: none;
+    }
+
+    .binf-widgets .visible {
+        display: block;
+    }
+
+
+    .binf-widgets .status-label {
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-right: 5px;
+        display: inline-block;
+        font-size: 12px;
+        /* Smaller font size */
+        font-family: Arial, sans-serif;
+        /* Specify a different font family */
+        color: #fff;
+    }
+
+    /* Green label for "In Progress" status */
+    .binf-widgets .in-progress {
+        background-color: #5cb85c;
+        /* Green */
+    }
+
+    /* Red label for "Cancelled" status */
+    .binf-widgets .cancelled {
+        background-color: #d9534f;
+        /* Red */
+    }
+
+    /* Blue label for "Completed" status */
+    .binf-widgets .completed {
+        background-color: #5bc0de;
+        /* Blue */
+    }
+</style>
+
+<!-- <div class="binf-widgets"> -->
+
+<div class="page-container">
+    <div class="h1-container">
+        <h1>Correspondence Management</h1>
+    </div>
+</div>
+
+<div class="section-choose">
+    <button id="internal" class="btn custom-button custom-button-blue">Internal</button>
+    <button id="incoming" class="btn custom-button custom-button-green">Incoming</button>
+    <button id="outgoing" class="btn custom-button custom-button-red">Outgoing</button>
+</div>
+
+
+<div id="internal_count" class="count-display hidden">
+
+    <div id="internal_inprogess_count" class="status-count">
+        <div class="count-circle">
+            <span class="count-value">0</span>
+        </div>
+        <span class="count-label">In Progress</span>
+    </div>
+
+    <div id="internal_completed_count" class="status-count">
+        <div class="count-circle">
+            <span class="count-value">0</span>
+        </div>
+        <span class="count-label">Completed</span>
+    </div>
+
+    <div id="internal_cancelled_count" class="status-count">
+        <div class="count-circle">
+            <span class="count-value">0</span>
+        </div>
+        <span class="count-label">Cancelled</span>
+    </div>
+
+</div>
+
+
+<div id="incoming_count" class="count-display hidden">
+
+    <div id="incoming_inprogess_count" class="status-count">
+        <div class="count-circle">
+            <span class="count-value">0</span>
+        </div>
+        <span class="count-label">In Progress</span>
+    </div>
+
+    <div id="incoming_completed_count" class="status-count">
+        <div class="count-circle">
+            <span class="count-value">0</span>
+        </div>
+        <span class="count-label">Completed</span>
+    </div>
+
+    <div id="incoming_cancelled_count" class="status-count">
+        <div class="count-circle">
+            <span class="count-value">0</span>
+        </div>
+        <span class="count-label">Cancelled</span>
+    </div>
+
+</div>
+
+
+<div id="outgoing_count" class="count-display hidden">
+
+    <div id="outgoing_inprogess_count" class="status-count">
+        <div class="count-circle">
+            <span class="count-value">0</span>
+        </div>
+        <span class="count-label">In Progress</span>
+    </div>
+
+    <div id="outgoing_completed_count" class="status-count">
+        <div class="count-circle">
+            <span class="count-value">0</span>
+        </div>
+        <span class="count-label">Completed</span>
+    </div>
+
+    <div id="outgoing_cancelled_count" class="status-count">
+        <div class="count-circle">
+            <span class="count-value">0</span>
+        </div>
+        <span class="count-label">Cancelled</span>
+    </div>
+
+</div>
+
+
+<div id="pagination_top" class="hidden">
+    <ul class="pagination_items">
+        <li class="page-item" id="prev-page-top"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item" id="next-page-top"><a class="page-link" href="#">Next</a></li>
+    </ul>
+</div>
+
+<div id="table-container" class="hidden">
+    <table id="data-table">
+        <thead>
+            <tr>
+
+            </tr>
+        </thead>
+        <tbody>
+
+
+        </tbody>
+    </table>
+</div>
+
+<div id="pagination_bottom" class="hidden">
+    <ul class="pagination_items">
+        <li class="page-item" id="prev-page-bottom"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item" id="next-page-bottom"><a class="page-link" href="#">Next</a></li>
+    </ul>
+</div>
+
+
+
+<!-- </div> -->
+
+<script>
+
+    csui.require(['csui/lib/jquery'], function ($) {
+        $(document).ready(function () {
+
+            var currentPage = 1;
+            var category = 'users';
+
+            fetchData(currentPage, category);
+
+
+            $('.btn').click(function () {
+                $('.btn').removeClass('btn-clicked');
+                $(this).addClass('btn-clicked');
+            });
+
+            function populateRow(data, category, row, cws_id) {
+                let reference_number = '';
+                let subject = '';
+                let summary = '';
+                let owner_department = '';
+                let from = '';
+                let to = '';
+                let action = '';
+                let update = '';
+
+                let status = '';
+
+                switch (category) {
+                    case 'internal':
+                        data.results.forEach(item => {
+                            if ("248808_6" in item.data.categories) {
+                                reference_number = item.data.categories["248808_6"];
+                            }
+
+                            if ("248808_3" in item.data.categories) {
+                                subject = item.data.categories["248808_3"];
+                            }
+                            if ("248808_27" in item.data.categories) {
+                                summary = item.data.categories["248808_27"];
+                            }
+                            if ("248808_24" in item.data.categories) {
+                                owner_department = item.data.categories["248808_24"];
+                            }
+
+
+                            if ("1715333_2" in item.data.categories) {
+                                action = item.data.categories["1715333_2"];
+                            }
+                            //multiple items
+                            if ("1715333_3" in item.data.categories) {
+                                update = item.data.categories["1715333_3"][0];
+                            }
+
+
+                            if ("438591_2" in item.data.categories) {
+                                status = item.data.categories["438591_2"];
+                            }
+
+
+
+                        });
+
+
+                        //same order as headers
+
+                        row.append($('<td></td>').append($('<a>').attr({
+                            'href': `[LL_REPTAG_URLPREFIXFULL /]/app/nodes/${cws_id}`,
+                            'target': '_blank'
+                        }).text(reference_number)));
+                        row.append($('<td></td>').text(subject));
+                        row.append($('<td></td>').text(summary));
+                        row.append($('<td></td>').text(owner_department));
+                        row.append($('<td></td>').text(action));
+                        row.append($('<td></td>').text(update));
+
+                        switch (true) {
+                            case status.includes("In Progress"):
+                                row.append($('<td></td>').append('<span class="status-label in-progress">In Progress</span>'));
+                                break;
+                            case status.includes("Cancelled"):
+                                row.append($('<td></td>').append('<span class="status-label cancelled">Cancelled</span>'));
+                                break;
+                            case status.includes("Completed"):
+                                row.append($('<td></td>').append('<span class="status-label completed">Completed</span>'));
+                                break;
+                            default:
+                                row.append($('<td></td>').text(status));
+                                break;
+                        }
+
+                        break;
+                    case 'incoming':
+                        data.results.forEach(item => {
+                            if ("345176_6" in item.data.categories) {
+                                reference_number = item.data.categories["345176_6"];
+                            }
+
+                            if ("345176_3" in item.data.categories) {
+                                subject = item.data.categories["345176_3"];
+                            }
+                            if ("345176_33" in item.data.categories) {
+                                summary = item.data.categories["345176_33"];
+                            }
+                            if ("345176_30" in item.data.categories) {
+                                from = item.data.categories["345176_30"];
+                            }
+                            if ("345176_31" in item.data.categories) {
+                                to = item.data.categories["345176_31"];
+                            }
+
+
+                            if ("1715333_2" in item.data.categories) {
+                                action = item.data.categories["1715333_2"];
+                            }
+                            //multiple items
+                            if ("1715333_3" in item.data.categories) {
+                                update = item.data.categories["1715333_3"][0];
+                            }
+
+
+                            if ("438591_2" in item.data.categories) {
+                                status = item.data.categories["438591_2"];
+                            }
+
+
+
+                        });
+
+
+                        //same order as headers
+                        row.append($('<td></td>').append($('<a>').attr({
+                            'href': `[LL_REPTAG_URLPREFIXFULL /]/app/nodes/${cws_id}`,
+                            'target': '_blank'
+                        }).text(reference_number)));
+                        row.append($('<td></td>').text(subject));
+                        row.append($('<td></td>').text(summary));
+                        row.append($('<td></td>').text(from));
+                        row.append($('<td></td>').text(to));
+                        row.append($('<td></td>').text(action));
+                        row.append($('<td></td>').text(update));
+
+                        switch (true) {
+                            case status.includes("In Progress"):
+                                row.append($('<td></td>').append('<span class="status-label in-progress">In Progress</span>'));
+                                break;
+                            case status.includes("Cancelled"):
+                                row.append($('<td></td>').append('<span class="status-label cancelled">Cancelled</span>'));
+                                break;
+                            case status.includes("Completed"):
+                                row.append($('<td></td>').append('<span class="status-label completed">Completed</span>'));
+                                break;
+                            default:
+                                row.append($('<td></td>').text(status));
+                                break;
+                        }
+
+                        break;
+
+                    case 'outgoing':
+                        data.results.forEach(item => {
+                            if ("345183_6" in item.data.categories) {
+                                reference_number = item.data.categories["345183_6"];
+                            }
+
+                            if ("345183_3" in item.data.categories) {
+                                subject = item.data.categories["345183_3"];
+                            }
+                            if ("345183_29" in item.data.categories) {
+                                summary = item.data.categories["345183_29"];
+                            }
+                            if ("345183_26" in item.data.categories) {
+                                from = item.data.categories["345183_26"];
+                            }
+                            if ("345183_25" in item.data.categories) {
+                                to = item.data.categories["345183_25"];
+                            }
+
+
+                            if ("1715333_2" in item.data.categories) {
+                                action = item.data.categories["1715333_2"];
+                            }
+                            //multiple items
+                            if ("1715333_3" in item.data.categories) {
+                                update = item.data.categories["1715333_3"][0];
+                            }
+
+
+                            if ("438591_2" in item.data.categories) {
+                                status = item.data.categories["438591_2"];
+                            }
+
+
+
+                        });
+
+
+                        //same order as headers
+                        row.append($('<td></td>').append($('<a>').attr({
+                            'href': `[LL_REPTAG_URLPREFIXFULL /]/app/nodes/${cws_id}`,
+                            'target': '_blank'
+                        }).text(reference_number)));
+                        row.append($('<td></td>').text(subject));
+                        row.append($('<td></td>').text(summary));
+                        row.append($('<td></td>').text(from));
+
+
+                        const to_field_label = $('<ul></ul>');
+                        to.forEach(value => {
+                            const listItem = $('<li></li>').text(value);
+                            to_field_label.append(listItem);
+                        });
+                        row.append($('<td></td>').append(to_field_label));
+
+
+                        row.append($('<td></td>').text(action));
+                        row.append($('<td></td>').text(update));
+
+                        switch (true) {
+                            case status.includes("In Progress"):
+                                row.append($('<td></td>').append('<span class="status-label in-progress">In Progress</span>'));
+                                break;
+                            case status.includes("Cancelled"):
+                                row.append($('<td></td>').append('<span class="status-label cancelled">Cancelled</span>'));
+                                break;
+                            case status.includes("Completed"):
+                                row.append($('<td></td>').append('<span class="status-label completed">Completed</span>'));
+                                break;
+                            default:
+                                row.append($('<td></td>').text(status));
+                                break;
+                        }
+
+                        break;
+                }
+            }
+
+
+            function createTableRow(id, category) {
+                return new Promise(function (resolve, reject) {
+                    const row = $('<tr></tr>');
+
+                    $.ajax({
+                        url: `[LL_REPTAG_URLPREFIX /]/api/v2/nodes/${id}/categories`,
+                        method: 'GET',
+                        dataType: 'json',
+                        headers: {
+                            'OTCSTicket': '[LL_REPTAG_OTCSTICKET /]',
+                        },
+                        success: function (data) {
+
+                            populateRow(data, category, row, id);
+                            resolve(row);
+                        },
+
+                        error: function (error) {
+                            console.error('Error fetching data:', error);
+                            reject(error);
+                        }
+                    });
+                });
+
+            }
+
+            function fetchData(page, category) {
+                let limit = 10;
+
+                let apiUrl = `[LL_REPTAG_URLPREFIX /]/api/v2/businessworkspaces?limit=${limit}&page=${page}`;
+                switch (category) {
+                    case 'internal':
+                        apiUrl += `&where_workspace_type_id=2`;
+                        break;
+                    case 'incoming':
+                        apiUrl += `&where_workspace_type_id=4`;
+                        break;
+                    case 'outgoing':
+                        apiUrl += `&where_workspace_type_id=5`;
+                        break;
+                    default:
+                        apiUrl = '';
+                        break;
+
+
+                }
+
+                if (apiUrl) {
+                    $.ajax({
+                        url: apiUrl,
+                        method: 'GET',
+                        dataType: 'json',
+                        headers: {
+                            'OTCSTicket': '[LL_REPTAG_OTCSTICKET /]',
+                        },
+                        success: function (data) {
+                            const tableBody = $('#data-table tbody');
+                            tableBody.empty();
+
+                            const promises = data.results.map(item => {
+                                return createTableRow(item.data.properties.id, category);
+                            });
+
+                            Promise.all(promises)
+                                .then(rows => {
+                                    rows.forEach(row => {
+                                        tableBody.append(row);
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error('Error fetching data:', error);
+                                });
+
+
+
+                        },
+                        error: function (error) {
+                            console.error('Error fetching data:', error);
+                        }
+                    });
+                }
+
+            }
+
+            $('#internal').click(function () {
+                currentPage = 1;
+                category = 'internal';
+                updateTableHeaders(category);
+                fetchData(currentPage, category);
+                appearTableAndWidget(category);
+
+            });
+
+            $('#incoming').click(function () {
+                currentPage = 1;
+                category = 'incoming';
+                updateTableHeaders(category);
+                fetchData(currentPage, category);
+                appearTableAndWidget(category);
+            });
+
+            $('#outgoing').click(function () {
+                currentPage = 1;
+                category = 'outgoing';
+                updateTableHeaders(category);
+                fetchData(currentPage, category);
+                appearTableAndWidget(category);
+            });
+
+
+            function appearTableAndWidget(category) {
+                $('#table-container').removeClass('hidden');
+                $('#pagination_top').removeClass('hidden');
+                $('#pagination_bottom').removeClass('hidden');
+
+                $('#internal_count').addClass('hidden');
+                $('#incoming_count').addClass('hidden');
+                $('#outgoing_count').addClass('hidden');
+
+
+                switch (category) {
+                    case 'internal':
+                        $('#internal_count').removeClass('hidden');
+                        break;
+                    case 'incoming':
+                        $('#incoming_count').removeClass('hidden');
+                        break;
+                    case 'outgoing':
+                        $('#outgoing_count').removeClass('hidden');
+                        break;
+                }
+
+            }
+
+            function updateTableHeaders(category) {
+                const tableHeader = $('#data-table thead tr');
+                tableHeader.empty();
+
+                switch (category) {
+                    case 'internal':
+                        tableHeader.append(`
+                            <th>Reference Number</th>
+                            <th>Subject</th>
+                            <th>Summary</th>
+                            <th>Owner Department</th>
+                            <th>Action</th>
+                            <th>Update</th>
+                            <th>Status</th>
+                        `);
+                        break;
+                    case 'incoming':
+                        tableHeader.append(`
+                                <th>Reference Number</th>
+                                <th>Subject</th>
+                                <th>Summary</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Action</th>
+                                <th>Update</th>
+                                <th>Status</th>
+                            `);
+                        break;
+                    case 'outgoing':
+                        tableHeader.append(`
+                            <th>Reference Number</th>
+                            <th>Subject</th>
+                            <th>Summary</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Action</th>
+                            <th>Update</th>
+                            <th>Status</th>
+                        `);
+                        break;
+                }
+            }
+
+
+            // Event listener for date range input
+            $('#startDate, #endDate').change(function () {
+                const startDate = $('#startDate').val();
+                const endDate = $('#endDate').val();
+            });
+
+
+
+            $('#prev-page-top').click(function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    fetchData(currentPage, category);
+                }
+            });
+
+            $('#next-page-top').click(function () {
+                currentPage++;
+                fetchData(currentPage, category);
+            });
+
+
+            $('#prev-page-bottom').click(function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    fetchData(currentPage, category);
+                }
+            });
+
+            $('#next-page-bottom').click(function () {
+                currentPage++;
+                fetchData(currentPage, category);
+            });
+
+        });
+    });
+</script>
