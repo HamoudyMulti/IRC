@@ -1,0 +1,55 @@
+// Include jQuery
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    var initial = "http://192.168.8.43/otcs/cs.exe/api";
+
+    // Get a OTCSTicket
+    function GetOTCSTicket() {
+        var formData = { username: "Admin", password: "P@ssw0rd" }
+        var url = initial + '/v1/auth';
+        console.log(url);
+        var jqxhr = $.ajax({
+            url: url,
+            type: "POST",
+            contentType: "application/x-www-form-urlencoded",
+            data: formData,
+        });
+        return jqxhr;
+    }
+
+    // Update the name and description for the node with data ID of 6966
+    function AjaxViaForm(ticket) {
+        var url = initial + '/v2/search';
+        var bodyData = {
+            "query_id": 1716147,
+            "select": "{'438591_2'}"
+        };
+        var formData = { "body": JSON.stringify(bodyData) };
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: { 'OTCSTicket': ticket },
+            contentType: "application/x-www-form-urlencoded",
+            data: formData,
+        }).done(function (data) {
+            console.log(data);
+        })
+            .fail(function (data) {
+                console.log(data.responseJSON.error);
+            });
+    }
+
+    // Generic method to Get the ticket and update a node after the ticket is received.
+    function SubmitForm() {
+        GetOTCSTicket().done(function (data) {
+            console.log(data.ticket);
+            AjaxViaForm(data.ticket);
+        })
+            .fail(function (data) {
+                console.log(data);
+            });
+    }
+
+
+    SubmitForm();
+</script>

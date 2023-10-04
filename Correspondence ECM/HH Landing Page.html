@@ -439,6 +439,8 @@
 
                 let status = '';
 
+                let update_field_label = null;
+
                 switch (category) {
                     case 'internal':
                         data.results.forEach(item => {
@@ -462,7 +464,7 @@
                             }
                             //multiple items
                             if ("1715333_3" in item.data.categories) {
-                                update = item.data.categories["1715333_3"][0];
+                                update = item.data.categories["1715333_3"];
                             }
 
 
@@ -485,7 +487,16 @@
                         row.append($('<td></td>').text(summary));
                         row.append($('<td></td>').text(owner_department));
                         row.append($('<td></td>').text(action));
-                        row.append($('<td></td>').text(update));
+
+                        update_field_label = $('<ul></ul>');
+                        if(Array.isArray(update)){
+                            update.forEach(value => {
+                                const listItem = $('<li></li>').text(value);
+                                update_field_label.append(listItem);
+                            });
+                        }
+
+                        row.append($('<td></td>').append(update_field_label));
 
                         switch (true) {
                             case status.includes("In Progress"):
@@ -528,7 +539,7 @@
                             }
                             //multiple items
                             if ("1715333_3" in item.data.categories) {
-                                update = item.data.categories["1715333_3"][0];
+                                update = item.data.categories["1715333_3"];
                             }
 
 
@@ -551,7 +562,15 @@
                         row.append($('<td></td>').text(from));
                         row.append($('<td></td>').text(to));
                         row.append($('<td></td>').text(action));
-                        row.append($('<td></td>').text(update));
+
+                        update_field_label = $('<ul></ul>');
+                        if(Array.isArray(update)){
+                            update.forEach(value => {
+                                const listItem = $('<li></li>').text(value);
+                                update_field_label.append(listItem);
+                            });
+                        }
+                        row.append($('<td></td>').append(update_field_label));
 
                         switch (true) {
                             case status.includes("In Progress"):
@@ -595,7 +614,7 @@
                             }
                             //multiple items
                             if ("1715333_3" in item.data.categories) {
-                                update = item.data.categories["1715333_3"][0];
+                                update = item.data.categories["1715333_3"];
                             }
 
 
@@ -627,7 +646,15 @@
 
 
                         row.append($('<td></td>').text(action));
-                        row.append($('<td></td>').text(update));
+
+                        update_field_label = $('<ul></ul>');
+                        if(Array.isArray(update)){
+                            update.forEach(value => {
+                                const listItem = $('<li></li>').text(value);
+                                update_field_label.append(listItem);
+                            });
+                        }
+                        row.append($('<td></td>').append(update_field_label));
 
                         switch (true) {
                             case status.includes("In Progress"):
@@ -769,17 +796,62 @@
                 $('#outgoing_count').addClass('hidden');
 
 
+                let webreport_id = null;
                 switch (category) {
                     case 'internal':
                         $('#internal_count').removeClass('hidden');
+                        webreport_id = 1717577;
+
                         break;
                     case 'incoming':
                         $('#incoming_count').removeClass('hidden');
+                        webreport_id= 1717564;
                         break;
                     case 'outgoing':
                         $('#outgoing_count').removeClass('hidden');
+                        webreport_id = 1717583;
                         break;
                 }
+
+
+                $.ajax({
+                    url: `[LL_REPTAG_URLPREFIX /]/api/v1/nodes/${webreport_id}/output`,
+                    method: 'GET',
+                    dataType: 'json',
+                    headers: {
+                        'OTCSTicket': '[LL_REPTAG_OTCSTICKET /]',
+                    },
+                    success: function (data) {
+                        let status_data = JSON.parse(data.data);
+
+                        
+                        let cancelled = status_data.data[0].cancelled;
+                        let inprogress = status_data.data[0].inprogress;
+                        let completed = status_data.data[0].completed;
+                        
+
+                        switch (category) {
+                            case 'internal':
+                                $("#internal_cancelled_count .count-value").text(cancelled);
+                                $("#internal_inprogess_count .count-value").text(inprogress);
+                                $("#internal_completed_count .count-value").text(completed);
+                                break;
+                            case 'incoming':
+                                $("#incoming_cancelled_count .count-value").text(cancelled);
+                                $("#incoming_inprogess_count .count-value").text(inprogress);
+                                $("#incoming_completed_count .count-value").text(completed);
+                                break;
+                            case 'outgoing':
+                                $("#outgoing_cancelled_count .count-value").text(cancelled);
+                                $("#outgoing_inprogess_count .count-value").text(inprogress);
+                                $("#outgoing_completed_count .count-value").text(completed);
+                                break;
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
 
             }
 
