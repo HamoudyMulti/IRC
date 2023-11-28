@@ -1,0 +1,121 @@
+incidents:
+
+fields?
+
+id 
+description
+status
+department (where it stands)
+type 
+date  
+severity level  (1-5)
+action (details - history)
+
+
+new incident{
+    current user
+
+    related to: 
+    7 Ps 
+    People 
+    Product
+
+
+    effected party:{
+        type: external - internal parties (dropdown)
+        affect party: (dropdown)
+        consequence: text field
+
+        based on type, affect party dropdown changes
+    }
+
+    date of reporting: now() read only
+    time of reporting: now() read only
+
+
+
+    date of occurence: date now()
+    time of occurence: date now()
+
+
+    type of record incident: (dropdown) type1-type2
+
+    location: location1-location2
+
+    potential reason: (old existing reasons - or he may add a new one and select it)
+
+    incident severity:
+
+    could this action be prevented: boolean
+
+    immediate action: text
+ 
+    description of incident: text
+
+
+    id has specific format (dont focus on this)
+
+}
+
+
+person who created it, workflow that assigns it to another person (expert role) for 1 of them to start adding finding to the incident
+
+expert role -> starts filling findings
+
+
+once person creates it -> all fields read only (not just this tab but all fields)
+
+view details in incident:
+
+analysis and fact finding tab {
+    person who created it -> read only
+    expert role -> editable
+}
+
+
+
+expert role -> approval cycle -> denied goes back to the initial user 
+
+
+send back -> reason as a comment  (status: returned)
+
+Draft -> Approval -> Analysis and Fact finding 
+
+Returned | Pending (still expert role) | in process 
+
+
+
+pending (if expert didnt click analyze) -> once clicked "in process"
+
+
+analysis and fact finding tab fields{
+    expert can only modify data on analysis and fact finding not other fields
+
+    case description: text 
+    incident type: dropdown
+    incident effects: multiple value (text not dropdown)
+    action taken:  multiple value (text not dropdown)
+    severity assessment{
+        likelihood: (dropdown) (moderate)
+        consequence:(dropdown)
+        severity: auto calculated
+    }
+
+}
+
+corrective actions tab fields{
+    list of actions:{
+        statement: text
+        type: dropdown (moderate)
+        responsible: (user list)
+        justification: text
+    }
+
+
+}
+
+
+status becomes resolved (when expert approves it)
+
+
+

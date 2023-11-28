@@ -1,0 +1,17 @@
+1- attachemnt not received when collecting cards - sending to branch
+
+2- add column requesting branch to Print PDF
+
+3- received by branch -> email not sent alert
+
+4-change host url on redirect from beb to feb for individaul cards 
+
+
+
+5- shredded status + email not working at end of cancellation WF
+
+
+6- branch manager not read only retained decision
+
+
+7- groups for call center manager - infinite manager

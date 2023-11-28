@@ -1,0 +1,9 @@
+1- problems with details wizard
+
+2- dropdown lookup cant be changed 
+
+3- no multiple text for string data type
+4- no multiple text and adding for lookup 
+5- business rules not customizable
+
+
