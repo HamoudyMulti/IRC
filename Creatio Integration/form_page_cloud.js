@@ -1,236 +1,225 @@
-define("UsrIntegrationTest_FormPage", /**SCHEMA_DEPS*/ [
+define("UsrIntegrationTest_FormPage", /**SCHEMA_DEPS*/[ 
   "@creatio-devkit/common",
   "UsrFrameComponent",
-] /**SCHEMA_DEPS*/, function (/**SCHEMA_ARGS*/ sdk) /**SCHEMA_ARGS*/ {
-  return {
-    viewConfigDiff: /**SCHEMA_VIEW_CONFIG_DIFF*/ [
-      {
-        operation: "merge",
-        name: "SaveButton",
-        values: {
-          size: "large",
-          iconPosition: "only-text",
-        },
-      },
-      {
-        operation: "merge",
-        name: "Tabs",
-        values: {
-          styleType: "default",
-          mode: "tab",
-          bodyBackgroundColor: "primary-contrast-500",
-          selectedTabTitleColor: "auto",
-          tabTitleColor: "auto",
-          underlineSelectedTabColor: "auto",
-          headerBackgroundColor: "auto",
-        },
-      },
-      {
-        operation: "merge",
-        name: "GeneralInfoTabContainer",
-        values: {
-          gap: {
-            columnGap: "large",
-            rowGap: "none",
-          },
-          visible: true,
-          color: "transparent",
-          borderRadius: "none",
-          padding: {
-            top: "none",
-            right: "none",
-            bottom: "none",
-            left: "none",
-          },
-          alignItems: "stretch",
-        },
-      },
-      {
-        operation: "merge",
-        name: "CardToggleTabPanel",
-        values: {
-          styleType: "default",
-          bodyBackgroundColor: "primary-contrast-500",
-          selectedTabTitleColor: "auto",
-          tabTitleColor: "auto",
-          underlineSelectedTabColor: "auto",
-          headerBackgroundColor: "auto",
-        },
-      },
-      {
-        operation: "merge",
-        name: "Feed",
-        values: {
-          dataSourceName: "PDS",
-          entitySchemaName: "UsrIntegrationTest",
-        },
-      },
-      {
-        operation: "merge",
-        name: "AttachmentList",
-        values: {
-          columns: [
+ ]/**SCHEMA_DEPS*/, function/**SCHEMA_ARGS*/ (sdk) /**SCHEMA_ARGS*/ {
+    return {
+        viewConfigDiff: /**SCHEMA_VIEW_CONFIG_DIFF*/[
             {
-              id: "cb4ea80c-a60a-3b06-a66c-2ca70aa9313e",
-              code: "AttachmentListDS_Name",
-              caption: "#ResourceString(AttachmentListDS_Name)#",
-              dataValueType: 28,
+                "operation": "merge",
+                "name": "SaveButton",
+                "values": {
+                    "size": "large",
+                    "iconPosition": "only-text"
+                }
             },
             {
-              id: "d92b9913-4603-0473-036c-86727729e6a5",
-              code: "AttachmentListDS_CreatedOn",
-              caption: "#ResourceString(AttachmentListDS_CreatedOn)#",
-              dataValueType: 7,
+                "operation": "merge",
+                "name": "Tabs",
+                "values": {
+                    "styleType": "default",
+                    "mode": "tab",
+                    "bodyBackgroundColor": "primary-contrast-500",
+                    "selectedTabTitleColor": "auto",
+                    "tabTitleColor": "auto",
+                    "underlineSelectedTabColor": "auto",
+                    "headerBackgroundColor": "auto"
+                }
             },
             {
-              id: "3ba9f375-1f54-bdff-0cb4-4411d60982dd",
-              code: "AttachmentListDS_CreatedBy",
-              caption: "#ResourceString(AttachmentListDS_CreatedBy)#",
-              dataValueType: 10,
+                "operation": "merge",
+                "name": "GeneralInfoTabContainer",
+                "values": {
+                    "gap": {
+                        "columnGap": "large",
+                        "rowGap": "none"
+                    },
+                    "visible": true,
+                    "color": "transparent",
+                    "borderRadius": "none",
+                    "padding": {
+                        "top": "none",
+                        "right": "none",
+                        "bottom": "none",
+                        "left": "none"
+                    },
+                    "alignItems": "stretch"
+                }
             },
             {
-              id: "1113156b-34b4-2f01-8b6b-562924a5aba2",
-              code: "AttachmentListDS_Size",
-              caption: "#ResourceString(AttachmentListDS_Size)#",
-              dataValueType: 4,
+                "operation": "merge",
+                "name": "CardToggleTabPanel",
+                "values": {
+                    "styleType": "default",
+                    "bodyBackgroundColor": "primary-contrast-500",
+                    "selectedTabTitleColor": "auto",
+                    "tabTitleColor": "auto",
+                    "underlineSelectedTabColor": "auto",
+                    "headerBackgroundColor": "auto"
+                }
             },
-          ],
-        },
-      },
-      {
-        operation: "insert",
-        name: "UsrName",
-        values: {
-          layoutConfig: {
-            column: 1,
-            row: 1,
-            colSpan: 1,
-            rowSpan: 1,
-          },
-          type: "crt.Input",
-          label: "$Resources.Strings.UsrName",
-          control: "$UsrName",
-          labelPosition: "auto",
-        },
-        parentName: "SideAreaProfileContainer",
-        propertyName: "items",
-        index: 0,
-      },
-      {
-        operation: "insert",
-        name: "OTCSObjId",
-        values: {
-          layoutConfig: {
-            column: 1,
-            row: 2,
-            colSpan: 1,
-            rowSpan: 1,
-          },
-          type: "crt.Input",
-          label: "$Resources.Strings.PDS_UsrOTCSObjId_cn8cfdv",
-          labelPosition: "auto",
-          control: "$PDS_UsrOTCSObjId_cn8cfdv",
-          multiline: false,
-        },
-        parentName: "SideAreaProfileContainer",
-        propertyName: "items",
-        index: 1,
-      },
-      {
-        operation: "insert",
-        name: "Input_IframeURL",
-        values: {
-          layoutConfig: {
-            column: 1,
-            row: 3,
-            colSpan: 1,
-            rowSpan: 1,
-          },
-          type: "crt.Input",
-          label: "$Resources.Strings.PDS_UsrIframeURL_dgvsy8f",
-          labelPosition: "auto",
-          control: "$PDS_UsrIframeURL_dgvsy8f",
-          multiline: false,
-        },
-        parentName: "SideAreaProfileContainer",
-        propertyName: "items",
-        index: 2,
-      },
-      {
-        operation: "insert",
-        name: "FrameComponent",
-        values: {
-          layoutConfig: {
-            column: -14,
-            row: 1,
-            colSpan: 17,
-            rowSpan: 19,
-          },
-          type: "usr.FrameComponent",
-          src: `$PDS_UsrIframeURL_dgvsy8f,
-        },
-        parentName: "GeneralInfoTabContainer",
-        propertyName: "items",
-        index: 0,
-      },
-    ] /**SCHEMA_VIEW_CONFIG_DIFF*/,
-    viewModelConfigDiff: /**SCHEMA_VIEW_MODEL_CONFIG_DIFF*/ [
-      {
-        operation: "merge",
-        path: ["attributes"],
-        values: {
-          UsrName: {
-            modelConfig: {
-              path: "PDS.UsrName",
+            {
+                "operation": "merge",
+                "name": "Feed",
+                "values": {
+                    "dataSourceName": "PDS",
+                    "entitySchemaName": "UsrIntegrationTest"
+                }
             },
-          },
-          PDS_UsrOTCSObjId_cn8cfdv: {
-            modelConfig: {
-              path: "PDS.UsrOTCSObjId",
+            {
+                "operation": "merge",
+                "name": "AttachmentList",
+                "values": {
+                    "columns": [
+                        {
+                            "id": "cb4ea80c-a60a-3b06-a66c-2ca70aa9313e",
+                            "code": "AttachmentListDS_Name",
+                            "caption": "#ResourceString(AttachmentListDS_Name)#",
+                            "dataValueType": 28
+                        },
+                        {
+                            "id": "d92b9913-4603-0473-036c-86727729e6a5",
+                            "code": "AttachmentListDS_CreatedOn",
+                            "caption": "#ResourceString(AttachmentListDS_CreatedOn)#",
+                            "dataValueType": 7
+                        },
+                        {
+                            "id": "3ba9f375-1f54-bdff-0cb4-4411d60982dd",
+                            "code": "AttachmentListDS_CreatedBy",
+                            "caption": "#ResourceString(AttachmentListDS_CreatedBy)#",
+                            "dataValueType": 10
+                        },
+                        {
+                            "id": "1113156b-34b4-2f01-8b6b-562924a5aba2",
+                            "code": "AttachmentListDS_Size",
+                            "caption": "#ResourceString(AttachmentListDS_Size)#",
+                            "dataValueType": 4
+                        }
+                    ]
+                }
             },
-          },
-          PDS_UsrDescription_rfp9jhe: {
-            modelConfig: {
-              path: "PDS.UsrDescription",
+            {
+                "operation": "insert",
+                "name": "UsrName",
+                "values": {
+                    "layoutConfig": {
+                        "column": 1,
+                        "row": 1,
+                        "colSpan": 1,
+                        "rowSpan": 1
+                    },
+                    "type": "crt.Input",
+                    "label": "$Resources.Strings.UsrName",
+                    "control": "$UsrName",
+                    "labelPosition": "auto"
+                },
+                "parentName": "SideAreaProfileContainer",
+                "propertyName": "items",
+                "index": 0
             },
-          },
-          PDS_UsrIframeURL_dgvsy8f: {
-            modelConfig: {
-              path: "PDS.UsrIframeURL",
+            {
+                "operation": "insert",
+                "name": "OTCSObjId",
+                "values": {
+                    "layoutConfig": {
+                        "column": 1,
+                        "row": 2,
+                        "colSpan": 1,
+                        "rowSpan": 1
+                    },
+                    "type": "crt.Input",
+                    "label": "$Resources.Strings.PDS_UsrOTCSObjId_cn8cfdv",
+                    "labelPosition": "auto",
+                    "control": "$PDS_UsrOTCSObjId_cn8cfdv",
+                    "multiline": false
+                },
+                "parentName": "SideAreaProfileContainer",
+                "propertyName": "items",
+                "index": 1
             },
-          },
-        },
-      },
-      {
-        operation: "merge",
-        path: ["attributes", "Id", "modelConfig"],
-        values: {
-          path: "PDS.Id",
-        },
-      },
-    ] /**SCHEMA_VIEW_MODEL_CONFIG_DIFF*/,
-    modelConfigDiff: /**SCHEMA_MODEL_CONFIG_DIFF*/ [
-      {
-        operation: "merge",
-        path: [],
-        values: {
-          primaryDataSourceName: "PDS",
-        },
-      },
-      {
-        operation: "merge",
-        path: ["dataSources"],
-        values: {
-          PDS: {
-            type: "crt.EntityDataSource",
-            config: {
-              entitySchemaName: "UsrIntegrationTest",
+            {
+                "operation": "insert",
+                "name": "FrameComponent",
+                "values": {
+                    "layoutConfig": {
+                        "column": -14,
+                        "row": 1,
+                        "colSpan": 17,
+                        "rowSpan": 19
+                    },
+                    "type": "usr.FrameComponent",
+                    "src": "http://127.0.0.1:5500/Creatio%20Integration/integration.html",
+                    "objId": "$PDS_UsrOTCSObjId_cn8cfdv"
+                },
+                "parentName": "GeneralInfoTabContainer",
+                "propertyName": "items",
+                "index": 0
+            }
+        ]/**SCHEMA_VIEW_CONFIG_DIFF*/,
+        viewModelConfigDiff: /**SCHEMA_VIEW_MODEL_CONFIG_DIFF*/[
+            {
+                "operation": "merge",
+                "path": [
+                    "attributes"
+                ],
+                "values": {
+                    "UsrName": {
+                        "modelConfig": {
+                            "path": "PDS.UsrName"
+                        }
+                    },
+                    "PDS_UsrOTCSObjId_cn8cfdv": {
+                        "modelConfig": {
+                            "path": "PDS.UsrOTCSObjId"
+                        }
+                    },
+                    "PDS_UsrDescription_rfp9jhe": {
+                        "modelConfig": {
+                            "path": "PDS.UsrDescription"
+                        }
+                    },
+                    "PDS_UsrIframeURL_dgvsy8f": {
+                        "modelConfig": {
+                            "path": "PDS.UsrIframeURL"
+                        }
+                    }
+                }
             },
-            scope: "page",
-          },
-        },
-      },
-    ] /**SCHEMA_MODEL_CONFIG_DIFF*/,
+            {
+                "operation": "merge",
+                "path": [
+                    "attributes",
+                    "Id",
+                    "modelConfig"
+                ],
+                "values": {
+                    "path": "PDS.Id"
+                }
+            }
+        ]/**SCHEMA_VIEW_MODEL_CONFIG_DIFF*/,
+        modelConfigDiff: /**SCHEMA_MODEL_CONFIG_DIFF*/[
+            {
+                "operation": "merge",
+                "path": [],
+                "values": {
+                    "primaryDataSourceName": "PDS"
+                }
+            },
+            {
+                "operation": "merge",
+                "path": [
+                    "dataSources"
+                ],
+                "values": {
+                    "PDS": {
+                        "type": "crt.EntityDataSource",
+                        "config": {
+                            "entitySchemaName": "UsrIntegrationTest"
+                        },
+                        "scope": "page"
+                    }
+                }
+            }
+        ]/**SCHEMA_MODEL_CONFIG_DIFF*/,
     handlers: /**SCHEMA_HANDLERS*/ [
       {
         request: "crt.SaveRecordRequest",
@@ -279,7 +268,6 @@ define("UsrIntegrationTest_FormPage", /**SCHEMA_DEPS*/ [
           //     },
           //   },
           // };
-
 
           const objectName = await request.$context.UsrName;
 
@@ -361,22 +349,8 @@ define("UsrIntegrationTest_FormPage", /**SCHEMA_DEPS*/ [
           }
         },
       },
-      {
-        request: "crt.HandleViewModelInitRequest",
-        /* The custom implementation of the system request handler. */
-        handler: async (request, next) => {
-          console.log("request.$context",request.$context)
-          const OTCSObjId = await request.$context.PDS_UsrOTCSObjId_cn8cfdv; 
-
-          console.log("OTCSObjId",OTCSObjId)
-
-          request.$context.PDS_UsrIframeURL_dgvsy8f = `http://127.0.0.1:5500/Creatio%20Integration/integration.html?objId=${OTCSObjId}`;
-            
-          return next?.handle(request);
-        },
-    },
     ] /**SCHEMA_HANDLERS*/,
     converters: /**SCHEMA_CONVERTERS*/ {} /**SCHEMA_CONVERTERS*/,
-    validators: /**SCHEMA_VALIDATORS*/ {} /**SCHEMA_VALIDATORS*/,
+    validators: /**SCHEMA_VALIDATORS*/ {} /**SCHEMA_VALIDATORS*/
   };
 });
