@@ -1,0 +1,77 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  // const BPMCSRF = "EtzZUOSsRQMw0M2I6mMlyO";
+//   $.ajax({
+//     url: "https://098573-studio.creatio.com/0/odata/Contact",
+//     type: "GET",
+//     dataType: "json",
+//     headers: {
+//       // Prefer: 'odata.include-annotations="*"',
+//       // BPMCSRF,
+//       // ForceUseSession: true
+//     },
+
+//     success: function (result) {
+//       console.log(result);
+//     },
+//     error: function (xhr, status, error) {
+//       console.error("Error fetching data:", error);
+//     },
+//   });
+
+  $.ajax({
+    url: "https://098573-studio.creatio.com/ServiceModel/AuthService.svc/Login",
+    type: "POST",
+    contentType: "application/json", // Set content type to JSON
+    dataType: "json",
+    data: JSON.stringify({
+      UserName: "User01", // Replace with actual username
+      UserPassword: "User01" // Replace with actual password
+    }),
+    
+    success: function (response, status, xhr) {
+      console.log(response);
+      // Get cookies from the response
+      var cookies = xhr.getResponseHeader("Set-Cookie");
+      // Extract the cookies you need
+      var bpmCSRF = getCookieFromString(cookies, "BPMCSRF");
+      var sessionId = getCookieFromString(cookies, "ASP.NET_SessionId");
+
+      // Proceed to call the next API using these cookies
+      getUsrIntegrationTest(bpmCSRF, sessionId);
+    },
+    error: function (xhr, status, error) {
+      console.log("Login failed:", error);
+    },
+  });
+
+  // Helper function to extract a specific cookie from the cookie string
+  function getCookieFromString(cookieString, cookieName) {
+    var match = cookieString.match(
+      new RegExp("(^| )" + cookieName + "=([^;]+)")
+    );
+    if (match) return match[2];
+    return null;
+  }
+
+  function getUsrIntegrationTest(bpmCSRF, sessionId) {
+    $.ajax({
+      url: "https://098573-studio.creatio.com/0/odata/UsrIntegrationTest",
+      type: "GET",
+      headers: {
+        BPMCSRF: bpmCSRF, // Add the CSRF token to the headers
+      },
+      beforeSend: function (xhr) {
+        // Set the session cookies manually
+        document.cookie = "BPMCSRF=" + bpmCSRF;
+        document.cookie = "ASP.NET_SessionId=" + sessionId;
+      },
+      success: function (data) {
+        console.log("Data retrieved:", data);
+      },
+      error: function (xhr, status, error) {
+        console.log("Error retrieving data:", error);
+      },
+    });
+  }
+</script>

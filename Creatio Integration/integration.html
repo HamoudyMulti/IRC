@@ -241,39 +241,40 @@
           fetchData();
         }
       });
-
-      // Handle Open Button Click
       tableBody.on("click", ".open-button", function () {
-        const itemId = $(this).data("id");
-        const fileURL = `${baseURI}/v1/nodes/${itemId}/content`; // Adjust API version and endpoint as needed
+      const itemId = $(this).data("id");
+      const fileURL = `${baseURI}/v1/nodes/${itemId}/content?action=open`;
 
-        // Fetch the file data with headers
-        $.ajax({
-          url: fileURL,
-          type: "GET",
-          xhrFields: {
-            responseType: "blob",
-          },
-          headers: {
-            OTCSTicket: `${authToken}`,
-          },
-          success: function (data, status, xhr) {
-            const blob = new Blob([data], {
-              type: xhr.getResponseHeader("Content-Type"),
-            });
-            const blobURL = URL.createObjectURL(blob);
-            window.open(blobURL, "_blank");
-            setTimeout(() => {
-              URL.revokeObjectURL(blobURL);
-            }, 10000);
-          },
-          error: function (xhr, status, error) {
-            console.error("Error fetching file:", error);
-            alert("Failed to open the file.");
-          },
-        });
+      // Fetch the file data with headers
+      $.ajax({
+        url: fileURL,
+        type: "GET",
+        xhrFields: {
+          responseType: "blob",
+        },
+        headers: {
+          OTCSTicket: `${authToken}`,
+        },
+        success: function (data, status, xhr) {
+          const blob = new Blob([data], {
+            type: xhr.getResponseHeader("Content-Type"),
+          });
+          const blobURL = URL.createObjectURL(blob);
+          
+          // Open in new tab for browser to decide how to handle it (view or download)
+          window.open(blobURL, "_blank");
+          
+          // Clean up after a delay
+          setTimeout(() => {
+            URL.revokeObjectURL(blobURL);
+          }, 10000);
+        },
+        error: function (xhr, status, error) {
+          console.error("Error fetching file:", error);
+          alert("Failed to open the file.");
+        },
       });
-
+    });
       // Handle Upload Button Click
       uploadButton.on("click", function () {
         // Show the upload modal

@@ -1,5 +1,5 @@
-define("UsrFrameComponent", ["@creatio-devkit/common"], function (sdk) {
-    class UsrFrameComponent extends HTMLElement {
+define("MgsCompFrameComponent", ["@creatio-devkit/common"], function (sdk) {
+    class MgsCompFrameComponent extends HTMLElement {
         constructor() {
             super();
             this._dom = this.attachShadow({ mode: 'open' });
@@ -53,10 +53,10 @@ define("UsrFrameComponent", ["@creatio-devkit/common"], function (sdk) {
         }
     }
 
-    customElements.define("usr-frame-component", UsrFrameComponent);
+    customElements.define("mgs-comp-frame-component", MgsCompFrameComponent);
     sdk.registerViewElement({
-        type: "usr.FrameComponent",
-        selector: "usr-frame-component",
+        type: "MgsComp.FrameComponent",
+        selector: "mgs-comp-frame-component",
         inputs: {
             frameConfig: {},
             src: {},
@@ -64,5 +64,5 @@ define("UsrFrameComponent", ["@creatio-devkit/common"], function (sdk) {
         }
     });
 
-    return UsrFrameComponent;
+    return MgsCompFrameComponent;
 });
