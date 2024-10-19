@@ -240,6 +240,14 @@ define("MgsCompIntegrationTest_FormPage", /**SCHEMA_DEPS*/["@creatio-devkit/comm
             creatio_OTCSObjId: "PDS_MgsCompOTCSObjId_2onhdsc",
           };
 
+
+		const OTCSObjId = await request.$context[`${configuration.creatio_OTCSObjId}`];
+
+
+		if(OTCSObjId){
+			return next?.handle(request);
+		}
+
           try {
             const httpClientService = new sdk.HttpClientService();
 

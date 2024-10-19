@@ -1,3 +1,7 @@
 1- updating a record keeps creating a business workspace - problem with handler
-2- iframeURL not saving when opening page
-3- handle errors when trying to upload same doc
+2- handle errors when trying to upload same doc
+3- move src url "src": "http://127.0.0.1:5500/Creatio%20Integration/integration.html", to the UsrFrameComponent
+
+
+ask Denny for another user in creatio cloud - current user does not have permissions
+ask if possible to give permission to turn on/off OTCS cloud VM
